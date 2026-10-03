@@ -55,31 +55,31 @@
 <h2>&#30446;&#24405;</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org2adf7b6">设计规范</a>
+<li><a href="#orgad0f11d">设计规范</a>
 <ul>
-<li><a href="#org5e34a8d">表设计规范：</a></li>
-<li><a href="#orgb352acc">命名规范：</a></li>
-<li><a href="#org763dd78">数据类型</a></li>
-<li><a href="#org3631714">索引</a></li>
-<li><a href="#org75eb818">权限</a></li>
+<li><a href="#orga8330eb">表设计规范：</a></li>
+<li><a href="#org3c4d093">命名规范：</a></li>
+<li><a href="#org4c856cd">数据类型</a></li>
+<li><a href="#org97365e4">索引</a></li>
+<li><a href="#org133953f">权限</a></li>
 </ul>
 </li>
-<li><a href="#orgaf757d0">SQL规范</a>
+<li><a href="#orgead2556">SQL规范</a>
 <ul>
-<li><a href="#org640c622">书写规范</a></li>
-<li><a href="#org779ead5">查询规范</a></li>
-<li><a href="#org40d98b7">条件查询规范</a></li>
-<li><a href="#org600b862">写入规范</a></li>
+<li><a href="#org71eebd6">书写规范</a></li>
+<li><a href="#org5f67e3e">查询规范</a></li>
+<li><a href="#orgfabff61">条件查询规范</a></li>
+<li><a href="#orgbcb8f00">写入规范</a></li>
 </ul>
 </li>
-<li><a href="#orga8525e5">读写分离</a>
+<li><a href="#org4ac9f5f">读写分离</a>
 <ul>
-<li><a href="#org9699233">读写规范</a></li>
+<li><a href="#orgc295706">读写规范</a></li>
 </ul>
 </li>
-<li><a href="#orgcf2d0e1">数据库代理规范</a>
+<li><a href="#orgb6ee0a3">数据库代理规范</a>
 <ul>
-<li><a href="#orga9f6803">使用规范</a></li>
+<li><a href="#org6777b59">使用规范</a></li>
 </ul>
 </li>
 </ul>
@@ -96,13 +96,13 @@
 <li>达成共识，形成统一的标准，大家在此标准上沟通协作</li>
 <li>提高效率，提高沟通效率，避免沟通南辕北辙</li>
 </ol>
-<section id="outline-container-org2adf7b6" class="outline-2">
-<h2 id="org2adf7b6"><a href="#org2adf7b6">设计规范</a></h2>
-<div class="outline-text-2" id="text-org2adf7b6">
+<section id="outline-container-orgad0f11d" class="outline-2">
+<h2 id="orgad0f11d"><a href="#orgad0f11d">设计规范</a></h2>
+<div class="outline-text-2" id="text-orgad0f11d">
 </div>
-<div id="outline-container-org5e34a8d" class="outline-3">
-<h3 id="org5e34a8d"><a href="#org5e34a8d">表设计规范：</a></h3>
-<div class="outline-text-3" id="text-org5e34a8d">
+<div id="outline-container-orga8330eb" class="outline-3">
+<h3 id="orga8330eb"><a href="#orga8330eb">表设计规范：</a></h3>
+<div class="outline-text-3" id="text-orga8330eb">
 <ol class="org-ol">
 <li>必须使用INNODB存储引擎
 <ul class="org-ul">
@@ -209,31 +209,31 @@
 </ol>
 
 
-<figure id="org67fbb30">
+<figure id="org7d246c2">
 <img style="aspect-ratio:1019/216" decoding="async" loading="lazy" src="./images/image-20210709152555291.webp" alt="image-20210709152555291.webp">
 
 </figure>
 
 
-<figure id="org8eb2cce">
+<figure id="org629ccbe">
 <img style="aspect-ratio:1022/167" decoding="async" loading="lazy" src="./images/image-20210709152606148.webp" alt="image-20210709152606148.webp">
 
 </figure>
 
 
-<figure id="org1a961a7">
+<figure id="org2705f40">
 <img style="aspect-ratio:1025/363" decoding="async" loading="lazy" src="./images/image-20210709152527305.webp" alt="image-20210709152527305.webp">
 
 </figure>
 
 
-<figure id="org7662c6f">
+<figure id="orgcf5e888">
 <img style="aspect-ratio:1030/196" decoding="async" loading="lazy" src="./images/image-20210709152618473.webp" alt="image-20210709152618473.webp">
 
 </figure>
 
 
-<figure id="org233f84a">
+<figure id="orgb54f6d2">
 <img style="aspect-ratio:1010/244" decoding="async" loading="lazy" src="./images/image-20210709152628130.webp" alt="image-20210709152628130.webp">
 
 </figure>
@@ -252,15 +252,15 @@
 </p>
 
 
-<figure id="org1745dab">
+<figure id="orge033b93">
 <img style="aspect-ratio:848/69" decoding="async" loading="lazy" src="./images/image-20210709152647024.webp" alt="image-20210709152647024.webp">
 
 </figure>
 </div>
 </div>
-<div id="outline-container-orgb352acc" class="outline-3">
-<h3 id="orgb352acc"><a href="#orgb352acc">命名规范：</a></h3>
-<div class="outline-text-3" id="text-orgb352acc">
+<div id="outline-container-org3c4d093" class="outline-3">
+<h3 id="org3c4d093"><a href="#org3c4d093">命名规范：</a></h3>
+<div class="outline-text-3" id="text-org3c4d093">
 <ul class="org-ul">
 <li>强制 库名、表名、字段名采用26个英文字母和0-9这十个数字,加上下划线'_'组成,不能出现其他字符
 <ul class="org-ul">
@@ -279,9 +279,9 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org763dd78" class="outline-3">
-<h3 id="org763dd78"><a href="#org763dd78">数据类型</a></h3>
-<div class="outline-text-3" id="text-org763dd78">
+<div id="outline-container-org4c856cd" class="outline-3">
+<h3 id="org4c856cd"><a href="#org4c856cd">数据类型</a></h3>
+<div class="outline-text-3" id="text-org4c856cd">
 <ul class="org-ul">
 <li>强制 采用自增列id(auto_increment)为主键，采用bigint unsigned非负数设置</li>
 <li>强制 使用tinyint或采用位运算替换enum，set等类型使用</li>
@@ -297,9 +297,9 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org3631714" class="outline-3">
-<h3 id="org3631714"><a href="#org3631714">索引</a></h3>
-<div class="outline-text-3" id="text-org3631714">
+<div id="outline-container-org97365e4" class="outline-3">
+<h3 id="org97365e4"><a href="#org97365e4">索引</a></h3>
+<div class="outline-text-3" id="text-org97365e4">
 <ul class="org-ul">
 <li>强制 InnoDB类型表必须要有主键列，且主键必须是单列字段，使用有序递增的整数值做主键，表的主键列值禁止被更新，可以进行删除</li>
 <li>操作，比如 id bigint(20) unsigned NOT NULL AUTO_INCREMENT</li>
@@ -310,9 +310,9 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org75eb818" class="outline-3">
-<h3 id="org75eb818"><a href="#org75eb818">权限</a></h3>
-<div class="outline-text-3" id="text-org75eb818">
+<div id="outline-container-org133953f" class="outline-3">
+<h3 id="org133953f"><a href="#org133953f">权限</a></h3>
+<div class="outline-text-3" id="text-org133953f">
 <ul class="org-ul">
 <li>强制 业务账号不允许拥有root权限</li>
 <li>建议 业务账号与库保持独立对应，一库，两账号方式(读写账号、只读账号)</li>
@@ -326,13 +326,13 @@
 </div>
 </div>
 </section>
-<section id="outline-container-orgaf757d0" class="outline-2">
-<h2 id="orgaf757d0"><a href="#orgaf757d0">SQL规范</a></h2>
-<div class="outline-text-2" id="text-orgaf757d0">
+<section id="outline-container-orgead2556" class="outline-2">
+<h2 id="orgead2556"><a href="#orgead2556">SQL规范</a></h2>
+<div class="outline-text-2" id="text-orgead2556">
 </div>
-<div id="outline-container-org640c622" class="outline-3">
-<h3 id="org640c622"><a href="#org640c622">书写规范</a></h3>
-<div class="outline-text-3" id="text-org640c622">
+<div id="outline-container-org71eebd6" class="outline-3">
+<h3 id="org71eebd6"><a href="#org71eebd6">书写规范</a></h3>
+<div class="outline-text-3" id="text-org71eebd6">
 <ul class="org-ul">
 <li>强制 统计和复杂查询不可使用线上库，各业务线有专用库，如：用户库，商家库，脚本库，统计库，测试库等，具体请看配置文件规范</li>
 <li>或咨询DBA</li>
@@ -346,9 +346,9 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org779ead5" class="outline-3">
-<h3 id="org779ead5"><a href="#org779ead5">查询规范</a></h3>
-<div class="outline-text-3" id="text-org779ead5">
+<div id="outline-container-org5f67e3e" class="outline-3">
+<h3 id="org5f67e3e"><a href="#org5f67e3e">查询规范</a></h3>
+<div class="outline-text-3" id="text-org5f67e3e">
 <ul class="org-ul">
 <li>强制 尽量避免使用select *，请用字段名称代替,如：select user,password from users,替代select * from users</li>
 <li>强制 线上sql禁止写成多层子查询嵌套的SQL语句，推荐改写成表顺序连接的格式</li>
@@ -360,9 +360,9 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org40d98b7" class="outline-3">
-<h3 id="org40d98b7"><a href="#org40d98b7">条件查询规范</a></h3>
-<div class="outline-text-3" id="text-org40d98b7">
+<div id="outline-container-orgfabff61" class="outline-3">
+<h3 id="orgfabff61"><a href="#orgfabff61">条件查询规范</a></h3>
+<div class="outline-text-3" id="text-orgfabff61">
 <ul class="org-ul">
 <li>建议 SELECT|UPDATE|DELETE|REPLACE要有WHERE子句，且WHERE子句的条件必需使用索引查找，where条件中如包含两个以上的范围查询（&gt;,&lt;,in,between）只有一个可用到索引</li>
 <li>建议 in和or，推荐使用in，性能更高，使用in时，包含的值应尽可能少，建议不超过100个</li>
@@ -402,9 +402,9 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-org600b862" class="outline-3">
-<h3 id="org600b862"><a href="#org600b862">写入规范</a></h3>
-<div class="outline-text-3" id="text-org600b862">
+<div id="outline-container-orgbcb8f00" class="outline-3">
+<h3 id="orgbcb8f00"><a href="#orgbcb8f00">写入规范</a></h3>
+<div class="outline-text-3" id="text-orgbcb8f00">
 <ul class="org-ul">
 <li>强制 禁止在INSERT|UPDATE|DELETE|REPLACE语句中进行多表连接操作，例如：insert …select from xxx,update xxx where xx in (select xxx)等</li>
 <li>强制 insert必须指明字段名，不可insert into table values(A,B,C),应为：insert into table (a,b,c) values(A,B,C)</li>
@@ -419,13 +419,13 @@
 </div>
 </div>
 </section>
-<section id="outline-container-orga8525e5" class="outline-2">
-<h2 id="orga8525e5"><a href="#orga8525e5">读写分离</a></h2>
-<div class="outline-text-2" id="text-orga8525e5">
+<section id="outline-container-org4ac9f5f" class="outline-2">
+<h2 id="org4ac9f5f"><a href="#org4ac9f5f">读写分离</a></h2>
+<div class="outline-text-2" id="text-org4ac9f5f">
 </div>
-<div id="outline-container-org9699233" class="outline-3">
-<h3 id="org9699233"><a href="#org9699233">读写规范</a></h3>
-<div class="outline-text-3" id="text-org9699233">
+<div id="outline-container-orgc295706" class="outline-3">
+<h3 id="orgc295706"><a href="#orgc295706">读写规范</a></h3>
+<div class="outline-text-3" id="text-orgc295706">
 <ul class="org-ul">
 <li>强制 禁止往从库写数据，所有从库会设置成read_only=on</li>
 <li>强制 对于同步延迟不敏感的只读查询，必须放到从库上执行，对于同步延迟敏感的只读查询，可放到主库上执行，理论上主库读写比例不得超过2:1</li>
@@ -433,13 +433,13 @@
 </div>
 </div>
 </section>
-<section id="outline-container-orgcf2d0e1" class="outline-2">
-<h2 id="orgcf2d0e1"><a href="#orgcf2d0e1">数据库代理规范</a></h2>
-<div class="outline-text-2" id="text-orgcf2d0e1">
+<section id="outline-container-orgb6ee0a3" class="outline-2">
+<h2 id="orgb6ee0a3"><a href="#orgb6ee0a3">数据库代理规范</a></h2>
+<div class="outline-text-2" id="text-orgb6ee0a3">
 </div>
-<div id="outline-container-orga9f6803" class="outline-3">
-<h3 id="orga9f6803"><a href="#orga9f6803">使用规范</a></h3>
-<div class="outline-text-3" id="text-orga9f6803">
+<div id="outline-container-org6777b59" class="outline-3">
+<h3 id="org6777b59"><a href="#org6777b59">使用规范</a></h3>
+<div class="outline-text-3" id="text-org6777b59">
 <ul class="org-ul">
 <li>建议 只支持SELECT|UPDATE|DELETE|REPLACE|INSERT等命令，除此之外所有命令都不支持</li>
 <li>建议 支持事务，暂不能支持读写分离(主库承担读写)</li>

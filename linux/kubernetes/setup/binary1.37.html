@@ -116,7 +116,7 @@
 <ul>
 <li><a href="#h:3d4f56b7-18cd-4224-b70c-b022c27c0fb5">网段划分</a></li>
 <li><a href="#h:2c3d31e2-bff3-4854-a947-0b51d90f3fe7">机器规划</a></li>
-<li><a href="#orge940f16">所有主机初始化</a>
+<li><a href="#org2df3529">所有主机初始化</a>
 <ul>
 <li><a href="#h:E2C4E098-860E-4172-B3D0-5AD5D4C3C504">环境变量定义（master01）执行</a></li>
 <li><a href="#h:2A499920-3D41-42D8-8BBE-81ADA8CFDD0F">配置 SSH 名密登录（master1 执行）</a></li>
@@ -160,15 +160,15 @@
 <li><a href="#h:60B457B1-083D-4B3B-8959-8B3B57176802">安装证书管理工具</a>
 <ul>
 <li><a href="#h:9176EE99-7F43-4240-B9B5-D833D9EFA664">方案1 CFSSL</a></li>
-<li><a href="#org1ba6f47">方案2 openssl</a></li>
+<li><a href="#org2ab337b">方案2 openssl</a></li>
 </ul>
 </li>
 <li><a href="#h:7B9F27D8-0389-45CE-BE6A-DCBF23A64566">生成 k8s 的证书</a>
 <ul>
 <li><a href="#h:8CD17D9F-813F-4C55-8F86-543D8C9B3180">生成 k8s 的 CA 根证书</a>
 <ul>
-<li><a href="#org4be6799">cfssl</a></li>
-<li><a href="#org93f228a">openssl</a></li>
+<li><a href="#orgf8b3c6a">cfssl</a></li>
+<li><a href="#orgcf64b0d">openssl</a></li>
 </ul>
 </li>
 <li><a href="#h:8A548D34-2F34-46D1-8654-3623773EE4D5">生成 k8s 各组件证书</a>
@@ -178,7 +178,7 @@
 <li><a href="#h:0DA8F374-FD64-4B91-9C70-B0B7E5FDC094">生成 kube-scheduler 证书</a></li>
 <li><a href="#h:4305A281-F748-41C2-901B-A919E7F5891B">生成 kube-proxy  证书</a></li>
 <li><a href="#h:357A4D63-9593-4289-8A6C-B36DB660FE94">生成 admin 用户证书</a></li>
-<li><a href="#org36d4f60">openssl 实现</a></li>
+<li><a href="#org8d1a398">openssl 实现</a></li>
 </ul>
 </li>
 </ul>
@@ -187,14 +187,14 @@
 <ul>
 <li><a href="#h:7DDA1124-14CF-4395-94A2-889F595827E7">生成 front-proxy CA 证书</a>
 <ul>
-<li><a href="#orgf78c0aa">cfssl</a></li>
-<li><a href="#orgf5c87eb">openssl</a></li>
+<li><a href="#orgbc84b85">cfssl</a></li>
+<li><a href="#org6a1e72d">openssl</a></li>
 </ul>
 </li>
 <li><a href="#h:9BE84A99-CA20-48C1-A7D7-2B0B304C76FE">生成聚合层客户端证书</a>
 <ul>
-<li><a href="#org6dae620">cfssl</a></li>
-<li><a href="#org904dec5">openssl</a></li>
+<li><a href="#orgbee94a9">cfssl</a></li>
+<li><a href="#org64d12f6">openssl</a></li>
 </ul>
 </li>
 </ul>
@@ -203,14 +203,14 @@
 <ul>
 <li><a href="#h:B8D0ED55-C2D1-414C-8536-32455B30988B">生成 etcd 的 CA 证书</a>
 <ul>
-<li><a href="#org65886eb">cfssl</a></li>
-<li><a href="#orgd8e17fa">openssl</a></li>
+<li><a href="#org486e755">cfssl</a></li>
+<li><a href="#org8a1c792">openssl</a></li>
 </ul>
 </li>
 <li><a href="#h:BBA870B7-13F0-4DB7-9D53-AF7A1C24FF6F">生成 etcd 服务端证书</a>
 <ul>
-<li><a href="#orgd9a0277">cfssl</a></li>
-<li><a href="#org40d6829">openssl</a></li>
+<li><a href="#orgcb65487">cfssl</a></li>
+<li><a href="#org57109de">openssl</a></li>
 </ul>
 </li>
 </ul>
@@ -384,7 +384,7 @@ kubernetes(k8s) 是一个容器编排平台，核心目标：
 </ul>
 
 
-<figure id="orgd884588">
+<figure id="org3073573">
 <img decoding="async" loading="lazy" src="./images/kubernetes-cluster-architecture.svg" alt="kubernetes-cluster-architecture.svg" class="org-svg" width="60%">
 
 </figure>
@@ -1197,9 +1197,9 @@ k8s官网：<a href="https://kubernetes.io/docs/setup/">https://kubernetes.io/do
 </ul>
 </div>
 </div>
-<div id="outline-container-orge940f16" class="outline-3">
-<h3 id="orge940f16"><a href="#orge940f16">所有主机初始化</a></h3>
-<div class="outline-text-3" id="text-orge940f16">
+<div id="outline-container-org2df3529" class="outline-3">
+<h3 id="org2df3529"><a href="#org2df3529">所有主机初始化</a></h3>
+<div class="outline-text-3" id="text-org2df3529">
 </div>
 <div id="outline-container-h:E2C4E098-860E-4172-B3D0-5AD5D4C3C504" class="outline-4">
 <h4 id="h:E2C4E098-860E-4172-B3D0-5AD5D4C3C504"><a href="#h:E2C4E098-860E-4172-B3D0-5AD5D4C3C504">环境变量定义（master01）执行</a></h4>
@@ -1985,9 +1985,9 @@ chmod +x /usr/local/bin/cfssl*
 </div>
 </div>
 </div>
-<div id="outline-container-org1ba6f47" class="outline-4">
-<h4 id="org1ba6f47"><a href="#org1ba6f47">方案2 openssl</a></h4>
-<div class="outline-text-4" id="text-org1ba6f47">
+<div id="outline-container-org2ab337b" class="outline-4">
+<h4 id="org2ab337b"><a href="#org2ab337b">方案2 openssl</a></h4>
+<div class="outline-text-4" id="text-org2ab337b">
 <p>
 一般系统自带。配置复杂些。
 </p>
@@ -2010,9 +2010,9 @@ chmod +x /usr/local/bin/cfssl*
 </pre>
 </div>
 </div>
-<div id="outline-container-org4be6799" class="outline-5">
-<h5 id="org4be6799"><a href="#org4be6799">cfssl</a></h5>
-<div class="outline-text-5" id="text-org4be6799">
+<div id="outline-container-orgf8b3c6a" class="outline-5">
+<h5 id="orgf8b3c6a"><a href="#orgf8b3c6a">cfssl</a></h5>
+<div class="outline-text-5" id="text-orgf8b3c6a">
 <p>
 Master01 生成 kubernetes 证书
 </p>
@@ -2140,9 +2140,9 @@ ca-key.pem  ca.csr  ca.pem
 </ul>
 </div>
 </div>
-<div id="outline-container-org93f228a" class="outline-5">
-<h5 id="org93f228a"><a href="#org93f228a">openssl</a></h5>
-<div class="outline-text-5" id="text-org93f228a">
+<div id="outline-container-orgcf64b0d" class="outline-5">
+<h5 id="orgcf64b0d"><a href="#orgcf64b0d">openssl</a></h5>
+<div class="outline-text-5" id="text-orgcf64b0d">
 <p>
 写 openssl 配置
 </p>
@@ -2598,9 +2598,9 @@ admin.pem      apiserver.pem      ca.pem      controller-manager.pem      kube-p
 </div>
 </div>
 </div>
-<div id="outline-container-org36d4f60" class="outline-5">
-<h5 id="org36d4f60"><a href="#org36d4f60">openssl 实现</a></h5>
-<div class="outline-text-5" id="text-org36d4f60">
+<div id="outline-container-org8d1a398" class="outline-5">
+<h5 id="org8d1a398"><a href="#org8d1a398">openssl 实现</a></h5>
+<div class="outline-text-5" id="text-org8d1a398">
 <p>
 生成 apiserver 证书
 服务端证书，SAN 必须覆盖所有访问 API Server 的 IP / 域名 / VIP，否则 TLS 校验失败。
@@ -2768,9 +2768,9 @@ Kubernetes 不只有一个 API Server。除了 kube-apiserveics-server，prometh
 <h4 id="h:7DDA1124-14CF-4395-94A2-889F595827E7"><a href="#h:7DDA1124-14CF-4395-94A2-889F595827E7">生成 front-proxy CA 证书</a></h4>
 <div class="outline-text-4" id="text-h:7DDA1124-14CF-4395-94A2-889F595827E7">
 </div>
-<div id="outline-container-orgf78c0aa" class="outline-5">
-<h5 id="orgf78c0aa"><a href="#orgf78c0aa">cfssl</a></h5>
-<div class="outline-text-5" id="text-orgf78c0aa">
+<div id="outline-container-orgbc84b85" class="outline-5">
+<h5 id="orgbc84b85"><a href="#orgbc84b85">cfssl</a></h5>
+<div class="outline-text-5" id="text-orgbc84b85">
 <div class="org-src-container">
 <pre class="src src-shell"><span class="org-comment-delimiter">#</span><span class="org-comment">1) &#29983;&#25104;&#21019;&#24314; front-proxy &#32858;&#21512;&#35777;&#20070; CA &#30340;&#35831;&#27714;(CSR)&#37197;&#32622;&#25991;&#20214;
 </span><span class="org-builtin">cd</span> /data/k8s
@@ -2822,9 +2822,9 @@ EOF</span>
 </div>
 </div>
 </div>
-<div id="outline-container-orgf5c87eb" class="outline-5">
-<h5 id="orgf5c87eb"><a href="#orgf5c87eb">openssl</a></h5>
-<div class="outline-text-5" id="text-orgf5c87eb">
+<div id="outline-container-org6a1e72d" class="outline-5">
+<h5 id="org6a1e72d"><a href="#org6a1e72d">openssl</a></h5>
+<div class="outline-text-5" id="text-org6a1e72d">
 <p>
 写配置
 </p>
@@ -2885,9 +2885,9 @@ openssl req -new -x509 <span class="org-sh-escaped-newline">\</span>
 这是一套独立的 CA，不能用上面的 ca.pem。kube-apiserver 反向代理到 metrics-server 等聚合 API 时，用 front-proxy-client.pem 做客户端证书认证。
 </p>
 </div>
-<div id="outline-container-org6dae620" class="outline-5">
-<h5 id="org6dae620"><a href="#org6dae620">cfssl</a></h5>
-<div class="outline-text-5" id="text-org6dae620">
+<div id="outline-container-orgbee94a9" class="outline-5">
+<h5 id="orgbee94a9"><a href="#orgbee94a9">cfssl</a></h5>
+<div class="outline-text-5" id="text-orgbee94a9">
 <div class="org-src-container">
 <pre class="src src-shell"><span class="org-comment-delimiter">#</span><span class="org-comment">1) &#21019;&#24314;&#32858;&#21512;&#23618;&#23458;&#25143;&#31471;&#35777;&#20070; csr &#30003;&#35831;&#25991;&#20214;
 </span><span class="org-builtin">cd</span> /data/k8s
@@ -2926,9 +2926,9 @@ apiserver-key.pem  ca.csr         controller-manager.pem      front-proxy-client
 </div>
 </div>
 </div>
-<div id="outline-container-org904dec5" class="outline-5">
-<h5 id="org904dec5"><a href="#org904dec5">openssl</a></h5>
-<div class="outline-text-5" id="text-org904dec5">
+<div id="outline-container-org64d12f6" class="outline-5">
+<h5 id="org64d12f6"><a href="#org64d12f6">openssl</a></h5>
+<div class="outline-text-5" id="text-org64d12f6">
 <p>
 生成聚合层客户端证书
 </p>
@@ -2968,9 +2968,9 @@ openssl x509 -req -in front-proxy-client.csr <span class="org-sh-escaped-newline
 Master01节点生成etcd证书
 </p>
 </div>
-<div id="outline-container-org65886eb" class="outline-5">
-<h5 id="org65886eb"><a href="#org65886eb">cfssl</a></h5>
-<div class="outline-text-5" id="text-org65886eb">
+<div id="outline-container-org486e755" class="outline-5">
+<h5 id="org486e755"><a href="#org486e755">cfssl</a></h5>
+<div class="outline-text-5" id="text-org486e755">
 <div class="org-src-container">
 <pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#30830;&#35748;&#21019;&#24314; etcd &#35777;&#20070;&#20351;&#29992;&#30446;&#24405;
 </span>mkdir -p /etc/kubernetes/pki/etcd/
@@ -3027,9 +3027,9 @@ EOF</span>
 </div>
 </div>
 </div>
-<div id="outline-container-orgd8e17fa" class="outline-5">
-<h5 id="orgd8e17fa"><a href="#orgd8e17fa">openssl</a></h5>
-<div class="outline-text-5" id="text-orgd8e17fa">
+<div id="outline-container-org8a1c792" class="outline-5">
+<h5 id="org8a1c792"><a href="#org8a1c792">openssl</a></h5>
+<div class="outline-text-5" id="text-org8a1c792">
 <p>
 同样是独立 CA。
 </p>
@@ -3103,9 +3103,9 @@ openssl req -new -x509 <span class="org-sh-escaped-newline">\</span>
 <h4 id="h:BBA870B7-13F0-4DB7-9D53-AF7A1C24FF6F"><a href="#h:BBA870B7-13F0-4DB7-9D53-AF7A1C24FF6F">生成 etcd 服务端证书</a></h4>
 <div class="outline-text-4" id="text-h:BBA870B7-13F0-4DB7-9D53-AF7A1C24FF6F">
 </div>
-<div id="outline-container-orgd9a0277" class="outline-5">
-<h5 id="orgd9a0277"><a href="#orgd9a0277">cfssl</a></h5>
-<div class="outline-text-5" id="text-orgd9a0277">
+<div id="outline-container-orgcb65487" class="outline-5">
+<h5 id="orgcb65487"><a href="#orgcb65487">cfssl</a></h5>
+<div class="outline-text-5" id="text-orgcb65487">
 <div class="org-src-container">
 <pre class="src src-shell"><span class="org-comment-delimiter">#</span><span class="org-comment">1) &#29983;&#25104; etcd &#35777;&#20070;&#30340; csr &#37197;&#32622;
 </span><span class="org-comment-delimiter"># </span><span class="org-comment">&#35201;&#25351;&#23450; etcd &#33410;&#28857;&#30340; ip &#21644;&#20027;&#26426;&#21517;
@@ -3157,9 +3157,9 @@ etcd-ca-key.pem  etcd-ca.csr  etcd-ca.pem  etcd-key.pem  etcd.csr  etcd.pem
 </div>
 </div>
 </div>
-<div id="outline-container-org40d6829" class="outline-5">
-<h5 id="org40d6829"><a href="#org40d6829">openssl</a></h5>
-<div class="outline-text-5" id="text-org40d6829">
+<div id="outline-container-org57109de" class="outline-5">
+<h5 id="org57109de"><a href="#org57109de">openssl</a></h5>
+<div class="outline-text-5" id="text-org57109de">
 <p>
 生成 etcd 服务端证书
 </p>
@@ -3183,8 +3183,8 @@ openssl x509 -req -in etcd.csr <span class="org-sh-escaped-newline">\</span>
 </div>
 </div>
 <ul class="org-ul">
-<li><a id="org63aa215"></a><a href="#org63aa215">清理</a><br>
-<div class="outline-text-6" id="text-org63aa215">
+<li><a id="org79f6f01"></a><a href="#org79f6f01">清理</a><br>
+<div class="outline-text-6" id="text-org79f6f01">
 <div class="org-src-container">
 <pre class="src src-shell"><span class="org-comment-delimiter">#</span><span class="org-comment">&#28165;&#29702; srl
 </span>find . -name <span class="org-string">"*.csr"</span> -o -name <span class="org-string">"*.srl"</span>|xargs  rm -f
@@ -3192,8 +3192,8 @@ openssl x509 -req -in etcd.csr <span class="org-sh-escaped-newline">\</span>
 </div>
 </div>
 </li>
-<li><a id="org9a9fa0c"></a><a href="#org9a9fa0c">校验</a><br>
-<div class="outline-text-6" id="text-org9a9fa0c">
+<li><a id="orgba598d1"></a><a href="#orgba598d1">校验</a><br>
+<div class="outline-text-6" id="text-orgba598d1">
 <div class="org-src-container">
 <pre class="src src-shell">&#26657;&#39564;
 <span class="org-comment-delimiter"># </span><span class="org-comment">&#20449;&#20219;&#38142;
@@ -5843,7 +5843,7 @@ EOF
 
 
 
-<figure id="org45f9c49">
+<figure id="org784765b">
 <img style="aspect-ratio:1897/1029" decoding="async" loading="lazy" src="./images/img_20260913_182316.webp" alt="img_20260913_182316.webp" width="800">
 
 </figure>
@@ -6150,7 +6150,7 @@ systemReserved:
 <div id="outline-container-h:f99bc944-f092-437c-af20-36ecf2d9bb5e" class="outline-3">
 <h3 id="h:f99bc944-f092-437c-af20-36ecf2d9bb5e"><a href="#h:f99bc944-f092-437c-af20-36ecf2d9bb5e">安装总结：</a></h3>
 <div class="outline-text-3" id="text-h:f99bc944-f092-437c-af20-36ecf2d9bb5e">
-<pre class="example" id="org98ec3c3">
+<pre class="example" id="org1efffe8">
 1、  kubeadm
 2、  二进制
 3、  自动化安装

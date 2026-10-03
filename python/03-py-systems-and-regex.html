@@ -289,7 +289,7 @@
 <h4 id="h:079bec38-5be1-46f3-8df8-f6888e878930"><a href="#h:079bec38-5be1-46f3-8df8-f6888e878930">冯诺依曼体系架构</a></h4>
 <div class="outline-text-4" id="text-h:079bec38-5be1-46f3-8df8-f6888e878930">
 
-<figure id="org6694a07">
+<figure id="org9ad7edd">
 <img style="aspect-ratio:569/266" decoding="async" loading="lazy" src="images/image-20210215092720081.webp" alt="image-20210215092720081.webp" width="50%">
 
 </figure>
@@ -347,7 +347,7 @@ CPU由运算器和控制器组成：
 
 
 
-<figure id="org3b2e8c2">
+<figure id="org1c9df89">
 <img style="aspect-ratio:999/608" decoding="async" loading="lazy" src="./images/img_20241230_175531.webp" alt="img_20241230_175531.webp" width="50%">
 
 </figure>
@@ -363,7 +363,7 @@ CPU由运算器和控制器组成：
 
 
 
-<figure id="orgc7a0596">
+<figure id="org8641245">
 <img style="aspect-ratio:415/412" decoding="async" loading="lazy" src="./images/img_20241230_180053.webp" alt="img_20241230_180053.webp" width="50%">
 
 </figure>
@@ -657,7 +657,7 @@ f.seek(2)
 </div>
 
 
-<pre class="example" id="org786e4cc">
+<pre class="example" id="orgf5a3274">
 0
 3
 3
@@ -694,7 +694,7 @@ b''
 buffering=-1 使用默认缓冲区大小。如果是二进制模式，使用 <code>io.DEAFAULT_BUFFER_SIZE</code> 值，默认是4096或8192.如果是文本模式，如果是终端设备，是行缓存方式，如果不是，则使用二进制模式的策略。
 </p>
 
-<pre class="example" id="org5edb72d">
+<pre class="example" id="org2deac30">
 0 文本模式不支持；二进制模式无缓冲区, 立即写入磁盘，相当于把文件当做一个FIFO队列用。
 1，只在文本模式使用，表示使用行缓冲。意思就是见到换行符\n就flush写入磁盘
   - 文本模式，如果缓冲区撑破了，被迫写入磁盘
@@ -787,7 +787,7 @@ b'a'
 </pre>
 
 
-<pre class="example" id="org055e03f">
+<pre class="example" id="org8dd523a">
 buffering=-1
 t和b，都是io.DEAFAULT_BUFFER_SIZE
 
@@ -1296,7 +1296,7 @@ getvalue()获取全部内容。跟文件指针没有关系。
 </pre>
 </div>
 
-<pre class="example" id="org5ab0a5f">
+<pre class="example" id="org2827472">
 True True True
 
 3
@@ -1518,14 +1518,14 @@ metacharacter
 
 
 
-<figure id="org3324cce">
+<figure id="org4fb42f7">
 <img style="aspect-ratio:647/531" decoding="async" loading="lazy" src="./images/img_20250103_141447.webp" alt="img_20250103_141447.webp" width="50%">
 
 </figure>
 
 
 
-<figure id="org4d2315c">
+<figure id="orgf49b2c8">
 <img style="aspect-ratio:647/531" decoding="async" loading="lazy" src="./images/img_20250103_141659.webp" alt="img_20250103_141659.webp" width="50%">
 
 </figure>
@@ -1581,7 +1581,7 @@ took food wood foot  使用 w|food 或者 (w|f)ood
 
 
 
-<figure id="org1b55002">
+<figure id="org38f4cc1">
 <img style="aspect-ratio:647/531" decoding="async" loading="lazy" src="./images/img_20250103_175739.webp" alt="img_20250103_175739.webp" width="50%">
 
 </figure>
@@ -1647,7 +1647,7 @@ Python语法必须是(?P&lt;name&gt;exp)
 
 
 
-<figure id="org5fc9e74">
+<figure id="orgdd7db57">
 <img style="aspect-ratio:759/531" decoding="async" loading="lazy" src="./images/img_20250103_180723.webp" alt="img_20250103_180723.webp" width="50%">
 
 <figcaption><span class="figure-number">&#22270;7&nbsp; </span>(pattern)分组</figcaption>
@@ -1655,7 +1655,7 @@ Python语法必须是(?P&lt;name&gt;exp)
 
 
 
-<figure id="org484599c">
+<figure id="org28f5aa9">
 <img style="aspect-ratio:759/531" decoding="async" loading="lazy" src="./images/img_20250103_180854.webp" alt="img_20250103_180854.webp" width="50%">
 
 <figcaption><span class="figure-number">&#22270;8&nbsp; </span>(?:pattern)  不捕获分组</figcaption>
@@ -1663,21 +1663,21 @@ Python语法必须是(?P&lt;name&gt;exp)
 
 
 
-<figure id="org867301b">
+<figure id="orge1cd539">
 <img style="aspect-ratio:759/531" decoding="async" loading="lazy" src="./images/img_20250103_181430.webp" alt="img_20250103_181430.webp" width="50%">
 
 </figure>
 
 
 
-<figure id="org5291f9f">
+<figure id="org4de7729">
 <img style="aspect-ratio:759/531" decoding="async" loading="lazy" src="./images/img_20250103_181531.webp" alt="img_20250103_181531.webp" width="50%">
 
 </figure>
 
 
 
-<figure id="org8e7717d">
+<figure id="org16d5068">
 <img style="aspect-ratio:684/528" decoding="async" loading="lazy" src="./images/img_20250104_125323.webp" alt="img_20250104_125323.webp" width="50%">
 
 <figcaption><span class="figure-number">&#22270;11&nbsp; </span>(?&lt;name&gt;exp)命名分组捕获</figcaption>
@@ -1737,7 +1737,7 @@ Python语法必须是(?P&lt;name&gt;exp)
 
 
 
-<figure id="org00dca38">
+<figure id="org0d764f3">
 <img style="aspect-ratio:684/528" decoding="async" loading="lazy" src="./images/img_20250104_133231.webp" alt="img_20250104_133231.webp" width="50%">
 
 <figcaption><span class="figure-number">&#22270;12&nbsp; </span>(?=&#x2026;)从左向右顺序环视</figcaption>
@@ -1745,7 +1745,7 @@ Python语法必须是(?P&lt;name&gt;exp)
 
 
 
-<figure id="org213040c">
+<figure id="orgf103d95">
 <img style="aspect-ratio:684/528" decoding="async" loading="lazy" src="./images/img_20250104_134019.webp" alt="img_20250104_134019.webp" width="50%">
 
 <figcaption><span class="figure-number">&#22270;13&nbsp; </span>(?!&#x2026;) 顺序环视的取反</figcaption>
@@ -1753,7 +1753,7 @@ Python语法必须是(?P&lt;name&gt;exp)
 
 
 
-<figure id="org967b5b1">
+<figure id="org081a7cd">
 <img style="aspect-ratio:684/528" decoding="async" loading="lazy" src="./images/img_20250104_133518.webp" alt="img_20250104_133518.webp" width="50%">
 
 <figcaption><span class="figure-number">&#22270;14&nbsp; </span>(?&lt;=&#x2026;) 从右向左逆序环视</figcaption>
@@ -1761,7 +1761,7 @@ Python语法必须是(?P&lt;name&gt;exp)
 
 
 
-<figure id="org99d7a03">
+<figure id="orgf023f71">
 <img style="aspect-ratio:684/528" decoding="async" loading="lazy" src="./images/img_20250104_133834.webp" alt="img_20250104_133834.webp" width="50%">
 
 <figcaption><span class="figure-number">&#22270;15&nbsp; </span>(?&lt;!&#x2026;) 逆序环视的取反</figcaption>
@@ -2084,7 +2084,7 @@ file:///ect/sysconfig/network
 </pre>
 </div>
 
-<pre class="example" id="org55aa129">
+<pre class="example" id="orgc157313">
 (\w+)://[^\s'"]+
 </pre>
 
@@ -2178,7 +2178,7 @@ file:///ect/sysconfig/network
 </pre>
 </div>
 
-<pre class="example" id="org30da4fa">
+<pre class="example" id="orgccd804f">
 d:/tmp\conf\a/b &lt;class 'str'&gt;
 ['d:', 'tmp\\conf\\a', 'b']
 ('d:/tmp\\conf\\a', 'b')
@@ -2256,7 +2256,7 @@ d:/
 </pre>
 </div>
 
-<pre class="example" id="orgdaf1fe2">
+<pre class="example" id="orgbb021b5">
 . . .
 d:\github\mydoc\Org-mode\python\python-note\04Python系统编程
 d:\github\mydoc\Org-mode\python\python-note\04Python系统编程 d:\github\mydoc\Org-mode\python\python-note\04Python系统编程
@@ -2408,7 +2408,7 @@ parents 父目录惰性可迭代对象，索引0是直接的父
 </pre>
 </div>
 
-<pre class="example" id="org894a08d">
+<pre class="example" id="org50347cb">
 \data\mysql\install
 \data\mysql\install
 \data\mysql
@@ -3061,7 +3061,7 @@ shutil还有打包功能。生成tar并压缩。支持zip, gz, bz, xz。
 有一个配置文件test.ini内容如下，将其转换成json格式文件
 </p>
 
-<pre class="example" id="org3a917fd">
+<pre class="example" id="org27e75e0">
 [DEFAULT]
 a = test
 
@@ -3204,7 +3204,7 @@ copy(src, dst)
 </pre>
 </div>
 
-<pre class="example" id="org603cd11">
+<pre class="example" id="org7552d63">
 d:\tmp\mydir\a
 d:\tmp\mydir\a\b
 d:\tmp\mydir\a\iule
@@ -3282,7 +3282,7 @@ d:\tmp\mydir\dst\b\c\d\ytoc
 <div id="outline-container-h:9dede179-23dc-4f80-81f5-b66390419372" class="outline-5">
 <h5 id="h:9dede179-23dc-4f80-81f5-b66390419372"><a href="#h:9dede179-23dc-4f80-81f5-b66390419372">密码强度</a></h5>
 <div class="outline-text-5" id="text-h:9dede179-23dc-4f80-81f5-b66390419372">
-<pre class="example" id="org30b291d">
+<pre class="example" id="orga143469">
 要求密码必须由10-15位，指定字符组成：
 十进制数字
 大写字母
@@ -3313,7 +3313,7 @@ d:\tmp\mydir\dst\b\c\d\ytoc
 有一个配置文件test.ini内容如下，将其转换成json格式文件
 </p>
 
-<pre class="example" id="org38b2798">
+<pre class="example" id="orga9ec9df">
 [DEFAULT]
 a = test
 
@@ -3654,7 +3654,7 @@ Python使用re模块提供了正则表达式处理的能力
 <div id="outline-container-h:189ba1b7-9c52-4053-9d3b-a64bb57b05f7" class="outline-4">
 <h4 id="h:189ba1b7-9c52-4053-9d3b-a64bb57b05f7"><a href="#h:189ba1b7-9c52-4053-9d3b-a64bb57b05f7">常量</a></h4>
 <div class="outline-text-4" id="text-h:189ba1b7-9c52-4053-9d3b-a64bb57b05f7">
-<pre class="example" id="orga5a1996">
+<pre class="example" id="org2612d1e">
 多行模式
 - re.M
 - re.MULTILINE
@@ -3680,7 +3680,7 @@ Python使用re模块提供了正则表达式处理的能力
 <div id="outline-container-h:efa6f574-efe5-4253-a41e-b64b3e1090f9" class="outline-5">
 <h5 id="h:efa6f574-efe5-4253-a41e-b64b3e1090f9"><a href="#h:efa6f574-efe5-4253-a41e-b64b3e1090f9">编译</a></h5>
 <div class="outline-text-5" id="text-h:efa6f574-efe5-4253-a41e-b64b3e1090f9">
-<pre class="example" id="org2578713">
+<pre class="example" id="orgb1f87c1">
 re.compile(pattern, flags=0)
 </pre>
 
@@ -3709,7 +3709,7 @@ re.compile(pattern, flags=0)
 match
 </p>
 
-<pre class="example" id="org0e1d2c2">
+<pre class="example" id="orge06b79e">
 re.match(pattern, string, flags=0)
 regex.match(string[, pos[, endpos]])
 </pre>
@@ -3720,7 +3720,7 @@ regex.match(string[, pos[, endpos]])
 <p>
 search
 </p>
-<pre class="example" id="org001fba4">
+<pre class="example" id="org3065078">
 re.search(pattern, string, flags=0)
 regex.search(string[, pos[, endpos]])
 </pre>
@@ -3731,7 +3731,7 @@ regex.search(string[, pos[, endpos]])
 <p>
 fullmatch
 </p>
-<pre class="example" id="orgbd974c6">
+<pre class="example" id="org2746d23">
 re.fullmatch(pattern, string, flags=0)
 regex.fullmatch(string[, pos[, endpos]])
 </pre>
@@ -3884,7 +3884,7 @@ regex.fullmatch(string[, pos[, endpos]])
 <p>
 findall
 </p>
-<pre class="example" id="orgbf359ba">
+<pre class="example" id="orge9b65a7">
 re.findall(pattern,string,flags=0)
 regex.findall(string[, pos[, endpos]])
 </pre>
@@ -3895,7 +3895,7 @@ regex.findall(string[, pos[, endpos]])
 <p>
 finditer
 </p>
-<pre class="example" id="org8e105bf">
+<pre class="example" id="org1128173">
 re.finditer(pattern,string,flags=0)
 regex.finditer(string[, pos[, endpos]])
 </pre>
@@ -3989,7 +3989,7 @@ regex.finditer(string[, pos[, endpos]])
 <p>
 sub
 </p>
-<pre class="example" id="org085cd38">
+<pre class="example" id="org28f6785">
 re.sub(pattern, replacement, string, count=0, flags=0)
 regex.sub(replacement, string, count=0)
 </pre>
@@ -4001,7 +4001,7 @@ regex.sub(replacement, string, count=0)
 <p>
 subn
 </p>
-<pre class="example" id="org7ae092c">
+<pre class="example" id="org561ed41">
 re.subn(pattern, replacement, string, count=0, flags=0)
 regex.subn(replacement, string, count=0)
 </pre>
@@ -4057,7 +4057,7 @@ regex.subn(replacement, string, count=0)
 <div id="outline-container-h:77099962-0baa-4908-8627-bfc0ae1c697f" class="outline-5">
 <h5 id="h:77099962-0baa-4908-8627-bfc0ae1c697f"><a href="#h:77099962-0baa-4908-8627-bfc0ae1c697f">分割字符串</a></h5>
 <div class="outline-text-5" id="text-h:77099962-0baa-4908-8627-bfc0ae1c697f">
-<pre class="example" id="org12dc5d9">
+<pre class="example" id="org09e4676">
 re.split(pattern, string, maxsplit=0, flags=0)
 </pre>
 
@@ -4363,7 +4363,7 @@ p1.write_text(csv_body, encoding<span class="org-operator">=</span><span class="
 <div id="outline-container-h:5895a9b2-2d09-4013-adaa-cec8ca08fa24" class="outline-5">
 <h5 id="h:5895a9b2-2d09-4013-adaa-cec8ca08fa24"><a href="#h:5895a9b2-2d09-4013-adaa-cec8ca08fa24">csv模块</a></h5>
 <div class="outline-text-5" id="text-h:5895a9b2-2d09-4013-adaa-cec8ca08fa24">
-<pre class="example" id="orgc887cb3">
+<pre class="example" id="org1e1c283">
 csv.reader(iterable, dialect='excel', *args, **kwargs)
 </pre>
 <ul class="org-ul">
@@ -4389,7 +4389,7 @@ csv.reader(iterable, dialect='excel', *args, **kwargs)
 </ul></li>
 </ul>
 
-<pre class="example" id="org48557a8">
+<pre class="example" id="orgf6452a5">
 csv.writer(fileobj, dialect='excel', *args, **kwargs)
 </pre>
 <ul class="org-ul">
@@ -4397,7 +4397,7 @@ csv.writer(fileobj, dialect='excel', *args, **kwargs)
 <li>主要方法有writerow、writerows</li>
 </ul>
 
-<pre class="example" id="org7b43b0b">
+<pre class="example" id="org10ae36b">
 writerow(iterable)
 </pre>
 <ul class="org-ul">
@@ -4521,7 +4521,7 @@ python
 作为配置文件，ini文件的格式很流畅
 </p>
 
-<pre class="example" id="orga2dbbd3">
+<pre class="example" id="org193fd9b">
 [DEFAULT]
 a = test
 
@@ -4549,7 +4549,7 @@ sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES
 <li>可以将section当做key，section存储着键值对组成的字典，可以把ini配置文件当做一个嵌套的字典。默认使用的是有序字典</li>
 </ul>
 
-<pre class="example" id="org1b5f18f">
+<pre class="example" id="org41cb34e">
 read(filenames, encoding=None)
 - 读取ini文件，可以是单个文件，也可以是文件列表。可以指定文件编码
 
@@ -4779,7 +4779,7 @@ Python中的序列化、反序列化模块
 <p>
 对应函数
 </p>
-<pre class="example" id="org6b6f903">
+<pre class="example" id="orgdc1c5d9">
 dumps  对象序列化为bytes对象
 dump   对象序列化到文件对象，就是存入文件
 loads  从bytes对象反序列化
@@ -4967,7 +4967,7 @@ Json官网：<a href="http://json.org/">http://json.org/</a>
 </p>
 
 
-<figure id="org69f2182">
+<figure id="org4e0bee1">
 <img src="https://www.json.org/img/value.png" alt="value.png" width="50%">
 
 </figure>
@@ -5009,7 +5009,7 @@ value可以是任意合法的值
 </p>
 
 
-<figure id="orge054e23">
+<figure id="org9370ec8">
 <img src="https://www.json.org/img/object.png" alt="object.png" width="50%">
 
 </figure>
@@ -5027,7 +5027,7 @@ value可以是任意合法的值
 </p>
 
 
-<figure id="org7be0e40">
+<figure id="orgf191e5b">
 <img src="https://www.json.org/img/array.png" alt="array.png" width="50%">
 
 </figure>
@@ -5265,7 +5265,7 @@ MessagePack是一个基于 <b>二进制</b> 高效的对象序列化类库，可
 可以看出，大大的节约了空间
 </p>
 
-<pre class="example" id="org80c7aa2">
+<pre class="example" id="org1d779b6">
 # Json：27 bytes
 {"person":[{"name":"tom","age":18},{"name":"jerry",."age":16}],"total":2}
 

@@ -55,22 +55,22 @@
 <h2>&#30446;&#24405;</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#orgcd0e99c">sonarqube</a>
+<li><a href="#orgf9273c4">sonarqube</a>
 <ul>
-<li><a href="#orgbcab477">Sonarqube 介绍</a></li>
-<li><a href="#org2d9e871">安装</a>
+<li><a href="#org7e831bb">Sonarqube 介绍</a></li>
+<li><a href="#orgf1959b9">安装</a>
 <ul>
-<li><a href="#orgdcdbc07">部署前环境依赖</a></li>
-<li><a href="#org39b50ff">部署命令</a></li>
+<li><a href="#org77c3443">部署前环境依赖</a></li>
+<li><a href="#orgf59bdea">部署命令</a></li>
 </ul>
 </li>
-<li><a href="#orga3778ee">maven 方式接入</a>
+<li><a href="#org256fb2c">maven 方式接入</a>
 <ul>
-<li><a href="#org6b7021f">maven 命令接入</a></li>
-<li><a href="#org910e1d2">sonar-scanner</a></li>
+<li><a href="#org2866c44">maven 命令接入</a></li>
+<li><a href="#orgc04921f">sonar-scanner</a></li>
 </ul>
 </li>
-<li><a href="#org0520c85">sonarqube 审查规则</a></li>
+<li><a href="#org286b7dd">sonarqube 审查规则</a></li>
 </ul>
 </li>
 </ul>
@@ -79,13 +79,13 @@
 <ul class="org-ul">
 <li>TAGS: <a href="../cicd.html">cicd</a></li>
 </ul>
-<section id="outline-container-orgcd0e99c" class="outline-2">
-<h2 id="orgcd0e99c"><a href="#orgcd0e99c">sonarqube</a></h2>
-<div class="outline-text-2" id="text-orgcd0e99c">
+<section id="outline-container-orgf9273c4" class="outline-2">
+<h2 id="orgf9273c4"><a href="#orgf9273c4">sonarqube</a></h2>
+<div class="outline-text-2" id="text-orgf9273c4">
 </div>
-<div id="outline-container-orgbcab477" class="outline-3">
-<h3 id="orgbcab477"><a href="#orgbcab477">Sonarqube 介绍</a></h3>
-<div class="outline-text-3" id="text-orgbcab477">
+<div id="outline-container-org7e831bb" class="outline-3">
+<h3 id="org7e831bb"><a href="#org7e831bb">Sonarqube 介绍</a></h3>
+<div class="outline-text-3" id="text-org7e831bb">
 <p>
 SonarQube 是一款用于代码质量管理的开源工具，它主要用于管理源代码的质量。 通过插件形式，可以支持众多计算机语言，比如 java, C#, go，C/C++, PL/SQL, Cobol, JavaScrip, Groovy 等。sonar可以通过PMD,CheckStyle,Findbugs等等代码规则检测工具来检测你的代码，帮助你发现代码的漏洞，Bug，异味等信息。
 </p>
@@ -95,13 +95,13 @@ Sonar 不仅提供了对 IDE 的支持，可以在 Eclipse和 IntelliJ IDEA 这�
 </p>
 </div>
 </div>
-<div id="outline-container-org2d9e871" class="outline-3">
-<h3 id="org2d9e871"><a href="#org2d9e871">安装</a></h3>
-<div class="outline-text-3" id="text-org2d9e871">
+<div id="outline-container-orgf1959b9" class="outline-3">
+<h3 id="orgf1959b9"><a href="#orgf1959b9">安装</a></h3>
+<div class="outline-text-3" id="text-orgf1959b9">
 </div>
-<div id="outline-container-orgdcdbc07" class="outline-4">
-<h4 id="orgdcdbc07"><a href="#orgdcdbc07">部署前环境依赖</a></h4>
-<div class="outline-text-4" id="text-orgdcdbc07">
+<div id="outline-container-org77c3443" class="outline-4">
+<h4 id="org77c3443"><a href="#org77c3443">部署前环境依赖</a></h4>
+<div class="outline-text-4" id="text-org77c3443">
 <p>
 参考文档: <a href="https://docs.sonarqube.org/latest/requirements/prerequisites-and-overview/">Prerequisites and overview</a>
 </p>
@@ -119,9 +119,9 @@ Sonar 不仅提供了对 IDE 的支持，可以在 Eclipse和 IntelliJ IDEA 这�
 </ul>
 </div>
 </div>
-<div id="outline-container-org39b50ff" class="outline-4">
-<h4 id="org39b50ff"><a href="#org39b50ff">部署命令</a></h4>
-<div class="outline-text-4" id="text-org39b50ff">
+<div id="outline-container-orgf59bdea" class="outline-4">
+<h4 id="orgf59bdea"><a href="#orgf59bdea">部署命令</a></h4>
+<div class="outline-text-4" id="text-orgf59bdea">
 <div class="org-src-container">
 <pre class="src src-shell">docker run   -d   --name sonarqube9.3   -p 8888:9000  
 -e <span class="org-variable-name">SONARQUBE_JDBC_URL</span>=jdbc:postgresql://bor.ws.com:5432/sonar_new  
@@ -137,16 +137,16 @@ harbor.xxx.com/ops/sonarqube:latest
 </div>
 </div>
 </div>
-<div id="outline-container-orga3778ee" class="outline-3">
-<h3 id="orga3778ee"><a href="#orga3778ee">maven 方式接入</a></h3>
-<div class="outline-text-3" id="text-orga3778ee">
+<div id="outline-container-org256fb2c" class="outline-3">
+<h3 id="org256fb2c"><a href="#org256fb2c">maven 方式接入</a></h3>
+<div class="outline-text-3" id="text-org256fb2c">
 <ul class="org-ul">
 <li>登录 sonarqube 平台，创建管理员的 token 用于登录，个人&#x2013;&gt; my acount</li>
 </ul>
 </div>
-<div id="outline-container-org6b7021f" class="outline-4">
-<h4 id="org6b7021f"><a href="#org6b7021f">maven 命令接入</a></h4>
-<div class="outline-text-4" id="text-org6b7021f">
+<div id="outline-container-org2866c44" class="outline-4">
+<h4 id="org2866c44"><a href="#org2866c44">maven 命令接入</a></h4>
+<div class="outline-text-4" id="text-org2866c44">
 <p>
 在 sonarqube 上提前创建好 projectKey 对应的项目，扫描代码时候需要唯一
 </p>
@@ -187,9 +187,9 @@ WORKDIR /opt/
 </div>
 </div>
 </div>
-<div id="outline-container-org910e1d2" class="outline-4">
-<h4 id="org910e1d2"><a href="#org910e1d2">sonar-scanner</a></h4>
-<div class="outline-text-4" id="text-org910e1d2">
+<div id="outline-container-orgc04921f" class="outline-4">
+<h4 id="orgc04921f"><a href="#orgc04921f">sonar-scanner</a></h4>
+<div class="outline-text-4" id="text-orgc04921f">
 <div class="org-src-container">
 <pre class="src src-shell">sonar-scanner -Dsonar.projectKey=${<span class="org-variable-name">application</span>}_${<span class="org-variable-name">service_name</span>} -Dsonar.host.url=${<span class="org-variable-name">sonar_url</span>} -Dsonar.sourceEncoding=UTF-8 -Dsonar.sources=${<span class="org-variable-name">code_path</span>}/gameinfo-server/src/main -Dsonar.java.binaries=${<span class="org-variable-name">code_path</span>}/gameinfo-server/target/classes -Dsonar.exclusions=**/src/**/msg/**/*,**/target/**/msg/**/*,**/src/**/proto/**/*,**/target/**/proto/**/*
 </pre>
@@ -197,8 +197,8 @@ WORKDIR /opt/
 </div>
 </div>
 </div>
-<div id="outline-container-org0520c85" class="outline-3">
-<h3 id="org0520c85"><a href="#org0520c85">sonarqube 审查规则</a></h3>
+<div id="outline-container-org286b7dd" class="outline-3">
+<h3 id="org286b7dd"><a href="#org286b7dd">sonarqube 审查规则</a></h3>
 </div>
 </section>
 </div>

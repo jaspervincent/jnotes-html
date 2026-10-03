@@ -66,6 +66,7 @@
 </li>
 <li><a href="#h:50983a60-8a10-447e-9915-454a36e0feed">变量语法</a></li>
 <li><a href="#h:8a73d311-dd24-4a47-a0dc-2888a0c15f37">图例</a></li>
+<li><a href="#h:015B0B87-6CDD-4342-814C-C64D0ACB8350">用户授权</a></li>
 </ul>
 </div>
 </nav>
@@ -135,7 +136,7 @@ ${<span class="org-variable-name">__from</span>:date:YYYY-MM}  2020-07
 <li>Value: 571136</li>
 </ul>
 
-<pre class="example" id="orgf2611a9">
+<pre class="example" id="orgef1c0c6">
 https://a/d/$clusterUid-k8s-overview/
 </pre>
 </div>
@@ -227,13 +228,13 @@ https://a/d/$clusterUid-k8s-overview/
 </ul>
 
 
-<figure id="orgde9ceb9">
+<figure id="org5c16989">
 <img style="aspect-ratio:1378/872" decoding="async" loading="lazy" src="./images/Snipaste_2023-01-02_07-43-32.webp" alt="Snipaste_2023-01-02_07-43-32.webp" width="50%">
 
 </figure>
 
 
-<figure id="org0628f45">
+<figure id="org038a19b">
 <img style="aspect-ratio:866/336" decoding="async" loading="lazy" src="./images/Snipaste_2023-01-02_07-49-14.webp" alt="Snipaste_2023-01-02_07-49-14.webp" width="50%">
 
 </figure>
@@ -282,6 +283,135 @@ Interpolation result: <span class="org-string">'aaa|AAA|bbb|BBB|ccc|CCC'</span>
 <p>
 <a href="https://play.grafana.org/dashboards/f/examples/examples">https://play.grafana.org/dashboards/f/examples/examples</a>
 </p>
+</div>
+</section>
+<section id="outline-container-h:015B0B87-6CDD-4342-814C-C64D0ACB8350" class="outline-2">
+<h2 id="h:015B0B87-6CDD-4342-814C-C64D0ACB8350"><a href="#h:015B0B87-6CDD-4342-814C-C64D0ACB8350">用户授权</a></h2>
+<div class="outline-text-2" id="text-h:015B0B87-6CDD-4342-814C-C64D0ACB8350">
+<p>
+需求：
+</p>
+<ul class="org-ul">
+<li>研发账号，用于看指定的面板。 指定只读面板，同时可以使用 drilldown下的 Logs 查看日志也可以使用 Loki 的 explore 自己写查询语句。</li>
+</ul>
+
+<p>
+先建 team——权限授给 team，以后加人只需把人拉进 team，不用再碰权限。
+</p>
+
+
+<ul class="org-ul">
+<li>Grafana 版本：13.2.2 Open Source，没有 Enterprise 的细粒度 RBAC</li>
+<li>Viewer 默认权限：有 <code>datasources:query</code> 、 <code>plugins.app:access</code> （Drilldown 能用），没有 <code>datasources:explore</code></li>
+<li><code>viewers_can_edit=true</code> ：仍然有效（网上说 Grafana 12 移除了，不准）。开启后 Viewer 只多出 <code>datasources:explore</code> ， <code>dashboards:write</code> / <code>dashboards:create</code> 。仍然没有——Explore 能用，但存不了盘</li>
+<li>Editor 角色：有 Explore，但能新建看板、也能覆盖你的看板。太宽</li>
+<li>文件夹权限： OSS 下可以把默认的 Viewer/Editor 权限整个去掉，只授给 team。实测该用户只看到授权文件夹</li>
+</ul>
+
+
+<p>
+所以选 Viewer + <code>viewers_can_edit</code> ，不选 Editor——Editor 要靠文件夹权限反过来堵
+</p>
+
+<p>
+操作步骤
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter">#</span><span class="org-comment">&#27493;&#39588; 1 &#24320; viewers_can_edit
+</span>
+cp /etc/grafana/grafana.ini /etc/grafana/grafana.ini.bak-$(date +%Y%m%d)
+sed -i <span class="org-string">'/^\[users\]/a viewers_can_edit = true'</span> /etc/grafana/grafana.ini
+systemctl restart grafana-server
+sleep 8
+curl -s -u admin:admin http://10.0.0.101:3000/api/frontend/settings <span class="org-sh-escaped-newline">\</span>
+  | python3 -c <span class="org-string">'import sys,json; print("viewersCanEdit =", json.load(sys.stdin)["viewersCanEdit"])'</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#26368;&#21518;&#19968;&#26465;&#35201;&#36755;&#20986; True&#12290;
+</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#27493;&#39588; 2 &#24314;&#22242;&#38431;
+</span>
+curl -s -u admin:admin -H <span class="org-string">'Content-Type: application/json'</span> <span class="org-sh-escaped-newline">\</span>
+  -X POST http://10.0.0.101:3000/api/teams <span class="org-sh-escaped-newline">\</span>
+  -d <span class="org-string">'{"name":"&#30740;&#21457;"}'</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">{"message":"Team created","teamId":2,"uid":"eg03qrhofqvb4f"}
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">&#35760;&#19979;&#36820;&#22238;&#30340; teamId&#65288;&#31532;&#19968;&#20010;&#22242;&#38431;&#36890;&#24120;&#26159; 1&#65289;&#12290;
+</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#27493;&#39588; 3 &#24314;&#20004;&#20010;&#25991;&#20214;&#22841;
+</span>
+<span class="org-keyword">for</span> f<span class="org-keyword"> in</span> <span class="org-string">'{"uid":"dev-visible","title":"&#30740;&#21457;&#30475;&#26495;"}'</span> <span class="org-string">'{"uid":"ops-only","title":"&#36816;&#32500;&#30475;&#26495;"}'</span>; <span class="org-keyword">do</span>
+  curl -s -u admin:admin -H <span class="org-string">'Content-Type: application/json'</span> <span class="org-sh-escaped-newline">\</span>
+    -X POST http://10.0.0.101:3000/api/folders -d <span class="org-string">"$f"</span>; <span class="org-builtin">echo</span>
+<span class="org-keyword">done</span>
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#28165;&#25481;&#22235;&#20010;&#30475;&#26495;&#30340;&#33258;&#36523; ACL
+</span>
+<span class="org-keyword">for</span> d<span class="org-keyword"> in</span> loki-log-overview loki-k8s-events loki-dev-troubleshoot loki-gateway-access; <span class="org-keyword">do</span>
+  printf <span class="org-string">'%-24s '</span> <span class="org-string">"$d"</span>
+  curl -s -u admin:admin -H <span class="org-string">'Content-Type: application/json'</span> <span class="org-sh-escaped-newline">\</span>
+    -X POST <span class="org-string">"http://10.0.0.101:3000/api/dashboards/uid/$d/permissions"</span> <span class="org-sh-escaped-newline">\</span>
+    -d <span class="org-string">'{"items":[]}'</span>
+  <span class="org-builtin">echo</span>
+<span class="org-keyword">done</span>
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#23558;&#23545;&#24212;&#38754;&#26495;&#25918;&#21040;&#19981;&#21516;&#25991;&#20214;&#22841;
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">&#24212;&#35813;&#30475;&#21040;&#30740;&#21457;&#25490;&#38556;&#21644; Gateway &#22312;&#12300;&#30740;&#21457;&#30475;&#26495;&#12301;&#65292;&#21478;&#20004;&#20010;&#22312;&#12300;&#36816;&#32500;&#30475;&#26495;&#12301;&#65292;&#27809;&#26377; General&#12290;
+</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#27493;&#39588; 4 &#35774;&#25991;&#20214;&#22841;&#26435;&#38480;
+</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">"items" &#26159;&#25972;&#20307;&#26367;&#25442;&#8212;&#8212;&#19981;&#20889;&#22522;&#30784;&#35282;&#33394;&#23601;&#31561;&#20110;&#25226;&#40664;&#35748;&#30340; Viewer/Editor &#26435;&#38480;&#21435;&#25481;&#12290;&#25226; TEAMID &#25442;&#25104;&#27493;&#39588; 2 &#30340;&#20540;&#12290;
+</span>
+<span class="org-variable-name">TEAMID</span>=2
+curl -s -u admin:admin -H <span class="org-string">'Content-Type: application/json'</span> <span class="org-sh-escaped-newline">\</span>
+  -X POST http://10.0.0.101:3000/api/folders/dev-visible/permissions <span class="org-sh-escaped-newline">\</span>
+  -d <span class="org-string">"{\"items\":[{\"teamId\":$TEAMID,\"permission\":1}]}"</span>; <span class="org-builtin">echo</span>
+curl -s -u admin:admin -H <span class="org-string">'Content-Type: application/json'</span> <span class="org-sh-escaped-newline">\</span>
+  -X POST http://10.0.0.101:3000/api/folders/ops-only/permissions <span class="org-sh-escaped-newline">\</span>
+  -d <span class="org-string">'{"items":[]}'</span>; <span class="org-builtin">echo</span>
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">permission: 1 = View&#65288;2 = Edit&#65292;4 = Admin&#65289;&#12290;
+</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#27493;&#39588; 5 &#24314;&#29992;&#25143;&#24182;&#21152;&#20837;&#22242;&#38431;
+</span>
+<span class="org-builtin">read</span> -rsp <span class="org-string">'&#30740;&#21457;&#36134;&#21495;&#23494;&#30721;: '</span> PW; <span class="org-builtin">echo</span>
+curl -s -u admin:admin -H <span class="org-string">'Content-Type: application/json'</span> <span class="org-sh-escaped-newline">\</span>
+  -X POST http://10.0.0.101:3000/api/admin/users <span class="org-sh-escaped-newline">\</span>
+  -d <span class="org-string">"{\"name\":\"&#30740;&#21457;\",\"login\":\"dev\",\"password\":\"$PW\"}"</span>; <span class="org-builtin">echo</span>
+<span class="org-builtin">unset</span> PW
+<span class="org-comment-delimiter">#</span><span class="org-comment">{"id":6,"uid":"fg03s1dkaevb4b","message":"User created"}
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">&#35760;&#19979;&#36820;&#22238;&#30340;&#29992;&#25143; id&#65292;&#28982;&#21518;&#65288;UID/TEAMID &#25442;&#25104;&#23454;&#38469;&#20540;&#65289;&#65306;
+</span>
+<span class="org-variable-name">GFUID</span>=6; <span class="org-variable-name">TEAMID</span>=2
+curl -s -u admin:admin -H <span class="org-string">'Content-Type: application/json'</span> <span class="org-sh-escaped-newline">\</span>
+  -X PATCH http://10.0.0.101:3000/api/org/users/$<span class="org-variable-name">GFUID</span> -d <span class="org-string">'{"role":"Viewer"}'</span>; <span class="org-builtin">echo</span>
+
+curl -s -u admin:admin -H <span class="org-string">'Content-Type: application/json'</span> <span class="org-sh-escaped-newline">\</span>
+  -X POST http://10.0.0.101:3000/api/teams/$<span class="org-variable-name">TEAMID</span>/members -d <span class="org-string">"{\"userId\":$GFUID}"</span>; <span class="org-builtin">echo</span>
+
+
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#27493;&#39588; 6 &#39564;&#25910;
+</span>
+<span class="org-variable-name">DEV</span>=<span class="org-string">"dev:&lt;&#19978;&#38754;&#35774;&#30340;&#23494;&#30721;&gt;"</span>
+<span class="org-builtin">echo</span> <span class="org-string">"--- &#33021;&#30475;&#21040;&#30340;&#25991;&#20214;&#22841;&#65288;&#24212;&#21482;&#26377; &#30740;&#21457;&#30475;&#26495; &#21644; Shared with me&#65289;---"</span>
+curl -s -u <span class="org-string">"$DEV"</span> http://10.0.0.101:3000/api/folders <span class="org-sh-escaped-newline">\</span>
+  | python3 -c <span class="org-string">'import sys,json; print([f["title"] for f in json.load(sys.stdin)])'</span>
+<span class="org-builtin">echo</span> <span class="org-string">"--- &#20851;&#38190;&#26435;&#38480; ---"</span>
+curl -s -u <span class="org-string">"$DEV"</span> http://10.0.0.101:3000/api/access-control/user/permissions <span class="org-sh-escaped-newline">\</span>
+  | python3 -c <span class="org-string">'import sys,json
+p=json.load(sys.stdin)
+for k in ("datasources:explore","datasources:query","plugins.app:access","dashboards:write","dashboards:create"):
+      print("  %-22s %s" % (k, p.get(k,"&#8212; &#27809;&#26377;")))'</span>
+
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#22242;&#38431;&#12300;&#30740;&#21457;&#12301;&#26174;&#31034;&#25104;&#21592;&#25968;
+</span>curl -s -u admin:admin http://10.0.0.101:3000/api/teams/2/members <span class="org-sh-escaped-newline">\</span>
+    | python3 -c <span class="org-string">'import sys,json; [print("  %-10s id=%s" % (m["login"], m["userId"])) for m in json.load(sys.stdin)]'</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#20313;&#30340;&#25104;&#21592;&#29992; DELETE /api/teams/2/members/&lt;userId&gt; &#31227;&#38500;
+</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#30331;&#24405;&#26597;&#30475;</span>
+</pre>
+</div>
 </div>
 </section>
 </div>

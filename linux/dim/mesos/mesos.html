@@ -101,7 +101,7 @@ TAGS: <a href="../index.html">Dim</a>
 <h3 id="h:3ae3dd3c-bf24-4136-bde1-b2086b877ca0"><a href="#h:3ae3dd3c-bf24-4136-bde1-b2086b877ca0">mesos架构</a></h3>
 <div class="outline-text-3" id="text-h:3ae3dd3c-bf24-4136-bde1-b2086b877ca0">
 
-<figure id="org5e3113b">
+<figure id="orgbb05a2e">
 <img style="aspect-ratio:487/254" decoding="async" loading="lazy" src="./images/img_20241023_011947.webp" alt="img_20241023_011947.webp" width="80%">
 
 <figcaption><span class="figure-number">&#22270;1&nbsp; </span>CDF of job and task durations in Facebook's Haddop data warehouse(data from[38])</figcaption>
@@ -114,7 +114,7 @@ TAGS: <a href="../index.html">Dim</a>
 
 
 
-<figure id="org11b570f">
+<figure id="orga74a3d2">
 <img style="aspect-ratio:488/329" decoding="async" loading="lazy" src="./images/img_20241023_012114.webp" alt="img_20241023_012114.webp" width="80%">
 
 <figcaption><span class="figure-number">&#22270;2&nbsp; </span>Mesos architecture diagram, showing tow running frameworks(Hadoop and MPI)</figcaption>
@@ -160,7 +160,7 @@ Mesos是一个master/slave结构，其中master根据调度策略(比如公平�
 
 
 
-<figure id="orgbc64fc7">
+<figure id="orge183f55">
 <img style="aspect-ratio:406/297" decoding="async" loading="lazy" src="./images/img_20241023_012314.webp" alt="img_20241023_012314.webp" width="80%">
 
 <figcaption><span class="figure-number">&#22270;3&nbsp; </span>Resource offer example</figcaption>
@@ -191,7 +191,7 @@ Marathon是基于MesosFramework的开源框架，框架图可参考如下。Mara
 </p>
 
 
-<figure id="orgf88ad4c">
+<figure id="org6cfc669">
 <img style="aspect-ratio:599/343" decoding="async" loading="lazy" src="./images/img_20241023_012448.webp" alt="img_20241023_012448.webp" width="80%">
 
 </figure>
@@ -235,7 +235,7 @@ localhost:8080/v2/apps -d <span class="org-string">'{
 <div id="outline-container-h:9af31aba-297e-405f-928e-eb0d6e5dcd91" class="outline-3">
 <h3 id="h:9af31aba-297e-405f-928e-eb0d6e5dcd91"><a href="#h:9af31aba-297e-405f-928e-eb0d6e5dcd91">系统要求：</a></h3>
 <div class="outline-text-3" id="text-h:9af31aba-297e-405f-928e-eb0d6e5dcd91">
-<pre class="example" id="org96b7d48">
+<pre class="example" id="orgacc2677">
 64位Linux操作系统
 kernel&gt;=3.10
 jdk必须是1.8+版本
@@ -443,7 +443,7 @@ systemctl disable mesos-slave.service
 <p>
 如果mesos-master的日志中一直出现  Replica in VOTING status received &#x2026;  
 </p>
-<pre class="example" id="org4e3d275">
+<pre class="example" id="orgc706676">
 这表示出了一些问题，
 这表示你之前使用过相同的 work_dir 运行过这个 master，这个文件夹内有一些持久化状态,
 然后master会因为 quorum 达不到要求( 因为没有足够 quorum数量 的 master 有相同的持久化状态) 而拒绝启动以避免风险。
@@ -901,7 +901,7 @@ sudo docker version
 <p>
 认证模式
 </p>
-<pre class="example" id="orgc346e8b">
+<pre class="example" id="org31a7206">
 1. 服务端认证模式
 选项  说明
 tlsverify, tlscacert, tlscert, tlskey

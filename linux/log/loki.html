@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Loki</title>
+<title>Linux: Loki</title>
 <meta name="description" content="loki" />
 <meta name="keywords" content="计算机, 语言, loki" />
 <meta name="generator" content="Org Mode" />
@@ -41,17 +41,17 @@
 <script type="text/javascript" src="/static/aandds.com/js/main.js"></script>
 <link rel="canonical" href="https://xuchangwei.com/linux/log/loki.html" />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Loki" />
+<meta property="og:title" content="Linux: Loki" />
 <meta property="og:description" content="loki" />
 <meta property="og:url" content="https://xuchangwei.com/linux/log/loki.html" />
 <meta property="og:site_name" content="Jasper Hsu&apos;s Blog" />
 <meta name="twitter:card" content="summary" />
-<script type="application/ld+json">{"@context":"https://schema.org","url":"https://xuchangwei.com/linux/log/loki.html","@type":"WebPage","name":"Loki","description":"loki"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","url":"https://xuchangwei.com/linux/log/loki.html","@type":"WebPage","name":"Linux: Loki","description":"loki"}</script>
 </head>
 <body>
 <div id="content" class="content">
 <header>
-<h1 class="title">Loki</h1>
+<h1 class="title">Linux: Loki</h1>
 </header><nav id="table-of-contents" role="doc-toc">
 <h2>&#30446;&#24405;</h2>
 <div id="text-table-of-contents" role="doc-toc">
@@ -507,7 +507,7 @@ Grafana Loki采用微服务架构，设计为水平可扩展的分布式系统�
 
 
 
-<figure id="orgbcebb85">
+<figure id="orgeadabe1">
 <img style="aspect-ratio:753/557" decoding="async" loading="lazy" src="./images/img_20260924_112930.webp" alt="img_20260924_112930.webp" width="800">
 
 </figure>
@@ -2195,7 +2195,7 @@ UI <a href="http://10.103.236.201:9093/#/alerts">http://10.103.236.201:9093/#/al
 <div id="outline-container-h:EC0595E7-321E-48D9-B7C8-926C79F6F33C" class="outline-4">
 <h4 id="h:EC0595E7-321E-48D9-B7C8-926C79F6F33C"><a href="#h:EC0595E7-321E-48D9-B7C8-926C79F6F33C">数据流</a></h4>
 <div class="outline-text-4" id="text-h:EC0595E7-321E-48D9-B7C8-926C79F6F33C">
-<pre class="example" id="org1e68530">
+<pre class="example" id="org25c6475">
                         ┌──────────────── 写路径 ────────────────┐
 
 Alloy (DaemonSet x5)          Alloy-events (Deployment x1)
@@ -2705,6 +2705,9 @@ loki:
   # ---- &#21709;&#24212;&#21387;&#32553; ----
   frontend:
     compress_responses: true
+    # &#40664;&#35748;&#30340; json &#32534;&#30721;&#65292;&#36825;&#37324;&#24517;&#39035; protobuf&#12290;
+    # &#23427;&#21644; limits_config.shard_aggregations &#26159;&#19968;&#23545;&#65292;&#23569;&#19968;&#20010; approx_topk &#23601;&#19981;&#21487;&#29992;&#12290;
+    encoding: protobuf
   commonConfig:
     replication_factor: 3
   # &#38646; PVC &#26041;&#26696;&#20840;&#38752;&#36825;&#20010;&#24320;&#20851;&#20445;&#35777;&#20248;&#38597;&#37325;&#21551;&#65288;&#28378;&#21160;&#26356;&#26032; / drain&#65289;&#19981;&#20002;&#26410; flush &#30340; chunk&#12290;
@@ -2747,6 +2750,15 @@ loki:
     max_line_size_truncate: true
     max_entries_limit_per_query: 10000
     max_query_series: 500
+    # &#24320;&#21551; approx_topk&#65306;topk &#30340; *&#20869;&#23618;&#32858;&#21512;* &#20250;&#20808; materialize &#25152;&#26377;&#24207;&#21015;&#65292;
+    # &#39640;&#22522;&#25968;&#23383;&#27573;&#65288;&#23436;&#25972; URI&#12289;&#23458;&#25143;&#31471; IP&#65289;&#19968;&#36229;&#36807;&#19978;&#38754;&#30340; max_query_series
+    # &#25972;&#26465;&#26597;&#35810;&#23601;&#25253;&#38169; "maximum number of series (500) reached"&#12290;
+    # approx_topk &#29992;&#27010;&#29575;&#32467;&#26500;&#31639; topk&#65292;&#19981;&#21463;&#36825;&#20010;&#19978;&#38480;&#32422;&#26463;&#12290;
+    #
+    # &#23427;&#20381;&#36182;&#26597;&#35810;&#20998;&#29255;&#8212;&#8212;&#26412;&#26632;&#24050;&#28385;&#36275;&#65306;parallelise_shardable_queries=true&#65292;
+    # schema &#26159; tsdb v13&#12290;&#26597;&#36816;&#34892;&#23454;&#20363; /config &#21487;&#30830;&#35748;&#12290;
+    shard_aggregations:
+    - approx_topk
     max_query_parallelism: 16
     max_query_length: 721h
   compactor:
@@ -3224,7 +3236,6 @@ curl -s localhost:3100/ring | grep -c ACTIVE     <span class="org-comment-delimi
 //   B. &#23487;&#20027;&#26426; systemd journal   (kubelet / containerd / sshd / &#20869;&#26680; &#31561;)
 //   C. &#20844;&#20849;&#22788;&#29702; + &#20889;&#20837; Loki
 //
-// &#26412;&#25991;&#20214;&#30001;&#22806;&#37096; ConfigMap `alloy-config` &#25346;&#36733;&#65292;&#19981;&#22312; Helm values &#37324;&#12290;
 // &#20462;&#25913;&#21518;&#65306;
 //   kubectl create cm alloy-config -n alloy --from-file=config.alloy=config.alloy \
 //     --dry-run=client -o yaml | kubectl apply -f -
@@ -3334,6 +3345,13 @@ loki.process "cri" {
     max_lines     = 200
   }
 
+  // ======================= BEGIN &#20002;&#24323; Loki &#33258;&#36523;&#30340;&#22122;&#22768;&#26085;&#24535; =======================
+  stage.match {
+    selector            = "{namespace=\"loki\"} !~ \"^level=(error|warn)|] +[45][0-9][0-9] \""
+    action              = "drop"
+    drop_counter_reason = "loki_self_noise"
+  }
+  // ======================== END &#20002;&#24323; Loki &#33258;&#36523;&#30340;&#22122;&#22768;&#26085;&#24535; ========================
   // &#26085;&#24535;&#26469;&#28304;&#20998;&#31867;&#65306;pod&#65288;&#24212;&#29992;&#23481;&#22120;&#65289; vs systemd&#65288;&#23487;&#20027;&#26426;&#31995;&#32479;&#26381;&#21153;&#65289;
   stage.static_labels {
     values = {
@@ -3342,8 +3360,6 @@ loki.process "cri" {
   }
 
   // ---- JSON access log &#30340;&#32423;&#21035;&#65306;&#30001; HTTP &#29366;&#24577;&#30721;&#26144;&#23556; ----
-  //
-  // selector &#29992;&#12304;&#34892;&#36807;&#28388;&#22120;&#12305;&#38480;&#23450;&#33539;&#22260;&#65292;&#21482;&#35753;&#12300;&#34892;&#39318;&#26159; { &#19988;&#21547; status &#23383;&#27573;&#12301;&#30340;&#34892;&#36827;&#26469;&#12290;
   stage.match {
     // LogQL &#30340;&#34892;&#36807;&#28388;&#22120;&#12304;&#21482;&#25509;&#21463;&#21452;&#24341;&#21495;&#23383;&#31526;&#20018;&#12305;&#65292;&#20889;&#21453;&#24341;&#21495;&#20250;&#22312; reload &#26102;&#25253;
     // "unexpected IDENTIFIER, expecting STRING"&#65292;&#32780; alloy validate &#26597;&#19981;&#20986;&#26469;&#12290;
@@ -3370,21 +3386,9 @@ loki.process "cri" {
     }
 
     // ---- host &#26631;&#31614;&#65306;&#20445;&#30041;&#30495;&#23454;&#20540; ----
-    //
-    // $host &#21462;&#33258;&#35831;&#27714;&#30340; Host &#22836;&#65292;&#20219;&#20309;&#20154;&#37117;&#33021;&#20219;&#24847;&#21046;&#36896;&#8212;&#8212;&#23454;&#27979;&#21457;
-    // evil.example.com / scanner-test.cn / 1.2.3.4 &#36825;&#20123;&#26080;&#20851; Host&#65292;
-    // &#34429;&#28982; Gateway &#37117;&#36820;&#22238; 404&#65292;$host &#29031;&#26679;&#34987;&#35760;&#36827; access log&#12290;
-    //
-    // &#12304;&#21051;&#24847;&#19981;&#20570;&#30333;&#21517;&#21333;&#24402;&#19968;&#21270;&#12305;&#12290;&#26366;&#32463;&#25226;&#30333;&#21517;&#21333;&#22806;&#30340;&#20540;&#24402;&#25104; _other &#26469;&#25511;&#21046;&#22522;&#25968;&#65292;
-    // &#20294;&#37027;&#26679;&#31561;&#20110;&#25226;&#12300;&#35841;&#22312;&#25195;&#12289;&#25195;&#30340;&#20160;&#20040;&#22495;&#21517;&#12301;&#36825;&#26465;&#23433;&#20840;&#32447;&#32034;&#20002;&#25481;&#8212;&#8212;
-    // evil.example.com &#21644; scanner-test.cn &#21464;&#25104;&#21516;&#19968;&#20010;&#20540;&#65292;&#30475;&#19981;&#20986;&#20219;&#20309;&#19996;&#35199;&#12290;
-    // access log &#30340;&#20215;&#20540;&#20043;&#19968;&#23601;&#26159;&#26292;&#38706;&#24322;&#24120;&#35775;&#38382;&#65292;&#19981;&#35813;&#22312;&#37319;&#38598;&#31471;&#25552;&#21069;&#20002;&#24323;&#12290;
-    //
     // &#22522;&#25968;&#39118;&#38505;&#25913;&#29992;&#12300;&#25252;&#26639; + &#30417;&#25511;&#12301;&#24212;&#23545;&#65306;
     //   - &#36825;&#37324;&#25130;&#26029;&#21040; 253 &#23383;&#31526;&#65288;&#22495;&#21517;&#29702;&#35770;&#26368;&#22823;&#38271;&#24230;&#65289;&#65292;&#38450;&#27490;&#24694;&#24847;&#26500;&#36896;&#30340;&#36229;&#38271; Host
     //     &#39030;&#30772; Loki &#30340; max_label_value_length(2048) &#23548;&#33268;&#25972;&#25209;&#20889;&#20837;&#34987;&#25298;
-    //   - &#37197;&#22871;&#21578;&#35686; GatewayHostCardinalityHigh &#30447;&#20303; host &#22522;&#25968;&#65292;
-    //     &#30495;&#34987;&#25195;&#20102;&#33021;&#21450;&#26102;&#21457;&#29616;&#65288;&#35265; loki/parts/loki-alerts.yaml&#65289;
     stage.template {
       source   = "host_label"
       template = "{{ if .host }}{{ .host | trunc 253 }}{{ end }}"
@@ -3875,7 +3879,7 @@ lq /loki/api/v1/query_range <span class="org-sh-escaped-newline">\</span>
 当前应返回（ <code>__stream_shard__</code> 和 <code>service_name</code> 是 Loki 自动生成的，不是 Alloy 打的）：
 </p>
 
-<pre class="example" id="org4675a08">
+<pre class="example" id="orgd2dfef0">
 container, environment, filename, job, level, namespace, node,
 pod, project, service_name, source, stream, syslog_identifier, unit
 </pre>
@@ -3931,7 +3935,7 @@ lq /loki/api/v1/query_range <span class="org-sh-escaped-newline">\</span>
 Alloy 内置 UI（本集群已通过 LoadBalancer 暴露）：
 </p>
 
-<pre class="example" id="org35518fd">
+<pre class="example" id="org6542a79">
 http://10.0.0.13:12345
 </pre>
 
@@ -4026,7 +4030,7 @@ pgrep -af <span class="org-string">'port-forward.*loki-ruler'</span>    <span cl
 期望输出：
 </p>
 
-<pre class="example" id="org7a967df">
+<pre class="example" id="orge1e57f6">
 HighErrorLogRate         state=inactive  health=ok
 KubeletErrorLogs         state=inactive  health=ok
 NodeLogShippingStalled   state=inactive  health=ok
@@ -4231,7 +4235,7 @@ firing 时的告警内容：
 当前 <code>alertmanager_url</code> 是占位地址，所以 <b>必然</b> 看到：
 </p>
 
-<pre class="example" id="org4ebff3a">
+<pre class="example" id="orgbf67bd3">
 msg="Error sending alerts" alertmanager=http://prom:9093/api/v2/alerts
 err="dial tcp: lookup prom on 10.96.0.10:53: no such host"
 </pre>
@@ -4267,7 +4271,7 @@ err="dial tcp: lookup prom on 10.96.0.10:53: no such host"
 <div id="outline-container-h:1FCC6AAE-AD07-47B8-82E9-D4801CD1C266" class="outline-4">
 <h4 id="h:1FCC6AAE-AD07-47B8-82E9-D4801CD1C266"><a href="#h:1FCC6AAE-AD07-47B8-82E9-D4801CD1C266">一、整体数据流</a></h4>
 <div class="outline-text-4" id="text-h:1FCC6AAE-AD07-47B8-82E9-D4801CD1C266">
-<pre class="example" id="org5708742">
+<pre class="example" id="org7b8fb2f">
                         ┌──────────────── 写路径 ────────────────┐
 
 Alloy (DaemonSet x5)          Alloy-events (Deployment x1)

@@ -119,7 +119,7 @@ K8s 是整个的一个设计是面向状态机的，它里面通过 yaml 的方�
 </p>
 
 
-<figure id="org3bd7202">
+<figure id="orgadfdda8">
 <img style="aspect-ratio:488/207" decoding="async" loading="lazy" src="images/image-20210602142305121.webp" alt="image-20210602142305121.webp">
 
 <figcaption><span class="figure-number">&#22270;1&nbsp; </span>image-20210602142305121</figcaption>
@@ -140,7 +140,7 @@ K8s 是整个的一个设计是面向状态机的，它里面通过 yaml 的方�
 </p>
 
 
-<figure id="org29eb0e4">
+<figure id="orgde57512">
 <img style="aspect-ratio:799/757" decoding="async" loading="lazy" src="images/image-20220205142356334.webp" alt="image-20220205142356334.webp">
 
 <figcaption><span class="figure-number">&#22270;2&nbsp; </span>image-20220205142356334</figcaption>
@@ -734,7 +734,7 @@ Events:
 参考源码：<a href="https://github.com/kubernetes/kubernetes/blob/ea0764452222146c47ec826977f49d7001b0ea8c/pkg/kubelet/images/types.go#L28">https://github.com/kubernetes/kubernetes/blob/ea0764452222146c47ec826977f49d7001b0ea8c/pkg/kubelet/images/types.go#L28</a>
 </p>
 
-<pre class="example" id="org09ed43e">
+<pre class="example" id="orgcc70bcb">
 ImagePullBackOff    通常是镜像名称配置错误或者私有镜像的密钥配置错误导致
 ImageInspectError
 ErrImagePull
@@ -798,7 +798,7 @@ Normal  Pulling pulling image <span class="org-string">"gcr.io/google_containers
 <h4 id="h:c0fae5fa-63ae-4b5f-854b-1b79ce86764d"><a href="#h:c0fae5fa-63ae-4b5f-854b-1b79ce86764d">应用故障排查-常见应用异常</a></h4>
 <div class="outline-text-4" id="text-h:c0fae5fa-63ae-4b5f-854b-1b79ce86764d">
 
-<figure id="org0aad709">
+<figure id="org8fb31e1">
 <img style="aspect-ratio:1207/488" decoding="async" loading="lazy" src="images/image-20210603171021922.webp" alt="image-20210603171021922.webp">
 
 <figcaption><span class="figure-number">&#22270;3&nbsp; </span>image-20210603171021922</figcaption>
@@ -914,7 +914,7 @@ rancher使用了工作负载来代理后端，实际是由rancher维护的servic
 解决：
 </p>
 
-<pre class="example" id="org33e6c7e">
+<pre class="example" id="org6ef9bb9">
 方法1：
 启动rancher，关系自动找到，访问200
 方法2：
@@ -922,7 +922,7 @@ rancher使用了工作负载来代理后端，实际是由rancher维护的servic
 </pre>
 
 
-<figure id="org5817c35">
+<figure id="org8e1fbf4">
 <img style="aspect-ratio:1886/295" decoding="async" loading="lazy" src="images/image-20210422172821008.webp" alt="image-20210422172821008.webp">
 
 <figcaption><span class="figure-number">&#22270;4&nbsp; </span>image-20210422172821008</figcaption>
@@ -949,7 +949,7 @@ Pod ephemeral local storage usage exceeds the total limit of containers
 </p>
 
 
-<figure id="org09a1a20">
+<figure id="orgaf15ec3">
 <img style="aspect-ratio:698/317" decoding="async" loading="lazy" src="images/image-20210602102546327.webp" alt="image-20210602102546327.webp">
 
 <figcaption><span class="figure-number">&#22270;5&nbsp; </span>image-20210602102546327</figcaption>
@@ -986,7 +986,7 @@ Kubernetes 来调度。
 报错信息
 </p>
 
-<pre class="example" id="org127b84f">
+<pre class="example" id="org197a0ad">
 MatchExpressions:[]v1.LabelSelectorRequirement(nil)}: field is immutable
 </pre>
 
@@ -1060,7 +1060,7 @@ callbreak-room-1-6fdb565b8d-5dm2s       0/1     Pending   0          7m55s</span
 </p>
 
 
-<figure id="org58e640e">
+<figure id="org7a21a68">
 <img style="aspect-ratio:606/441" decoding="async" loading="lazy" src="images/image-20220205140033176.webp" alt="image-20220205140033176.webp">
 
 </figure>
@@ -1075,7 +1075,7 @@ callbreak-room-1-6fdb565b8d-5dm2s       0/1     Pending   0          7m55s</span
 </p>
 
 
-<figure id="org6daf73f">
+<figure id="orgb3d8834">
 <img style="aspect-ratio:618/423" decoding="async" loading="lazy" src="images/image-20220205140057695.webp" alt="image-20220205140057695.webp">
 
 </figure>
@@ -1131,7 +1131,7 @@ IP 地址。
 </p>
 
 
-<figure id="org27fb4c1">
+<figure id="org4746be6">
 <img style="aspect-ratio:479/97" decoding="async" loading="lazy" src="images/image-20220205140153795.webp" alt="image-20220205140153795.webp">
 
 <figcaption><span class="figure-number">&#22270;6&nbsp; </span>image-20220205140153795</figcaption>
@@ -1405,7 +1405,7 @@ status:
 查看kubesphere-system的namespace描述
 </p>
 
-<pre class="example" id="orgfaaf686">
+<pre class="example" id="org4714bd8">
 kubectl get ns kubesphere‐system ‐o json &gt; kubesphere‐system.json
 </pre>
 
@@ -1413,7 +1413,7 @@ kubectl get ns kubesphere‐system ‐o json &gt; kubesphere‐system.json
 编辑json文件，删除spec字段的内存，因为k8s集群时需要认证的
 </p>
 
-<pre class="example" id="orga2a1e18">
+<pre class="example" id="org979be0e">
 # vi kubesphere‐system.json
 "spec": {
 "finalizers": [
@@ -1430,7 +1430,7 @@ kubectl get ns kubesphere‐system ‐o json &gt; kubesphere‐system.json
 新开一个窗口运行kubectl proxy跑一个API代理在本地的8081端口
 </p>
 
-<pre class="example" id="org45a1876">
+<pre class="example" id="org37da93c">
 # kubectl proxy ‐‐port=8081
 </pre>
 
@@ -1438,7 +1438,7 @@ kubectl get ns kubesphere‐system ‐o json &gt; kubesphere‐system.json
 最后运行curl命令进行删除
 </p>
 
-<pre class="example" id="org8112a90">
+<pre class="example" id="orgc2ca9e8">
 curl ‐k ‐H "Content‐Type:application/json" ‐X PUT ‐‐data‐binary @kubesphe
 re‐system.json http://127.0.0.1:8081/api/v1/namespaces/kubesphere‐system/fi
 nalize
