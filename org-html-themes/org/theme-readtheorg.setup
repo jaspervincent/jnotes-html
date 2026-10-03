@@ -1,0 +1,40 @@
+# -*- mode: org; -*-
+
+#+OPTIONS: html-style:nil
+
+# AdSense 加载器 2026-10 下线（账号未获批准），后续恢复时取消下面两行的注释。
+# 这里覆盖 4 个设了 html-head:nil 的页面；完整清单见 assets/ADSENSE.md。
+# 注意：那 4 页的 #+SETUPFILE 指向 https://blog.xuchangwei.com/...（Netlify 上的
+# 另一份部署），改这个本地文件不生效，必须同步重新部署那个站点。
+# #+HTML_HEAD: <meta name="google-adsense-account" content="ca-pub-1741779893655624">
+# #+HTML_HEAD: <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1741779893655624" crossorigin="anonymous"></script>
+
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://blog.xuchangwei.com/org-html-themes/src/readtheorg_theme/css/htmlize.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://blog.xuchangwei.com/org-html-themes/src/readtheorg_theme/css/readtheorg.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://blog.xuchangwei.com/org-html-themes/src/readtheorg_theme/css/code-copy.css"/>
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://blog.xuchangwei.com/org-html-themes/src/readtheorg_theme/css/search.css"/>
+#+HTML_HEAD: <script src="https://blog.xuchangwei.com/org-html-themes/src/lib/js/jquery.min.js"></script>
+#+HTML_HEAD: <script src="https://blog.xuchangwei.com/org-html-themes/src/lib/js/bootstrap.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="https://blog.xuchangwei.com/org-html-themes/src/lib/js/jquery.stickytableheaders.min.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="https://blog.xuchangwei.com/org-html-themes/src/readtheorg_theme/js/search.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="https://blog.xuchangwei.com/org-html-themes/src/readtheorg_theme/js/readtheorg.js"></script>
+#+HTML_HEAD: <script type="text/javascript" src="https://blog.xuchangwei.com/org-html-themes/src/readtheorg_theme/js/code-copy.js"></script>
+
+#+MACRO: enable-search #+HTML_HEAD: <script type="text/javascript">enableSearch();</script>
+#+MACRO: disable-search #+HTML_HEAD: <script type="text/javascript">disableSearch();</script>
+#+MACRO: set-search-limit #+HTML_HEAD: <script type="text/javascript">setSearchLimit($1);</script>
+
+* Search Configuration (v1.12)                                        :noexport:
+
+Usage: Optionally place these macros after including this file, before your content.
+
+- {{{enable-search}}} :: Enable search bar (default)
+- {{{disable-search}}} :: Disable search bar
+- {{{set-search-limit(N)}}} :: Limit results to N (default: 0 for no limit)
+
+Example:
+
+#+begin_src org
+{{{enable-search}}}
+{{{set-search-limit(10)}}}
+#+end_src

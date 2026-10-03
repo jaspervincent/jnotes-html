@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Python: Python数据分析与机器学习</title>
+<meta name="generator" content="Org Mode" />
+<script>
+/* main.css 默认把 body 隐藏起来，为的是切换深色模式时不闪白。
+   恢复可见完全交给 CSS 的 html.js:not(.ready) 选择器控制：
+   - 没有 JS：下面这句不会执行，html 上没有 .js，body 一开始就是可见的
+   - 有 JS 但 main.js 加载失败或抛异常：load 事件（或 2 秒兜底）照样会加上 .ready
+   任何一条路径都不会留下白屏。 */
+(function () {
+  var el = document.documentElement;
+  el.className += ' js';
+  function reveal() { el.className += ' ready'; }
+  window.addEventListener('load', reveal);
+  setTimeout(reveal, 2000);
+})();
+</script>
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="alternate" type="application/rss+xml" title="Jasper Hsu's Blog" href="https://xuchangwei.com/rss.xml">
+<link rel="me" href="https://emacs.ch/@jasperhsu">
+
+<!-- AdSense 加载器原本在这里，2026-10 下线。恢复步骤见 assets/ADSENSE.md
+     （本文件会被注入每一页的 <head>，所以细节不写在这儿）。 -->
+
+<!-- from -->
+<!--
+<style>#back-to-top{background:#000;-webkit-border-radius:50%;-moz-border-radius:50%;border-radius:50%;bottom:20px;-webkit-box-shadow:0 2px 5px 0 rgba(0,0,0,.26);-moz-box-shadow:0 2px 5px 0 rgba(0,0,0,.26);box-shadow:0 2px 5px 0 rgba(0,0,0,.26);color:#fff;cursor:pointer;display:block;height:56px;opacity:1;outline:0;position:fixed;right:20px;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;-webkit-transition:bottom .2s,opacity .2s;-o-transition:bottom .2s,opacity .2s;-moz-transition:bottom .2s,opacity .2s;transition:bottom .2s,opacity .2s;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;width:56px;z-index:1}#back-to-top svg{display:block;fill:currentColor;height:24px;margin:16px auto 0;width:24px}#back-to-top.hidden{bottom:-56px;opacity:0}</style>
+-->
+<!-- Bootstrap 必须排在 main.css 之前 —— main.css 里有覆盖它的规则
+     （如 body.dark-theme .form-control）。见 assets/static/vendor/README.md -->
+<link rel="stylesheet" href="/static/vendor/bootstrap.min.css">
+<link rel="stylesheet" href="/static/distro-htmlize.css">
+<link rel="stylesheet" href="/static/aandds.com/css/main.css">
+<link rel="stylesheet" href="/static/aandds.com/css/drollery.min.css">
+<script type="text/javascript" src="/static/aandds.com/js/main.js"></script>
+<meta name="description" content="数据分析线性回归原理推导 · 线性回归代码实现 · 数据分析模型评估方法 · 线性回归实验分析 · 线性回归原理推导 · 逻辑回归代码实现 · 逻辑回归实验分析 · 聚类算法-Kmeans&amp;Dbscan原理 · Kmeans 代码实现" />
+<link rel="canonical" href="https://xuchangwei.com/python/python-note/25Python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/25Python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.html" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Python: Python数据分析与机器学习" />
+<meta property="og:description" content="数据分析线性回归原理推导 · 线性回归代码实现 · 数据分析模型评估方法 · 线性回归实验分析 · 线性回归原理推导 · 逻辑回归代码实现 · 逻辑回归实验分析 · 聚类算法-Kmeans&amp;Dbscan原理 · Kmeans 代码实现" />
+<meta property="og:url" content="https://xuchangwei.com/python/python-note/25Python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/25Python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.html" />
+<meta property="og:site_name" content="Jasper Hsu&apos;s Blog" />
+<meta name="twitter:card" content="summary" />
+<script type="application/ld+json">{"@context":"https://schema.org","url":"https://xuchangwei.com/python/python-note/25Python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/25Python%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90%E4%B8%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0.html","@type":"WebPage","name":"Python: Python数据分析与机器学习","description":"数据分析线性回归原理推导 · 线性回归代码实现 · 数据分析模型评估方法 · 线性回归实验分析 · 线性回归原理推导 · 逻辑回归代码实现 · 逻辑回归实验分析 · 聚类算法-Kmeans&Dbscan原理 · Kmeans 代码实现"}</script>
+</head>
+<body>
+<div id="content" class="content">
+<header>
+<h1 class="title">Python: Python数据分析与机器学习</h1>
+</header><nav id="table-of-contents" role="doc-toc">
+<h2>&#30446;&#24405;</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orga97c81c">数据分析线性回归原理推导</a></li>
+<li><a href="#org7dd738c">线性回归代码实现</a></li>
+<li><a href="#org812ac4f">数据分析模型评估方法</a></li>
+<li><a href="#orgf398065">线性回归实验分析</a></li>
+<li><a href="#orgc7080d4">线性回归原理推导</a></li>
+<li><a href="#org12f948d">逻辑回归代码实现</a></li>
+<li><a href="#org0574e94">逻辑回归实验分析</a></li>
+<li><a href="#org1df36e2">聚类算法-Kmeans&amp;Dbscan原理</a></li>
+<li><a href="#org81af75a">Kmeans 代码实现</a></li>
+<li><a href="#orgc1a789b">聚类算法实验分析</a></li>
+<li><a href="#org30cb85d">决策树原理</a></li>
+<li><a href="#org808e978">决策树代码实现</a></li>
+<li><a href="#org1d788c8">决策树实验分析</a></li>
+<li><a href="#org7040741">集成算法原理</a></li>
+<li><a href="#orgc3852dc">聚类算法实验分析</a></li>
+<li><a href="#orgd71981b">支持向量机原理推导</a></li>
+<li><a href="#orge45fdd0">支持向量机实验分析</a></li>
+<li><a href="#org4827921">神经网络算法原理</a></li>
+<li><a href="#orgc37159a">神经网络代码实现</a></li>
+<li><a href="#org60a5d12">贝叶斯算法原理</a></li>
+<li><a href="#orgddd4632">贝叶斯代码实现</a></li>
+<li><a href="#org78c278f">关联规则实战分析</a></li>
+<li><a href="#org6e1954c">关联规则代码实现</a></li>
+<li><a href="#org924faec">词向量 wordablevec 通俗解读</a></li>
+<li><a href="#org1bd020e">代码实现 wordablevec 词向量模型</a></li>
+<li><a href="#orgade958b">推荐系统原理分析</a></li>
+<li><a href="#orgc51ded1">打造音乐推荐系统</a></li>
+<li><a href="#org30f3be7">线性判别分析降维算法原理解读</a></li>
+<li><a href="#orgd469f05">主成分分析降维算法原理解读</a></li>
+<li><a href="#orgc8f3dab">隐马尔科夫模型</a></li>
+<li><a href="#org2780d3c">HMM 应用实例</a></li>
+</ul>
+</div>
+</nav>
+<ul class="org-ul">
+<li>TAGS: <a href="../../index.html">Python</a></li>
+</ul>
+<section id="outline-container-orga97c81c" class="outline-2">
+<h2 id="orga97c81c"><a href="#orga97c81c">数据分析线性回归原理推导</a></h2>
+</section>
+
+<section id="outline-container-org7dd738c" class="outline-2">
+<h2 id="org7dd738c"><a href="#org7dd738c">线性回归代码实现</a></h2>
+</section>
+
+<section id="outline-container-org812ac4f" class="outline-2">
+<h2 id="org812ac4f"><a href="#org812ac4f">数据分析模型评估方法</a></h2>
+</section>
+
+<section id="outline-container-orgf398065" class="outline-2">
+<h2 id="orgf398065"><a href="#orgf398065">线性回归实验分析</a></h2>
+</section>
+
+<section id="outline-container-orgc7080d4" class="outline-2">
+<h2 id="orgc7080d4"><a href="#orgc7080d4">线性回归原理推导</a></h2>
+</section>
+
+<section id="outline-container-org12f948d" class="outline-2">
+<h2 id="org12f948d"><a href="#org12f948d">逻辑回归代码实现</a></h2>
+</section>
+
+<section id="outline-container-org0574e94" class="outline-2">
+<h2 id="org0574e94"><a href="#org0574e94">逻辑回归实验分析</a></h2>
+</section>
+
+<section id="outline-container-org1df36e2" class="outline-2">
+<h2 id="org1df36e2"><a href="#org1df36e2">聚类算法-Kmeans&amp;Dbscan原理</a></h2>
+</section>
+
+<section id="outline-container-org81af75a" class="outline-2">
+<h2 id="org81af75a"><a href="#org81af75a">Kmeans 代码实现</a></h2>
+</section>
+
+<section id="outline-container-orgc1a789b" class="outline-2">
+<h2 id="orgc1a789b"><a href="#orgc1a789b">聚类算法实验分析</a></h2>
+</section>
+
+<section id="outline-container-org30cb85d" class="outline-2">
+<h2 id="org30cb85d"><a href="#org30cb85d">决策树原理</a></h2>
+</section>
+
+<section id="outline-container-org808e978" class="outline-2">
+<h2 id="org808e978"><a href="#org808e978">决策树代码实现</a></h2>
+</section>
+
+<section id="outline-container-org1d788c8" class="outline-2">
+<h2 id="org1d788c8"><a href="#org1d788c8">决策树实验分析</a></h2>
+</section>
+
+<section id="outline-container-org7040741" class="outline-2">
+<h2 id="org7040741"><a href="#org7040741">集成算法原理</a></h2>
+</section>
+
+<section id="outline-container-orgc3852dc" class="outline-2">
+<h2 id="orgc3852dc"><a href="#orgc3852dc">聚类算法实验分析</a></h2>
+</section>
+
+<section id="outline-container-orgd71981b" class="outline-2">
+<h2 id="orgd71981b"><a href="#orgd71981b">支持向量机原理推导</a></h2>
+</section>
+
+<section id="outline-container-orge45fdd0" class="outline-2">
+<h2 id="orge45fdd0"><a href="#orge45fdd0">支持向量机实验分析</a></h2>
+</section>
+
+<section id="outline-container-org4827921" class="outline-2">
+<h2 id="org4827921"><a href="#org4827921">神经网络算法原理</a></h2>
+</section>
+
+<section id="outline-container-orgc37159a" class="outline-2">
+<h2 id="orgc37159a"><a href="#orgc37159a">神经网络代码实现</a></h2>
+</section>
+
+<section id="outline-container-org60a5d12" class="outline-2">
+<h2 id="org60a5d12"><a href="#org60a5d12">贝叶斯算法原理</a></h2>
+</section>
+
+<section id="outline-container-orgddd4632" class="outline-2">
+<h2 id="orgddd4632"><a href="#orgddd4632">贝叶斯代码实现</a></h2>
+</section>
+
+<section id="outline-container-org78c278f" class="outline-2">
+<h2 id="org78c278f"><a href="#org78c278f">关联规则实战分析</a></h2>
+</section>
+
+<section id="outline-container-org6e1954c" class="outline-2">
+<h2 id="org6e1954c"><a href="#org6e1954c">关联规则代码实现</a></h2>
+</section>
+
+<section id="outline-container-org924faec" class="outline-2">
+<h2 id="org924faec"><a href="#org924faec">词向量 wordablevec 通俗解读</a></h2>
+</section>
+
+<section id="outline-container-org1bd020e" class="outline-2">
+<h2 id="org1bd020e"><a href="#org1bd020e">代码实现 wordablevec 词向量模型</a></h2>
+</section>
+
+<section id="outline-container-orgade958b" class="outline-2">
+<h2 id="orgade958b"><a href="#orgade958b">推荐系统原理分析</a></h2>
+</section>
+
+<section id="outline-container-orgc51ded1" class="outline-2">
+<h2 id="orgc51ded1"><a href="#orgc51ded1">打造音乐推荐系统</a></h2>
+</section>
+
+<section id="outline-container-org30f3be7" class="outline-2">
+<h2 id="org30f3be7"><a href="#org30f3be7">线性判别分析降维算法原理解读</a></h2>
+</section>
+
+<section id="outline-container-orgd469f05" class="outline-2">
+<h2 id="orgd469f05"><a href="#orgd469f05">主成分分析降维算法原理解读</a></h2>
+</section>
+
+<section id="outline-container-orgc8f3dab" class="outline-2">
+<h2 id="orgc8f3dab"><a href="#orgc8f3dab">隐马尔科夫模型</a></h2>
+</section>
+
+<section id="outline-container-org2780d3c" class="outline-2">
+<h2 id="org2780d3c"><a href="#org2780d3c">HMM 应用实例</a></h2>
+</section>
+</div>
+<div id="postamble" class="status">
+<!-- 这里曾经放过手动 AdSense 广告位。后改为自动广告（页面上不写 <ins>），
+     2026-10 广告整体下线。见 assets/ADSENSE.md。 -->
+<script type="text/javascript" src="/static/aandds.com/js/postamble.js"></script>
+</div>
+</body>
+</html>
