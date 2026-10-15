@@ -70,6 +70,7 @@
 </li>
 <li><a href="#h:422c3403-d792-4612-af97-a6e315c98fe2">docker</a>
 <ul>
+<li><a href="#org5c62495">Aliyun linux</a></li>
 <li><a href="#h:f07a7081-7604-4be8-93b4-b882fe9efed3">Amazon linux 2023 Docker 和 Docker Compose</a></li>
 </ul>
 </li>
@@ -319,6 +320,15 @@ eof
 mvn -v
 </pre>
 </div>
+
+
+<p>
+openjdk
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">dnf -y install java-21-openjdk java-21-openjdk-devel fontconfig
+</pre>
+</div>
 </div>
 </div>
 <div id="outline-container-h:adfd97a2-e607-46d3-82da-1e8994931880" class="outline-3">
@@ -406,6 +416,29 @@ cat /etc/docker/daemon.json
 }
 sudo systemctl restart docker
 </pre>
+</div>
+</div>
+<div id="outline-container-org5c62495" class="outline-3">
+<h3 id="org5c62495"><a href="#org5c62495">Aliyun linux</a></h3>
+<div class="outline-text-3" id="text-org5c62495">
+<ul class="org-ul">
+<li><a href="https://help.aliyun.com/zh/ecs/user-guide/install-and-use-docker">https://help.aliyun.com/zh/ecs/user-guide/install-and-use-docker</a></li>
+</ul>
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter">#</span><span class="org-comment">&#28155;&#21152; Docker-ce &#36719;&#20214;&#21253;&#28304;
+</span>sudo wget -O /etc/yum.repos.d/docker-ce.repo http://mirrors.cloud.aliyuncs.com/docker-ce/linux/centos/docker-ce.repo
+sudo sed -i <span class="org-string">'s|https://mirrors.aliyun.com|http://mirrors.cloud.aliyuncs.com|g'</span> /etc/yum.repos.d/docker-ce.repo
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#29992;&#25143;&#38656;&#35201;&#33258;&#34892;&#36873;&#25321;&#23433;&#35013; centos &#30340;&#21738;&#20010;&#29256;&#26412;&#65292;&#27604;&#22914;&#65306;centos9 &#36824;&#26159; centos10&#65292;&#20877;&#20915;&#23450;&#23558; releasesever &#26367;&#25442;&#25104;&#21738;&#20010;&#29256;&#26412;
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">&#22914;&#26524;&#26356;&#25442; centos 9&#65292;&#21017;&#25191;&#34892;&#65306;
+</span>sudo sed -i <span class="org-string">'s|$releasever|9|'</span> /etc/yum.repos.d/docker-ce.repo
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#22914;&#26524;&#26356;&#25442; centos10, &#21017;&#25191;&#34892;&#65306;
+</span>sudo sed -i <span class="org-string">'s|$releasever|10|'</span> /etc/yum.repos.d/docker-ce.repo
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#23433;&#35013;Docker&#31038;&#21306;&#29256;&#26412;&#65292;&#23481;&#22120;&#36816;&#34892;&#26102;containerd.io&#65292;&#20197;&#21450;Docker&#26500;&#24314;&#21644;Compose&#25554;&#20214;
+</span>sudo dnf -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+</pre>
+</div>
 </div>
 </div>
 <div id="outline-container-h:f07a7081-7604-4be8-93b4-b882fe9efed3" class="outline-3">
@@ -1292,7 +1325,7 @@ docker compose up -d
 <p>
 默认管理员用户：
 </p>
-<pre class="example" id="org467df60">
+<pre class="example" id="org6222f34">
 Email:    admin@example.com
 Password: changeme
 </pre>
@@ -2989,7 +3022,14 @@ sudo dnf upgrade
 sudo systemctl daemon-reload
 
 <span class="org-comment-delimiter">#</span><span class="org-comment">&#23433;&#35013;jdk
-</span>
+</span>dnf -y install java-21-openjdk java-21-openjdk-devel fontconfig
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">
+</span><span class="org-variable-name">JENKINS_VERSION</span>=2.580.1
+
+mkdir /opt/jenkins &amp;&amp; <span class="org-builtin">cd</span> /opt/jenkins
+wget https://get.jenkins.io/war-stable/${<span class="org-variable-name">JENKINS_VERSION</span>}/jenkins.war
+
 cat &lt;&lt;\EOF&gt; restart_jenkins.sh <span class="org-sh-heredoc">
 source /etc/profile
 
@@ -3014,9 +3054,11 @@ EOF</span>
 <pre class="src src-sh">mkdir -pv /var/log/jenkins
 mkdir /var/cache/jenkins
 mkdir -pv /usr/share/java/
-curl -o /usr/share/java/jenkins.war  https://mirror.ossplanet.net/jenkins/war-stable/2.479.2/jenkins.war
+mkdir -pv /data/jenkins
+mkdir /opt/jenkins &amp;&amp; <span class="org-builtin">cd</span> /opt/jenkins
+curl -o /opt/jenkins/jenkins.war  https://mirror.ossplanet.net/jenkins/war-stable/${<span class="org-variable-name">JENKINS_VERSION</span>}/jenkins.war
 
-cat &lt;&lt;\EOF&gt; /usr/lib/systemd/system/jenkins.service<span class="org-sh-heredoc">
+cat &lt;&lt;\EOF&gt; /lib/systemd/system/jenkins.service<span class="org-sh-heredoc">
 [Unit]
 Description=Jenkins Continuous Integration Server
 Requires=network.target
@@ -3027,8 +3069,9 @@ StartLimitIntervalSec=5m
 [Service]
 Type=notify
 NotifyAccess=main
-ExecStart=/usr/local/jdk-21.0.5/bin/java ${java_opts_tmp} -DJENKINS_HOME=/data/jenkins -jar ${jenkins_war_tmp} ${inferred_jenkins_opts}
-#Restart=on-failure
+ExecStart=/usr/bin/java ${java_opts_tmp} -DJENKINS_HOME=/data/jenkins -jar ${jenkins_war_tmp} ${inferred_jenkins_opts}
+Restart=always
+RestartSec=10s
 SuccessExitStatus=143
 
 TimeoutStartSec=90
@@ -3041,9 +3084,9 @@ Group=root
 Environment="JENKINS_HOME=/data/jenkins"
 WorkingDirectory=/data/jenkins
 
-Environment="java_cmd=/usr/local/jdk-21.0.5/bin/java"
-Environment='java_opts_tmp=-Djava.awt.headless=true -Dhudson.model.DownloadService.noSignatureCheck=true -Djenkin.install.runSetupWizard=false'
-Environment="jenkins_war_tmp=/usr/share/java/jenkins.war"
+Environment="java_cmd=/usr/bin/java"
+Environment='java_opts_tmp=-Djava.awt.headless=true -Dhudson.model.DownloadService.noSignatureCheck=true'
+Environment="jenkins_war_tmp=/opt/jenkins/jenkins.war"
 Environment="inferred_jenkins_opts=--webroot=/var/cache/jenkins/war --logfile=/var/log/jenkins/jenkins.log --httpPort=8080 --debug=5"
 
 LimitCORE=infinity
@@ -3055,6 +3098,8 @@ LimitNPROC=32768
 WantedBy=multi-user.target
 EOF
 </span>
+systemctl daemon-reload
+systemctl reset-failed jenkins
 systemctl start jenkins
 </pre>
 </div>
@@ -3988,7 +4033,7 @@ EOF</span>
 <p>
 vaules.yaml
 </p>
-<pre class="example" id="orgd29e34c">
+<pre class="example" id="org647357c">
 prometheus:
   prometheusSpec:
     enableAdminAPI: true

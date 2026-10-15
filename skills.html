@@ -37,15 +37,15 @@
 <link rel="stylesheet" href="/static/aandds.com/css/main.css">
 <link rel="stylesheet" href="/static/aandds.com/css/drollery.min.css">
 <script type="text/javascript" src="/static/aandds.com/js/main.js"></script>
-<meta name="description" content="linux: SRE 相关技术 · 前端: 前端相关技术 · 计算机网络 · 安全 · 逆向 · Web3 · others: 杂项 · 开发语言 Assembly · C++ · Lisp · Python · Go · Rust · Chinese 易语言" />
+<meta name="description" content="linux: SRE 相关技术 · 前端: 前端相关技术 · 计算机网络 · 安全 · 逆向 · Web3 · SEO · others: 杂项 · 开发语言 Assembly · C++ · Lisp · Python · Go · Rust" />
 <link rel="canonical" href="https://xuchangwei.com/skills.html" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="技能" />
-<meta property="og:description" content="linux: SRE 相关技术 · 前端: 前端相关技术 · 计算机网络 · 安全 · 逆向 · Web3 · others: 杂项 · 开发语言 Assembly · C++ · Lisp · Python · Go · Rust · Chinese 易语言" />
+<meta property="og:description" content="linux: SRE 相关技术 · 前端: 前端相关技术 · 计算机网络 · 安全 · 逆向 · Web3 · SEO · others: 杂项 · 开发语言 Assembly · C++ · Lisp · Python · Go · Rust" />
 <meta property="og:url" content="https://xuchangwei.com/skills.html" />
 <meta property="og:site_name" content="Jasper Hsu&apos;s Blog" />
 <meta name="twitter:card" content="summary" />
-<script type="application/ld+json">{"@context":"https://schema.org","url":"https://xuchangwei.com/skills.html","@type":"WebPage","name":"技能","description":"linux: SRE 相关技术 · 前端: 前端相关技术 · 计算机网络 · 安全 · 逆向 · Web3 · others: 杂项 · 开发语言 Assembly · C++ · Lisp · Python · Go · Rust · Chinese 易语言"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","url":"https://xuchangwei.com/skills.html","@type":"WebPage","name":"技能","description":"linux: SRE 相关技术 · 前端: 前端相关技术 · 计算机网络 · 安全 · 逆向 · Web3 · SEO · others: 杂项 · 开发语言 Assembly · C++ · Lisp · Python · Go · Rust"}</script>
 </head>
 <body>
 <div id="content" class="content">
@@ -62,6 +62,7 @@
 <li><a href="safe/index.html">安全</a></li>
 <li><a href="reverse/index.html">逆向</a></li>
 <li><a href="web3/index.html">Web3</a></li>
+<li><a href="seo/index.html">SEO</a></li>
 <li><a href="others/index.html">others</a>: 杂项</li>
 <li>开发语言
 <ul class="org-ul">
@@ -84,23 +85,20 @@
 <p>
 当下最流行的技术
 </p>
-<iframe id="iframe-content" src="https://survey.stackoverflow.co/" width="100%" height="500px" style="border: 1px solid"></iframe>
+<ul>
+  <li><a id="survey-link" href="https://survey.stackoverflow.co/" target="_blank" rel="noopener noreferrer">Stack Overflow Developer Survey</a></li>
+</ul>
 
 <script>
   // 获取当前年份
   var currentYear = new Date().getFullYear();
   const lastYear = currentYear - 1;
-  
-  // 将年份插入到iframe的src属性中
+
+  // 将年份插入到链接的 href 中
   document.addEventListener("DOMContentLoaded", function() {
-    var iframe = document.getElementById('iframe-content');
-    iframe.src = 'https://survey.stackoverflow.co/' + lastYear + '/technology';
-  });
-  document.addEventListener('DOMContentLoaded', function() {
-    let iframe = document.getElementById('iframe-content');
-    let noscript = document.querySelector('noscript');
-    iframe.style.display = 'block';
-    noscript.style.display = 'none';
+    var link = document.getElementById('survey-link');
+    link.href = 'https://survey.stackoverflow.co/' + lastYear + '/technology';
+    link.textContent = lastYear + ' Stack Overflow 开发者调查 · Technology';
   });
 </script>
 </div>

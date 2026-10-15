@@ -105,17 +105,26 @@ git config core.sshCommand <span class="org-string">"ssh -i ${tmp_path}/id_rsa"<
 <div class="outline-text-3" id="text-h:8B68A649-7EA5-49AA-AB0D-7E0731ABA443">
 <div class="org-src-container">
 <pre class="src src-shell"><span class="org-comment-delimiter">#</span><span class="org-comment">&#24314;&#23396;&#20799;&#20998;&#25903;&#8212;&#8212;&#23427;&#27809;&#26377;&#29238;&#25552;&#20132;&#65292;&#25152;&#20197;&#21382;&#21490;&#20174;&#38646;&#24320;&#22987;&#65306;
-</span>git checkout --orphan squashed-main   <span class="org-comment-delimiter"># </span><span class="org-comment">&#26032;&#24314;&#26080;&#21382;&#21490;&#30340;&#20998;&#25903;&#65292;&#24037;&#20316;&#21306;&#25991;&#20214;&#20445;&#25345;&#19981;&#21464;
-</span>git add -A
-git commit -m <span class="org-string">"Initial commit"</span>        <span class="org-comment-delimiter"># </span><span class="org-comment">&#36825;&#26159;&#20840;&#20179;&#24211;&#21807;&#19968;&#30340;&#25552;&#20132;
-</span>git branch -M squashed-main main      <span class="org-comment-delimiter"># </span><span class="org-comment">&#29992;&#23427;&#35206;&#30422;&#26412;&#22320; main
-</span>git push --force origin main          <span class="org-comment-delimiter"># </span><span class="org-comment">&#24378;&#25512;&#35206;&#30422;&#36828;&#31243;&#21382;&#21490;
+</span><span class="org-builtin">set</span> -e
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#21462;&#20986;&#36828;&#31471;&#40664;&#35748;&#20998;&#25903;&#21517;&#65292;&#23384;&#36827;&#21464;&#37327; BR
+</span><span class="org-variable-name">BR</span>=$(git symbolic-ref --short refs/remotes/origin/HEAD | sed <span class="org-string">'s|^origin/||'</span>)
+git checkout <span class="org-string">"$BR"</span>
+git branch backup-old-history            <span class="org-comment-delimiter"># </span><span class="org-comment">&#20445;&#38505;&#65292;&#30830;&#35748;&#26080;&#35823;&#21518;&#20877;&#21024;
 </span>
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#21487;&#36873;&#25910;&#23614;&#65288;&#35753;&#26412;&#22320;&#20063;&#30495;&#27491;&#37322;&#25918;&#26087;&#23545;&#35937;&#65292;&#19981;&#28982;&#26087;&#25552;&#20132;&#36824;&#36538;&#22312; .git &#37324;&#65289;&#65306;
+<span class="org-variable-name">NEW</span>=$(git commit-tree HEAD^{tree} -m <span class="org-string">"Initial commit"</span>)
+git reset --hard <span class="org-string">"$NEW"</span>
+git push --force-with-lease origin <span class="org-string">"$BR"</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#30830;&#35748;&#36828;&#31471;&#21482;&#21097;&#19968;&#26465;
+</span>git fetch origin --prune &amp;&amp; git log --oneline origin/<span class="org-string">"$BR"</span>
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#30830;&#35748;&#27809;&#38382;&#39064;&#21518;&#20877;&#28165;&#26412;&#22320;&#65288;&#36825;&#27493;&#19981;&#21487;&#36870;&#65289;&#65306;
 </span>
-git reflog expire --expire=now --all
-git gc --prune=now                    <span class="org-comment-delimiter"># </span><span class="org-comment">&#25226;&#23427;&#20204;&#20174;&#26412;&#22320;&#21024;&#25481;
-</span>
+git branch -D backup-old-history
+git tag -l | xargs -r git tag -d        <span class="org-comment-delimiter"># </span><span class="org-comment">tag &#20250;&#38025;&#20303;&#26087;&#25552;&#20132;
+</span>git reflog expire --expire=now --all
+git gc --prune=now --aggressive
+
 <span class="org-comment-delimiter">#</span><span class="org-comment">&#31561; GitHub &#33258;&#24049;&#30340; GC &#25165;&#30495;&#27491;&#22238;&#25910;&#12290;&#21035;&#20154;&#25289;&#21482;&#20250;&#25289;&#21040;&#36825;&#19968;&#27425;&#25552;&#20132;&#30340;&#25968;&#25454;&#12290;</span>
 </pre>
 </div>

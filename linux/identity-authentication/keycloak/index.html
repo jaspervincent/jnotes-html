@@ -56,12 +56,12 @@
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
 <li><a href="#h:a154132d-f331-40a6-88d3-22753f749f42">安装</a></li>
-<li><a href="#org6ab9c20">配置</a>
+<li><a href="#org17b20fd">配置</a>
 <ul>
-<li><a href="#org0cf7fdb">实验</a></li>
+<li><a href="#org7c7a140">实验</a></li>
 </ul>
 </li>
-<li><a href="#orgcc978b6">认证</a>
+<li><a href="#org5a879ca">认证</a>
 <ul>
 <li><a href="#h:b239a506-32c5-4eac-ada5-48cda667daa5">grafana 认证</a>
 <ul>
@@ -69,7 +69,7 @@
 <li><a href="#h:ed583581-db07-4313-9664-159309fb1b24">grafana配置</a></li>
 </ul>
 </li>
-<li><a href="#orgaddf676">jenkin认证</a></li>
+<li><a href="#orgd448a96">jenkin认证</a></li>
 </ul>
 </li>
 </ul>
@@ -104,7 +104,7 @@
 <p>
 nginx keycloak代理变量
 </p>
-<pre class="example" id="org1c139df">
+<pre class="example" id="orgb767327">
 KC_PROXY_HEADERS=xforwarded
 KC_HOSTNAME=https://keycloak.online.local
 KC_HTTP_ENABLED=true  
@@ -128,9 +128,9 @@ KC_HTTP_ENABLED=true
 </div>
 </div>
 </section>
-<section id="outline-container-org6ab9c20" class="outline-2">
-<h2 id="org6ab9c20"><a href="#org6ab9c20">配置</a></h2>
-<div class="outline-text-2" id="text-org6ab9c20">
+<section id="outline-container-org17b20fd" class="outline-2">
+<h2 id="org17b20fd"><a href="#org17b20fd">配置</a></h2>
+<div class="outline-text-2" id="text-org17b20fd">
 <p>
 文档：<a href="https://www.keycloak.org/documentation.html">https://www.keycloak.org/documentation.html</a>
 </p>
@@ -159,9 +159,9 @@ container配置： <a href="https://www.keycloak.org/server/containers">https://
 导入导出领域配置： <a href="https://www.keycloak.org/server/importExport">https://www.keycloak.org/server/importExport</a>
 </p>
 </div>
-<div id="outline-container-org0cf7fdb" class="outline-3">
-<h3 id="org0cf7fdb"><a href="#org0cf7fdb">实验</a></h3>
-<div class="outline-text-3" id="text-org0cf7fdb">
+<div id="outline-container-org7c7a140" class="outline-3">
+<h3 id="org7c7a140"><a href="#org7c7a140">实验</a></h3>
+<div class="outline-text-3" id="text-org7c7a140">
 <p>
 <b>创建realm</b>
 </p>
@@ -185,7 +185,7 @@ Users&#x2013;&gt;Create new user &#x2013;Name(save) &#x2013;&gt;Credentials(Set 
 <p>
 如用户test
 </p>
-<pre class="example" id="org2dafe16">
+<pre class="example" id="orgb40de42">
 Username: test
 Email: test@test.com
 Firt name: my
@@ -264,9 +264,9 @@ Realm setting &#x2013;&gt; Localization &#x2013;&gt; Locales 启动
 </div>
 </div>
 </section>
-<section id="outline-container-orgcc978b6" class="outline-2">
-<h2 id="orgcc978b6"><a href="#orgcc978b6">认证</a></h2>
-<div class="outline-text-2" id="text-orgcc978b6">
+<section id="outline-container-org5a879ca" class="outline-2">
+<h2 id="org5a879ca"><a href="#org5a879ca">认证</a></h2>
+<div class="outline-text-2" id="text-org5a879ca">
 </div>
 <div id="outline-container-h:b239a506-32c5-4eac-ada5-48cda667daa5" class="outline-3">
 <h3 id="h:b239a506-32c5-4eac-ada5-48cda667daa5"><a href="#h:b239a506-32c5-4eac-ada5-48cda667daa5">grafana 认证</a></h3>
@@ -428,9 +428,9 @@ grafana.ini
 </div>
 </div>
 </div>
-<div id="outline-container-orgaddf676" class="outline-3">
-<h3 id="orgaddf676"><a href="#orgaddf676">jenkin认证</a></h3>
-<div class="outline-text-3" id="text-orgaddf676">
+<div id="outline-container-orgd448a96" class="outline-3">
+<h3 id="orgd448a96"><a href="#orgd448a96">jenkin认证</a></h3>
+<div class="outline-text-3" id="text-orgd448a96">
 <p>
 1.登录Keycloak，在对应Realm领域中创建Client客户端, 如jenkins
 </p>
@@ -439,7 +439,7 @@ grafana.ini
 配置好，在右上角操作选项中点击下载配置(Download adapter config)，复制内容。
 </p>
 
-<pre class="example" id="orgfc5980e">
+<pre class="example" id="orge409f36">
 {
   "realm": "myrealm",
   "auth-server-url": "http://10.0.0.128:8080/",

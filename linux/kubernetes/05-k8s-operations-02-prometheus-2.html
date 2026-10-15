@@ -409,7 +409,7 @@ Container CPU Usage
 <li>When Container CPU Usage Greater than 80%，Meet the alarm conditions。</li>
 </ul>
 
-<pre class="example" id="org0e56901">
+<pre class="example" id="org5c40e8e">
 Namespace: {{$labels.namespace}} / Pod: {{$labels.pod_name}} / Container: {{$labels.container}} CPU Usage{{$labels.metrics_params_opt_label_value}} {{$labels.metrics_params_value}}%, Current value{{ printf "%.2f" $value }}%
 </pre>
 
@@ -423,7 +423,7 @@ Pod Status Abnormal
 When Pod status abnormal ，Meet the alarm conditions。
 </p>
 
-<pre class="example" id="org8112f3c">
+<pre class="example" id="orgcd8179f">
 Namespace: {{$labels.namespace}}/Pod: {{$labels.pod_name}} Stay in {{$labels.phase}} State for more than 10 minutes
 </pre></li>
 </ul>
@@ -438,7 +438,7 @@ Pod Startup Timeout Failure_
 When Pod Startup Timeout Failure ，Meet the alarm conditions。
 </p>
 
-<pre class="example" id="org25e400f">
+<pre class="example" id="org8254872">
 Namespace: {{$labels.namespace}}/Pod: {{$labels.pod_name}}Failed to start for more than 15 minutes，Wait reason {{$labels.reason}}
 </pre></li>
 </ul>
@@ -604,7 +604,7 @@ Deployment {{ $labels.namespace }}/{{ $labels.deployment }} replicas mismatch
 </pre>
 </div>
 
-<pre class="example" id="org29c1e5d">
+<pre class="example" id="org5f23450">
 集群无状态应用Deployment副本拉起异常，命名空间: {{$labels.namespace}}，Deployment: {{$labels.deployment}}
 </pre></li>
 </ul>
@@ -640,7 +640,7 @@ Job {{ $labels.namespace }}/{{ $labels.job_name }} failed to complete
 当 集群Job运行失败次数 大于 0 次时，满足告警条件。
 </p>
 
-<pre class="example" id="orga2f1d0a">
+<pre class="example" id="org5a4beac">
 集群Job执行失败。命名空间: {{$labels.namespace}}/Job: {{$labels.job_name}}
 </pre></li>
 </ul>
@@ -676,7 +676,7 @@ Job Execution Failed
 When Job execution failed，Meet the alarm conditions。
 </p>
 
-<pre class="example" id="org337fac2">
+<pre class="example" id="org24e2637">
 Namespace: {{$labels.namespace}}/Job: {{$labels.job_name}} Execution Failed
 </pre></li>
 
@@ -688,7 +688,7 @@ Namespace: {{$labels.namespace}}/Job: {{$labels.job_name}} Execution Failed
 当 集群守护进程集Daemonset调度异常 错误数 大于 0时，满足告警条件。
 </p>
 
-<pre class="example" id="org3742250">
+<pre class="example" id="org43e3e91">
 集群守护进程集Daemonset调度异常
 </pre></li>
 
@@ -700,7 +700,7 @@ Namespace: {{$labels.namespace}}/Job: {{$labels.job_name}} Execution Failed
 当 集群守护进程集Daemonset调度运行状态异常 错误率 大于 0%时，满足告警条件。
 </p>
 
-<pre class="example" id="org07c16f9">
+<pre class="example" id="org00007f8">
 集群守护进程集Daemonset调度运行状态异常
 </pre></li>
 </ul>
@@ -742,7 +742,7 @@ Namespace: {{$labels.namespace}}/Job: {{$labels.job_name}} Execution Failed
 当 集群PersistentVolume出现异常次数 大于 0 次时，满足告警条件。
 </p>
 
-<pre class="example" id="org31cc7bb">
+<pre class="example" id="orgf1423de">
 集群PersistentVolume出现异常。PersistentVolume: {{$labels.persistentvolume}}，当前状态: {{$labels.phase}}
 </pre></li>
 
@@ -754,7 +754,7 @@ Node Status Abnormal
 When Node status abnormal ，Meet the alarm conditions。
 </p>
 
-<pre class="example" id="org29a31c8">
+<pre class="example" id="org82d240c">
 Node {{$labels.node}} is unavailable for more than 10 minutes
 </pre></li>
 
@@ -766,7 +766,7 @@ Node Memory Usage
 When Node memory usage Greater than 90% ，Meet the alarm conditions。
 </p>
 
-<pre class="example" id="org7a3ab92">
+<pre class="example" id="orgb21bf77">
 Node {{ $labels.instance }} Memory usage {{$labels.metrics_params_opt_label_value}} {{$labels.metrics_params_value}}%，Current memory usage {{ $value }}%
 </pre></li>
 
@@ -778,7 +778,7 @@ Node Disk Usage
 When Node disk usage Greater than 90% ，Meet the alarm conditions。
 </p>
 
-<pre class="example" id="orge778670">
+<pre class="example" id="org649ba06">
 Node {{ $labels.instance }} Disk {{ $labels.device }} Usage {{$labels.metrics_params_opt}} {{$labels.metrics_params_value}}%，Current disk usage {{ $value }}%
 </pre></li>
 
@@ -790,7 +790,7 @@ Node CPU Usage
 When Node cpu usage Greater than 90% ，Meet the alarm conditions。
 </p>
 
-<pre class="example" id="orge3f76fa">
+<pre class="example" id="org54abfac">
 Node {{ $labels.instance }} CPU usage {{$labels.metrics_params_opt}} {{$labels.metrics_params_value}}%，Current cpu usage {{ $value }}%
 </pre></li>
 </ul>

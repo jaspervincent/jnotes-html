@@ -55,44 +55,44 @@
 <h2>&#30446;&#24405;</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org1449f1b">grafana 模板</a></li>
-<li><a href="#org21f2821">数据库</a>
+<li><a href="#org1e1db98">grafana 模板</a></li>
+<li><a href="#orgab532ec">数据库</a>
 <ul>
-<li><a href="#orgec82675">mysqld-exporter</a>
+<li><a href="#orgb9a72c2">mysqld-exporter</a>
 <ul>
-<li><a href="#orge4d03c0">数据库授权</a></li>
-<li><a href="#orga383ffa">部署方法1-docker-compose</a></li>
-<li><a href="#org09e36eb">部署方法2-k8s</a></li>
+<li><a href="#org09ec9c9">数据库授权</a></li>
+<li><a href="#org95e54b9">部署方法1-docker-compose</a></li>
+<li><a href="#org30570f2">部署方法2-k8s</a></li>
 </ul>
 </li>
-<li><a href="#org788ed09">Redis exporter</a>
+<li><a href="#org876bf82">Redis exporter</a>
 <ul>
-<li><a href="#org1b337f0">部署方法1-docker-compose</a></li>
+<li><a href="#org6bb3eff">部署方法1-docker-compose</a></li>
 <li><a href="#h:EF45D176-E7AE-4E2E-B646-9EDE63980F24">部署方法2-k8s</a></li>
 </ul>
 </li>
-<li><a href="#orgd64af6b">MongoDB exporter</a></li>
-<li><a href="#orgb19d960">部署方法1-docker-compose</a></li>
+<li><a href="#org6883c2c">MongoDB exporter</a></li>
+<li><a href="#orgb75d8ef">部署方法1-docker-compose</a></li>
 </ul>
 </li>
-<li><a href="#org2773c97">硬件相关</a></li>
-<li><a href="#org4c57ae0">问题跟踪器和持续集成</a></li>
-<li><a href="#org3a79933">消息系统</a>
+<li><a href="#orge6ab41d">硬件相关</a></li>
+<li><a href="#orgdd7421f">问题跟踪器和持续集成</a></li>
+<li><a href="#org902ca8e">消息系统</a>
 <ul>
-<li><a href="#org666cc20">RocketMQ exporter</a></li>
-<li><a href="#org0c8dabc">RabbitMQ exporter</a>
+<li><a href="#org683b049">RocketMQ exporter</a></li>
+<li><a href="#org8b99726">RabbitMQ exporter</a>
 <ul>
-<li><a href="#org49c15e4">部署方法2-k8s</a></li>
+<li><a href="#org8692be9">部署方法2-k8s</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgf0dc440">存储</a></li>
-<li><a href="#orgafe6076">HTTP</a></li>
-<li><a href="#orgf66e62f">APIs</a></li>
-<li><a href="#org7116a6b">日志</a></li>
-<li><a href="#orgb98afb8">金融运营</a></li>
-<li><a href="#org3554330">其他</a></li>
+<li><a href="#org86690eb">存储</a></li>
+<li><a href="#orgd8f5062">HTTP</a></li>
+<li><a href="#orgf3cd1eb">APIs</a></li>
+<li><a href="#orgf8f3f57">日志</a></li>
+<li><a href="#org9b01c8b">金融运营</a></li>
+<li><a href="#org95e9fc8">其他</a></li>
 </ul>
 </div>
 </nav>
@@ -107,9 +107,9 @@
 <p>
 指标导出器一些应用现实
 </p>
-<section id="outline-container-org1449f1b" class="outline-2">
-<h2 id="org1449f1b"><a href="#org1449f1b">grafana 模板</a></h2>
-<div class="outline-text-2" id="text-org1449f1b">
+<section id="outline-container-org1e1db98" class="outline-2">
+<h2 id="org1e1db98"><a href="#org1e1db98">grafana 模板</a></h2>
+<div class="outline-text-2" id="text-org1e1db98">
 <p>
 <a href="https://grafana.com/grafana/dashboards/">https://grafana.com/grafana/dashboards/</a>
 </p>
@@ -133,20 +133,20 @@
 </ul>
 </div>
 </section>
-<section id="outline-container-org21f2821" class="outline-2">
-<h2 id="org21f2821"><a href="#org21f2821">数据库</a></h2>
-<div class="outline-text-2" id="text-org21f2821">
+<section id="outline-container-orgab532ec" class="outline-2">
+<h2 id="orgab532ec"><a href="#orgab532ec">数据库</a></h2>
+<div class="outline-text-2" id="text-orgab532ec">
 </div>
-<div id="outline-container-orgec82675" class="outline-3">
-<h3 id="orgec82675"><a href="#orgec82675">mysqld-exporter</a></h3>
-<div class="outline-text-3" id="text-orgec82675">
+<div id="outline-container-orgb9a72c2" class="outline-3">
+<h3 id="orgb9a72c2"><a href="#orgb9a72c2">mysqld-exporter</a></h3>
+<div class="outline-text-3" id="text-orgb9a72c2">
 <p>
 <a href="https://github.com/prometheus/mysqld_exporter">https://github.com/prometheus/mysqld_exporter</a>
 </p>
 </div>
-<div id="outline-container-orge4d03c0" class="outline-4">
-<h4 id="orge4d03c0"><a href="#orge4d03c0">数据库授权</a></h4>
-<div class="outline-text-4" id="text-orge4d03c0">
+<div id="outline-container-org09ec9c9" class="outline-4">
+<h4 id="org09ec9c9"><a href="#org09ec9c9">数据库授权</a></h4>
+<div class="outline-text-4" id="text-org09ec9c9">
 <div class="org-src-container">
 <pre class="src src-sh">CREATE USER <span class="org-string">'mysqld_exporter'</span>@<span class="org-string">'%'</span> IDENTIFIED BY <span class="org-string">'hIhO6h_j(azn=F17'</span> WITH MAX_USER_CONNECTIONS 10;
 GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO <span class="org-string">'mysqld_exporter'</span>@<span class="org-string">'%'</span>;
@@ -155,9 +155,9 @@ flush privileges;
 </div>
 </div>
 </div>
-<div id="outline-container-orga383ffa" class="outline-4">
-<h4 id="orga383ffa"><a href="#orga383ffa">部署方法1-docker-compose</a></h4>
-<div class="outline-text-4" id="text-orga383ffa">
+<div id="outline-container-org95e54b9" class="outline-4">
+<h4 id="org95e54b9"><a href="#org95e54b9">部署方法1-docker-compose</a></h4>
+<div class="outline-text-4" id="text-org95e54b9">
 <p>
 准备配置文件
 </p>
@@ -243,9 +243,9 @@ pormetheus集成
 </div>
 </div>
 </div>
-<div id="outline-container-org09e36eb" class="outline-4">
-<h4 id="org09e36eb"><a href="#org09e36eb">部署方法2-k8s</a></h4>
-<div class="outline-text-4" id="text-org09e36eb">
+<div id="outline-container-org30570f2" class="outline-4">
+<h4 id="org30570f2"><a href="#org30570f2">部署方法2-k8s</a></h4>
+<div class="outline-text-4" id="text-org30570f2">
 <p>
 安装 mysqld-export
 </p>
@@ -505,16 +505,16 @@ EOF</span>
 </div>
 </div>
 </div>
-<div id="outline-container-org788ed09" class="outline-3">
-<h3 id="org788ed09"><a href="#org788ed09">Redis exporter</a></h3>
-<div class="outline-text-3" id="text-org788ed09">
+<div id="outline-container-org876bf82" class="outline-3">
+<h3 id="org876bf82"><a href="#org876bf82">Redis exporter</a></h3>
+<div class="outline-text-3" id="text-org876bf82">
 <p>
 <a href="https://github.com/oliver006/redis_exporter">https://github.com/oliver006/redis_exporter</a>
 </p>
 </div>
-<div id="outline-container-org1b337f0" class="outline-4">
-<h4 id="org1b337f0"><a href="#org1b337f0">部署方法1-docker-compose</a></h4>
-<div class="outline-text-4" id="text-org1b337f0">
+<div id="outline-container-org6bb3eff" class="outline-4">
+<h4 id="org6bb3eff"><a href="#org6bb3eff">部署方法1-docker-compose</a></h4>
+<div class="outline-text-4" id="text-org6bb3eff">
 <p>
 准备密码文件
 </p>
@@ -707,17 +707,17 @@ pormetheus集成
 </div>
 </div>
 </div>
-<div id="outline-container-orgd64af6b" class="outline-3">
-<h3 id="orgd64af6b"><a href="#orgd64af6b">MongoDB exporter</a></h3>
-<div class="outline-text-3" id="text-orgd64af6b">
+<div id="outline-container-org6883c2c" class="outline-3">
+<h3 id="org6883c2c"><a href="#org6883c2c">MongoDB exporter</a></h3>
+<div class="outline-text-3" id="text-org6883c2c">
 <p>
 <a href="https://github.com/percona/mongodb_exporter">https://github.com/percona/mongodb_exporter</a>
 </p>
 </div>
 </div>
-<div id="outline-container-orgb19d960" class="outline-3">
-<h3 id="orgb19d960"><a href="#orgb19d960">部署方法1-docker-compose</a></h3>
-<div class="outline-text-3" id="text-orgb19d960">
+<div id="outline-container-orgb75d8ef" class="outline-3">
+<h3 id="orgb75d8ef"><a href="#orgb75d8ef">部署方法1-docker-compose</a></h3>
+<div class="outline-text-3" id="text-orgb75d8ef">
 <p>
 启动mongodb-exporter
 </p>
@@ -789,21 +789,21 @@ grafana监控：<a href="https://github.com/percona/grafana-dashboards/blob/main
 </div>
 </div>
 </section>
-<section id="outline-container-org2773c97" class="outline-2">
-<h2 id="org2773c97"><a href="#org2773c97">硬件相关</a></h2>
+<section id="outline-container-orge6ab41d" class="outline-2">
+<h2 id="orge6ab41d"><a href="#orge6ab41d">硬件相关</a></h2>
 </section>
 
-<section id="outline-container-org4c57ae0" class="outline-2">
-<h2 id="org4c57ae0"><a href="#org4c57ae0">问题跟踪器和持续集成</a></h2>
+<section id="outline-container-orgdd7421f" class="outline-2">
+<h2 id="orgdd7421f"><a href="#orgdd7421f">问题跟踪器和持续集成</a></h2>
 </section>
 
-<section id="outline-container-org3a79933" class="outline-2">
-<h2 id="org3a79933"><a href="#org3a79933">消息系统</a></h2>
-<div class="outline-text-2" id="text-org3a79933">
+<section id="outline-container-org902ca8e" class="outline-2">
+<h2 id="org902ca8e"><a href="#org902ca8e">消息系统</a></h2>
+<div class="outline-text-2" id="text-org902ca8e">
 </div>
-<div id="outline-container-org666cc20" class="outline-3">
-<h3 id="org666cc20"><a href="#org666cc20">RocketMQ exporter</a></h3>
-<div class="outline-text-3" id="text-org666cc20">
+<div id="outline-container-org683b049" class="outline-3">
+<h3 id="org683b049"><a href="#org683b049">RocketMQ exporter</a></h3>
+<div class="outline-text-3" id="text-org683b049">
 <p>
 <a href="https://github.com/apache/rocketmq-exporter">https://github.com/apache/rocketmq-exporter</a>
 </p>
@@ -861,9 +861,9 @@ pormetheus集成
 </div>
 </div>
 </div>
-<div id="outline-container-org0c8dabc" class="outline-3">
-<h3 id="org0c8dabc"><a href="#org0c8dabc">RabbitMQ exporter</a></h3>
-<div class="outline-text-3" id="text-org0c8dabc">
+<div id="outline-container-org8b99726" class="outline-3">
+<h3 id="org8b99726"><a href="#org8b99726">RabbitMQ exporter</a></h3>
+<div class="outline-text-3" id="text-org8b99726">
 <ul class="org-ul">
 <li><a href="https://github.com/kbudde/rabbitmq_exporter">https://github.com/kbudde/rabbitmq_exporter</a></li>
 </ul>
@@ -895,9 +895,9 @@ pormetheus集成
 </pre>
 </div>
 </div>
-<div id="outline-container-org49c15e4" class="outline-4">
-<h4 id="org49c15e4"><a href="#org49c15e4">部署方法2-k8s</a></h4>
-<div class="outline-text-4" id="text-org49c15e4">
+<div id="outline-container-org8692be9" class="outline-4">
+<h4 id="org8692be9"><a href="#org8692be9">部署方法2-k8s</a></h4>
+<div class="outline-text-4" id="text-org8692be9">
 <div class="org-src-container">
 <pre class="src src-shell">cat &gt;exporter.yaml&lt;&lt;\EOF<span class="org-sh-heredoc">
 apiVersion: v1
@@ -1023,24 +1023,24 @@ EOF
 </div>
 </div>
 </section>
-<section id="outline-container-orgf0dc440" class="outline-2">
-<h2 id="orgf0dc440"><a href="#orgf0dc440">存储</a></h2>
+<section id="outline-container-org86690eb" class="outline-2">
+<h2 id="org86690eb"><a href="#org86690eb">存储</a></h2>
 </section>
 
-<section id="outline-container-orgafe6076" class="outline-2">
-<h2 id="orgafe6076"><a href="#orgafe6076">HTTP</a></h2>
+<section id="outline-container-orgd8f5062" class="outline-2">
+<h2 id="orgd8f5062"><a href="#orgd8f5062">HTTP</a></h2>
 </section>
-<section id="outline-container-orgf66e62f" class="outline-2">
-<h2 id="orgf66e62f"><a href="#orgf66e62f">APIs</a></h2>
+<section id="outline-container-orgf3cd1eb" class="outline-2">
+<h2 id="orgf3cd1eb"><a href="#orgf3cd1eb">APIs</a></h2>
 </section>
-<section id="outline-container-org7116a6b" class="outline-2">
-<h2 id="org7116a6b"><a href="#org7116a6b">日志</a></h2>
+<section id="outline-container-orgf8f3f57" class="outline-2">
+<h2 id="orgf8f3f57"><a href="#orgf8f3f57">日志</a></h2>
 </section>
-<section id="outline-container-orgb98afb8" class="outline-2">
-<h2 id="orgb98afb8"><a href="#orgb98afb8">金融运营</a></h2>
+<section id="outline-container-org9b01c8b" class="outline-2">
+<h2 id="org9b01c8b"><a href="#org9b01c8b">金融运营</a></h2>
 </section>
-<section id="outline-container-org3554330" class="outline-2">
-<h2 id="org3554330"><a href="#org3554330">其他</a></h2>
+<section id="outline-container-org95e9fc8" class="outline-2">
+<h2 id="org95e9fc8"><a href="#org95e9fc8">其他</a></h2>
 </section>
 </div>
 <div id="postamble" class="status">

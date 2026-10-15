@@ -55,8 +55,6 @@
 <h2>&#30446;&#24405;</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#h:9acbbac1-a4f6-4659-b3ea-cc586a5f63c3">核心组件-kubectl</a>
-<ul>
 <li><a href="#h:6d6b3a69-7ddb-4756-b8fd-03133bff0331">简述</a></li>
 <li><a href="#h:d1f497ed-c277-4f4e-b59b-a81dd52b995a">常用命令</a>
 <ul>
@@ -96,13 +94,13 @@
 <li><a href="#h:0de9d447-575c-4524-8fb8-9b8646b747e9">Services</a></li>
 <li><a href="#h:22A6C050-9F5B-447D-A701-D6A6FD9C14D5">DaemonSets</a></li>
 <li><a href="#h:523ee34e-05c8-4860-9bf8-01a9498b00b8">Events</a></li>
+<li><a href="#h:0D8CBF7D-5FCD-4DFE-8DBA-41B8530615CB">Ingress</a></li>
 <li><a href="#h:b36b36d6-e0a3-4ff0-af7b-f3199c21e585">logs</a></li>
 <li><a href="#h:bdc71311-1ad8-4303-8aa9-c7aa4e145427">Service Accounts</a></li>
 <li><a href="#h:e254bd02-e754-4d55-903c-29581fc0806b">ReplicaSets</a></li>
 <li><a href="#h:752f915f-7331-4a0c-8ee3-b05c9babc5f0">Roles</a></li>
 <li><a href="#h:e20c4c24-f83c-45a7-834f-14f0071773de">Secrets</a></li>
 <li><a href="#h:00ba9576-b213-4d3d-9154-cfe5cf2b326e">ConfigMaps</a></li>
-<li><a href="#h:2b039f47-123c-472a-af64-b7baf2c3e30e">Ingress</a></li>
 <li><a href="#h:991dbbe2-97b4-4fcd-b4cf-1415b08aa3af">PersistentVolume</a></li>
 <li><a href="#h:2d9774be-eadd-4cab-ac53-4cc6ad90bbd2">PersistentVolumeClaim</a></li>
 <li><a href="#h:9e739909-b13e-4454-a490-c98301d5f5a5">StorageClass</a></li>
@@ -150,8 +148,6 @@
 <li><a href="#h:f55bdc02-dc9a-4bc0-9c92-f48a30f88e12">集群升级</a></li>
 <li><a href="#h:ae6ff05b-918c-4950-ac51-177d54c867c4">参考文档</a></li>
 </ul>
-</li>
-</ul>
 </div>
 </nav>
 <ul class="org-ul">
@@ -162,13 +158,9 @@
 <p>
 摘要：本文介绍k8s核心组件-kubectl
 </p>
-<section id="outline-container-h:9acbbac1-a4f6-4659-b3ea-cc586a5f63c3" class="outline-2">
-<h2 id="h:9acbbac1-a4f6-4659-b3ea-cc586a5f63c3"><a href="#h:9acbbac1-a4f6-4659-b3ea-cc586a5f63c3">核心组件-kubectl</a></h2>
-<div class="outline-text-2" id="text-h:9acbbac1-a4f6-4659-b3ea-cc586a5f63c3">
-</div>
-<div id="outline-container-h:6d6b3a69-7ddb-4756-b8fd-03133bff0331" class="outline-3">
-<h3 id="h:6d6b3a69-7ddb-4756-b8fd-03133bff0331"><a href="#h:6d6b3a69-7ddb-4756-b8fd-03133bff0331">简述</a></h3>
-<div class="outline-text-3" id="text-h:6d6b3a69-7ddb-4756-b8fd-03133bff0331">
+<section id="outline-container-h:6d6b3a69-7ddb-4756-b8fd-03133bff0331" class="outline-2">
+<h2 id="h:6d6b3a69-7ddb-4756-b8fd-03133bff0331"><a href="#h:6d6b3a69-7ddb-4756-b8fd-03133bff0331">简述</a></h2>
+<div class="outline-text-2" id="text-h:6d6b3a69-7ddb-4756-b8fd-03133bff0331">
 <p>
 你可以使用 Kubectl 命令行工具管理 Kubernetes 集群。 <code>kubectl</code> 在
 <code>$HOME/.kube</code> 目录中查找一个名为 <code>config</code> 的配置文件。 你可以通过设置
@@ -202,10 +194,10 @@ kubectl explain &lt;type&gt;.&lt;fieldName&gt;[.&lt;fieldName&gt;] &#26597;&#304
 </pre>
 </div>
 </div>
-</div>
-<div id="outline-container-h:d1f497ed-c277-4f4e-b59b-a81dd52b995a" class="outline-3">
-<h3 id="h:d1f497ed-c277-4f4e-b59b-a81dd52b995a"><a href="#h:d1f497ed-c277-4f4e-b59b-a81dd52b995a">常用命令</a></h3>
-<div class="outline-text-3" id="text-h:d1f497ed-c277-4f4e-b59b-a81dd52b995a">
+</section>
+<section id="outline-container-h:d1f497ed-c277-4f4e-b59b-a81dd52b995a" class="outline-2">
+<h2 id="h:d1f497ed-c277-4f4e-b59b-a81dd52b995a"><a href="#h:d1f497ed-c277-4f4e-b59b-a81dd52b995a">常用命令</a></h2>
+<div class="outline-text-2" id="text-h:d1f497ed-c277-4f4e-b59b-a81dd52b995a">
 <p>
 参考：<a href="https://kubernetes.io/docs/reference/kubectl/">https://kubernetes.io/docs/reference/kubectl/</a>
 </p>
@@ -452,14 +444,14 @@ kubectl 写yaml太累，找样例麻烦？
 </pre>
 </div>
 </div>
-<div id="outline-container-h:4b222705-4ed7-4aa3-9b82-2865d66e15c1" class="outline-4">
-<h4 id="h:4b222705-4ed7-4aa3-9b82-2865d66e15c1"><a href="#h:4b222705-4ed7-4aa3-9b82-2865d66e15c1">Kubectl 自动补全</a></h4>
-<div class="outline-text-4" id="text-h:4b222705-4ed7-4aa3-9b82-2865d66e15c1">
+<div id="outline-container-h:4b222705-4ed7-4aa3-9b82-2865d66e15c1" class="outline-3">
+<h3 id="h:4b222705-4ed7-4aa3-9b82-2865d66e15c1"><a href="#h:4b222705-4ed7-4aa3-9b82-2865d66e15c1">Kubectl 自动补全</a></h3>
+<div class="outline-text-3" id="text-h:4b222705-4ed7-4aa3-9b82-2865d66e15c1">
 <p>
 BASH
 </p>
 
-<pre class="example" id="org52f699e">
+<pre class="example" id="orgfc5037d">
 yum install -y bash-completion
 source &lt;(kubectl completion bash) # 在 bash 中设置当前 shell 的自动补全，要先安装 bash-completion 包。
 echo "source &lt;(kubectl completion bash)" &gt;&gt; ~/.bashrc # 在您的 bash shell 中永久的添加自动补全
@@ -480,15 +472,15 @@ complete -F __start_kubectl k
 ZSH
 </p>
 
-<pre class="example" id="org44a6e8d">
+<pre class="example" id="org799e344">
 source &lt;(kubectl completion zsh)  # 在 zsh 中设置当前 shell 的自动补全
 echo "[[ $commands[kubectl] ]] &amp;&amp; source &lt;(kubectl completion zsh)" &gt;&gt; ~/.zshrc # 在您的 zsh shell 中永久的添加自动补全
 </pre>
 </div>
 </div>
-<div id="outline-container-h:d16a9bcf-7dd6-4d6e-8e24-bca94b1a07db" class="outline-4">
-<h4 id="h:d16a9bcf-7dd6-4d6e-8e24-bca94b1a07db"><a href="#h:d16a9bcf-7dd6-4d6e-8e24-bca94b1a07db">Kubectl 上下文和配置</a></h4>
-<div class="outline-text-4" id="text-h:d16a9bcf-7dd6-4d6e-8e24-bca94b1a07db">
+<div id="outline-container-h:d16a9bcf-7dd6-4d6e-8e24-bca94b1a07db" class="outline-3">
+<h3 id="h:d16a9bcf-7dd6-4d6e-8e24-bca94b1a07db"><a href="#h:d16a9bcf-7dd6-4d6e-8e24-bca94b1a07db">Kubectl 上下文和配置</a></h3>
+<div class="outline-text-3" id="text-h:d16a9bcf-7dd6-4d6e-8e24-bca94b1a07db">
 <p>
 设置 <code>kubectl</code> 与哪个 Kubernetes 集群进行通信并修改配置信息。
 查看<a href="https://kubernetes.io/zh/docs/tasks/access-application-cluster/configure-access-multiple-clusters/">使用
@@ -527,9 +519,9 @@ kubectl config unset users.foo                       <span class="org-comment-de
 </div>
 </div>
 </div>
-<div id="outline-container-h:003e354b-b904-4c87-8d2f-751111a8eb71" class="outline-4">
-<h4 id="h:003e354b-b904-4c87-8d2f-751111a8eb71"><a href="#h:003e354b-b904-4c87-8d2f-751111a8eb71">Kubectl apply</a></h4>
-<div class="outline-text-4" id="text-h:003e354b-b904-4c87-8d2f-751111a8eb71">
+<div id="outline-container-h:003e354b-b904-4c87-8d2f-751111a8eb71" class="outline-3">
+<h3 id="h:003e354b-b904-4c87-8d2f-751111a8eb71"><a href="#h:003e354b-b904-4c87-8d2f-751111a8eb71">Kubectl apply</a></h3>
+<div class="outline-text-3" id="text-h:003e354b-b904-4c87-8d2f-751111a8eb71">
 <p>
 <code>apply</code> 通过定义 Kubernetes 资源的文件来管理应用。 它通过运行
 <code>kubectl apply</code> 在集群中创建和更新资源。 这是在生产中管理 Kubernetes
@@ -538,9 +530,9 @@ kubectl config unset users.foo                       <span class="org-comment-de
 </p>
 </div>
 </div>
-<div id="outline-container-h:33141834-8c88-413b-8eb6-94ca70aed8a2" class="outline-4">
-<h4 id="h:33141834-8c88-413b-8eb6-94ca70aed8a2"><a href="#h:33141834-8c88-413b-8eb6-94ca70aed8a2">创建对象</a></h4>
-<div class="outline-text-4" id="text-h:33141834-8c88-413b-8eb6-94ca70aed8a2">
+<div id="outline-container-h:33141834-8c88-413b-8eb6-94ca70aed8a2" class="outline-3">
+<h3 id="h:33141834-8c88-413b-8eb6-94ca70aed8a2"><a href="#h:33141834-8c88-413b-8eb6-94ca70aed8a2">创建对象</a></h3>
+<div class="outline-text-3" id="text-h:33141834-8c88-413b-8eb6-94ca70aed8a2">
 <p>
 Kubernetes 配置可以用 YAML 或 JSON 定义。可以使用的文件扩展名有
 <code>.yaml=、</code>.yml= 和 =.json=。
@@ -619,9 +611,9 @@ kubectl create -f rs.yml  --save-config=true <span class="org-comment-delimiter"
 </div>
 </div>
 </div>
-<div id="outline-container-h:53c692cd-432a-44d0-952f-b26c43068d3d" class="outline-4">
-<h4 id="h:53c692cd-432a-44d0-952f-b26c43068d3d"><a href="#h:53c692cd-432a-44d0-952f-b26c43068d3d">查看和查找资源</a></h4>
-<div class="outline-text-4" id="text-h:53c692cd-432a-44d0-952f-b26c43068d3d">
+<div id="outline-container-h:53c692cd-432a-44d0-952f-b26c43068d3d" class="outline-3">
+<h3 id="h:53c692cd-432a-44d0-952f-b26c43068d3d"><a href="#h:53c692cd-432a-44d0-952f-b26c43068d3d">查看和查找资源</a></h3>
+<div class="outline-text-3" id="text-h:53c692cd-432a-44d0-952f-b26c43068d3d">
 <div class="org-src-container">
 <pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">get &#21629;&#20196;&#30340;&#22522;&#26412;&#36755;&#20986;
 </span>kubectl get services                          <span class="org-comment-delimiter"># </span><span class="org-comment">&#21015;&#20986;&#24403;&#21069;&#21629;&#21517;&#31354;&#38388;&#19979;&#30340;&#25152;&#26377; services
@@ -724,9 +716,9 @@ kubectl describe pods my-pod
 </div>
 </div>
 </div>
-<div id="outline-container-h:d9cf5e45-2883-4b84-b574-deea116f00af" class="outline-4">
-<h4 id="h:d9cf5e45-2883-4b84-b574-deea116f00af"><a href="#h:d9cf5e45-2883-4b84-b574-deea116f00af">更新资源</a></h4>
-<div class="outline-text-4" id="text-h:d9cf5e45-2883-4b84-b574-deea116f00af">
+<div id="outline-container-h:d9cf5e45-2883-4b84-b574-deea116f00af" class="outline-3">
+<h3 id="h:d9cf5e45-2883-4b84-b574-deea116f00af"><a href="#h:d9cf5e45-2883-4b84-b574-deea116f00af">更新资源</a></h3>
+<div class="outline-text-3" id="text-h:d9cf5e45-2883-4b84-b574-deea116f00af">
 <div class="org-src-container">
 <pre class="src src-sh">kubectl set image deployment/frontend <span class="org-variable-name">www</span>=image:v2               <span class="org-comment-delimiter"># </span><span class="org-comment">&#28378;&#21160;&#26356;&#26032; "frontend" Deployment &#30340; "www" &#23481;&#22120;&#38236;&#20687;
 </span>kubectl rollout history deployment/frontend                      <span class="org-comment-delimiter"># </span><span class="org-comment">&#26816;&#26597; Deployment &#30340;&#21382;&#21490;&#35760;&#24405;&#65292;&#21253;&#25324;&#29256;&#26412;
@@ -775,9 +767,9 @@ kubectl label nodes  node1 node-role.kubernetes.io/node=
 </div>
 </div>
 </div>
-<div id="outline-container-h:55b38d9b-62a7-4220-9993-dc002b343544" class="outline-4">
-<h4 id="h:55b38d9b-62a7-4220-9993-dc002b343544"><a href="#h:55b38d9b-62a7-4220-9993-dc002b343544">部分更新资源</a></h4>
-<div class="outline-text-4" id="text-h:55b38d9b-62a7-4220-9993-dc002b343544">
+<div id="outline-container-h:55b38d9b-62a7-4220-9993-dc002b343544" class="outline-3">
+<h3 id="h:55b38d9b-62a7-4220-9993-dc002b343544"><a href="#h:55b38d9b-62a7-4220-9993-dc002b343544">部分更新资源</a></h3>
+<div class="outline-text-3" id="text-h:55b38d9b-62a7-4220-9993-dc002b343544">
 <div class="org-src-container">
 <pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">&#37096;&#20998;&#26356;&#26032;&#26576;&#33410;&#28857;
 </span>kubectl patch node k8s-node-1 -p <span class="org-string">'{"spec":{"unschedulable":true}}'</span>
@@ -809,9 +801,9 @@ kubectl patch deployment rummy-game --type merge --patch-file /tmp/r.yaml
 </div>
 </div>
 </div>
-<div id="outline-container-h:70ee5f11-67c0-4c2d-a531-c489e3122c21" class="outline-4">
-<h4 id="h:70ee5f11-67c0-4c2d-a531-c489e3122c21"><a href="#h:70ee5f11-67c0-4c2d-a531-c489e3122c21">编辑资源</a></h4>
-<div class="outline-text-4" id="text-h:70ee5f11-67c0-4c2d-a531-c489e3122c21">
+<div id="outline-container-h:70ee5f11-67c0-4c2d-a531-c489e3122c21" class="outline-3">
+<h3 id="h:70ee5f11-67c0-4c2d-a531-c489e3122c21"><a href="#h:70ee5f11-67c0-4c2d-a531-c489e3122c21">编辑资源</a></h3>
+<div class="outline-text-3" id="text-h:70ee5f11-67c0-4c2d-a531-c489e3122c21">
 <p>
 使用你偏爱的编辑器编辑 API 资源
 </p>
@@ -823,9 +815,9 @@ kubectl patch deployment rummy-game --type merge --patch-file /tmp/r.yaml
 </div>
 </div>
 </div>
-<div id="outline-container-h:c75bd29b-db97-4b3a-8281-47c0decd5f8e" class="outline-4">
-<h4 id="h:c75bd29b-db97-4b3a-8281-47c0decd5f8e"><a href="#h:c75bd29b-db97-4b3a-8281-47c0decd5f8e">对资源进行伸缩</a></h4>
-<div class="outline-text-4" id="text-h:c75bd29b-db97-4b3a-8281-47c0decd5f8e">
+<div id="outline-container-h:c75bd29b-db97-4b3a-8281-47c0decd5f8e" class="outline-3">
+<h3 id="h:c75bd29b-db97-4b3a-8281-47c0decd5f8e"><a href="#h:c75bd29b-db97-4b3a-8281-47c0decd5f8e">对资源进行伸缩</a></h3>
+<div class="outline-text-3" id="text-h:c75bd29b-db97-4b3a-8281-47c0decd5f8e">
 <div class="org-src-container">
 <pre class="src src-sh">kubectl scale --replicas=3 rs/foo                                 <span class="org-comment-delimiter"># </span><span class="org-comment">&#23558;&#21517;&#20026; 'foo' &#30340;&#21103;&#26412;&#38598;&#20280;&#32553;&#21040; 3 &#21103;&#26412;
 </span>kubectl scale --replicas=3 -f foo.yaml                            <span class="org-comment-delimiter"># </span><span class="org-comment">&#23558;&#22312; "foo.yaml" &#20013;&#30340;&#29305;&#23450;&#36164;&#28304;&#20280;&#32553;&#21040; 3 &#20010;&#21103;&#26412;
@@ -835,9 +827,9 @@ kubectl patch deployment rummy-game --type merge --patch-file /tmp/r.yaml
 </div>
 </div>
 </div>
-<div id="outline-container-h:3c8f9a85-92f4-461b-8ef1-8e852d5cbb5f" class="outline-4">
-<h4 id="h:3c8f9a85-92f4-461b-8ef1-8e852d5cbb5f"><a href="#h:3c8f9a85-92f4-461b-8ef1-8e852d5cbb5f">删除资源</a></h4>
-<div class="outline-text-4" id="text-h:3c8f9a85-92f4-461b-8ef1-8e852d5cbb5f">
+<div id="outline-container-h:3c8f9a85-92f4-461b-8ef1-8e852d5cbb5f" class="outline-3">
+<h3 id="h:3c8f9a85-92f4-461b-8ef1-8e852d5cbb5f"><a href="#h:3c8f9a85-92f4-461b-8ef1-8e852d5cbb5f">删除资源</a></h3>
+<div class="outline-text-3" id="text-h:3c8f9a85-92f4-461b-8ef1-8e852d5cbb5f">
 <div class="org-src-container">
 <pre class="src src-sh">kubectl delete -f ./pod.json                                              <span class="org-comment-delimiter"># </span><span class="org-comment">&#21024;&#38500;&#22312; pod.json &#20013;&#25351;&#23450;&#30340;&#31867;&#22411;&#21644;&#21517;&#31216;&#30340; Pod
 </span>kubectl delete pod,service baz foo                                        <span class="org-comment-delimiter"># </span><span class="org-comment">&#21024;&#38500;&#21517;&#31216;&#20026; "baz" &#21644; "foo" &#30340; Pod &#21644;&#26381;&#21153;
@@ -849,9 +841,9 @@ kubectl patch deployment rummy-game --type merge --patch-file /tmp/r.yaml
 </div>
 </div>
 </div>
-<div id="outline-container-h:44b46dd3-84ab-4423-83ca-45ca12bd429c" class="outline-4">
-<h4 id="h:44b46dd3-84ab-4423-83ca-45ca12bd429c"><a href="#h:44b46dd3-84ab-4423-83ca-45ca12bd429c">与运行中的 Pods 进行交互</a></h4>
-<div class="outline-text-4" id="text-h:44b46dd3-84ab-4423-83ca-45ca12bd429c">
+<div id="outline-container-h:44b46dd3-84ab-4423-83ca-45ca12bd429c" class="outline-3">
+<h3 id="h:44b46dd3-84ab-4423-83ca-45ca12bd429c"><a href="#h:44b46dd3-84ab-4423-83ca-45ca12bd429c">与运行中的 Pods 进行交互</a></h3>
+<div class="outline-text-3" id="text-h:44b46dd3-84ab-4423-83ca-45ca12bd429c">
 <div class="org-src-container">
 <pre class="src src-sh">kubectl logs my-pod                                 <span class="org-comment-delimiter"># </span><span class="org-comment">&#33719;&#21462; pod &#26085;&#24535;&#65288;&#26631;&#20934;&#36755;&#20986;&#65289;
 </span>kubectl logs -l <span class="org-variable-name">name</span>=myLabel                        <span class="org-comment-delimiter"># </span><span class="org-comment">&#33719;&#21462;&#21547; name=myLabel &#26631;&#31614;&#30340; Pods &#30340;&#26085;&#24535;&#65288;&#26631;&#20934;&#36755;&#20986;&#65289;
@@ -877,10 +869,10 @@ kubectl attach my-pod -i                            <span class="org-comment-del
 </pre>
 </div>
 </div>
-<div id="outline-container-h:e98c97ec-2a15-47e8-b5e8-13f8c6a53fe7" class="outline-5">
-<h5 id="h:e98c97ec-2a15-47e8-b5e8-13f8c6a53fe7"><a href="#h:e98c97ec-2a15-47e8-b5e8-13f8c6a53fe7">logs</a></h5>
-<div class="outline-text-5" id="text-h:e98c97ec-2a15-47e8-b5e8-13f8c6a53fe7">
-<pre class="example" id="org0c9875e">
+<div id="outline-container-h:e98c97ec-2a15-47e8-b5e8-13f8c6a53fe7" class="outline-4">
+<h4 id="h:e98c97ec-2a15-47e8-b5e8-13f8c6a53fe7"><a href="#h:e98c97ec-2a15-47e8-b5e8-13f8c6a53fe7">logs</a></h4>
+<div class="outline-text-4" id="text-h:e98c97ec-2a15-47e8-b5e8-13f8c6a53fe7">
+<pre class="example" id="org9dd2003">
 kubectl logs [pod_name]
 kubectl logs --since=1h [pod_name]
 kubectl logs --tail =20 [pod_name]
@@ -890,9 +882,9 @@ kubectl logs [pod_name] &gt; pod.log
 </div>
 </div>
 </div>
-<div id="outline-container-h:70d9e9fa-2aa0-451d-a672-688045db17b0" class="outline-4">
-<h4 id="h:70d9e9fa-2aa0-451d-a672-688045db17b0"><a href="#h:70d9e9fa-2aa0-451d-a672-688045db17b0">与 Deployments 和 Services 进行交互</a></h4>
-<div class="outline-text-4" id="text-h:70d9e9fa-2aa0-451d-a672-688045db17b0">
+<div id="outline-container-h:70d9e9fa-2aa0-451d-a672-688045db17b0" class="outline-3">
+<h3 id="h:70d9e9fa-2aa0-451d-a672-688045db17b0"><a href="#h:70d9e9fa-2aa0-451d-a672-688045db17b0">与 Deployments 和 Services 进行交互</a></h3>
+<div class="outline-text-3" id="text-h:70d9e9fa-2aa0-451d-a672-688045db17b0">
 <div class="org-src-container">
 <pre class="src src-sh">kubectl logs deploy/my-deployment                         <span class="org-comment-delimiter"># </span><span class="org-comment">&#33719;&#21462;&#19968;&#20010; Deployment &#30340; Pod &#30340;&#26085;&#24535;&#65288;&#21333;&#23481;&#22120;&#20363;&#23376;&#65289;
 </span>kubectl logs deploy/my-deployment -c my-container         <span class="org-comment-delimiter"># </span><span class="org-comment">&#33719;&#21462;&#19968;&#20010; Deployment &#30340; Pod &#30340;&#26085;&#24535;&#65288;&#22810;&#23481;&#22120;&#20363;&#23376;&#65289;
@@ -906,9 +898,9 @@ kubectl port-forward deploy/my-deployment 5000:6000       <span class="org-comme
 </div>
 </div>
 </div>
-<div id="outline-container-h:ec537685-5de8-4289-ad9a-5e612d6261b7" class="outline-4">
-<h4 id="h:ec537685-5de8-4289-ad9a-5e612d6261b7"><a href="#h:ec537685-5de8-4289-ad9a-5e612d6261b7">与节点和集群进行交互</a></h4>
-<div class="outline-text-4" id="text-h:ec537685-5de8-4289-ad9a-5e612d6261b7">
+<div id="outline-container-h:ec537685-5de8-4289-ad9a-5e612d6261b7" class="outline-3">
+<h3 id="h:ec537685-5de8-4289-ad9a-5e612d6261b7"><a href="#h:ec537685-5de8-4289-ad9a-5e612d6261b7">与节点和集群进行交互</a></h3>
+<div class="outline-text-3" id="text-h:ec537685-5de8-4289-ad9a-5e612d6261b7">
 <div class="org-src-container">
 <pre class="src src-sh">kubectl cordon my-node                                                <span class="org-comment-delimiter"># </span><span class="org-comment">&#26631;&#35760; my-node &#33410;&#28857;&#20026;&#19981;&#21487;&#35843;&#24230;
 </span>kubectl drain my-node                                                 <span class="org-comment-delimiter"># </span><span class="org-comment">&#23545; my-node &#33410;&#28857;&#36827;&#34892;&#28165;&#31354;&#25805;&#20316;&#65292;&#20026;&#33410;&#28857;&#32500;&#25252;&#20570;&#20934;&#22791;
@@ -947,9 +939,9 @@ kubectl uncordon k8s-node-1       <span class="org-comment-delimiter">#</span><s
 </div>
 </div>
 </div>
-<div id="outline-container-h:b7f48b6a-384f-4168-8c61-5c3873120f4b" class="outline-4">
-<h4 id="h:b7f48b6a-384f-4168-8c61-5c3873120f4b"><a href="#h:b7f48b6a-384f-4168-8c61-5c3873120f4b">资源类型</a></h4>
-<div class="outline-text-4" id="text-h:b7f48b6a-384f-4168-8c61-5c3873120f4b">
+<div id="outline-container-h:b7f48b6a-384f-4168-8c61-5c3873120f4b" class="outline-3">
+<h3 id="h:b7f48b6a-384f-4168-8c61-5c3873120f4b"><a href="#h:b7f48b6a-384f-4168-8c61-5c3873120f4b">资源类型</a></h3>
+<div class="outline-text-3" id="text-h:b7f48b6a-384f-4168-8c61-5c3873120f4b">
 <p>
 列出所支持的全部资源类型和它们的简称、<a href="https://kubernetes.io/zh/docs/concepts/overview/kubernetes-api/#api-groups-and-versioning">API
 组</a>,
@@ -987,9 +979,9 @@ api-versions
 </div>
 </div>
 </div>
-<div id="outline-container-h:20ff773d-4155-4425-8cdb-475b8e1bc31c" class="outline-4">
-<h4 id="h:20ff773d-4155-4425-8cdb-475b8e1bc31c"><a href="#h:20ff773d-4155-4425-8cdb-475b8e1bc31c">格式化输出</a></h4>
-<div class="outline-text-4" id="text-h:20ff773d-4155-4425-8cdb-475b8e1bc31c">
+<div id="outline-container-h:20ff773d-4155-4425-8cdb-475b8e1bc31c" class="outline-3">
+<h3 id="h:20ff773d-4155-4425-8cdb-475b8e1bc31c"><a href="#h:20ff773d-4155-4425-8cdb-475b8e1bc31c">格式化输出</a></h3>
+<div class="outline-text-3" id="text-h:20ff773d-4155-4425-8cdb-475b8e1bc31c">
 <p>
 要以特定格式将详细信息输出到终端窗口，将 <code>-o=（或者
 =--output=）参数添加到支持的 =kubectl</code> 命令中
@@ -1137,9 +1129,9 @@ chaosfomoney-deployment-64ccd59bdc-xhnjr   1/1       Running   0          1d
 </div>
 </div>
 </div>
-<div id="outline-container-h:9b826fe2-1263-40fc-8f32-661a3870919c" class="outline-4">
-<h4 id="h:9b826fe2-1263-40fc-8f32-661a3870919c"><a href="#h:9b826fe2-1263-40fc-8f32-661a3870919c">Kubectl 日志输出详细程度和调试</a></h4>
-<div class="outline-text-4" id="text-h:9b826fe2-1263-40fc-8f32-661a3870919c">
+<div id="outline-container-h:9b826fe2-1263-40fc-8f32-661a3870919c" class="outline-3">
+<h3 id="h:9b826fe2-1263-40fc-8f32-661a3870919c"><a href="#h:9b826fe2-1263-40fc-8f32-661a3870919c">Kubectl 日志输出详细程度和调试</a></h3>
+<div class="outline-text-3" id="text-h:9b826fe2-1263-40fc-8f32-661a3870919c">
 <p>
 Kubectl 日志输出详细程度是通过 <code>-v</code> 或者 <code>--v</code>
 来控制的，参数后跟一个数字表示日志的级别。 Kubernetes
@@ -1162,10 +1154,10 @@ Kubectl 日志输出详细程度是通过 <code>-v</code> 或者 <code>--v</code
 </div>
 </div>
 </div>
-</div>
-<div id="outline-container-h:de6d55b6-37c3-4283-95a1-8935770a4262" class="outline-3">
-<h3 id="h:de6d55b6-37c3-4283-95a1-8935770a4262"><a href="#h:de6d55b6-37c3-4283-95a1-8935770a4262">kubectl安装</a></h3>
-<div class="outline-text-3" id="text-h:de6d55b6-37c3-4283-95a1-8935770a4262">
+</section>
+<section id="outline-container-h:de6d55b6-37c3-4283-95a1-8935770a4262" class="outline-2">
+<h2 id="h:de6d55b6-37c3-4283-95a1-8935770a4262"><a href="#h:de6d55b6-37c3-4283-95a1-8935770a4262">kubectl安装</a></h2>
+<div class="outline-text-2" id="text-h:de6d55b6-37c3-4283-95a1-8935770a4262">
 <div class="org-src-container">
 <pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">OS X
 </span>curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl
@@ -1182,10 +1174,10 @@ sudo chown $(id -u):$(id -g) $<span class="org-variable-name">HOME</span>/.kube/
 </pre>
 </div>
 </div>
-</div>
-<div id="outline-container-h:c285c725-1765-4fa3-866d-fac8b2f8e8ed" class="outline-3">
-<h3 id="h:c285c725-1765-4fa3-866d-fac8b2f8e8ed"><a href="#h:c285c725-1765-4fa3-866d-fac8b2f8e8ed">命令详解</a></h3>
-<div class="outline-text-3" id="text-h:c285c725-1765-4fa3-866d-fac8b2f8e8ed">
+</section>
+<section id="outline-container-h:c285c725-1765-4fa3-866d-fac8b2f8e8ed" class="outline-2">
+<h2 id="h:c285c725-1765-4fa3-866d-fac8b2f8e8ed"><a href="#h:c285c725-1765-4fa3-866d-fac8b2f8e8ed">命令详解</a></h2>
+<div class="outline-text-2" id="text-h:c285c725-1765-4fa3-866d-fac8b2f8e8ed">
 <p>
 常用命令详解 get命令用于获取集群的一个或一些resource信息
 describe类似于get，同样用于获取resource的相关信息。不同的是，get获得的是更详细的resource个性的详细信息，describe获得的是resource集群相关的信息。describe命令同get类似，但是describe不支持-o选项
@@ -1196,13 +1188,13 @@ resource包括集群节点、运行的pod，ReplicationController，service等�
 参考： <a href="https://blog.csdn.net/u012429005/article/details/98069681">https://blog.csdn.net/u012429005/article/details/98069681</a>
 </p>
 </div>
-<div id="outline-container-h:75e751b8-ad12-40d5-9504-8de911d7ca32" class="outline-4">
-<h4 id="h:75e751b8-ad12-40d5-9504-8de911d7ca32"><a href="#h:75e751b8-ad12-40d5-9504-8de911d7ca32">查看</a></h4>
-<div class="outline-text-4" id="text-h:75e751b8-ad12-40d5-9504-8de911d7ca32">
+<div id="outline-container-h:75e751b8-ad12-40d5-9504-8de911d7ca32" class="outline-3">
+<h3 id="h:75e751b8-ad12-40d5-9504-8de911d7ca32"><a href="#h:75e751b8-ad12-40d5-9504-8de911d7ca32">查看</a></h3>
+<div class="outline-text-3" id="text-h:75e751b8-ad12-40d5-9504-8de911d7ca32">
 </div>
-<div id="outline-container-h:beeca436-d72a-4a7c-aacd-536a2a231a43" class="outline-5">
-<h5 id="h:beeca436-d72a-4a7c-aacd-536a2a231a43"><a href="#h:beeca436-d72a-4a7c-aacd-536a2a231a43">Cluster Info</a></h5>
-<div class="outline-text-5" id="text-h:beeca436-d72a-4a7c-aacd-536a2a231a43">
+<div id="outline-container-h:beeca436-d72a-4a7c-aacd-536a2a231a43" class="outline-4">
+<h4 id="h:beeca436-d72a-4a7c-aacd-536a2a231a43"><a href="#h:beeca436-d72a-4a7c-aacd-536a2a231a43">Cluster Info</a></h4>
+<div class="outline-text-4" id="text-h:beeca436-d72a-4a7c-aacd-536a2a231a43">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl config 
 [root@master ~]# kubectl cluster-info
@@ -1211,9 +1203,9 @@ resource包括集群节点、运行的pod，ReplicationController，service等�
 </div>
 </div>
 </div>
-<div id="outline-container-h:834bb8a4-7a47-4bca-9b4a-49f82359b3cb" class="outline-5">
-<h5 id="h:834bb8a4-7a47-4bca-9b4a-49f82359b3cb"><a href="#h:834bb8a4-7a47-4bca-9b4a-49f82359b3cb">查看上下文</a></h5>
-<div class="outline-text-5" id="text-h:834bb8a4-7a47-4bca-9b4a-49f82359b3cb">
+<div id="outline-container-h:834bb8a4-7a47-4bca-9b4a-49f82359b3cb" class="outline-4">
+<h4 id="h:834bb8a4-7a47-4bca-9b4a-49f82359b3cb"><a href="#h:834bb8a4-7a47-4bca-9b4a-49f82359b3cb">查看上下文</a></h4>
+<div class="outline-text-4" id="text-h:834bb8a4-7a47-4bca-9b4a-49f82359b3cb">
 <div class="org-src-container">
 <pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">&#23637;&#31034;kubernet&#38598;&#32676;&#30340;&#37197;&#32622;&#35774;&#32622;&#20449;&#24687;
 </span>kubectl config view
@@ -1253,9 +1245,9 @@ resource包括集群节点、运行的pod，ReplicationController，service等�
 </div>
 </div>
 </div>
-<div id="outline-container-h:ed3f8cc5-8a27-41d3-95b4-bfa670fc6ffe" class="outline-5">
-<h5 id="h:ed3f8cc5-8a27-41d3-95b4-bfa670fc6ffe"><a href="#h:ed3f8cc5-8a27-41d3-95b4-bfa670fc6ffe">Nodes</a></h5>
-<div class="outline-text-5" id="text-h:ed3f8cc5-8a27-41d3-95b4-bfa670fc6ffe">
+<div id="outline-container-h:ed3f8cc5-8a27-41d3-95b4-bfa670fc6ffe" class="outline-4">
+<h4 id="h:ed3f8cc5-8a27-41d3-95b4-bfa670fc6ffe"><a href="#h:ed3f8cc5-8a27-41d3-95b4-bfa670fc6ffe">Nodes</a></h4>
+<div class="outline-text-4" id="text-h:ed3f8cc5-8a27-41d3-95b4-bfa670fc6ffe">
 <p>
 关于节点的常见命令
 </p>
@@ -1355,9 +1347,9 @@ node1   96m          9%     587Mi           67%
 </div>
 </div>
 </div>
-<div id="outline-container-h:75ea09b4-66d3-4dd9-ba46-76a17fb0b3a7" class="outline-5">
-<h5 id="h:75ea09b4-66d3-4dd9-ba46-76a17fb0b3a7"><a href="#h:75ea09b4-66d3-4dd9-ba46-76a17fb0b3a7">Pods</a></h5>
-<div class="outline-text-5" id="text-h:75ea09b4-66d3-4dd9-ba46-76a17fb0b3a7">
+<div id="outline-container-h:75ea09b4-66d3-4dd9-ba46-76a17fb0b3a7" class="outline-4">
+<h4 id="h:75ea09b4-66d3-4dd9-ba46-76a17fb0b3a7"><a href="#h:75ea09b4-66d3-4dd9-ba46-76a17fb0b3a7">Pods</a></h4>
+<div class="outline-text-4" id="text-h:75ea09b4-66d3-4dd9-ba46-76a17fb0b3a7">
 <p>
 po 是pod的简写
 </p>
@@ -1480,9 +1472,9 @@ kubectl get deploy -o <span class="org-variable-name">jsonpath</span>=<span clas
 </div>
 </div>
 </div>
-<div id="outline-container-h:097bfcd0-269d-4236-9f91-c70f75807774" class="outline-5">
-<h5 id="h:097bfcd0-269d-4236-9f91-c70f75807774"><a href="#h:097bfcd0-269d-4236-9f91-c70f75807774">Namespaces（命名空间）</a></h5>
-<div class="outline-text-5" id="text-h:097bfcd0-269d-4236-9f91-c70f75807774">
+<div id="outline-container-h:097bfcd0-269d-4236-9f91-c70f75807774" class="outline-4">
+<h4 id="h:097bfcd0-269d-4236-9f91-c70f75807774"><a href="#h:097bfcd0-269d-4236-9f91-c70f75807774">Namespaces（命名空间）</a></h4>
+<div class="outline-text-4" id="text-h:097bfcd0-269d-4236-9f91-c70f75807774">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl get ns   <span class="org-comment-delimiter">#</span><span class="org-comment">&#26597;&#30475;&#21629;&#21517;&#31354;&#38388;
 </span>NAME              STATUS   AGE
@@ -1497,9 +1489,9 @@ kube-system       Active   5h22m
 </div>
 </div>
 </div>
-<div id="outline-container-h:24c3bda7-20ef-4366-83da-fc47e624800b" class="outline-5">
-<h5 id="h:24c3bda7-20ef-4366-83da-fc47e624800b"><a href="#h:24c3bda7-20ef-4366-83da-fc47e624800b">Deployments</a></h5>
-<div class="outline-text-5" id="text-h:24c3bda7-20ef-4366-83da-fc47e624800b">
+<div id="outline-container-h:24c3bda7-20ef-4366-83da-fc47e624800b" class="outline-4">
+<h4 id="h:24c3bda7-20ef-4366-83da-fc47e624800b"><a href="#h:24c3bda7-20ef-4366-83da-fc47e624800b">Deployments</a></h4>
+<div class="outline-text-4" id="text-h:24c3bda7-20ef-4366-83da-fc47e624800b">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl get deploy
 [root@master ~]# kubectl describe deploy
@@ -1509,9 +1501,9 @@ kube-system       Active   5h22m
 </div>
 </div>
 </div>
-<div id="outline-container-h:0de9d447-575c-4524-8fb8-9b8646b747e9" class="outline-5">
-<h5 id="h:0de9d447-575c-4524-8fb8-9b8646b747e9"><a href="#h:0de9d447-575c-4524-8fb8-9b8646b747e9">Services</a></h5>
-<div class="outline-text-5" id="text-h:0de9d447-575c-4524-8fb8-9b8646b747e9">
+<div id="outline-container-h:0de9d447-575c-4524-8fb8-9b8646b747e9" class="outline-4">
+<h4 id="h:0de9d447-575c-4524-8fb8-9b8646b747e9"><a href="#h:0de9d447-575c-4524-8fb8-9b8646b747e9">Services</a></h4>
+<div class="outline-text-4" id="text-h:0de9d447-575c-4524-8fb8-9b8646b747e9">
 <div class="org-src-container">
 <pre class="src src-sh">kubectl get svc
 kubectl describe svc
@@ -1521,13 +1513,18 @@ kubectl get svc --show-labels
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">&#23637;&#31034;&#20381;&#25454;metadata.name &#25490;&#24207;&#36807;&#30340;service
 </span>kubectl get services --sort-by=.metadata.name
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#21015;&#20986; selector &#20026; app=admin-web &#30340; svc
+</span>kubectl get svc -o <span class="org-variable-name">jsonpath</span>=<span class="org-string">'{range .items[?(@.spec.selector.app=="admin-web")]}{.metadata.name}{"\n"}{end}'</span>
+<span class="org-comment-delimiter">## </span><span class="org-comment">&#36755;&#20986;&#34920;&#26684;&#65292;&#21516;&#26102;&#25171;&#21360; selector&#65288;&#25512;&#33616;&#65292;&#19968;&#30524;&#26680;&#23545;&#65289;
+</span>kubectl get svc -o custom-columns=<span class="org-string">"NAMESPACE:.metadata.namespace,NAME:.metadata.name,SELECTOR:.spec.selector"</span> | grep <span class="org-string">'app:admin-web'</span>
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-h:22A6C050-9F5B-447D-A701-D6A6FD9C14D5" class="outline-5">
-<h5 id="h:22A6C050-9F5B-447D-A701-D6A6FD9C14D5"><a href="#h:22A6C050-9F5B-447D-A701-D6A6FD9C14D5">DaemonSets</a></h5>
-<div class="outline-text-5" id="text-h:22A6C050-9F5B-447D-A701-D6A6FD9C14D5">
+<div id="outline-container-h:22A6C050-9F5B-447D-A701-D6A6FD9C14D5" class="outline-4">
+<h4 id="h:22A6C050-9F5B-447D-A701-D6A6FD9C14D5"><a href="#h:22A6C050-9F5B-447D-A701-D6A6FD9C14D5">DaemonSets</a></h4>
+<div class="outline-text-4" id="text-h:22A6C050-9F5B-447D-A701-D6A6FD9C14D5">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl get ds
 [root@master ~]# kubectl get ds --all-namespaces
@@ -1537,9 +1534,9 @@ kubectl get svc --show-labels
 </div>
 </div>
 </div>
-<div id="outline-container-h:523ee34e-05c8-4860-9bf8-01a9498b00b8" class="outline-5">
-<h5 id="h:523ee34e-05c8-4860-9bf8-01a9498b00b8"><a href="#h:523ee34e-05c8-4860-9bf8-01a9498b00b8">Events</a></h5>
-<div class="outline-text-5" id="text-h:523ee34e-05c8-4860-9bf8-01a9498b00b8">
+<div id="outline-container-h:523ee34e-05c8-4860-9bf8-01a9498b00b8" class="outline-4">
+<h4 id="h:523ee34e-05c8-4860-9bf8-01a9498b00b8"><a href="#h:523ee34e-05c8-4860-9bf8-01a9498b00b8">Events</a></h4>
+<div class="outline-text-4" id="text-h:523ee34e-05c8-4860-9bf8-01a9498b00b8">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl get events
 [root@master ~]# kubectl get events -n kube-system
@@ -1631,9 +1628,30 @@ kubectl -n english-prod get events   --field-selector <span class="org-variable-
 </div>
 </div>
 </div>
-<div id="outline-container-h:b36b36d6-e0a3-4ff0-af7b-f3199c21e585" class="outline-5">
-<h5 id="h:b36b36d6-e0a3-4ff0-af7b-f3199c21e585"><a href="#h:b36b36d6-e0a3-4ff0-af7b-f3199c21e585">logs</a></h5>
-<div class="outline-text-5" id="text-h:b36b36d6-e0a3-4ff0-af7b-f3199c21e585">
+<div id="outline-container-h:0D8CBF7D-5FCD-4DFE-8DBA-41B8530615CB" class="outline-4">
+<h4 id="h:0D8CBF7D-5FCD-4DFE-8DBA-41B8530615CB"><a href="#h:0D8CBF7D-5FCD-4DFE-8DBA-41B8530615CB">Ingress</a></h4>
+<div class="outline-text-4" id="text-h:0D8CBF7D-5FCD-4DFE-8DBA-41B8530615CB">
+<div class="org-src-container">
+<pre class="src src-sh">kubectl get ing
+kubectl get ing --all-namespaces
+</pre>
+</div>
+
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#21015;&#20986;&#20351;&#29992;&#20102; admin-web &#30340; service &#30340; ingress
+</span>kubectl get ingress -o custom-columns=<span class="org-string">"NAME:.metadata.name,SERVICE:.spec.rules[*].http.paths[*].backend.service.name"</span> | grep admin-web
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#20840;&#21517;&#31216;&#31354;&#38388;&#26597;&#25214;
+</span>kubectl get ingress -A -o custom-columns=<span class="org-string">"NS:.metadata.namespace,NAME:.metadata.name,SERVICE:.spec.rules[*].http.paths[*].backend.service.name"</span> | grep admin-web
+
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-h:b36b36d6-e0a3-4ff0-af7b-f3199c21e585" class="outline-4">
+<h4 id="h:b36b36d6-e0a3-4ff0-af7b-f3199c21e585"><a href="#h:b36b36d6-e0a3-4ff0-af7b-f3199c21e585">logs</a></h4>
+<div class="outline-text-4" id="text-h:b36b36d6-e0a3-4ff0-af7b-f3199c21e585">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl logs [pod_name]
 [root@master ~]# kubectl logs --since=1h [pod_name]
@@ -1644,9 +1662,9 @@ kubectl -n english-prod get events   --field-selector <span class="org-variable-
 </div>
 </div>
 </div>
-<div id="outline-container-h:bdc71311-1ad8-4303-8aa9-c7aa4e145427" class="outline-5">
-<h5 id="h:bdc71311-1ad8-4303-8aa9-c7aa4e145427"><a href="#h:bdc71311-1ad8-4303-8aa9-c7aa4e145427">Service Accounts</a></h5>
-<div class="outline-text-5" id="text-h:bdc71311-1ad8-4303-8aa9-c7aa4e145427">
+<div id="outline-container-h:bdc71311-1ad8-4303-8aa9-c7aa4e145427" class="outline-4">
+<h4 id="h:bdc71311-1ad8-4303-8aa9-c7aa4e145427"><a href="#h:bdc71311-1ad8-4303-8aa9-c7aa4e145427">Service Accounts</a></h4>
+<div class="outline-text-4" id="text-h:bdc71311-1ad8-4303-8aa9-c7aa4e145427">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl get sa
 [root@master ~]# kubectl get sa -o yaml
@@ -1656,9 +1674,9 @@ kubectl -n english-prod get events   --field-selector <span class="org-variable-
 </div>
 </div>
 </div>
-<div id="outline-container-h:e254bd02-e754-4d55-903c-29581fc0806b" class="outline-5">
-<h5 id="h:e254bd02-e754-4d55-903c-29581fc0806b"><a href="#h:e254bd02-e754-4d55-903c-29581fc0806b">ReplicaSets</a></h5>
-<div class="outline-text-5" id="text-h:e254bd02-e754-4d55-903c-29581fc0806b">
+<div id="outline-container-h:e254bd02-e754-4d55-903c-29581fc0806b" class="outline-4">
+<h4 id="h:e254bd02-e754-4d55-903c-29581fc0806b"><a href="#h:e254bd02-e754-4d55-903c-29581fc0806b">ReplicaSets</a></h4>
+<div class="outline-text-4" id="text-h:e254bd02-e754-4d55-903c-29581fc0806b">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl get rs
 [root@master ~]# kubectl describe rs
@@ -1668,9 +1686,9 @@ kubectl -n english-prod get events   --field-selector <span class="org-variable-
 </div>
 </div>
 </div>
-<div id="outline-container-h:752f915f-7331-4a0c-8ee3-b05c9babc5f0" class="outline-5">
-<h5 id="h:752f915f-7331-4a0c-8ee3-b05c9babc5f0"><a href="#h:752f915f-7331-4a0c-8ee3-b05c9babc5f0">Roles</a></h5>
-<div class="outline-text-5" id="text-h:752f915f-7331-4a0c-8ee3-b05c9babc5f0">
+<div id="outline-container-h:752f915f-7331-4a0c-8ee3-b05c9babc5f0" class="outline-4">
+<h4 id="h:752f915f-7331-4a0c-8ee3-b05c9babc5f0"><a href="#h:752f915f-7331-4a0c-8ee3-b05c9babc5f0">Roles</a></h4>
+<div class="outline-text-4" id="text-h:752f915f-7331-4a0c-8ee3-b05c9babc5f0">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl get roles --all -namespaces
 [root@master ~]# kubectl get roles --all -namespaces -o yaml
@@ -1678,9 +1696,9 @@ kubectl -n english-prod get events   --field-selector <span class="org-variable-
 </div>
 </div>
 </div>
-<div id="outline-container-h:e20c4c24-f83c-45a7-834f-14f0071773de" class="outline-5">
-<h5 id="h:e20c4c24-f83c-45a7-834f-14f0071773de"><a href="#h:e20c4c24-f83c-45a7-834f-14f0071773de">Secrets</a></h5>
-<div class="outline-text-5" id="text-h:e20c4c24-f83c-45a7-834f-14f0071773de">
+<div id="outline-container-h:e20c4c24-f83c-45a7-834f-14f0071773de" class="outline-4">
+<h4 id="h:e20c4c24-f83c-45a7-834f-14f0071773de"><a href="#h:e20c4c24-f83c-45a7-834f-14f0071773de">Secrets</a></h4>
+<div class="outline-text-4" id="text-h:e20c4c24-f83c-45a7-834f-14f0071773de">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl get secrets
 [root@master ~]# kubectl get secrets --all-namespaces
@@ -1689,9 +1707,9 @@ kubectl -n english-prod get events   --field-selector <span class="org-variable-
 </div>
 </div>
 </div>
-<div id="outline-container-h:00ba9576-b213-4d3d-9154-cfe5cf2b326e" class="outline-5">
-<h5 id="h:00ba9576-b213-4d3d-9154-cfe5cf2b326e"><a href="#h:00ba9576-b213-4d3d-9154-cfe5cf2b326e">ConfigMaps</a></h5>
-<div class="outline-text-5" id="text-h:00ba9576-b213-4d3d-9154-cfe5cf2b326e">
+<div id="outline-container-h:00ba9576-b213-4d3d-9154-cfe5cf2b326e" class="outline-4">
+<h4 id="h:00ba9576-b213-4d3d-9154-cfe5cf2b326e"><a href="#h:00ba9576-b213-4d3d-9154-cfe5cf2b326e">ConfigMaps</a></h4>
+<div class="outline-text-4" id="text-h:00ba9576-b213-4d3d-9154-cfe5cf2b326e">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl get cm
 [root@master ~]# kubectl get cm --all-namespaces
@@ -1701,19 +1719,9 @@ kubectl -n kube-system edit cm coredns
 </div>
 </div>
 </div>
-<div id="outline-container-h:2b039f47-123c-472a-af64-b7baf2c3e30e" class="outline-5">
-<h5 id="h:2b039f47-123c-472a-af64-b7baf2c3e30e"><a href="#h:2b039f47-123c-472a-af64-b7baf2c3e30e">Ingress</a></h5>
-<div class="outline-text-5" id="text-h:2b039f47-123c-472a-af64-b7baf2c3e30e">
-<div class="org-src-container">
-<pre class="src src-sh">[root@master ~]# kubectl get ing
-[root@master ~]# kubectl get ing --all-namespaces
-</pre>
-</div>
-</div>
-</div>
-<div id="outline-container-h:991dbbe2-97b4-4fcd-b4cf-1415b08aa3af" class="outline-5">
-<h5 id="h:991dbbe2-97b4-4fcd-b4cf-1415b08aa3af"><a href="#h:991dbbe2-97b4-4fcd-b4cf-1415b08aa3af">PersistentVolume</a></h5>
-<div class="outline-text-5" id="text-h:991dbbe2-97b4-4fcd-b4cf-1415b08aa3af">
+<div id="outline-container-h:991dbbe2-97b4-4fcd-b4cf-1415b08aa3af" class="outline-4">
+<h4 id="h:991dbbe2-97b4-4fcd-b4cf-1415b08aa3af"><a href="#h:991dbbe2-97b4-4fcd-b4cf-1415b08aa3af">PersistentVolume</a></h4>
+<div class="outline-text-4" id="text-h:991dbbe2-97b4-4fcd-b4cf-1415b08aa3af">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl get pv
 [root@master ~]# kubectl describe pv
@@ -1721,9 +1729,9 @@ kubectl -n kube-system edit cm coredns
 </div>
 </div>
 </div>
-<div id="outline-container-h:2d9774be-eadd-4cab-ac53-4cc6ad90bbd2" class="outline-5">
-<h5 id="h:2d9774be-eadd-4cab-ac53-4cc6ad90bbd2"><a href="#h:2d9774be-eadd-4cab-ac53-4cc6ad90bbd2">PersistentVolumeClaim</a></h5>
-<div class="outline-text-5" id="text-h:2d9774be-eadd-4cab-ac53-4cc6ad90bbd2">
+<div id="outline-container-h:2d9774be-eadd-4cab-ac53-4cc6ad90bbd2" class="outline-4">
+<h4 id="h:2d9774be-eadd-4cab-ac53-4cc6ad90bbd2"><a href="#h:2d9774be-eadd-4cab-ac53-4cc6ad90bbd2">PersistentVolumeClaim</a></h4>
+<div class="outline-text-4" id="text-h:2d9774be-eadd-4cab-ac53-4cc6ad90bbd2">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl get pvc
 [root@master ~]# kubectl describe pvc
@@ -1731,9 +1739,9 @@ kubectl -n kube-system edit cm coredns
 </div>
 </div>
 </div>
-<div id="outline-container-h:9e739909-b13e-4454-a490-c98301d5f5a5" class="outline-5">
-<h5 id="h:9e739909-b13e-4454-a490-c98301d5f5a5"><a href="#h:9e739909-b13e-4454-a490-c98301d5f5a5">StorageClass</a></h5>
-<div class="outline-text-5" id="text-h:9e739909-b13e-4454-a490-c98301d5f5a5">
+<div id="outline-container-h:9e739909-b13e-4454-a490-c98301d5f5a5" class="outline-4">
+<h4 id="h:9e739909-b13e-4454-a490-c98301d5f5a5"><a href="#h:9e739909-b13e-4454-a490-c98301d5f5a5">StorageClass</a></h4>
+<div class="outline-text-4" id="text-h:9e739909-b13e-4454-a490-c98301d5f5a5">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl get sc
 [root@master ~]# kubectl get sc -o yaml
@@ -1741,9 +1749,9 @@ kubectl -n kube-system edit cm coredns
 </div>
 </div>
 </div>
-<div id="outline-container-h:5c0f4b35-8af9-4e4c-86c2-a255706cfc71" class="outline-5">
-<h5 id="h:5c0f4b35-8af9-4e4c-86c2-a255706cfc71"><a href="#h:5c0f4b35-8af9-4e4c-86c2-a255706cfc71">Multiple Resources</a></h5>
-<div class="outline-text-5" id="text-h:5c0f4b35-8af9-4e4c-86c2-a255706cfc71">
+<div id="outline-container-h:5c0f4b35-8af9-4e4c-86c2-a255706cfc71" class="outline-4">
+<h4 id="h:5c0f4b35-8af9-4e4c-86c2-a255706cfc71"><a href="#h:5c0f4b35-8af9-4e4c-86c2-a255706cfc71">Multiple Resources</a></h4>
+<div class="outline-text-4" id="text-h:5c0f4b35-8af9-4e4c-86c2-a255706cfc71">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl get svc,po
 [root@master ~]# kubectl get deploy,no
@@ -1754,13 +1762,13 @@ kubectl -n kube-system edit cm coredns
 </div>
 </div>
 </div>
-<div id="outline-container-h:b596d0b6-bf2c-4c4c-9df2-f7ef3350d4ea" class="outline-4">
-<h4 id="h:b596d0b6-bf2c-4c4c-9df2-f7ef3350d4ea"><a href="#h:b596d0b6-bf2c-4c4c-9df2-f7ef3350d4ea">Adding Resources 添加资源</a></h4>
-<div class="outline-text-4" id="text-h:b596d0b6-bf2c-4c4c-9df2-f7ef3350d4ea">
+<div id="outline-container-h:b596d0b6-bf2c-4c4c-9df2-f7ef3350d4ea" class="outline-3">
+<h3 id="h:b596d0b6-bf2c-4c4c-9df2-f7ef3350d4ea"><a href="#h:b596d0b6-bf2c-4c4c-9df2-f7ef3350d4ea">Adding Resources 添加资源</a></h3>
+<div class="outline-text-3" id="text-h:b596d0b6-bf2c-4c4c-9df2-f7ef3350d4ea">
 </div>
-<div id="outline-container-h:6e5e38c9-741a-4754-afc5-41748884f1c8" class="outline-5">
-<h5 id="h:6e5e38c9-741a-4754-afc5-41748884f1c8"><a href="#h:6e5e38c9-741a-4754-afc5-41748884f1c8">Creating a Pod</a></h5>
-<div class="outline-text-5" id="text-h:6e5e38c9-741a-4754-afc5-41748884f1c8">
+<div id="outline-container-h:6e5e38c9-741a-4754-afc5-41748884f1c8" class="outline-4">
+<h4 id="h:6e5e38c9-741a-4754-afc5-41748884f1c8"><a href="#h:6e5e38c9-741a-4754-afc5-41748884f1c8">Creating a Pod</a></h4>
+<div class="outline-text-4" id="text-h:6e5e38c9-741a-4754-afc5-41748884f1c8">
 <div class="org-src-container">
 <pre class="src src-sh">kubectl create -f [name_of_file]
 kubectl apply -f [name_of_file] <span class="org-comment-delimiter"># </span><span class="org-comment">&#36890;&#36807;&#25991;&#20214;&#21019;&#24314;&#36164;&#28304;
@@ -1776,18 +1784,18 @@ kubectl run [pod_name] --image=nginx --restart=Never
 </div>
 </div>
 </div>
-<div id="outline-container-h:9a20fe8f-b7b4-4550-892d-3b64537344c1" class="outline-5">
-<h5 id="h:9a20fe8f-b7b4-4550-892d-3b64537344c1"><a href="#h:9a20fe8f-b7b4-4550-892d-3b64537344c1">Creating a Service</a></h5>
-<div class="outline-text-5" id="text-h:9a20fe8f-b7b4-4550-892d-3b64537344c1">
+<div id="outline-container-h:9a20fe8f-b7b4-4550-892d-3b64537344c1" class="outline-4">
+<h4 id="h:9a20fe8f-b7b4-4550-892d-3b64537344c1"><a href="#h:9a20fe8f-b7b4-4550-892d-3b64537344c1">Creating a Service</a></h4>
+<div class="outline-text-4" id="text-h:9a20fe8f-b7b4-4550-892d-3b64537344c1">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl create svc nodeport [svc_name] --tcp=8080: 80
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-h:4da85756-3d25-4181-8612-679e183a7a6a" class="outline-5">
-<h5 id="h:4da85756-3d25-4181-8612-679e183a7a6a"><a href="#h:4da85756-3d25-4181-8612-679e183a7a6a">Creating a Deployment</a></h5>
-<div class="outline-text-5" id="text-h:4da85756-3d25-4181-8612-679e183a7a6a">
+<div id="outline-container-h:4da85756-3d25-4181-8612-679e183a7a6a" class="outline-4">
+<h4 id="h:4da85756-3d25-4181-8612-679e183a7a6a"><a href="#h:4da85756-3d25-4181-8612-679e183a7a6a">Creating a Deployment</a></h4>
+<div class="outline-text-4" id="text-h:4da85756-3d25-4181-8612-679e183a7a6a">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl create -f [name_of_file]
 [root@master ~]# kubectl apply -f [name_of_file]
@@ -1796,18 +1804,18 @@ kubectl run [pod_name] --image=nginx --restart=Never
 </div>
 </div>
 </div>
-<div id="outline-container-h:2e270b19-20c5-4180-a12c-47a752a25e29" class="outline-5">
-<h5 id="h:2e270b19-20c5-4180-a12c-47a752a25e29"><a href="#h:2e270b19-20c5-4180-a12c-47a752a25e29">Interactive Pod</a></h5>
-<div class="outline-text-5" id="text-h:2e270b19-20c5-4180-a12c-47a752a25e29">
+<div id="outline-container-h:2e270b19-20c5-4180-a12c-47a752a25e29" class="outline-4">
+<h4 id="h:2e270b19-20c5-4180-a12c-47a752a25e29"><a href="#h:2e270b19-20c5-4180-a12c-47a752a25e29">Interactive Pod</a></h4>
+<div class="outline-text-4" id="text-h:2e270b19-20c5-4180-a12c-47a752a25e29">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl run [pod_name] --image=busybox --rm -it --restart=Never -- sh
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-h:84f2fd04-ff42-4e3e-b3b9-d5a661645fcd" class="outline-5">
-<h5 id="h:84f2fd04-ff42-4e3e-b3b9-d5a661645fcd"><a href="#h:84f2fd04-ff42-4e3e-b3b9-d5a661645fcd">Output YAML to a File</a></h5>
-<div class="outline-text-5" id="text-h:84f2fd04-ff42-4e3e-b3b9-d5a661645fcd">
+<div id="outline-container-h:84f2fd04-ff42-4e3e-b3b9-d5a661645fcd" class="outline-4">
+<h4 id="h:84f2fd04-ff42-4e3e-b3b9-d5a661645fcd"><a href="#h:84f2fd04-ff42-4e3e-b3b9-d5a661645fcd">Output YAML to a File</a></h4>
+<div class="outline-text-4" id="text-h:84f2fd04-ff42-4e3e-b3b9-d5a661645fcd">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl create deploy [deploy_name] --image=nginx --dry-run -o yaml &gt; depl oy. yaml
 [root@master ~]# kubectl get po [pod_name] -o yaml --export &gt; pod. yaml
@@ -1815,9 +1823,9 @@ kubectl run [pod_name] --image=nginx --restart=Never
 </div>
 </div>
 </div>
-<div id="outline-container-h:6efc66b5-7a1e-4064-8250-1f269263b2a5" class="outline-5">
-<h5 id="h:6efc66b5-7a1e-4064-8250-1f269263b2a5"><a href="#h:6efc66b5-7a1e-4064-8250-1f269263b2a5">Getting Help</a></h5>
-<div class="outline-text-5" id="text-h:6efc66b5-7a1e-4064-8250-1f269263b2a5">
+<div id="outline-container-h:6efc66b5-7a1e-4064-8250-1f269263b2a5" class="outline-4">
+<h4 id="h:6efc66b5-7a1e-4064-8250-1f269263b2a5"><a href="#h:6efc66b5-7a1e-4064-8250-1f269263b2a5">Getting Help</a></h4>
+<div class="outline-text-4" id="text-h:6efc66b5-7a1e-4064-8250-1f269263b2a5">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl -h 
 [root@master ~]# kubectl create -h
@@ -1828,22 +1836,22 @@ kubectl run [pod_name] --image=nginx --restart=Never
 </div>
 </div>
 </div>
-<div id="outline-container-h:799b2b48-7aa7-4cff-a054-a6fb30187a69" class="outline-4">
-<h4 id="h:799b2b48-7aa7-4cff-a054-a6fb30187a69"><a href="#h:799b2b48-7aa7-4cff-a054-a6fb30187a69">Changing Resource Attributes 改变资源属性</a></h4>
-<div class="outline-text-4" id="text-h:799b2b48-7aa7-4cff-a054-a6fb30187a69">
+<div id="outline-container-h:799b2b48-7aa7-4cff-a054-a6fb30187a69" class="outline-3">
+<h3 id="h:799b2b48-7aa7-4cff-a054-a6fb30187a69"><a href="#h:799b2b48-7aa7-4cff-a054-a6fb30187a69">Changing Resource Attributes 改变资源属性</a></h3>
+<div class="outline-text-3" id="text-h:799b2b48-7aa7-4cff-a054-a6fb30187a69">
 </div>
-<div id="outline-container-h:834bf28d-f422-4fc2-9db5-a5c8a4f539fd" class="outline-5">
-<h5 id="h:834bf28d-f422-4fc2-9db5-a5c8a4f539fd"><a href="#h:834bf28d-f422-4fc2-9db5-a5c8a4f539fd">Taint</a></h5>
-<div class="outline-text-5" id="text-h:834bf28d-f422-4fc2-9db5-a5c8a4f539fd">
+<div id="outline-container-h:834bf28d-f422-4fc2-9db5-a5c8a4f539fd" class="outline-4">
+<h4 id="h:834bf28d-f422-4fc2-9db5-a5c8a4f539fd"><a href="#h:834bf28d-f422-4fc2-9db5-a5c8a4f539fd">Taint</a></h4>
+<div class="outline-text-4" id="text-h:834bf28d-f422-4fc2-9db5-a5c8a4f539fd">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl taint [node_name] [taint_name] 
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-h:b856106c-0e6e-4a0e-ad36-4233a72402d8" class="outline-5">
-<h5 id="h:b856106c-0e6e-4a0e-ad36-4233a72402d8"><a href="#h:b856106c-0e6e-4a0e-ad36-4233a72402d8">Labels</a></h5>
-<div class="outline-text-5" id="text-h:b856106c-0e6e-4a0e-ad36-4233a72402d8">
+<div id="outline-container-h:b856106c-0e6e-4a0e-ad36-4233a72402d8" class="outline-4">
+<h4 id="h:b856106c-0e6e-4a0e-ad36-4233a72402d8"><a href="#h:b856106c-0e6e-4a0e-ad36-4233a72402d8">Labels</a></h4>
+<div class="outline-text-4" id="text-h:b856106c-0e6e-4a0e-ad36-4233a72402d8">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl label [node_name] <span class="org-variable-name">disktype</span>=ssd
 [root@master ~]# kubectl label [pod_name] <span class="org-variable-name">env</span>=prod <span class="org-comment-delimiter"># </span><span class="org-comment">&#28155;&#21152;&#26631;&#31614;</span>
@@ -1851,9 +1859,9 @@ kubectl run [pod_name] --image=nginx --restart=Never
 </div>
 </div>
 </div>
-<div id="outline-container-h:37d7b04c-d63c-4914-bca5-902c042a9a65" class="outline-5">
-<h5 id="h:37d7b04c-d63c-4914-bca5-902c042a9a65"><a href="#h:37d7b04c-d63c-4914-bca5-902c042a9a65">Cordon/Uncordon</a></h5>
-<div class="outline-text-5" id="text-h:37d7b04c-d63c-4914-bca5-902c042a9a65">
+<div id="outline-container-h:37d7b04c-d63c-4914-bca5-902c042a9a65" class="outline-4">
+<h4 id="h:37d7b04c-d63c-4914-bca5-902c042a9a65"><a href="#h:37d7b04c-d63c-4914-bca5-902c042a9a65">Cordon/Uncordon</a></h4>
+<div class="outline-text-4" id="text-h:37d7b04c-d63c-4914-bca5-902c042a9a65">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl cordon [node_name]
 [root@master ~]# kunectl uncordon [node_name]
@@ -1861,18 +1869,18 @@ kubectl run [pod_name] --image=nginx --restart=Never
 </div>
 </div>
 </div>
-<div id="outline-container-h:94ef19e3-3bb5-4e6e-9c20-b849c7072cb4" class="outline-5">
-<h5 id="h:94ef19e3-3bb5-4e6e-9c20-b849c7072cb4"><a href="#h:94ef19e3-3bb5-4e6e-9c20-b849c7072cb4">Drain</a></h5>
-<div class="outline-text-5" id="text-h:94ef19e3-3bb5-4e6e-9c20-b849c7072cb4">
+<div id="outline-container-h:94ef19e3-3bb5-4e6e-9c20-b849c7072cb4" class="outline-4">
+<h4 id="h:94ef19e3-3bb5-4e6e-9c20-b849c7072cb4"><a href="#h:94ef19e3-3bb5-4e6e-9c20-b849c7072cb4">Drain</a></h4>
+<div class="outline-text-4" id="text-h:94ef19e3-3bb5-4e6e-9c20-b849c7072cb4">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl drain [node_name]
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-h:fddb3421-da3e-4d7f-b3cb-b18473e04025" class="outline-5">
-<h5 id="h:fddb3421-da3e-4d7f-b3cb-b18473e04025"><a href="#h:fddb3421-da3e-4d7f-b3cb-b18473e04025">Nodes/Pods</a></h5>
-<div class="outline-text-5" id="text-h:fddb3421-da3e-4d7f-b3cb-b18473e04025">
+<div id="outline-container-h:fddb3421-da3e-4d7f-b3cb-b18473e04025" class="outline-4">
+<h4 id="h:fddb3421-da3e-4d7f-b3cb-b18473e04025"><a href="#h:fddb3421-da3e-4d7f-b3cb-b18473e04025">Nodes/Pods</a></h4>
+<div class="outline-text-4" id="text-h:fddb3421-da3e-4d7f-b3cb-b18473e04025">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl delet enode [node_name]
 [root@master ~]# kubectl delet epod [pod_name]
@@ -1904,9 +1912,9 @@ kubectl rolling-update frontend-v1 -f frontend-v2.json <span class="org-comment-
 </div>
 </div>
 </div>
-<div id="outline-container-h:1a1a1127-fece-4639-9b55-f520f3dd6e29" class="outline-5">
-<h5 id="h:1a1a1127-fece-4639-9b55-f520f3dd6e29"><a href="#h:1a1a1127-fece-4639-9b55-f520f3dd6e29">Deployments/Namespaces</a></h5>
-<div class="outline-text-5" id="text-h:1a1a1127-fece-4639-9b55-f520f3dd6e29">
+<div id="outline-container-h:1a1a1127-fece-4639-9b55-f520f3dd6e29" class="outline-4">
+<h4 id="h:1a1a1127-fece-4639-9b55-f520f3dd6e29"><a href="#h:1a1a1127-fece-4639-9b55-f520f3dd6e29">Deployments/Namespaces</a></h4>
+<div class="outline-text-4" id="text-h:1a1a1127-fece-4639-9b55-f520f3dd6e29">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl edit deploy [deploy_name]
 [root@master ~]# kubectl delete deploy [deploy_name]
@@ -1933,9 +1941,9 @@ kubectl autoscale deployment foo --min=2 --max=10                <span class="or
 </div>
 </div>
 </div>
-<div id="outline-container-h:5855b447-2d1c-4753-a7e9-a4237992f63a" class="outline-5">
-<h5 id="h:5855b447-2d1c-4753-a7e9-a4237992f63a"><a href="#h:5855b447-2d1c-4753-a7e9-a4237992f63a">Services</a></h5>
-<div class="outline-text-5" id="text-h:5855b447-2d1c-4753-a7e9-a4237992f63a">
+<div id="outline-container-h:5855b447-2d1c-4753-a7e9-a4237992f63a" class="outline-4">
+<h4 id="h:5855b447-2d1c-4753-a7e9-a4237992f63a"><a href="#h:5855b447-2d1c-4753-a7e9-a4237992f63a">Services</a></h4>
+<div class="outline-text-4" id="text-h:5855b447-2d1c-4753-a7e9-a4237992f63a">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl edit svc [svc_name]
 [root@master ~]# kubectl delete svc [svc_name]
@@ -1946,9 +1954,9 @@ kubectl edit svc/docker-registry                      <span class="org-comment-d
 </div>
 </div>
 </div>
-<div id="outline-container-h:58f60629-e99c-4230-b275-efb7774286a1" class="outline-5">
-<h5 id="h:58f60629-e99c-4230-b275-efb7774286a1"><a href="#h:58f60629-e99c-4230-b275-efb7774286a1">DaemonSets</a></h5>
-<div class="outline-text-5" id="text-h:58f60629-e99c-4230-b275-efb7774286a1">
+<div id="outline-container-h:58f60629-e99c-4230-b275-efb7774286a1" class="outline-4">
+<h4 id="h:58f60629-e99c-4230-b275-efb7774286a1"><a href="#h:58f60629-e99c-4230-b275-efb7774286a1">DaemonSets</a></h4>
+<div class="outline-text-4" id="text-h:58f60629-e99c-4230-b275-efb7774286a1">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl edit ds [ds_name] -n kube-system
 [root@master ~]# kubectl delete ds [ds_name]
@@ -1956,9 +1964,9 @@ kubectl edit svc/docker-registry                      <span class="org-comment-d
 </div>
 </div>
 </div>
-<div id="outline-container-h:57da0910-eb53-49a3-938f-5ad3e93feb1e" class="outline-5">
-<h5 id="h:57da0910-eb53-49a3-938f-5ad3e93feb1e"><a href="#h:57da0910-eb53-49a3-938f-5ad3e93feb1e">Service Accounts</a></h5>
-<div class="outline-text-5" id="text-h:57da0910-eb53-49a3-938f-5ad3e93feb1e">
+<div id="outline-container-h:57da0910-eb53-49a3-938f-5ad3e93feb1e" class="outline-4">
+<h4 id="h:57da0910-eb53-49a3-938f-5ad3e93feb1e"><a href="#h:57da0910-eb53-49a3-938f-5ad3e93feb1e">Service Accounts</a></h4>
+<div class="outline-text-4" id="text-h:57da0910-eb53-49a3-938f-5ad3e93feb1e">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl edit sa [sa_name]
 [root@master ~]# kubectl delete sa [sa_name]
@@ -1969,9 +1977,9 @@ kubectl edit svc/docker-registry                      <span class="org-comment-d
 </div>
 </div>
 </div>
-<div id="outline-container-h:2a18028f-8aaf-47d4-ac8b-15f0e3bea3c1" class="outline-5">
-<h5 id="h:2a18028f-8aaf-47d4-ac8b-15f0e3bea3c1"><a href="#h:2a18028f-8aaf-47d4-ac8b-15f0e3bea3c1">Annotate</a></h5>
-<div class="outline-text-5" id="text-h:2a18028f-8aaf-47d4-ac8b-15f0e3bea3c1">
+<div id="outline-container-h:2a18028f-8aaf-47d4-ac8b-15f0e3bea3c1" class="outline-4">
+<h4 id="h:2a18028f-8aaf-47d4-ac8b-15f0e3bea3c1"><a href="#h:2a18028f-8aaf-47d4-ac8b-15f0e3bea3c1">Annotate</a></h4>
+<div class="outline-text-4" id="text-h:2a18028f-8aaf-47d4-ac8b-15f0e3bea3c1">
 <div class="org-src-container">
 <pre class="src src-sh">kubectl annotate po [pod_name] [annotation]
 kubectl autoscale deployment foo --min=2 --max=10                <span class="org-comment-delimiter"># </span><span class="org-comment">&#33258;&#21160;&#25193;&#23637;&#37096;&#32626; foo
@@ -1986,9 +1994,9 @@ kubectl autoscale deployment foo --min=2 --max=10                <span class="or
 </div>
 </div>
 </div>
-<div id="outline-container-h:34ef25c8-5cbf-4521-aefa-a568fcd91399" class="outline-5">
-<h5 id="h:34ef25c8-5cbf-4521-aefa-a568fcd91399"><a href="#h:34ef25c8-5cbf-4521-aefa-a568fcd91399">hpa</a></h5>
-<div class="outline-text-5" id="text-h:34ef25c8-5cbf-4521-aefa-a568fcd91399">
+<div id="outline-container-h:34ef25c8-5cbf-4521-aefa-a568fcd91399" class="outline-4">
+<h4 id="h:34ef25c8-5cbf-4521-aefa-a568fcd91399"><a href="#h:34ef25c8-5cbf-4521-aefa-a568fcd91399">hpa</a></h4>
+<div class="outline-text-4" id="text-h:34ef25c8-5cbf-4521-aefa-a568fcd91399">
 <div class="org-src-container">
 <pre class="src src-sh">kubectl --kubeconfig=/root/xuchangwei/config_qa -n english-qa  patch hpa english-etp-race-mqtt -p <span class="org-string">'{"spec":{"minReplicas":'"$a"'}}'</span>
 </pre>
@@ -1996,9 +2004,9 @@ kubectl autoscale deployment foo --min=2 --max=10                <span class="or
 </div>
 </div>
 </div>
-<div id="outline-container-h:8a00d652-f174-4bdb-aea7-4ae706604dd0" class="outline-4">
-<h4 id="h:8a00d652-f174-4bdb-aea7-4ae706604dd0"><a href="#h:8a00d652-f174-4bdb-aea7-4ae706604dd0">扩展资源</a></h4>
-<div class="outline-text-4" id="text-h:8a00d652-f174-4bdb-aea7-4ae706604dd0">
+<div id="outline-container-h:8a00d652-f174-4bdb-aea7-4ae706604dd0" class="outline-3">
+<h3 id="h:8a00d652-f174-4bdb-aea7-4ae706604dd0"><a href="#h:8a00d652-f174-4bdb-aea7-4ae706604dd0">扩展资源</a></h3>
+<div class="outline-text-3" id="text-h:8a00d652-f174-4bdb-aea7-4ae706604dd0">
 <div class="org-src-container">
 <pre class="src src-sh">kubectl scale --replicas=3 rs/foo                                 <span class="org-comment-delimiter"># </span><span class="org-comment">&#23558;&#19968;&#20010;&#21517;&#20026;foo&#30340;&#36164;&#28304;&#21103;&#26412;&#21464;&#20026;3
 </span>kubectl scale --replicas=3 -f foo.yaml                            <span class="org-comment-delimiter"># </span><span class="org-comment">&#23558;foo.yml&#20013;&#25351;&#23450;&#30340;&#36164;&#28304;&#21464;&#20026;3
@@ -2009,9 +2017,9 @@ kubectl autoscale deployment foo --min=2 --max=10                <span class="or
 </div>
 </div>
 </div>
-<div id="outline-container-h:2b31aa5b-3f60-4eb2-b527-14727f9abbc5" class="outline-4">
-<h4 id="h:2b31aa5b-3f60-4eb2-b527-14727f9abbc5"><a href="#h:2b31aa5b-3f60-4eb2-b527-14727f9abbc5">删除资源</a></h4>
-<div class="outline-text-4" id="text-h:2b31aa5b-3f60-4eb2-b527-14727f9abbc5">
+<div id="outline-container-h:2b31aa5b-3f60-4eb2-b527-14727f9abbc5" class="outline-3">
+<h3 id="h:2b31aa5b-3f60-4eb2-b527-14727f9abbc5"><a href="#h:2b31aa5b-3f60-4eb2-b527-14727f9abbc5">删除资源</a></h3>
+<div class="outline-text-3" id="text-h:2b31aa5b-3f60-4eb2-b527-14727f9abbc5">
 <div class="org-src-container">
 <pre class="src src-sh">kubectl delete -f ./pod.json                                              <span class="org-comment-delimiter"># </span><span class="org-comment">&#36890;&#36807;&#29305;&#23450;&#30340;pod.json &#21024;&#38500;pod
 </span>kubectl delete pod,service baz foo                                        <span class="org-comment-delimiter"># </span><span class="org-comment">&#21024;&#38500;&#21517;&#23383;&#20026;baz&#21644;foo&#30340;pods&#21644;services
@@ -2025,9 +2033,9 @@ kubectl autoscale deployment foo --min=2 --max=10                <span class="or
 </div>
 </div>
 </div>
-<div id="outline-container-h:42e52388-4e88-4a5f-9ee1-af87db0c9689" class="outline-4">
-<h4 id="h:42e52388-4e88-4a5f-9ee1-af87db0c9689"><a href="#h:42e52388-4e88-4a5f-9ee1-af87db0c9689">与正在运行的pod交互</a></h4>
-<div class="outline-text-4" id="text-h:42e52388-4e88-4a5f-9ee1-af87db0c9689">
+<div id="outline-container-h:42e52388-4e88-4a5f-9ee1-af87db0c9689" class="outline-3">
+<h3 id="h:42e52388-4e88-4a5f-9ee1-af87db0c9689"><a href="#h:42e52388-4e88-4a5f-9ee1-af87db0c9689">与正在运行的pod交互</a></h3>
+<div class="outline-text-3" id="text-h:42e52388-4e88-4a5f-9ee1-af87db0c9689">
 <div class="org-src-container">
 <pre class="src src-sh">kubectl logs my-pod                                 <span class="org-comment-delimiter"># </span><span class="org-comment">dump pod&#30340;&#26085;&#24535;&#65288;&#25511;&#21046;&#21488;&#36755;&#20986;&#65289;
 </span>kubectl logs -l <span class="org-variable-name">name</span>=myLabel                        <span class="org-comment-delimiter"># </span><span class="org-comment">dump label&#20026;myLabel&#30340;pod&#30340;&#26085;&#24535;&#65288;&#25511;&#21046;&#21488;&#36755;&#20986;&#65289;
@@ -2051,9 +2059,9 @@ kubectl exec -ti &lt;pod-name&gt; -c &lt;container-name&gt; /bin/bash  <span cla
 </div>
 </div>
 </div>
-<div id="outline-container-h:8fbcc7dc-5e87-4063-b1f1-78a266a949c9" class="outline-4">
-<h4 id="h:8fbcc7dc-5e87-4063-b1f1-78a266a949c9"><a href="#h:8fbcc7dc-5e87-4063-b1f1-78a266a949c9">与节点集群交互</a></h4>
-<div class="outline-text-4" id="text-h:8fbcc7dc-5e87-4063-b1f1-78a266a949c9">
+<div id="outline-container-h:8fbcc7dc-5e87-4063-b1f1-78a266a949c9" class="outline-3">
+<h3 id="h:8fbcc7dc-5e87-4063-b1f1-78a266a949c9"><a href="#h:8fbcc7dc-5e87-4063-b1f1-78a266a949c9">与节点集群交互</a></h3>
+<div class="outline-text-3" id="text-h:8fbcc7dc-5e87-4063-b1f1-78a266a949c9">
 <div class="org-src-container">
 <pre class="src src-sh">kubectl cordon my-node                                                <span class="org-comment-delimiter"># </span><span class="org-comment">&#23558;my-node&#26631;&#35760;&#20026;&#19981;&#21487;&#35843;&#24230;
 </span>kubectl drain my-node                                                 <span class="org-comment-delimiter"># </span><span class="org-comment">&#28165;&#31354;my-node&#20197;&#20934;&#22791;&#32500;&#25252;
@@ -2075,9 +2083,9 @@ kubectl delete node k8s-node-1
 </div>
 </div>
 </div>
-<div id="outline-container-h:2cd25d58-bdda-4fe2-ab2c-23284c19b245" class="outline-4">
-<h4 id="h:2cd25d58-bdda-4fe2-ab2c-23284c19b245"><a href="#h:2cd25d58-bdda-4fe2-ab2c-23284c19b245">资源类型</a></h4>
-<div class="outline-text-4" id="text-h:2cd25d58-bdda-4fe2-ab2c-23284c19b245">
+<div id="outline-container-h:2cd25d58-bdda-4fe2-ab2c-23284c19b245" class="outline-3">
+<h3 id="h:2cd25d58-bdda-4fe2-ab2c-23284c19b245"><a href="#h:2cd25d58-bdda-4fe2-ab2c-23284c19b245">资源类型</a></h3>
+<div class="outline-text-3" id="text-h:2cd25d58-bdda-4fe2-ab2c-23284c19b245">
 <div class="org-src-container">
 <pre class="src src-sh">kubectl api-resources &#21015;&#20986;&#25152;&#26377;&#25903;&#25345;&#30340;&#36164;&#28304;&#31867;&#22411;&#21450;&#20854;&#30701;&#21517;&#31216;&#65292;API&#32452;&#65292;&#26159;&#21542;&#20026;&#21629;&#21517;&#31354;&#38388;&#65292;&#20197;&#21450;Kind
 kubectl api-resources --namespaced=true      <span class="org-comment-delimiter"># </span><span class="org-comment">&#25152;&#26377;&#30340;&#21629;&#21517;&#31354;&#38388;&#36164;&#28304;
@@ -2103,13 +2111,13 @@ namespaces                        ns                                          fa
 </div>
 </div>
 </div>
-<div id="outline-container-h:00c9645f-c029-4d0a-9443-722459354b67" class="outline-4">
-<h4 id="h:00c9645f-c029-4d0a-9443-722459354b67"><a href="#h:00c9645f-c029-4d0a-9443-722459354b67">Requests //请求</a></h4>
-<div class="outline-text-4" id="text-h:00c9645f-c029-4d0a-9443-722459354b67">
+<div id="outline-container-h:00c9645f-c029-4d0a-9443-722459354b67" class="outline-3">
+<h3 id="h:00c9645f-c029-4d0a-9443-722459354b67"><a href="#h:00c9645f-c029-4d0a-9443-722459354b67">Requests //请求</a></h3>
+<div class="outline-text-3" id="text-h:00c9645f-c029-4d0a-9443-722459354b67">
 </div>
-<div id="outline-container-h:eac11a0d-a96a-40e2-b83e-f206d07e409b" class="outline-5">
-<h5 id="h:eac11a0d-a96a-40e2-b83e-f206d07e409b"><a href="#h:eac11a0d-a96a-40e2-b83e-f206d07e409b">API Call</a></h5>
-<div class="outline-text-5" id="text-h:eac11a0d-a96a-40e2-b83e-f206d07e409b">
+<div id="outline-container-h:eac11a0d-a96a-40e2-b83e-f206d07e409b" class="outline-4">
+<h4 id="h:eac11a0d-a96a-40e2-b83e-f206d07e409b"><a href="#h:eac11a0d-a96a-40e2-b83e-f206d07e409b">API Call</a></h4>
+<div class="outline-text-4" id="text-h:eac11a0d-a96a-40e2-b83e-f206d07e409b">
 <div class="org-src-container">
 <pre class="src src-sh">[root@master ~]# kubectl get --raw /apis/metrics.k8s.io/
 </pre>
@@ -2117,10 +2125,10 @@ namespaces                        ns                                          fa
 </div>
 </div>
 </div>
-</div>
-<div id="outline-container-h:85a80de8-3b47-409c-87dd-123759ccbeed" class="outline-3">
-<h3 id="h:85a80de8-3b47-409c-87dd-123759ccbeed"><a href="#h:85a80de8-3b47-409c-87dd-123759ccbeed">别名</a></h3>
-<div class="outline-text-3" id="text-h:85a80de8-3b47-409c-87dd-123759ccbeed">
+</section>
+<section id="outline-container-h:85a80de8-3b47-409c-87dd-123759ccbeed" class="outline-2">
+<h2 id="h:85a80de8-3b47-409c-87dd-123759ccbeed"><a href="#h:85a80de8-3b47-409c-87dd-123759ccbeed">别名</a></h2>
+<div class="outline-text-2" id="text-h:85a80de8-3b47-409c-87dd-123759ccbeed">
 <p>
 常用
 </p>
@@ -2237,10 +2245,10 @@ namespaces                        ns                                          fa
 </pre>
 </div>
 </div>
-</div>
-<div id="outline-container-h:f55bdc02-dc9a-4bc0-9c92-f48a30f88e12" class="outline-3">
-<h3 id="h:f55bdc02-dc9a-4bc0-9c92-f48a30f88e12"><a href="#h:f55bdc02-dc9a-4bc0-9c92-f48a30f88e12">集群升级</a></h3>
-<div class="outline-text-3" id="text-h:f55bdc02-dc9a-4bc0-9c92-f48a30f88e12">
+</section>
+<section id="outline-container-h:f55bdc02-dc9a-4bc0-9c92-f48a30f88e12" class="outline-2">
+<h2 id="h:f55bdc02-dc9a-4bc0-9c92-f48a30f88e12"><a href="#h:f55bdc02-dc9a-4bc0-9c92-f48a30f88e12">集群升级</a></h2>
+<div class="outline-text-2" id="text-h:f55bdc02-dc9a-4bc0-9c92-f48a30f88e12">
 <p>
 参考：<a href="https://www.xujun.org/note-136772.html">https://www.xujun.org/note-136772.html</a>
 </p>
@@ -2264,15 +2272,14 @@ namespaces                        ns                                          fa
 版本创建的。因为这是一个机械转换，你可能需要进去改变清单来调整默认值等等。
 </p>
 </div>
-</div>
-<div id="outline-container-h:ae6ff05b-918c-4950-ac51-177d54c867c4" class="outline-3">
-<h3 id="h:ae6ff05b-918c-4950-ac51-177d54c867c4"><a href="#h:ae6ff05b-918c-4950-ac51-177d54c867c4">参考文档</a></h3>
-<div class="outline-text-3" id="text-h:ae6ff05b-918c-4950-ac51-177d54c867c4">
+</section>
+<section id="outline-container-h:ae6ff05b-918c-4950-ac51-177d54c867c4" class="outline-2">
+<h2 id="h:ae6ff05b-918c-4950-ac51-177d54c867c4"><a href="#h:ae6ff05b-918c-4950-ac51-177d54c867c4">参考文档</a></h2>
+<div class="outline-text-2" id="text-h:ae6ff05b-918c-4950-ac51-177d54c867c4">
 <ul class="org-ul">
 <li><a href="https://kubernetes.io/docs/reference/kubectl/overview/">https://kubernetes.io/docs/reference/kubectl/overview/</a></li>
 <li>华为云<a href="https://support.huaweicloud.com/basics-cce/kubernetes.html">https://support.huaweicloud.com/basics-cce/kubernetes.html</a></li>
 </ul>
-</div>
 </div>
 </section>
 </div>

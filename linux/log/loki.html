@@ -507,7 +507,7 @@ Grafana Loki采用微服务架构，设计为水平可扩展的分布式系统�
 
 
 
-<figure id="orgeadabe1">
+<figure id="org095b20b">
 <img style="aspect-ratio:753/557" decoding="async" loading="lazy" src="./images/img_20260924_112930.webp" alt="img_20260924_112930.webp" width="800">
 
 </figure>
@@ -2195,7 +2195,7 @@ UI <a href="http://10.103.236.201:9093/#/alerts">http://10.103.236.201:9093/#/al
 <div id="outline-container-h:EC0595E7-321E-48D9-B7C8-926C79F6F33C" class="outline-4">
 <h4 id="h:EC0595E7-321E-48D9-B7C8-926C79F6F33C"><a href="#h:EC0595E7-321E-48D9-B7C8-926C79F6F33C">数据流</a></h4>
 <div class="outline-text-4" id="text-h:EC0595E7-321E-48D9-B7C8-926C79F6F33C">
-<pre class="example" id="org25c6475">
+<pre class="example" id="org616a167">
                         ┌──────────────── 写路径 ────────────────┐
 
 Alloy (DaemonSet x5)          Alloy-events (Deployment x1)
@@ -2265,9 +2265,14 @@ chmod 700 get_helm.sh
 <div class="org-src-container">
 <pre class="src src-shell">helm repo add grafana-community https://grafana-community.github.io/helm-charts
 helm repo update
+helm search repo  grafana-community/loki --versions |head -n10 <span class="org-comment-delimiter"># </span><span class="org-comment">&#26597;&#30475;&#26368;&#36817;&#29256;&#26412;
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">&#19979;&#36733;&#25351;&#23450;&#29256;&#26412; tar &#21253;
+</span><span class="org-variable-name">LOKI_VERSION</span>=18.13.8
+helm pull grafana-community/loki --version ${<span class="org-variable-name">LOKI_VERSION</span>}
+
 kubectl create namespace loki
 
-<span class="org-comment-delimiter"># </span><span class="org-comment">1.&#22522;&#30784;&#35748;&#35777; 2jptrlpa9kqig$64xvytroot
+<span class="org-comment-delimiter"># </span><span class="org-comment">1.&#22522;&#30784;&#35748;&#35777; 2jptrlpa9kqig$64xvytroot(&#27809;&#29992;&#19978;)
 </span>apt install apache2-utils -y
 htpasswd -c .htpasswd lokiuser <span class="org-comment-delimiter"># </span><span class="org-comment">&#36755;&#20837;&#29992;&#25143;&#23494;&#30721;
 </span>
@@ -2394,6 +2399,9 @@ EOF</span>
 <div id="outline-container-h:24F1BA51-6569-4DB2-A2C6-AE90C6FFEB2D" class="outline-5">
 <h5 id="h:24F1BA51-6569-4DB2-A2C6-AE90C6FFEB2D"><a href="#h:24F1BA51-6569-4DB2-A2C6-AE90C6FFEB2D">创建专有用户 AKSK</a></h5>
 <div class="outline-text-5" id="text-h:24F1BA51-6569-4DB2-A2C6-AE90C6FFEB2D">
+<p>
+MinIO
+</p>
 <div class="org-src-container">
 <pre class="src src-shell"><span class="org-comment-delimiter">#</span><span class="org-comment">MinIO &#24314;&#19987;&#29992;&#29992;&#25143;&#21644;&#31574;&#30053;
 </span>
@@ -2466,8 +2474,8 @@ kubectl -n loki create secret generic loki-s3-credentials <span class="org-sh-es
 <span class="org-builtin">unset</span> AK SK
 
 
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#27493;&#39588; 5&#12288;&#28210;&#26579;&#26680;&#23545;&#65288;&#20808;&#21035; upgrade&#65289;
-</span>helm template loki ./loki-18.13.5.tgz -n loki -f values-distributed.yaml &gt; /tmp/after.yaml
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#28210;&#26579;&#26680;&#23545;&#65288;&#20808;&#21035; upgrade&#65289;
+</span>helm template loki ./loki-${<span class="org-variable-name">LOKI_VERSION</span>}.tgz -n loki -f values-distributed.yaml &gt; /tmp/after.yaml
 <span class="org-builtin">echo</span> <span class="org-string">"---- s3 &#27573;&#65288;&#19981;&#35813;&#26377; access_key_id / secret_access_key&#65289;----"</span>
 grep -n -A6 <span class="org-string">'^        s3:'</span> /tmp/after.yaml
 <span class="org-builtin">echo</span> <span class="org-string">"---- &#27880;&#20837;&#28857;&#25968;&#37327;&#65288;&#26399;&#26395; 9&#65289;----"</span>
@@ -2486,7 +2494,7 @@ grep -n <span class="org-string">'flush_on_shutdown'</span> /tmp/after.yaml
 </div>
 
 <p>
-AKSK 轮换需要强制重启
+minio AKSK 轮换需要强制重启
 </p>
 <div class="org-src-container">
 <pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#26032;&#24314;&#65292;&#30830;&#35748;&#24182;&#23384;
@@ -2536,6 +2544,62 @@ mc admin policy attach minio loki-rw --user loki-svc   <span class="org-comment-
 <div class="org-src-container">
 <pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#22353;
 </span>mc admin user rm minio loki-svc &#20250;&#36830;&#24102;&#21024;&#25481;&#23427;&#21517;&#19979;&#25152;&#26377; svcacct&#65292;Loki &#31435;&#21051;&#20840;&#25346;&#12290;
+</pre>
+</div>
+
+
+<p>
+AWS S3
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">1. &#21019;&#24314; loki-svc &#29992;&#25143;&#65292;&#24182;&#38468; LokiS3AccessPolicy &#31574;&#30053;&#12290;
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">&#21019;&#24314; loki &#31574;&#30053;&#65292;LokiS3AccessPolicy
+</span>cat &gt;loki-s3-policy.json&lt;&lt;\EOF<span class="org-sh-heredoc">
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "LokiStorage",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:PutObject",
+                "s3:GetObject",
+                "s3:DeleteObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::loki-test",
+                "arn:aws:s3:::loki-test/*"
+            ]
+        }
+    ]
+}
+EOF
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">&#29983;&#25104; AKSK&#65292;&#30053;
+</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">2.&#21019;&#24314; secret
+</span><span class="org-builtin">read</span> -rsp <span class="org-string">'AK: '</span> AK; <span class="org-builtin">echo</span>
+<span class="org-builtin">read</span> -rsp <span class="org-string">'SK: '</span> SK; <span class="org-builtin">echo</span>
+kubectl -n loki create secret generic loki-s3-credentials <span class="org-sh-escaped-newline">\</span>
+  --from-literal=<span class="org-variable-name">AWS_ACCESS_KEY_ID</span>=<span class="org-string">"$AK"</span> <span class="org-sh-escaped-newline">\</span>
+  --from-literal=<span class="org-variable-name">AWS_SECRET_ACCESS_KEY</span>=<span class="org-string">"$SK"</span> <span class="org-sh-escaped-newline">\</span>
+  --from-literal=<span class="org-variable-name">AWS_EC2_METADATA_DISABLED</span>=true
+<span class="org-builtin">unset</span> AK SK
+
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#28210;&#26579;&#26680;&#23545;&#65288;&#20808;&#21035; upgrade&#65289;
+</span>helm template loki ./loki-${<span class="org-variable-name">LOKI_VERSION</span>}.tgz -n loki -f values-distributed.yaml &gt; /tmp/after.yaml
+<span class="org-builtin">echo</span> <span class="org-string">"---- s3 &#27573;&#65288;&#19981;&#35813;&#26377; access_key_id / secret_access_key&#65289;----"</span>
+grep -n -A6 <span class="org-string">'^        s3:'</span> /tmp/after.yaml
+<span class="org-builtin">echo</span> <span class="org-string">"---- &#27880;&#20837;&#28857;&#25968;&#37327;&#65288;&#26399;&#26395; 9&#65289;----"</span>
+grep -c <span class="org-string">'name: loki-s3-credentials'</span> /tmp/after.yaml
+<span class="org-builtin">echo</span> <span class="org-string">"---- flush_on_shutdown ----"</span>
+grep -n <span class="org-string">'flush_on_shutdown'</span> /tmp/after.yaml
+
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#20986;&#38382;&#39064;&#30340;&#22238;&#28378;&#36335;&#24452;
+</span>helm -n loki history loki | tail -3        <span class="org-comment-delimiter"># </span><span class="org-comment">&#35760;&#19979;&#24403;&#21069; revision&#65292;&#22238;&#28378;&#29992;
+</span>helm rollback loki &lt;&#35760;&#19979;&#30340; revision&gt; -n loki
 </pre>
 </div>
 </div>
@@ -2686,15 +2750,17 @@ EOF</span>
 Loki 微服务（Distributed）模式
 </p>
 <div class="org-src-container">
-<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">==============================================================================
-</span><span class="org-comment-delimiter"># </span><span class="org-comment">Loki &#24494;&#26381;&#21153;&#65288;Distributed&#65289;&#27169;&#24335;
-</span><span class="org-comment-delimiter"># </span><span class="org-comment">&#38598;&#32676;&#32422;&#26463;&#65306;2 &#20010;&#21487;&#35843;&#24230; worker&#65288;3 master &#24102; control-plane &#27745;&#28857;&#65289;&#65292;&#27599;&#21488; 3.2Gi allocatable
-</span><span class="org-comment-delimiter">#</span><span class="org-comment">
-</span><span class="org-comment-delimiter"># </span><span class="org-comment">&#32593;&#32476;&#25299;&#25169;&#65306;
-</span><span class="org-comment-delimiter">#   </span><span class="org-comment">&#20889;&#20837;&#65288;&#38598;&#32676;&#20869; Alloy&#65289;: http://loki-gateway.loki.svc.cluster.local  [ClusterIP]
-</span><span class="org-comment-delimiter">#   </span><span class="org-comment">&#26597;&#35810;&#65288;&#38598;&#32676;&#22806; Grafana&#65289;: http://10.0.0.12                          [LoadBalancer, &#21482;&#35835;]
-</span><span class="org-comment-delimiter">#   </span><span class="org-comment">&#21482;&#35835;&#32593;&#20851;&#20165;&#25918;&#34892;&#26597;&#35810;&#25509;&#21475;&#65292;push/otlp &#19968;&#24459; 403
-</span><span class="org-comment-delimiter"># </span><span class="org-comment">==============================================================================
+<pre class="src src-shell">: &lt;&lt;EOF<span class="org-sh-heredoc">
+# ==============================================================================
+# Loki &#24494;&#26381;&#21153;&#65288;Distributed&#65289;&#27169;&#24335;
+# &#38598;&#32676;&#32422;&#26463;&#65306;2 &#20010;&#21487;&#35843;&#24230; worker&#65288;3 master &#24102; control-plane &#27745;&#28857;&#65289;&#65292;&#27599;&#21488; 3.2Gi allocatable
+#
+# &#32593;&#32476;&#25299;&#25169;&#65306;
+#   &#20889;&#20837;&#65288;&#38598;&#32676;&#20869; Alloy&#65289;: http://loki-gateway.loki.svc.cluster.local  [ClusterIP]
+#   &#26597;&#35810;&#65288;&#38598;&#32676;&#22806; Grafana&#65289;: http://10.0.0.12                          [LoadBalancer, &#21482;&#35835;]
+#   &#21482;&#35835;&#32593;&#20851;&#20165;&#25918;&#34892;&#26597;&#35810;&#25509;&#21475;&#65292;push/otlp &#19968;&#24459; 403
+# ==============================================================================
+EOF
 </span>
 cat &gt;values-distributed.yaml&lt;&lt;\EOF<span class="org-sh-heredoc">
 defaults:
@@ -3879,7 +3945,7 @@ lq /loki/api/v1/query_range <span class="org-sh-escaped-newline">\</span>
 当前应返回（ <code>__stream_shard__</code> 和 <code>service_name</code> 是 Loki 自动生成的，不是 Alloy 打的）：
 </p>
 
-<pre class="example" id="orgd2dfef0">
+<pre class="example" id="org3513f44">
 container, environment, filename, job, level, namespace, node,
 pod, project, service_name, source, stream, syslog_identifier, unit
 </pre>
@@ -3935,7 +4001,7 @@ lq /loki/api/v1/query_range <span class="org-sh-escaped-newline">\</span>
 Alloy 内置 UI（本集群已通过 LoadBalancer 暴露）：
 </p>
 
-<pre class="example" id="org6542a79">
+<pre class="example" id="orge58d292">
 http://10.0.0.13:12345
 </pre>
 
@@ -4030,7 +4096,7 @@ pgrep -af <span class="org-string">'port-forward.*loki-ruler'</span>    <span cl
 期望输出：
 </p>
 
-<pre class="example" id="orge1e57f6">
+<pre class="example" id="orge51596a">
 HighErrorLogRate         state=inactive  health=ok
 KubeletErrorLogs         state=inactive  health=ok
 NodeLogShippingStalled   state=inactive  health=ok
@@ -4235,7 +4301,7 @@ firing 时的告警内容：
 当前 <code>alertmanager_url</code> 是占位地址，所以 <b>必然</b> 看到：
 </p>
 
-<pre class="example" id="orgbf67bd3">
+<pre class="example" id="org55a11e2">
 msg="Error sending alerts" alertmanager=http://prom:9093/api/v2/alerts
 err="dial tcp: lookup prom on 10.96.0.10:53: no such host"
 </pre>
@@ -4271,7 +4337,7 @@ err="dial tcp: lookup prom on 10.96.0.10:53: no such host"
 <div id="outline-container-h:1FCC6AAE-AD07-47B8-82E9-D4801CD1C266" class="outline-4">
 <h4 id="h:1FCC6AAE-AD07-47B8-82E9-D4801CD1C266"><a href="#h:1FCC6AAE-AD07-47B8-82E9-D4801CD1C266">一、整体数据流</a></h4>
 <div class="outline-text-4" id="text-h:1FCC6AAE-AD07-47B8-82E9-D4801CD1C266">
-<pre class="example" id="org7b8fb2f">
+<pre class="example" id="org63d5a9b">
                         ┌──────────────── 写路径 ────────────────┐
 
 Alloy (DaemonSet x5)          Alloy-events (Deployment x1)

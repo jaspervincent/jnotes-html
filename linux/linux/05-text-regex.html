@@ -349,7 +349,7 @@ c^M$
 显示行号，相当于cat -b 选项与参数：
 </p>
 
-<pre class="example" id="org1ed5c74">
+<pre class="example" id="org93490f4">
 -b  ：指定行号指定的方式，主要有两种：
       -b a ：表示不论是否为空行，也同样列出行号(类似 cat -n)；
       -b t ：如果有空行，空的那一行不要列出行号(默认值)；
@@ -1103,7 +1103,7 @@ fflush&#20989;&#25968;&#29992;&#20197;&#21047;&#26032;&#36755;&#20986;&#32531;&#
 </p>
 
 
-<figure id="orge317d66">
+<figure id="orge11773a">
 <img style="aspect-ratio:600/290" decoding="async" loading="lazy" src="./images/image-20210216002359744.webp" alt="image-20210216002359744.webp" width="50%">
 
 </figure>
@@ -1501,7 +1501,7 @@ sed -ri <span class="org-string">'$r '</span>&lt;( paste -d <span class="org-str
 <p>
 常用选项
 </p>
-<pre class="example" id="orgc920032">
+<pre class="example" id="org3a40220">
 -t：输出表格格式，自动对齐列。
 -c：连续输出，不跳到下一页。
 -s：指定分隔符，默认是制表符（tab），可以是任何字符。
@@ -3119,7 +3119,7 @@ ggle
 </pre>
 </div>
 
-<pre class="example" id="org97a98b8">
+<pre class="example" id="orgfa62f75">
 需要注意的是，通常字符类在真正使用过程中，会再加上一个中括号，例如 [[:alpha:]] 。
 
 之所以如此，是因为这些字符类只是一种命名好的字符集合。
@@ -3177,7 +3177,7 @@ ggle
 <p>
 范例：使用正则工具或者在线正则网站测试
 </p>
-<pre class="example" id="orgeee27bc">
+<pre class="example" id="orga0572aa">
 abc xyz
 123
 中文
@@ -4240,7 +4240,7 @@ perl提供了特殊变量允许访问匹配到的内容，甚至匹配内容之�
 以下是使用这三个特殊变量的示例：
 </p>
 
-<pre class="example" id="orgc8e9f76">
+<pre class="example" id="org3503a8a">
 $name="aAbBcC";
 if($name =~ /bB/){
     print "pre match: $` \n";
@@ -4348,7 +4348,7 @@ m/REG/gi
 该修饰符使得正则匹配的时候，忽略大小写。
 </p>
 
-<pre class="example" id="orgb35db3f">
+<pre class="example" id="org757966d">
 $name="aAbBcC";
 if($name =~ m/ab/i){
     print "pre match: $` \n";     # 输出a
@@ -4376,7 +4376,7 @@ g修饰符(global)使得正则匹配的时候，对字符串做全局匹配，�
 要验证多次匹配，需要使用循环遍历的方式，而不能用if语句：
 </p>
 
-<pre class="example" id="orgb9277c7">
+<pre class="example" id="org3aec192">
 $name="aAbBcCaBc";
 while($name =~ m/ab/gi){
     print "pre match: $` \n";
@@ -4993,7 +4993,7 @@ $<span class="org-variable-name">txt1</span> =~ /CD\Z/m;  <span class="org-comme
 当然，除了以下这几种，还有 <code>\v \V \h \H \R \p \c \X</code> ，这些基本不会用上，所以都不会在本文解释。
 </p>
 
-<pre class="example" id="orga032110">
+<pre class="example" id="org8dc767b">
 - \w：匹配单词构成部分，等价于 [_[:alnum:]]
 - \W：匹配非单词构成部分，等价于 [^_[:alnum:]]
 - \s：匹配空白字符，等价于 [[:space:]]
@@ -5539,7 +5539,7 @@ world</code> 匹配。因为正常情况下， <code>.*</code> 匹配到所有�
 置，不是字符。
 </p>
 
-<pre class="example" id="org2f4c2db">
+<pre class="example" id="org6293cca">
 - (?=...) 表示从左向右的顺序环视。例如 (?=\d) 表示当前字符的右边是一个数字时就满足条件
 - (?!...) 表示顺序环视的取反。如 (?!\d) 表示当前字符的右边不是一个数字时就满足条件
 - (?&lt;=...) 表示从右向左的逆序环视。例如 (?&lt;=\d) 表示当前字符的左边是一个数字时就满足条件
@@ -5775,7 +5775,7 @@ msg
 </div>
 
 
-<figure id="org006ce3c">
+<figure id="org07d4a7e">
 <img style="aspect-ratio:985/541" decoding="async" loading="lazy" src="./images/img_20250519_113222.webp" alt="img_20250519_113222.webp" width="50%">
 
 </figure>
@@ -6143,13 +6143,13 @@ sed 即 Stream EDitor，和 vi 不同，sed是行编辑器
 </p>
 
 
-<figure id="orgae11653">
+<figure id="org169f287">
 <img style="aspect-ratio:794/506" decoding="async" loading="lazy" src="./images/image-20210216003203295.webp" alt="image-20210216003203295.webp" width="50%">
 
 </figure>
 
 
-<figure id="org1d30b6d">
+<figure id="org8a7300d">
 <img style="aspect-ratio:590/241" decoding="async" loading="lazy" src="./images/image-20210216003237510.webp" alt="image-20210216003237510.webp" width="50%">
 
 </figure>
@@ -6622,7 +6622,7 @@ sed '</span>G<span class="org-string">' FILE&#65306;&#22312;&#21407;&#26377;&#30
 </div>
 
 
-<figure id="org94f398a">
+<figure id="org8053f28">
 <img style="aspect-ratio:593/600" decoding="async" loading="lazy" src="./images/image-20210216003322379.webp" alt="image-20210216003322379.webp" width="50%">
 
 </figure>
@@ -6683,19 +6683,19 @@ SELECT SUM(duration) FROM <span class="org-sh-quoted-exec">`user_listening_log`<
 </div>
 
 
-<figure id="orgd1fc12b">
+<figure id="orgb312351">
 <img style="aspect-ratio:803/418" decoding="async" loading="lazy" src="./images/image-20210216003344938.webp" alt="image-20210216003344938.webp" width="50%">
 
 </figure>
 
 
-<figure id="orgccc0932">
+<figure id="orgab4fdaa">
 <img style="aspect-ratio:775/555" decoding="async" loading="lazy" src="./images/image-20210216003400609.webp" alt="image-20210216003400609.webp" width="50%">
 
 </figure>
 
 
-<figure id="org0bc4793">
+<figure id="org2a044c3">
 <img style="aspect-ratio:2280/1652" decoding="async" loading="lazy" src="./images/sed.webp" alt="sed.webp" width="50%">
 
 </figure>
@@ -6807,7 +6807,7 @@ action statements：对数据进行处理，放在{}内指明，常见：print, 
 </p>
 
 
-<figure id="orgd250756">
+<figure id="orga9f3f4a">
 <img style="aspect-ratio:389/339" decoding="async" loading="lazy" src="./images/image-20210228023558900.webp" alt="image-20210228023558900.webp">
 
 </figure>
@@ -7355,7 +7355,7 @@ ARGIND 命令行中文件序号
 </p></li>
 </ul>
 
-<pre class="example" id="org8a0f9cc">
+<pre class="example" id="orgc003097">
 我要比较a和b两个文件；
 a              b
 1              1
@@ -7383,7 +7383,7 @@ ARGIND&gt;1&amp;&amp;!($0 in a){print $0}
 当awk读取的文件只有两个的时候，比较常用的有两种方法：
 </p>
 
-<pre class="example" id="org0da177f">
+<pre class="example" id="org01f463e">
 (1) 一种是 awk 'NR==FNR{...}NR&gt;FNR{...}'  file1 file2   或    awk 'NR==FNR{...}NR!=FNR{...}' file1 file2
 (2) 另一种是 awk 'NR==FNR{...;next}{...}' file1 file2
 
@@ -7403,7 +7403,7 @@ awk 'NR==FNR{...;next}{...}' file1 file2
 的方法了：
 </p>
 
-<pre class="example" id="org636264b">
+<pre class="example" id="org380c466">
 1. ARGIND        # 当前被处理参数标志
 awk 'ARGIND==1{...}ARGIND==2{...}ARGIND==3{...}... ' file1 file2 file3 ...
 
@@ -7414,7 +7414,7 @@ awk 'FILENAME==ARGV[1]{...}FILENAME==ARGV[2]{...}FILENAME==ARGV[3]{...}...' file
 awk 'FILENAME=="file1"{...}FILENAME=="file2"{...}FILENAME=="file3"{...}...' file1 file2 file3 ...
 </pre>
 
-<pre class="example" id="orgcd4817e">
+<pre class="example" id="org585fc0f">
 [root@app-nginx03 logs]# cat Top_app-nginx03_adverttisement_access_2017-09-12.log.csv
 1,-
 1,/hdzuoye_advertise/advertise/hadvertiseErrorGetter.do?positionId=2
@@ -8100,7 +8100,7 @@ awk -F<span class="org-string">'[,:]+'</span> <span class="org-string">'BEGIN {t
 语法：
 </p>
 
-<pre class="example" id="orgd6f9c63">
+<pre class="example" id="org3d242c3">
 while (condition) {statement;…}
 </pre>
 
@@ -8783,7 +8783,7 @@ ABCDEF
 范例：
 </p>
 
-<pre class="example" id="orgc238692">
+<pre class="example" id="org29cdba9">
 [root@nginx01 ~]# tail -n +$(tail -n1 /root/n) -F /root/ip.txt 2&gt;&amp;1 | awk 'ARGIND==1{i=$0;next}{i++;if($0~/^tail/){i=0};print $0;print i &gt;&gt; "/root/n";fflush("")}' /root/n -
 
 如，flume日志收集中设置断点收集

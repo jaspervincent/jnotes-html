@@ -59,7 +59,11 @@
 <li><a href="#h:C9987B01-7264-401A-85C9-3229BC63967D">物理层的基本概念</a></li>
 <li><a href="#h:D7849730-DB2A-4077-A23F-BA79E982E7C2">数据通信的基础知识</a>
 <ul>
-<li><a href="#h:B5C161E7-EB8A-411F-9BB4-12009D972F93">数据通信系统的模型</a></li>
+<li><a href="#h:B5C161E7-EB8A-411F-9BB4-12009D972F93">数据通信系统的模型</a>
+<ul>
+<li><a href="#h:6B9594E6-2C2B-4FA7-B874-1DF511D24919">相关术语</a></li>
+</ul>
+</li>
 <li><a href="#h:93E2CB51-E0F8-4803-9807-AEDD1AEE80CD">有关信道的几个基本概念</a></li>
 <li><a href="#h:3E9EB4DB-809F-4342-B275-BCBDB483844A">信道的极限容量</a></li>
 </ul>
@@ -102,9 +106,9 @@
 物理层的主要任务：确定与传输媒体的接口有关的一些特性：
 </p>
 <ul class="org-ul">
-<li>机械特性：指明接口所用接线器的形状、尺寸等机械特性。</li>
-<li>电气特性：指明接口电缆的各条线上的电压的范围。</li>
-<li>功能特性：指明电线上某一电平的电压的意义。</li>
+<li>机械特性：指明接口所用接线器的形状、尺寸等机械特性。如接口形状、大小、引线数目。</li>
+<li>电气特性：指明接口电缆的各条线上的电压的范围。如规定电压范围（-5V 到 +5V）</li>
+<li>功能特性：指明电线上某一电平的电压的意义。如规定 -5V 表示 0， +5V 表示1</li>
 <li>过程特性：指明不同功能的各种可能事件的出现顺序。</li>
 </ul>
 
@@ -114,6 +118,11 @@
 
 <p>
 物理层协议很多，因为物理连接的方式很多，传输媒体的种类也很多。
+</p>
+
+
+<p>
+传输媒体：光纤、双绞线、无线传输 
 </p>
 </div>
 </section>
@@ -143,6 +152,21 @@
 <p>
 信号可分为模拟信号和数字信号。
 </p>
+</div>
+<div id="outline-container-h:6B9594E6-2C2B-4FA7-B874-1DF511D24919" class="outline-4">
+<h4 id="h:6B9594E6-2C2B-4FA7-B874-1DF511D24919"><a href="#h:6B9594E6-2C2B-4FA7-B874-1DF511D24919">相关术语</a></h4>
+<div class="outline-text-4" id="text-h:6B9594E6-2C2B-4FA7-B874-1DF511D24919">
+<ul class="org-ul">
+<li>数据(data)：运送消息的实体</li>
+<li>信号(signal)：数据的电气的或电磁的表现
+<ul class="org-ul">
+<li>模拟信号：代表消息的参数的取值是连续的</li>
+<li>数字信号：代表消息的参数的取值是离散的</li>
+</ul></li>
+<li>码元(code)：在使用时间域的波形表示数字信号时，则代表不同离散数值的基本波形就成为码元。</li>
+<li>在数字通信中常常用时间间隔相同的符号来表示一个二进制数字，这样的时间间隔内的信号称为二进制码元。而这个间隔被称为码元长度。1 码元可以携带 nbit 的信号量。</li>
+</ul>
+</div>
 </div>
 </div>
 <div id="outline-container-h:93E2CB51-E0F8-4803-9807-AEDD1AEE80CD" class="outline-3">
@@ -178,7 +202,7 @@
 常用编码方式
 </p>
 
-<figure id="org14305d9">
+<figure id="orga859522">
 <img style="aspect-ratio:696/272" decoding="async" loading="lazy" src="./images/m21.webp" alt="m21.webp" width="60%">
 
 </figure>
@@ -194,7 +218,7 @@
 
 
 
-<figure id="org9ec7d73">
+<figure id="org8672f27">
 <img style="aspect-ratio:515/250" decoding="async" loading="lazy" src="./images/m23.webp" alt="m23.webp" width="60%">
 
 </figure>
@@ -224,16 +248,29 @@
 </p>
 <ul class="org-ul">
 <li>信号的平均功率与噪声的平均功率之比，写作 S/N，单位是分贝（dB）</li>
-<li>信噪比 = 10 log10(S/N)。</li>
+<li>信噪比(dB) = 10 log_{10}(S/N) (dB)。</li>
 </ul>
 
 <p>
 香农公式
 </p>
 <ul class="org-ul">
-<li>信道的极限传输速率 C = W log(2+S/N)。</li>
+<li>信道的极限传输速率 C = W log_2(1+S/N) (bit/s)。
+<ul class="org-ul">
+<li>W 为信道的带宽（以 Hz 为单位）</li>
+<li>S 为信道内所传信号的平均功率；</li>
+<li>N 为信道内部的高斯噪声功率。</li>
+</ul></li>
 <li>香农公式表明带宽越大，信噪比越大，极限传输速率越高。还表明只要信息传输速率低于信道的极限速率，就一定可以实现无差错传输，但方法未知。</li>
 <li>另一种提高传输速率的方法：通过编码让每个码元携带更多比特的信息。</li>
+</ul>
+
+<p>
+应用范围
+</p>
+<ul class="org-ul">
+<li>码元传输速率受奈氏准则的限制</li>
+<li>信息传输速率受香农公式的限制。</li>
 </ul>
 </div>
 </div>
@@ -409,7 +446,7 @@ ADSL在用户线（铜线）的两端各安装一个ADSL解调器。采用基于
 光纤节点与头端的典型距离为 25km，到用户的距离不超过 3km。
 </p>
 
-<figure id="org76b9b18">
+<figure id="org2485eb7">
 <img style="aspect-ratio:578/276" decoding="async" loading="lazy" src="./images/m22.webp" alt="m22.webp" width="60%">
 
 </figure>

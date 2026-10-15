@@ -146,9 +146,25 @@
 <li><a href="#h:D8ACF1C3-E57E-4E6B-A49E-BF85D3E50457">argocd 用法说明</a></li>
 </ul>
 </li>
+<li><a href="#orgb93c5aa">案例-docker compose安装 argocd</a>
+<ul>
+<li><a href="#org21de0c5">安装 argocd</a></li>
+<li><a href="#org87276b4">另一台机器安装 argocd cli</a>
+<ul>
+<li><a href="#org5d3af5b">修改 admin 密码</a></li>
+<li><a href="#orgfc7a11a">增加 argocd api同步账号</a></li>
+<li><a href="#orgbcbf2d1">增加外部 k8s 集群</a></li>
+<li><a href="#orgedd49b7">增加 appproject</a></li>
+<li><a href="#org38676d2">仓库配置</a></li>
+<li><a href="#orgce25e1e">部署服务 app</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li><a href="#h:7CEF77D0-A0FC-42CA-9705-176E36527ED3">维护</a>
 <ul>
 <li><a href="#h:19BCE958-A715-4C64-A057-4700F76C11C5">查看</a></li>
+<li><a href="#org86b0015">临时登录脚本</a></li>
 <li><a href="#h:AB89B6B7-9D75-4D5E-B9BE-C55548EB46AF">同步</a></li>
 <li><a href="#h:EB64C1CC-E781-4B4E-B7FB-63D880EE6E43">回滚</a></li>
 <li><a href="#h:F0742739-7597-42D3-B4C9-40AA3599EE2C">订阅通知</a></li>
@@ -248,7 +264,7 @@ CNCF 认证标准符合以下 4 条，才算标准的 GitOps 实现
 
 
 
-<figure id="org02121d9">
+<figure id="org2c3c015">
 <img style="aspect-ratio:1036/529" decoding="async" loading="lazy" src="./images/img_20260903_010220.webp" alt="img_20260903_010220.webp" width="800">
 
 </figure>
@@ -591,7 +607,7 @@ ArgoCD 是云原生计算基金会(Cloud Native Computing FoNCF)的成员。
 
 
 
-<figure id="org952ad0b">
+<figure id="org3da2358">
 <img style="aspect-ratio:743/708" decoding="async" loading="lazy" src="./images/20260903-015235.webp" alt="20260903-015235.webp" width="800">
 
 <figcaption><span class="figure-number">&#22270;2&nbsp; </span>ArgoCD 架构图</figcaption>
@@ -1061,6 +1077,12 @@ EOF</span>
 <p>
 在登录界面 User Info 侧边栏更改密码。也可以用 ArgoCD CLI 命令行工具修改密码。
 </p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-variable-name">argos</span>=<span class="org-string">'10.20.2.220:30080'</span>
+argocd login  $<span class="org-variable-name">argos</span> --username admin --plaintext --insecure
+</pre>
+</div>
 </div>
 </div>
 </div>
@@ -1098,15 +1120,18 @@ Application 资源的完整结构说明
 <div id="outline-container-h:CF835643-CDE8-4C0E-8A0D-5BFE7F583B1F" class="outline-5">
 <h5 id="h:CF835643-CDE8-4C0E-8A0D-5BFE7F583B1F"><a href="#h:CF835643-CDE8-4C0E-8A0D-5BFE7F583B1F">代码库</a></h5>
 <div class="outline-text-5" id="text-h:CF835643-CDE8-4C0E-8A0D-5BFE7F583B1F">
+<ul class="org-ul">
+<li><a href="https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#repositories">https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#repositories</a></li>
+</ul>
 <div class="org-src-container">
 <pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">ssh &#36830;&#25509;
 </span>&#30028;&#38754;&#28155;&#21152; Settings --&gt; Repositories &#25110;&#32773;&#37117;&#36890;&#36807;&#25991;&#20214;&#29983;&#25104;
 
 cat &gt; argcd-deploy-secret.yaml &lt;&lt; EOF<span class="org-sh-heredoc">
 apiVersion: v1
-kind: ConfigMap
+kind: Secret
 metadata:
-  name: argocd-tls-certs-cm
+  name: ops-repo
   namespace: argocd
   labels:
     argocd.argoproj.io/secret-type: repository
@@ -1179,8 +1204,15 @@ rm argocd
           k8s-admin@one      one         k8s-admin
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">&#28155;&#21152;
-</span>argocd login argocd.xxx.com       
-argocd cluster add k8s-admin@one 
+</span>argocd login argocd.xxx.com
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#23427;&#29992;&#26412;&#22320; kubeconfig &#21435; one &#38598;&#32676;&#24314; SA,&#20877;&#25226; Secret &#20889;&#22238;&#24403;&#21069;&#38598;&#32676;&#19978;&#30340; ArgoCD&#12290;
+</span>argocd cluster add k8s-admin@one --name eks-dev
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#26597;&#30475;
+</span>argocd cluster  list
+<span class="org-comment-delimiter"># </span><span class="org-comment">kubectl  get sa -A|grep argocd-manager
+</span>kube-system       argocd-manager                                2m52s
 </pre>
 </div>
 
@@ -1205,7 +1237,7 @@ ApplicationSet 模板化批量生成多个 Application CR，解决多环境、�
 </p>
 
 
-<figure id="org497410f">
+<figure id="org4b725e7">
 <img style="aspect-ratio:497/466" decoding="async" loading="lazy" src="./images/20260903-110242.webp" alt="20260903-110242.webp" width="800">
 
 </figure>
@@ -1281,11 +1313,11 @@ AppProject资源的完整结构说明
 
 <div class="org-src-container">
 <pre class="src src-shell"><span class="org-comment-delimiter">#</span><span class="org-comment">&#29983;&#20135;&#29615;&#22659; delete &#26435;&#38480;&#38750;&#24120;&#21361;&#38505;&#65292;&#21487;&#20197;&#19981;&#32473;&#27492;&#26435;&#38480;&#65292;&#40664;&#35748;&#19981;&#37197;&#32622;&#30340;&#26435;&#38480;&#37117;&#26159; deny
-</span>]# kubectl -n argocd get appprojects.argoproj.io  evescn  -o yaml
+</span>]# kubectl -n argocd get appprojects.argoproj.io  prod  -o yaml
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: evescn
+  name: prod
   namespace: argocd
 spec:
   <span class="org-comment-delimiter"># </span><span class="org-comment">&#20801;&#35768;&#30340; git &#20179;&#24211;&#30333;&#21517;&#21333;
@@ -1337,6 +1369,38 @@ spec:
 <p>
 role 中 同步窗口类似于版本火车概念
 </p>
+
+<div class="org-src-container">
+<pre class="src src-shell">kubectl  -n argocd get appprojects.argoproj.io  dev -oyaml
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: prod
+  namespace: argocd
+spec:
+  sourceRepos:
+  - git@xxx.com:gitops/ops-deploy.git
+  clusterResourceWhitelist:
+  - group: <span class="org-string">'*'</span>
+    kind: Deployment
+  - group: <span class="org-string">'*'</span>
+    kind: Service
+  - group: <span class="org-string">'*'</span>
+    kind: ConfigMap
+  description: prod
+  destinations:
+  - name: <span class="org-string">'*'</span>
+    namespace: default
+    server: https://kubernetes.default.svc
+  orphanedResources:
+    warn: true
+  roles:
+  - description: prod-role
+    name: prod-role
+    policies:
+    - p, proj:prod:prod-role, applications, sync, prod/*, deny
+</pre>
+</div>
 </div>
 </div>
 <div id="outline-container-h:6737BC5C-66C8-44CB-8F59-38B3A3EE4085" class="outline-5">
@@ -1885,6 +1949,7 @@ kustomization
 &#9474;&#160;&#160; &#9492;&#9472;&#9472; service.yaml
 &#9492;&#9472;&#9472; overlays
     &#9500;&#9472;&#9472; dev
+    &#9474;&#160;&#160; &#9492;&#9472;&#9472; configmap.yaml
     &#9474;&#160;&#160; &#9492;&#9472;&#9472; kustomization.yaml
     &#9500;&#9472;&#9472; prod
     &#9474;&#160;&#160; &#9492;&#9472;&#9472; kustomization.yaml
@@ -1900,6 +1965,44 @@ kind: Kustomization
 resources:
 - deployment.yaml
 - service.yaml
+EOF
+</span>
+
+cat &lt;&lt;\EOF&gt; overlays/dev/kustomization.yaml <span class="org-sh-heredoc">
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base
+  - configmap.yaml
+namespace: default
+replicas:
+  - name: nginx
+    count: 2
+images:
+  - name: nginx
+    newName: xxx/nginx
+    newTag: v184_dev_adbc745
+patches:
+  - target:
+      kind: Deployment
+      name: nginx
+    patch: |
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: nginx
+      spec:
+        template:
+          spec:
+            containers:
+            - name: nginx
+              resources:
+                requests:
+                  cpu: 500m
+                  memory: 1Gi
+                limits:
+                  cpu: 500m
+                  memory: 2Gi
 EOF</span>
 </pre>
 </div>
@@ -1940,7 +2043,15 @@ spec:
         maxDuration: "5m"
     syncOptions:
     - CreateNamespace=true
-EOF</span>
+EOF
+</span>
+kubectl apply -f kustomize/dev.yaml
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#25110;
+</span>argocd app create -f kustomize/dev.yaml
+
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#21024;&#38500;application&#65292;&#19981;&#21024;&#38500;&#36164;&#28304;
+</span>argocd app delete --cascade=false xxx
 </pre>
 </div>
 </div>
@@ -2161,10 +2272,11 @@ EOF</span>
 <pre class="src src-shell"><span class="org-variable-name">ARGOCD_VERSION</span>=3.5.3
 <span class="org-variable-name">OS</span>=$(uname -s | tr <span class="org-string">'A-Z'</span> <span class="org-string">'a-z'</span>)
 <span class="org-variable-name">ARCH</span>=$(uname -m | sed <span class="org-string">'s/x86_64/amd64/;s/aarch64/arm64/'</span>)
+<span class="org-variable-name">PLATFORM</span>=<span class="org-string">"${OS}-${ARCH}"</span>
 
-wget https://github.com/argoproj/argo-cd/releases/download/v${<span class="org-variable-name">ARGOCD_VERSION</span>}/argocd-${<span class="org-variable-name">OS</span>}-${<span class="org-variable-name">ARCH</span>}
+wget https://github.com/argoproj/argo-cd/releases/download/v${<span class="org-variable-name">ARGOCD_VERSION</span>}/argocd-${<span class="org-variable-name">PLATFORM</span>}
 
-sudo install -m 555 argocd-${<span class="org-variable-name">OS</span>}-${<span class="org-variable-name">ARCH</span>} /usr/local/bin/argocd
+sudo install -m 555 argocd-${<span class="org-variable-name">PLATFORM</span>} /usr/local/bin/argocd
 rm argocd-${<span class="org-variable-name">OS</span>}-${<span class="org-variable-name">ARCH</span>}
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">Mac
@@ -2184,8 +2296,7 @@ argocd version --client
 
 
 <div class="org-src-container">
-<pre class="src src-shell"><span class="org-builtin">echo</span> <span class="org-string">'source &lt;(argocd completion bash)'</span> &gt;&gt; ~/.bashrc
-<span class="org-builtin">source</span>  ~/.bashrc
+<pre class="src src-shell"><span class="org-builtin">echo</span> <span class="org-string">'source &lt;(argocd completion bash)'</span> &gt;&gt; ~/.bashrc &amp;&amp; <span class="org-builtin">source</span>  ~/.bashrc
 </pre>
 </div>
 
@@ -2333,6 +2444,337 @@ argocd proj export <span class="org-comment-delimiter"># </span><span class="org
 </div>
 </div>
 </section>
+<section id="outline-container-orgb93c5aa" class="outline-2">
+<h2 id="orgb93c5aa"><a href="#orgb93c5aa">案例-docker compose安装 argocd</a></h2>
+<div class="outline-text-2" id="text-orgb93c5aa">
+</div>
+<div id="outline-container-org21de0c5" class="outline-3">
+<h3 id="org21de0c5"><a href="#org21de0c5">安装 argocd</a></h3>
+<div class="outline-text-3" id="text-org21de0c5">
+<div class="org-src-container">
+<pre class="src src-shell">mkdir -p /opt/argocd/manifests  &amp;&amp; <span class="org-builtin">cd</span> /opt/argocd
+cat &lt;&lt; \EOF &gt; docker-compose.yml<span class="org-sh-heredoc">
+name: argocd-standalone
+
+services:
+  k3s:
+    image: rancher/k3s:v1.31.4-k3s1
+    command: server --disable=traefik --disable=metrics-server --tls-san=host.docker.internal
+    privileged: true
+    environment:
+      K3S_KUBECONFIG_OUTPUT: /output/kubeconfig.yaml
+      K3S_KUBECONFIG_MODE: "666"
+    volumes:
+      # k3s &#21551;&#21160;&#26102;&#20250;&#33258;&#21160; apply &#36825;&#20010;&#30446;&#24405;&#37324;&#30340; manifest
+      - ./manifests/argocd.yaml:/var/lib/rancher/k3s/server/manifests/argocd.yaml:ro
+      # kubeconfig &#20250;&#20889;&#21040;&#23487;&#20027;&#26426; ./kube/kubeconfig.yaml
+      - ./kube:/output
+      - /lib/modules:/lib/modules:ro
+      - k3s-data:/var/lib/rancher/k3s
+    tmpfs:
+      - /run
+      - /var/run
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 65535
+        hard: 65535
+    ports:
+      - "127.0.0.1:6443:6443"    # K8s API
+      - "30080:30080"  # ArgoCD UI
+    restart: unless-stopped
+
+volumes:
+  k3s-data:
+EOF
+</span>
+cat &lt;&lt;\EOF&gt; manifests/argocd.yaml <span class="org-sh-heredoc">
+apiVersion: helm.cattle.io/v1
+kind: HelmChart
+metadata:
+  name: argo-cd
+  namespace: kube-system
+spec:
+  repo: https://argoproj.github.io/argo-helm
+  chart: argo-cd
+  # &#19981;&#20889; version &#21462;&#26368;&#26032;;&#35201;&#21487;&#22797;&#29616;&#23601;&#22266;&#23450;,&#20363;&#22914; version: "8.0.0"
+  targetNamespace: argocd
+  createNamespace: true
+  valuesContent: |-
+    configs:
+      params:
+        server.insecure: true
+    server:
+      service:
+        type: NodePort
+        nodePortHttp: 30080
+    # &#21333;&#26426;&#22815;&#29992;,&#30465;&#28857;&#20869;&#23384;
+    redis-ha:
+      enabled: false
+    controller:
+      replicas: 1
+    repoServer:
+      replicas: 1
+    applicationSet:
+      replicas: 1
+    dex:
+      enabled: false
+EOF</span>
+</pre>
+</div>
+
+
+<div class="org-src-container">
+<pre class="src src-shell">docker compose up -d
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#31561; 2~3 &#20998;&#38047;(k3s &#36215;&#26469; + &#25289; helm chart + &#25289;&#38236;&#20687;),&#30475;&#36827;&#24230;:
+</span><span class="org-builtin">export</span> <span class="org-variable-name">KUBECONFIG</span>=$<span class="org-variable-name">PWD</span>/kube/kubeconfig.yaml
+kubectl -n argocd get pods -w
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#21462;&#21021;&#22987; admin &#23494;&#30721;
+</span>kubectl -n argocd get secret argocd-initial-admin-secret <span class="org-sh-escaped-newline">\</span>
+    -o <span class="org-variable-name">jsonpath</span>=<span class="org-string">'{.data.password}'</span> | base64 -d; <span class="org-builtin">echo</span>
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">UI &#22312; http://localhost:30080,&#36134;&#21495; admin&#12290;</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org87276b4" class="outline-3">
+<h3 id="org87276b4"><a href="#org87276b4">另一台机器安装 argocd cli</a></h3>
+<div class="outline-text-3" id="text-org87276b4">
+</div>
+<div id="outline-container-org5d3af5b" class="outline-4">
+<h4 id="org5d3af5b"><a href="#org5d3af5b">修改 admin 密码</a></h4>
+<div class="outline-text-4" id="text-org5d3af5b">
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#30331;&#24405;
+</span><span class="org-variable-name">argos</span>=<span class="org-string">'10.20.2.220:30080'</span>
+argocd login  $<span class="org-variable-name">argos</span> --username admin --plaintext --insecure
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#20462;&#25913;&#23494;&#30721;&#12290;&#36755;&#20837;&#26087;&#23494;&#30721;&#65292;&#20877;&#36755;&#20837;&#26032;&#23494;&#30721;
+</span>argocd account update-password
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgfc7a11a" class="outline-4">
+<h4 id="orgfc7a11a"><a href="#orgfc7a11a">增加 argocd api同步账号</a></h4>
+<div class="outline-text-4" id="text-orgfc7a11a">
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">1. &#21019;&#24314;&#26412;&#22320;&#29992;&#25143;&#65288;&#20462;&#25913; argocd&#8209;cm&#65289;
+</span>kubectl edit cm argocd-cm -n argocd
+
+data:
+  accounts.cdsync.enabled: <span class="org-string">"true"</span>
+  accounts.cdsync: <span class="org-string">"apiKey"</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">2. &#35774;&#32622;&#20840;&#23616; RBAC &#26435;&#38480; (argocd&#8209;rbac&#8209;cm)
+</span>
+kubectl edit cm argocd-rbac-cm -n argocd
+data:
+    <span class="org-comment-delimiter"># </span><span class="org-comment">Sync &#21516;&#27493;
+</span>    p, role:rync, applications, get, */*, allow
+    p, role:rync, applications, sync, */*, allow
+
+    <span class="org-comment-delimiter"># </span><span class="org-comment">&#32465;&#23450;&#29992;&#25143;&#21040;&#35282;&#33394;
+</span>    g, cdsync, role:rync
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">3. &#29983;&#25104;&#29992;&#25143; token
+</span><span class="org-comment-delimiter">## </span><span class="org-comment">https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_account_generate-token/
+</span>% argocd account generate-token --account cdsync
+eyJhbGciOiJIUzI1NiIsInR5cCI
+
+<span class="org-comment-delimiter">## </span><span class="org-comment">&#26597;&#30475;&#29992;&#25143; token
+</span>argocd account get -a cdsync
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#39564;&#35777;
+</span><span class="org-comment-delimiter">## </span><span class="org-comment">&#36864;&#20986;&#24403;&#21069;&#29992;&#25143;
+</span>argocd logout $<span class="org-variable-name">ARGOCD_SERVER</span>  --plaintext --insecure
+
+<span class="org-variable-name">ARGOCD_SERVER</span>=<span class="org-string">'10.20.2.220:30080'</span>
+<span class="org-variable-name">ARGOCD_AUTH_TOKEN</span>=<span class="org-string">'eyJhxxx'</span>
+argocd app list --server <span class="org-string">"$ARGOCD_SERVER"</span> --auth-token <span class="org-string">"$ARGOCD_AUTH_TOKEN"</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgbcbf2d1" class="outline-4">
+<h4 id="orgbcbf2d1"><a href="#orgbcbf2d1">增加外部 k8s 集群</a></h4>
+<div class="outline-text-4" id="text-orgbcbf2d1">
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#30830;&#35748;&#24403;&#21069; kubectl &#33021;&#35775;&#38382; k8s
+</span>~]# kubectl  config get-contexts
+CURRENT   NAME               CLUSTER     AUTHINFO       NAMESPACE
+*         ks-v1              ks-v1       ks-v1   
+          k8s-admin@one      one         k8s-admin
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#30331;&#24405; argocd
+</span><span class="org-variable-name">argos</span>=<span class="org-string">'10.20.2.220:30080'</span>
+argocd login  $<span class="org-variable-name">argos</span> --username admin --plaintext --insecure
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#23427;&#29992;&#26412;&#22320; kubeconfig &#21435; one &#38598;&#32676;&#24314; SA,&#20877;&#25226; Secret &#20889;&#22238;&#24403;&#21069;&#38598;&#32676;&#19978;&#30340; ArgoCD&#12290;
+</span>argocd cluster add k8s-admin@one --name eks-prod <span class="org-comment-delimiter"># </span><span class="org-comment">context &#21517;&#25353;&#23454;&#38469;&#22635;
+</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#26597;&#30475;
+</span>argocd cluster  list
+<span class="org-comment-delimiter"># </span><span class="org-comment">kubectl  get sa -A|grep argocd-manager
+</span>kube-system       argocd-manager                                2m52s
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgedd49b7" class="outline-4">
+<h4 id="orgedd49b7"><a href="#orgedd49b7">增加 appproject</a></h4>
+<div class="outline-text-4" id="text-orgedd49b7">
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-builtin">cd</span> /opt/argocd/app
+<span class="org-builtin">export</span> <span class="org-variable-name">KUBECONFIG</span>=$<span class="org-variable-name">PWD</span>/kube/kubeconfig.yaml
+
+mkdir app &amp;&amp; <span class="org-builtin">cd</span> app
+
+cat &lt;&lt;\EOF&gt; appproject.yaml <span class="org-sh-heredoc">
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: prod
+  namespace: argocd
+spec:
+  sourceRepos:
+  - git@xxx.com:gitops/ops-deploy.git
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: Deployment
+  - group: '*'
+    kind: Service
+  - group: '*'
+    kind: ConfigMap
+  description: prod
+  destinations:
+  - name: '*'
+    namespace: default
+    server: https://xxx:6443
+  orphanedResources:
+    warn: true
+  roles:
+  - description: prod-role
+    name: prod-role
+    policies:
+    - p, proj:prod:prod-role, applications, sync, prod/*, deny
+EOF
+</span>kubectl  apply -f appproject.yaml
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#26597;&#30475;
+</span>kubectl -n argocd get appprojects.argoproj.io
+argocd project list
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org38676d2" class="outline-4">
+<h4 id="org38676d2"><a href="#org38676d2">仓库配置</a></h4>
+<div class="outline-text-4" id="text-org38676d2">
+<p>
+通过 SSH 添加 git 仓库
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">1.ssh &#36830;&#25509;
+</span>&#30028;&#38754;&#28155;&#21152; Settings --&gt; Repositories &#25110;&#32773;&#37117;&#36890;&#36807;&#25991;&#20214;&#29983;&#25104;
+
+cat &gt; argcd-deploy-secret.yaml &lt;&lt; EOF<span class="org-sh-heredoc">
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ops-repo
+  namespace: argocd
+  labels:
+    argocd.argoproj.io/secret-type: repository
+stringData:
+  type: git
+  url: git@github.com:prod/repo.git
+  sshPrivateKey: |
+    -----BEGIN OPENSSH PRIVATE KEY-----
+    ...
+    -----END OPENSSH PRIVATE KEY-----
+EOF
+</span>
+&#25110;&#32773;
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#20808;&#25226;&#20320;&#30340;ssh&#31169;&#38053;&#23384;&#21040;&#25991;&#20214; id_rsa
+</span>kubectl create secret generic ops-repo <span class="org-sh-escaped-newline">\</span>
+  -n argocd <span class="org-sh-escaped-newline">\</span>
+  --from-literal=<span class="org-variable-name">type</span>=git <span class="org-sh-escaped-newline">\</span>
+  --from-literal=<span class="org-variable-name">url</span>=git@github.com:org/repo.git <span class="org-sh-escaped-newline">\</span>
+  --from-file=<span class="org-variable-name">sshPrivateKey</span>=./id_rsa
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#25171; argocd &#38656;&#35201;&#30340; label
+</span>kubectl label secret ops-repo -n argocd argocd.argoproj.io/secret-type=repository
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">2.&#33258;&#24314; Git &#26381;&#21153;&#22120;&#35201;&#21152; known_hosts
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">&#26041;&#27861;1&#65306;&#27604;&#22914; &#33719;&#21462; git &#20179;&#24211; 47.2.9.1 &#30340;&#20844;&#38053;&#65292;&#23558;&#20844;&#38053;&#20449;&#24687;&#28155;&#21152;&#21040; argocd &#20013;
+</span><span class="org-keyword">for</span> host<span class="org-keyword"> in</span> 47.2.9.1 ; <span class="org-keyword">do</span> ssh-keyscan $<span class="org-variable-name">host</span> 2&gt; /dev/null ; <span class="org-keyword">done</span>
+
+Settings --&gt; Repository certificates and known hosts
+<span class="org-comment-delimiter">## </span><span class="org-comment">&#26597;&#30475;&#23545;&#24212;&#20844;&#38053;
+</span>kubectl  get cm argocd-ssh-known-hosts-cm -oyaml -n argocd
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#26041;&#27861;2
+</span>ssh-keyscan -p 22 git.yourcompany.com | argocd cert add-ssh --batch --from /dev/stdin
+<span class="org-comment-delimiter">## </span><span class="org-comment">A. &#26080; scheme + &#20882;&#21495;
+</span>argocd repo add git@git.yourcompany.com:org/repo.git <span class="org-sh-escaped-newline">\</span>
+    --ssh-private-key-path ./id_rsa
+
+<span class="org-comment-delimiter">## </span><span class="org-comment">B. &#26377; scheme + &#26012;&#26464;
+</span>argocd repo add ssh://git@git.yourcompany.com:22/org/repo.git <span class="org-sh-escaped-newline">\</span>
+    --ssh-private-key-path ./id_rsa
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#26597;&#30475;&#36830;&#25509;&#29366;&#24577;
+</span>argocd repo list
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgce25e1e" class="outline-4">
+<h4 id="orgce25e1e"><a href="#orgce25e1e">部署服务 app</a></h4>
+<div class="outline-text-4" id="text-orgce25e1e">
+<div class="org-src-container">
+<pre class="src src-shell">cat &lt;&lt;\EOF&gt; argocd/kustomize/prod.yaml <span class="org-sh-heredoc">
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: nginx-prod
+  namespace: argocd
+spec:
+  project: prod
+  revisionHistoryLimit: 3
+  source:
+    repoURL: git@xx.com:gitops/ops-deploy.git
+    targetRevision: HEAD
+    path: tmp/overlays/prod
+    kustomize:
+      namespace: default
+  destination:
+    name: eks-prod
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: false
+    retry:
+      limit: 5
+      backoff:
+        duration: "30s"
+        factor: 2
+        maxDuration: "5m"
+    syncOptions:
+    - CreateNamespace=true
+EOF
+</span>
+argocd app create -f prod.yaml 
+</pre>
+</div>
+</div>
+</div>
+</div>
+</section>
 <section id="outline-container-h:7CEF77D0-A0FC-42CA-9705-176E36527ED3" class="outline-2">
 <h2 id="h:7CEF77D0-A0FC-42CA-9705-176E36527ED3"><a href="#h:7CEF77D0-A0FC-42CA-9705-176E36527ED3">维护</a></h2>
 <div class="outline-text-2" id="text-h:7CEF77D0-A0FC-42CA-9705-176E36527ED3">
@@ -2341,7 +2783,15 @@ argocd proj export <span class="org-comment-delimiter"># </span><span class="org
 <h3 id="h:19BCE958-A715-4C64-A057-4700F76C11C5"><a href="#h:19BCE958-A715-4C64-A057-4700F76C11C5">查看</a></h3>
 <div class="outline-text-3" id="text-h:19BCE958-A715-4C64-A057-4700F76C11C5">
 <div class="org-src-container">
-<pre class="src src-shell">argocd app get nginx-dev
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#26597;&#30475;&#24403;&#21069; argocd &#36830;&#25509;&#30340;&#26381;&#21153;&#31471;
+</span>cat ~/.config/argocd/config
+argocd context <span class="org-comment-delimiter"># </span><span class="org-comment">&#24403;&#21069;&#30340;&#37027;&#20010;&#21069;&#38754;&#24102; *
+</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#30830;&#35748;&#24403;&#21069; token &#23545;&#24212;&#30340;&#29992;&#25143;&#21644;&#30331;&#24405;&#29366;&#24577;&#12290;&#36830;&#32593;
+</span>argocd account get-user-info
+
+
+argocd app get nginx-dev
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">&#26641;&#24418;&#23618;&#32423;&#23637;&#31034;&#65288;&#30475;&#29238;&#23376;&#20851;&#31995;&#65306;Deployment &#8594; ReplicaSet &#8594; Pod&#65289;
 </span>argocd app resources nginx-dev --output tree
@@ -2358,6 +2808,41 @@ kubectl 查看 Application CR 内记录的资源
 <pre class="src src-shell">kubectl get application nginx-dev -n argocd -o yaml
 <span class="org-comment-delimiter"># </span><span class="org-comment">&#37325;&#28857;&#30475; status.resources &#25968;&#32452;&#65292;&#37324;&#38754;&#35760;&#24405;&#25152;&#26377;&#25176;&#31649;&#36164;&#28304;
 </span>kubectl describe application nginx-dev -n argocd
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org86b0015" class="outline-3">
+<h3 id="org86b0015"><a href="#org86b0015">临时登录脚本</a></h3>
+<div class="outline-text-3" id="text-org86b0015">
+<p>
+不用 token 登录会保存配置到 <code>~/.config/argocd/config</code> 中
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">cat &lt;&lt;\EOF&gt; argocd-env<span class="org-sh-heredoc">
+# &#29992;&#27861;&#65306;  . argocd-env   &#65288;&#25110; source argocd-env&#65289;
+(return 0 2&gt;/dev/null) || { echo "&#10007; &#24517;&#39035;&#29992; source &#25191;&#34892;&#65306; . $0"; exit 1; }
+
+export ARGOCD_SERVER='10.20.2.220:30080'
+export ARGOCD_OPTS='--grpc-web --plaintext --insecure'
+
+read -rsp '&#35831;&#36755;&#20837; PT &#29983;&#20135;&#29615;&#22659; argocd &#31649;&#29702;&#21592;&#23494;&#30721;: ' PW; echo
+export ARGOCD_AUTH_TOKEN=$(
+  curl -s "http://${ARGOCD_SERVER}/api/v1/session" \
+    -H 'Content-Type: application/json' \
+    -d "$(jq -nc --arg u admin --arg p "$PW" '{username:$u,password:$p}')" \
+  | jq -r '.token // empty'
+)
+unset PW
+
+if [ -n "$ARGOCD_AUTH_TOKEN" ]; then
+  echo "&#10003; &#24050;&#23601;&#32490;&#65288;&#26410;&#20889;&#20219;&#20309;&#25991;&#20214;&#65289;"
+  argocd account get-user-info
+else
+  echo "&#10007; &#21462; token &#22833;&#36133;"
+fi
+EOF
+</span>
 </pre>
 </div>
 </div>
