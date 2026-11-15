@@ -1809,7 +1809,7 @@ spec:
         selector:
           matchLabels:
             kubernetes.io/metadata.name: default
-  - name: https-vbipay
+  - name: https-xx
     port: 443
     protocol: HTTPS
     hostname: "*.xxx.com"
@@ -1827,7 +1827,7 @@ spec:
           matchLabels:
             kubernetes.io/metadata.name: default
   # &#27867;&#22495;&#21517;&#35777;&#20070;&#19981;&#21305;&#37197; apex&#65292;xxx.com &#24517;&#39035;&#21333;&#21015; listener
-  - name: https-vbipay-apex
+  - name: https-xx-apex
     port: 443
     protocol: HTTPS
     hostname: "xxx.com"
@@ -1869,7 +1869,7 @@ spec:
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: ReferenceGrant
 metadata:
-  name: gw-to-default-secrets-vbipay
+  name: gw-to-default-secrets-xx
   namespace: default
 spec:
   from:
@@ -1879,7 +1879,7 @@ spec:
   to:
   - group: ""
     kind: Secret
-    name: vbipay-tls-secret
+    name: xx-tls-secret
 EOF</span>
 </pre>
 </div>
