@@ -55,6 +55,7 @@
 <h2>&#30446;&#24405;</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
+<li><a href="#h:EB6146B9-777C-4753-8D3A-E97EA9E35E0C">环境变量</a></li>
 <li><a href="#h:88147f32-0a08-4cf5-8733-ee565b35ca56">准备数据目录（可单独挂载磁盘）</a></li>
 <li><a href="#h:d59ed912-fe2b-4a16-a619-ceb96bdd9d97">Python</a>
 <ul>
@@ -70,12 +71,13 @@
 </li>
 <li><a href="#h:422c3403-d792-4612-af97-a6e315c98fe2">docker</a>
 <ul>
-<li><a href="#org5c62495">Aliyun linux</a></li>
+<li><a href="#h:654E0042-4BE2-4B27-98B6-553E6A6E4C97">Aliyun linux</a></li>
 <li><a href="#h:f07a7081-7604-4be8-93b4-b882fe9efed3">Amazon linux 2023 Docker 和 Docker Compose</a></li>
 </ul>
 </li>
 <li><a href="#h:5c90f587-e0a7-4ab2-8c53-3efd1944c45d">mysql</a>
 <ul>
+<li><a href="#h:FB5D1F12-AF5F-419B-9C29-61A826D11B3A">docker</a></li>
 <li><a href="#h:15755254-b0de-443d-950c-0971252ff55f">docker-compose</a></li>
 <li><a href="#h:f2032189-4bf7-43b8-b66e-0ab79672ea4f">mysql compose 5.7 ARM</a></li>
 <li><a href="#h:abfec490-8e4f-4ab2-8c73-db0975d633d3">mysql 8.0 compose ARM</a></li>
@@ -125,6 +127,7 @@
 <li><a href="#h:4703a099-0129-43c4-9503-97e8399e435c">rabbitmq</a>
 <ul>
 <li><a href="#h:d7c3dd97-e31a-4938-8fdd-7060a795f11c">docker</a></li>
+<li><a href="#h:5BC9BB60-080D-454E-B4B1-1A3FC5E432EB">docker compose</a></li>
 </ul>
 </li>
 <li><a href="#h:971bddfa-ea13-49c9-9659-d0ca874d7777">zookeeper</a>
@@ -134,6 +137,7 @@
 </li>
 <li><a href="#h:366bcbd2-c7eb-4c59-b4fa-b20a758ca83a">nacos</a>
 <ul>
+<li><a href="#h:A60B15B8-A19A-442C-8240-696A95FE35EB">docker compose</a></li>
 <li><a href="#h:ff052b3d-f51e-4ffe-95e7-842424cee283">nacos compose ARM</a></li>
 </ul>
 </li>
@@ -218,6 +222,29 @@ docker-compose
 <p>
 container
 </p>
+<section id="outline-container-h:EB6146B9-777C-4753-8D3A-E97EA9E35E0C" class="outline-2">
+<h2 id="h:EB6146B9-777C-4753-8D3A-E97EA9E35E0C"><a href="#h:EB6146B9-777C-4753-8D3A-E97EA9E35E0C">环境变量</a></h2>
+<div class="outline-text-2" id="text-h:EB6146B9-777C-4753-8D3A-E97EA9E35E0C">
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#19979;&#36733;&#23433;&#35013;&#26102;&#20351;&#29992;
+</span><span class="org-variable-name">OS</span>=$(uname -s | tr <span class="org-string">'A-Z'</span> <span class="org-string">'a-z'</span>)
+<span class="org-variable-name">ARCH</span>=$(uname -m | sed <span class="org-string">'s/x86_64/amd64/;s/aarch64/arm64/'</span>)
+<span class="org-variable-name">PLATFORM</span>=<span class="org-string">"$OS-$ARCH"</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#23494;&#25991;&#21464;&#37327;
+</span><span class="org-comment-delimiter">## </span><span class="org-comment">bash
+</span><span class="org-builtin">read</span> -rsp <span class="org-string">'&#23494;&#30721;: '</span> PW; <span class="org-builtin">echo</span>
+<span class="org-comment-delimiter">## </span><span class="org-comment">zsh
+</span><span class="org-builtin">read</span> -sr <span class="org-string">'PW?&#23494;&#30721;: '</span>; <span class="org-builtin">echo</span>
+mysql -h rds.prod.jp -P 33061 -u 1bd64 --password=<span class="org-string">"$PW"</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">kubectl &#21035;&#21517;&#12290;&#33258;&#21160;&#34917;&#20840;&#20889;&#21040; bash &#20013;
+</span><span class="org-function-name">kgo</span>() { <span class="org-variable-name">KUBECONFIG</span>=/root/.kube/config-go kubectl <span class="org-string">"$@"</span>; }
+complete -o default -F __start_kubectl kgo
+</pre>
+</div>
+</div>
+</section>
 <section id="outline-container-h:88147f32-0a08-4cf5-8733-ee565b35ca56" class="outline-2">
 <h2 id="h:88147f32-0a08-4cf5-8733-ee565b35ca56"><a href="#h:88147f32-0a08-4cf5-8733-ee565b35ca56">准备数据目录（可单独挂载磁盘）</a></h2>
 <div class="outline-text-2" id="text-h:88147f32-0a08-4cf5-8733-ee565b35ca56">
@@ -375,52 +402,44 @@ Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.18+9-LTS-195, mixed mode)
 <section id="outline-container-h:422c3403-d792-4612-af97-a6e315c98fe2" class="outline-2">
 <h2 id="h:422c3403-d792-4612-af97-a6e315c98fe2"><a href="#h:422c3403-d792-4612-af97-a6e315c98fe2">docker</a></h2>
 <div class="outline-text-2" id="text-h:422c3403-d792-4612-af97-a6e315c98fe2">
-<p>
-部署参考：<a href="https://docs.docker.com/engine/install/centos/">https://docs.docker.com/engine/install/centos/</a>
-</p>
-
 <div class="org-src-container">
-<pre class="src src-shell">sudo yum remove docker <span class="org-sh-escaped-newline">\</span>
-docker-client <span class="org-sh-escaped-newline">\</span>
-docker-client-latest <span class="org-sh-escaped-newline">\</span>
-docker-common <span class="org-sh-escaped-newline">\</span>
-docker-latest <span class="org-sh-escaped-newline">\</span>
-docker-latest-logrotate <span class="org-sh-escaped-newline">\</span>
-docker-logrotate <span class="org-sh-escaped-newline">\</span>
-docker-engine
-sudo yum install -y yum-utils
-sudo yum-config-manager <span class="org-sh-escaped-newline">\</span>
---add-repo <span class="org-sh-escaped-newline">\</span>
-https://download.docker.com/linux/centos/docker-ce.repo
-sudo yum install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-sudo systemctl start docker
-sudo systemctl enable docker
-
-<span class="org-comment-delimiter"># </span><span class="org-comment">&#25351;&#23450; docker &#25968;&#25454;&#30446;&#24405; /data/docker_data
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#25351;&#23450; docker &#25968;&#25454;&#30446;&#24405; /data/docker_data
 </span>mkdir /data/docker_data
-cat /etc/docker/daemon.json
+
+cat&gt;/etc/docker/daemon.json&lt;&lt;EOF<span class="org-sh-heredoc">
 {
-<span class="org-string">"registry-mirrors"</span>: [
-<span class="org-string">"https://dockerhub.azk8s.cn"</span>,
-<span class="org-string">"https://docker.mirrors.ustc.edu.cn"</span>,
-<span class="org-string">"http://hub-mirror.c.163.com"</span>
-],
-<span class="org-string">"max-concurrent-downloads"</span>: 10,
-<span class="org-string">"log-driver"</span>: <span class="org-string">"json-file"</span>,
-<span class="org-string">"log-level"</span>: <span class="org-string">"warn"</span>,
-<span class="org-string">"log-opts"</span>: {
-<span class="org-string">"max-size"</span>: <span class="org-string">"10m"</span>,
-<span class="org-string">"max-file"</span>: <span class="org-string">"3"</span>
-},
-<span class="org-string">"data-root"</span>: <span class="org-string">"/data/docker_data"</span>
+  "data-root":"/data/docker_data",
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "10m",
+    "max-file": "3"
+  }
 }
+EOF
+</span>
 sudo systemctl restart docker
 </pre>
 </div>
+
+
+<p>
+使用 AWS ECR Public 的 docker/library，但只镜像了 Docker 官方库。
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">public.ecr.aws/docker/library/*</span>
+</pre>
 </div>
-<div id="outline-container-org5c62495" class="outline-3">
-<h3 id="org5c62495"><a href="#org5c62495">Aliyun linux</a></h3>
-<div class="outline-text-3" id="text-org5c62495">
+
+<p>
+Sources:
+</p>
+<ul class="org-ul">
+<li><a href="https://docs.docker.com/engine/install/">Install Docker Engine</a></li>
+</ul>
+</div>
+<div id="outline-container-h:654E0042-4BE2-4B27-98B6-553E6A6E4C97" class="outline-3">
+<h3 id="h:654E0042-4BE2-4B27-98B6-553E6A6E4C97"><a href="#h:654E0042-4BE2-4B27-98B6-553E6A6E4C97">Aliyun linux</a></h3>
+<div class="outline-text-3" id="text-h:654E0042-4BE2-4B27-98B6-553E6A6E4C97">
 <ul class="org-ul">
 <li><a href="https://help.aliyun.com/zh/ecs/user-guide/install-and-use-docker">https://help.aliyun.com/zh/ecs/user-guide/install-and-use-docker</a></li>
 </ul>
@@ -495,6 +514,10 @@ docker compose version
 <section id="outline-container-h:5c90f587-e0a7-4ab2-8c53-3efd1944c45d" class="outline-2">
 <h2 id="h:5c90f587-e0a7-4ab2-8c53-3efd1944c45d"><a href="#h:5c90f587-e0a7-4ab2-8c53-3efd1944c45d">mysql</a></h2>
 <div class="outline-text-2" id="text-h:5c90f587-e0a7-4ab2-8c53-3efd1944c45d">
+</div>
+<div id="outline-container-h:FB5D1F12-AF5F-419B-9C29-61A826D11B3A" class="outline-3">
+<h3 id="h:FB5D1F12-AF5F-419B-9C29-61A826D11B3A"><a href="#h:FB5D1F12-AF5F-419B-9C29-61A826D11B3A">docker</a></h3>
+<div class="outline-text-3" id="text-h:FB5D1F12-AF5F-419B-9C29-61A826D11B3A">
 <div class="org-src-container">
 <pre class="src src-shell">mkdir -p /data/mysql/data
 
@@ -579,6 +602,7 @@ docker run -d -p 3306:3306 --restart always -v /data/mysql/data:/var/lib/mysql -
 <span class="org-comment-delimiter"># </span><span class="org-comment">&#21551;&#21160;
 </span>bash /data/mysql/start.sh
 </pre>
+</div>
 </div>
 </div>
 <div id="outline-container-h:15755254-b0de-443d-950c-0971252ff55f" class="outline-3">
@@ -857,6 +881,7 @@ services:
     image: mysql:8.0
     container_name: mysql-8-slots
     hostname: mysql-8-slots
+    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: kot2LT4jgJEo2rsnvduF
       MYSQL_DATABASE: my_default
@@ -865,14 +890,13 @@ services:
       TZ: Asia/Calcutta
     ports:
       - "3396:3306"
-    restart: always
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent" ]
       interval: 3s
       retries: 5
       start_period: 30s
     volumes:
-      - ~/doc/data/mysql-8-slots/data:/var/lib/mysql
+      - mysql-data:/var/lib/mysql
       - ~/doc/data/mysql-8-slots/conf.d:/etc/mysql/conf.d
       - ~/doc/data/mysql-8-slots/logs:/var/log/mysql
       - /etc/localtime:/etc/localtime:ro
@@ -881,8 +905,7 @@ services:
         ipv4_address: 172.19.0.2
 
 volumes:
-  keep-data: {}
-  logs: {}
+  mysql-data:
 networks:
   common_net:
     name: common_net
@@ -1064,44 +1087,54 @@ EOF</span>
 <div class="outline-text-3" id="text-h:33ac8d98-9f5c-4cfe-9a22-73056229db86">
 <div class="org-src-container">
 <pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#21019;&#24314;&#23478;&#30446;&#24405;
-</span>$ mkdir -p /data/redis
+</span>mkdir -p /data/redis ; <span class="org-builtin">cd</span> /data/redis
  
 <span class="org-comment-delimiter"># </span><span class="org-comment">&#23548;&#20837;docker-compose&#25991;&#20214;
-</span>$ cat &lt;&lt; EOF &gt; /data/redis/redis-single.yaml<span class="org-sh-heredoc">
-version: "3.5"
+</span>$ cat &lt;&lt; EOF &gt; redis-single.yaml<span class="org-sh-heredoc">
 services:
   redis:
-    image: redis:5.0.8
+    image: redis:7.4.9
     container_name: redis
-    hostname: redis
-    volumes:
-      - ./data:/data
-      - ./redis.conf:/etc/redis.conf
+    restart: unless-stopped
     command: redis-server /etc/redis.conf
+    volumes:
+      - redis-data:/data
+      - ./redis.conf:/etc/redis.conf
     ports:
       - "6379:6379"
     environment:
       - TZ=Asia/Shanghai
-    restart: always
+    healthcheck:
+      test:
+        - CMD
+        - redis-cli
+        - -a
+        - "31313c24adb956fbd0bf990039f64e4696e252e5afca24d1"
+        - ping
+      interval: 10s
+      timeout: 5s
+      retries: 12
     networks:
       redis:
         aliases:
           - redis-server
  
+volumes:
+  redis-data:
+
 networks:
-  redis:
-    name: redis
-    driver: bridge
+  redis
 EOF
 </span> 
 <span class="org-comment-delimiter"># </span><span class="org-comment">&#23548;&#20837; redis &#37197;&#32622;&#25991;&#20214;
-</span>$ cat &lt;&lt; EOF &gt; /data/redis/redis.conf<span class="org-sh-heredoc">
+</span>$ cat &lt;&lt; EOF &gt; redis.conf<span class="org-sh-heredoc">
 bind 0.0.0.0
 protected-mode yes
 port 6379
 tcp-backlog 511
 timeout 0
 tcp-keepalive 300
+requirepass "31313c24adb956fbd0bf990039f64e4696e252e5afca24d1"
 daemonize no
 supervised no
 pidfile /var/run/redis_6379.pid
@@ -1157,7 +1190,7 @@ aof-rewrite-incremental-fsync yes
 EOF
 </span> 
 <span class="org-comment-delimiter"># </span><span class="org-comment">&#37096;&#32626;redis
-</span>$ docker-compose -f /data/redis/redis-single.yaml up -d
+</span>$ docker-compose -f redis-single.yaml up -d
 </pre>
 </div>
 </div>
@@ -1325,7 +1358,7 @@ docker compose up -d
 <p>
 默认管理员用户：
 </p>
-<pre class="example" id="org6222f34">
+<pre class="example" id="orgc8b76c5">
 Email:    admin@example.com
 Password: changeme
 </pre>
@@ -2095,6 +2128,41 @@ docker run -id --name=rabbitmq -v ./docker/rabbitmq:/var/lib/rabbitmq -p 15672:1
 </div>
 </div>
 </div>
+<div id="outline-container-h:5BC9BB60-080D-454E-B4B1-1A3FC5E432EB" class="outline-3">
+<h3 id="h:5BC9BB60-080D-454E-B4B1-1A3FC5E432EB"><a href="#h:5BC9BB60-080D-454E-B4B1-1A3FC5E432EB">docker compose</a></h3>
+<div class="outline-text-3" id="text-h:5BC9BB60-080D-454E-B4B1-1A3FC5E432EB">
+<div class="org-src-container">
+<pre class="src src-shell">services:
+  rabbitmq:
+    image: rabbitmq:4.3.0-management
+    container_name: rabbitmq
+    hostname: mpc-rabbitmq
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: <span class="org-string">"guest"</span>
+      RABBITMQ_DEFAULT_PASS: <span class="org-string">"5ce698e40ff1def478cc3c417830f20c1e09af9f25d1f91b"</span>
+      RABBITMQ_DEFAULT_VHOST: <span class="org-string">"/"</span>
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - rabbit-data:/var/lib/rabbitmq
+    healthcheck:
+      test:
+        - CMD
+        - rabbitmq-diagnostics
+        - -q
+        - ping
+      interval: 15s
+      timeout: 10s
+      retries: 20
+
+volumes:
+  rabbit-data:
+</pre>
+</div>
+</div>
+</div>
 </section>
 <section id="outline-container-h:971bddfa-ea13-49c9-9659-d0ca874d7777" class="outline-2">
 <h2 id="h:971bddfa-ea13-49c9-9659-d0ca874d7777"><a href="#h:971bddfa-ea13-49c9-9659-d0ca874d7777">zookeeper</a></h2>
@@ -2234,6 +2302,39 @@ push: build
 <section id="outline-container-h:366bcbd2-c7eb-4c59-b4fa-b20a758ca83a" class="outline-2">
 <h2 id="h:366bcbd2-c7eb-4c59-b4fa-b20a758ca83a"><a href="#h:366bcbd2-c7eb-4c59-b4fa-b20a758ca83a">nacos</a></h2>
 <div class="outline-text-2" id="text-h:366bcbd2-c7eb-4c59-b4fa-b20a758ca83a">
+</div>
+<div id="outline-container-h:A60B15B8-A19A-442C-8240-696A95FE35EB" class="outline-3">
+<h3 id="h:A60B15B8-A19A-442C-8240-696A95FE35EB"><a href="#h:A60B15B8-A19A-442C-8240-696A95FE35EB">docker compose</a></h3>
+<div class="outline-text-3" id="text-h:A60B15B8-A19A-442C-8240-696A95FE35EB">
+<div class="org-src-container">
+<pre class="src src-shell">services:
+  nacos:
+    image: nacos/nacos-server:v2.2.3
+    container_name: mpc-nacos
+    restart: unless-stopped
+    environment:
+      MODE: <span class="org-string">"standalone"</span>
+      PREFER_HOST_MODE: <span class="org-string">"hostname"</span>
+      NACOS_AUTH_ENABLE: <span class="org-string">"true"</span>
+      NACOS_AUTH_TOKEN: <span class="org-string">"wFT+Njqek9T3b9EE7Yo9l+KaXeLT3sIm0J2gMzLL82kp2ktH/26bDZxKDlM/KoAw"</span>
+      NACOS_AUTH_IDENTITY_KEY: <span class="org-string">"jp-dev"</span>
+      NACOS_AUTH_IDENTITY_VALUE: <span class="org-string">"5da019903e671c3b0d5fe4c4b9637097d605a0fc0fb6f31f"</span>
+      JVM_XMS: <span class="org-string">"256m"</span>
+      JVM_XMX: <span class="org-string">"512m"</span>
+      JVM_XMN: <span class="org-string">"128m"</span>
+    ports:
+      - 8848:8848
+      - 9848:9848
+    volumes:
+      - nacos-data:/home/nacos/data
+      - nacos-logs:/home/nacos/logs
+
+volumes:
+  nacos-data:
+  nacos-logs:
+</pre>
+</div>
+</div>
 </div>
 <div id="outline-container-h:ff052b3d-f51e-4ffe-95e7-842424cee283" class="outline-3">
 <h3 id="h:ff052b3d-f51e-4ffe-95e7-842424cee283"><a href="#h:ff052b3d-f51e-4ffe-95e7-842424cee283">nacos compose ARM</a></h3>
@@ -3033,12 +3134,12 @@ wget https://get.jenkins.io/war-stable/${<span class="org-variable-name">JENKINS
 cat &lt;&lt;\EOF&gt; restart_jenkins.sh <span class="org-sh-heredoc">
 source /etc/profile
 
-ps -ef|grep /usr/share/java/jenkins.war|grep -v grep|awk '{print $2}'|xargs kill -9
+ps -ef|grep /opt/jenkins/jenkins.war|grep -v grep|awk '{print $2}'|xargs kill -9
 sleep 3
 java_cmd=/usr/local/jdk-21.0.5/bin/java
 inferred_jenkins_opts="--webroot=/var/cache/jenkins/war --logfile=/var/log/jenkins/jenkins.log --httpPort=8080 --debug=5"
-java_opts_tmp="-Djava.awt.headless=true -Dhudson.model.DownloadService.noSignatureCheck=true -Djenkin.install.runSetupWizard=false"
-jenkins_war_tmp="/usr/share/java/jenkins.war"
+java_opts_tmp="-Djava.awt.headless=true -Dhudson.model.DownloadService.noSignatureCheck=true"
+jenkins_war_tmp="/opt/jenkins/jenkins.war"
 
 [ -d  "/var/log/jenkins" ] || mkdir /var/log/jenkins
 
@@ -3105,12 +3206,17 @@ systemctl start jenkins
 </div>
 
 <p>
+admin 密码
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">cat /data/jenkins/secrets/initialAdminPassword
+</pre>
+</div>
+
+<p>
 nginx代理
 </p>
 
-<p>
-参考：<a href="https://www.jenkins.io/doc/book/system-administration/reverse-proxy-configuration-with-jenkins/">https://www.jenkins.io/doc/book/system-administration/reverse-proxy-configuration-with-jenkins/</a>
-</p>
 <div class="org-src-container">
 <pre class="src src-sh">cat &lt;&lt;\EOF&gt; ci.conf <span class="org-sh-heredoc">
 server {
@@ -3138,13 +3244,14 @@ EOF</span>
 </pre>
 </div>
 
+
+
 <p>
-admin 密码
+Sources:
 </p>
-<div class="org-src-container">
-<pre class="src src-sh">cat /data/jenkins/secrets/initialAdminPassword
-</pre>
-</div>
+<ul class="org-ul">
+<li><a href="https://www.jenkins.io/doc/book/system-administration/reverse-proxy-configuration-with-jenkins/">Reverse proxy configuration&#x2013;Configuration Examples by Server Type</a></li>
+</ul>
 </div>
 </div>
 <div id="outline-container-h:e3c63702-f9a2-4f8c-935e-7a8e979fa97a" class="outline-3">
@@ -4033,7 +4140,7 @@ EOF</span>
 <p>
 vaules.yaml
 </p>
-<pre class="example" id="org647357c">
+<pre class="example" id="orgadd2aa0">
 prometheus:
   prometheusSpec:
     enableAdminAPI: true

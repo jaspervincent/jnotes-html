@@ -55,33 +55,83 @@
 <h2>&#30446;&#24405;</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org8a610c0">SonarQube 介绍</a>
+<li><a href="#orgd02c8f0">SonarQube 介绍</a>
 <ul>
-<li><a href="#orgd08aa0c">架构和集成</a></li>
+<li><a href="#org73cabd5">架构和集成</a></li>
+<li><a href="#org32f7c2a">版本说明</a></li>
 </ul>
 </li>
-<li><a href="#orgd98adc1">安装</a>
+<li><a href="#org615eb3b">安装环境准备</a>
 <ul>
-<li><a href="#org946524f">部署前环境依赖</a></li>
-<li><a href="#org9a0d665">部署命令</a></li>
+<li><a href="#orgbd6f5b5">硬件要求</a></li>
+<li><a href="#org59c345e">系统内核优化</a></li>
+<li><a href="#org82c8246">数据库环境依赖说明</a></li>
+<li><a href="#orgfdb707c">Java 环境依赖说明</a></li>
+<li><a href="#orgd30ba05">创建 SonarQube 用户</a></li>
 </ul>
 </li>
-<li><a href="#orgb81ff58">maven 方式接入</a>
+<li><a href="#org3290b2f">安装 SonarQube 服务器</a>
 <ul>
-<li><a href="#orgf1df555">maven 命令接入</a></li>
-<li><a href="#org10d2c59">sonar-scanner</a></li>
+<li><a href="#orga8e78ba">数据库准备</a>
+<ul>
+<li><a href="#org156ce97">安装和配置 PostgreSQL 数据库</a></li>
+<li><a href="#org956412a">创建数据库和用户授权</a></li>
 </ul>
 </li>
-<li><a href="#org19b2bf2">sonarqube 审查规则</a></li>
+<li><a href="#orgaaf66ee">下载 SonarQube 和修改配置文件</a>
+<ul>
+<li><a href="#orgc5936ec">方法1-zip 文件安装</a>
+<ul>
+<li><a href="#org5b49d43">设置 SonarQube 连接数据库</a></li>
+<li><a href="#org0e6e2a5">启动 SonarQube</a></li>
+<li><a href="#orgb2684af">创建 service 文件</a></li>
+</ul>
+</li>
+<li><a href="#orge7a8cf2">方法2-通过 Docker compose 部署</a></li>
+</ul>
+</li>
+<li><a href="#org8176da5">登录到 Web 界面</a></li>
+</ul>
+</li>
+<li><a href="#org0f938b4">管理 SonarQube 服务器</a>
+<ul>
+<li><a href="#org881fb92">安装中文语言插件</a></li>
+<li><a href="#orgefcefcf">安装其他插件</a></li>
+<li><a href="#orge729020">权限管理</a>
+<ul>
+<li><a href="#org617462c">允许匿名访问</a></li>
+<li><a href="#orgea2d97a">不允许匿名访问</a></li>
+</ul>
+</li>
+<li><a href="#org60cff61">创建用户生成令牌</a></li>
+</ul>
+</li>
+<li><a href="#orgc517cba">部署代码扫描器 sonar-scanner</a>
+<ul>
+<li><a href="#orgeda1fb2">准备测试代码和配置文件</a></li>
+</ul>
+</li>
+<li><a href="#org17a2e8f">maven 方式接入</a>
+<ul>
+<li><a href="#orgc098027">maven 命令接入</a></li>
+<li><a href="#org927d4c9">sonar-scanner</a></li>
+</ul>
+</li>
+<li><a href="#orgff5eff7">与 jenkins 集成</a>
+<ul>
+<li><a href="#orge3bb514">添加 Jenkins 的回调接口</a></li>
+</ul>
+</li>
+<li><a href="#org633a06c">sonarqube 审查规则</a></li>
 </ul>
 </div>
 </nav>
 <ul class="org-ul">
 <li>TAGS: <a href="../cicd.html">cicd</a></li>
 </ul>
-<section id="outline-container-org8a610c0" class="outline-2">
-<h2 id="org8a610c0"><a href="#org8a610c0">SonarQube 介绍</a></h2>
-<div class="outline-text-2" id="text-org8a610c0">
+<section id="outline-container-orgd02c8f0" class="outline-2">
+<h2 id="orgd02c8f0"><a href="#orgd02c8f0">SonarQube 介绍</a></h2>
+<div class="outline-text-2" id="text-orgd02c8f0">
 <p>
 SonarQube 是一款用于代码质量管理的开源工具，它主要用于管理源代码的质量。 通过插件形式，可以支持众多计算机语言，比如 java, C#, go，C/C++, PL/SQL, Cobol, JavaScrip, Groovy 等。sonar可以通过PMD,CheckStyle,Findbugs等等代码规则检测工具来检测你的代码，帮助你发现代码的漏洞，Bug，异味等信息。
 </p>
@@ -97,42 +147,923 @@ Sonar 不仅提供了对 IDE 的支持，可以在 Eclipse和 IntelliJ IDEA 这�
 <li>Github 地址: <a href="https://github.com/SonarSource/sonarqube">https://github.com/SonarSource/sonarqube</a></li>
 </ul>
 </div>
-<div id="outline-container-orgd08aa0c" class="outline-3">
-<h3 id="orgd08aa0c"><a href="#orgd08aa0c">架构和集成</a></h3>
-<div class="outline-text-3" id="text-orgd08aa0c">
+<div id="outline-container-org73cabd5" class="outline-3">
+<h3 id="org73cabd5"><a href="#org73cabd5">架构和集成</a></h3>
+<div class="outline-text-3" id="text-org73cabd5">
 <ul class="org-ul">
 <li>支持的语言：<a href="https://docs.sonarsource.com/sonarqube-server/analyzing-source-code/languages/overview">Supported languages</a></li>
+<li>服务端组件：<a href="https://docs.sonarsource.com/sonarqube-server/server-installation/server-components-overview">Server components</a></li>
+</ul>
+
+
+<p>
+核心架构：三个 Java 进程 + 外部依赖
+</p>
+
+<p>
+SonarQube Server 实例本身由一个 JVM 父进程 Sonar（负责管理和监控下面三个子进程的可用性）拉起三个独立的 Java 进程：
+</p>
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">进程</th>
+<th scope="col" class="org-left">职责</th>
+<th scope="col" class="org-left">堆配置项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Web Server</td>
+<td class="org-left">提供 Web UI 和 Web API；ES 索引损坏时负责重建索引</td>
+<td class="org-left">sonar.web.javaOpts</td>
+</tr>
+
+<tr>
+<td class="org-left">Compute Engine(CE)</td>
+<td class="org-left">从数据库中的任务队列取出扫描报告，计算度量、问题、质量门结果并落库</td>
+<td class="org-left">sonar.ce.javaOpts</td>
+</tr>
+
+<tr>
+<td class="org-left">Search Server(Elasticsearch)</td>
+<td class="org-left">维护数据库的索引副本，支撑搜索和过滤</td>
+<td class="org-left">sonar.search.javaOpts</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>
+Web 和 CE 两个进程都会向 ES 和数据库写入，并各自保证数据一致性。
+</p>
+
+
+<p>
+一次完整分析需要的三类组件
+</p>
+<ol class="org-ol">
+<li>Server（上述三进程）</li>
+<li>Database — 存储代码质量与安全的度量/问题、实例配置，以及由 Scanner 写入、CE 消费的分析报告任务队列</li>
+<li>Scanner — 运行在构建机或 CI 上的 SonarScanner（Maven/Gradle/CLI/.NET 等），负责分析源码并上传报告</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org32f7c2a" class="outline-3">
+<h3 id="org32f7c2a"><a href="#org32f7c2a">版本说明</a></h3>
+<div class="outline-text-3" id="text-org32f7c2a">
+<p>
+<b>产品线</b>
+</p>
+
+<p>
+SonarSource 2024 年底做过一次改名，现在是三个产品：
+</p>
+<ul class="org-ul">
+<li>SonarQube Server —— 自托管，就是传统意义上的 SonarQube，分四个 Edition（下面详述）</li>
+<li>SonarQube Cloud —— 原 SonarCloud，SaaS 托管</li>
+<li>SonarQube IDE —— 原 SonarLint，IDE 插件</li>
+</ul>
+
+<p>
+另外原来的 Community Edition 已改名为 SonarQube Community Build，并且改成滚动发布（不再跟 LTA 版本号走）。
+</p>
+
+
+<p>
+<b>SonarQube Server 的四个版本</b>
+</p>
+
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">&#xa0;</th>
+<th scope="col" class="org-left">Community Build</th>
+<th scope="col" class="org-left">Developer</th>
+<th scope="col" class="org-left">Enterprise</th>
+<th scope="col" class="org-left">Data Center</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">价格</td>
+<td class="org-left">免费（LGPLv3）</td>
+<td class="org-left">官网起价 ~$720/年</td>
+<td class="org-left">联系销售</td>
+<td class="org-left">联系销售</td>
+</tr>
+
+<tr>
+<td class="org-left">建议规模</td>
+<td class="org-left">&lt; 100K LOC</td>
+<td class="org-left">100K+ LOC</td>
+<td class="org-left">1M+ LOC</td>
+<td class="org-left">20M+ LOC</td>
+</tr>
+
+<tr>
+<td class="org-left">语言分析器</td>
+<td class="org-left">20+</td>
+<td class="org-left">34</td>
+<td class="org-left">40</td>
+<td class="org-left">40</td>
+</tr>
+
+<tr>
+<td class="org-left">分支/PR 分析</td>
+<td class="org-left">❌ 仅主分支</td>
+<td class="org-left">✅</td>
+<td class="org-left">✅</td>
+<td class="org-left">✅</td>
+</tr>
+
+<tr>
+<td class="org-left">支持</td>
+<td class="org-left">社区论坛</td>
+<td class="org-left">商业支持</td>
+<td class="org-left">商业支持</td>
+<td class="org-left">商业支持</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+商业版按 实例 / 年 / 代码行数（LOC） 计价，LOC 不含空行、注释和测试代码。
+</p>
+
+<p>
+各档累加的能力
+Community Build（免费）
+</p>
+<ul class="org-ul">
+<li>20+ 语言、质量门、Quality Profile、基础规则集。致命限制是只能分析主分支——代码合并后才能扫描，等于放弃了 shift-left。</li>
+</ul>
+
+<p>
+Developer（+分支与安全）
+</p>
+<ul class="org-ul">
+<li>分支分析 + PR 装饰（GitHub / GitLab / Bitbucket / Azure DevOps）</li>
+<li>污点分析（Taint Analysis）、高级 SAST</li>
+<li>Secrets 检测（400+ 模式）</li>
+<li>SonarQube IDE 连接模式（Connected Mode）</li>
+<li>新增语言：C、C++、Objective-C、Swift、T-SQL、PL/SQL —— 做嵌入式/移动端的话这是最低门槛</li>
+</ul>
+
+<p>
+Enterprise（+治理与合规）
+</p>
+<ul class="org-ul">
+<li>Portfolio 管理、跨项目聚合视图、高管仪表盘</li>
+<li>合规报告：OWASP Top 10、CWE Top 25、SANS Top 25</li>
+<li>报告并行处理（CE 多 worker）</li>
+<li>项目实例间迁移</li>
+<li>传统企业语言：COBOL、ABAP、PL/I、RPG、VB6、Apex</li>
+<li>Advanced Security 加购项（SCA、SBOM、恶意包检测、可达性分析）</li>
+<li>2026.5 起的 agentic 能力（Vortex / Remediation Agent / Hunter Agent）也只在 Enterprise 和 DCE 上可购买</li>
+</ul>
+
+<p>
+Data Center（+高可用）
+</p>
+<ul class="org-ul">
+<li>纯粹是部署形态升级，功能集等同 Enterprise，加上集群：2 个 Application 节点 + 3 个 Search 节点 + LB + DB，支持横向扩容和 HA。适合 SonarQube 宕机会卡住整条 CI/CD 流水线的组织。</li>
+</ul>
+
+<p>
+参考：
+</p>
+<ul class="org-ul">
+<li><a href="https://www.sonarsource.com/blog/sonarqube-compare-editions/">SonarQube Compare Editions — Sonar 官方</a></li>
+</ul>
+
+<p>
+<b>SonarQube 分两种版本: LTA 和非 LTA</b>
+</p>
+
+<p>
+Sonar 在 2023 年正式把 LTS (Long-Term Support) 改名为 LTA (Long-Term Active)。原 9.9 LTS 直接变成 9.9 LTA。改名原因是"support"有歧义——商业技术支持（Support）和"受支持的版本"两个意思混在一起容易引起误解。现在官方文档和下载页一律用LTA。
+</p>
+
+<p>
+SonarQube Server 每两个月发布一个版本，一年 6 个，其中 2 个为 LTA（Long-Term Active，2023 年前称 LTS）版本。LTA 是功能完整的稳定版本，自发布起提供 12 个月的补丁支持（Enterprise/DCE 客户购买 Enterprise Support 可延长至 18 个月），EOL 后再提供 6 个月技术支持，适合无法频繁升级的组织。
+</p>
+<ul class="org-ul">
+<li>2026 年起：一年 2 个（2026.1 LTA、2026.5 LTA）</li>
+</ul>
+
+
+<p>
+另外，LTA 概念只适用于 SonarQube Server 的商业版。Community Build 是滚动发布（约每月一版），没有 LTA 分支，也不发补丁——出了问题只能升到下一个 build。
+</p>
+
+<ul class="org-ul">
+<li>当前 LTA 是 2026.5（2026-09-29 发布），最新补丁 2026.5.2，活跃支持到 2027-10-01，安全支持到 2028-03-01</li>
+</ul>
+
+<p>
+Sources:
+</p>
+<ul class="org-ul">
+<li><a href="https://docs.sonarsource.com/sonarqube-server/server-update-and-maintenance/update/release-cycle-model">Release cycle model — SonarQube Server 官方文档</a></li>
+<li><a href="http://sonarsource.com/products/sonarqube/downloads/lts/">官方 LTA 版本说明</a></li>
+</ul>
+
+
+<p>
+<b>各版本下载地址</b>
+</p>
+<ul class="org-ul">
+<li><a href="https://www.sonarsource.com/products/sonarqube/downloads/">https://www.sonarsource.com/products/sonarqube/downloads/</a></li>
+<li><a href="https://www.sonarsource.com/products/sonarqube/downloads/historical-downloads/">https://www.sonarsource.com/products/sonarqube/downloads/historical-downloads/</a></li>
 </ul>
 </div>
 </div>
 </section>
-<section id="outline-container-orgd98adc1" class="outline-2">
-<h2 id="orgd98adc1"><a href="#orgd98adc1">安装</a></h2>
-<div class="outline-text-2" id="text-orgd98adc1">
+<section id="outline-container-org615eb3b" class="outline-2">
+<h2 id="org615eb3b"><a href="#org615eb3b">安装环境准备</a></h2>
+<div class="outline-text-2" id="text-org615eb3b">
 </div>
-<div id="outline-container-org946524f" class="outline-3">
-<h3 id="org946524f"><a href="#org946524f">部署前环境依赖</a></h3>
-<div class="outline-text-3" id="text-org946524f">
-<p>
-参考文档: <a href="https://docs.sonarqube.org/latest/requirements/prerequisites-and-overview/">Prerequisites and overview</a>
-</p>
+<div id="outline-container-orgbd6f5b5" class="outline-3">
+<h3 id="orgbd6f5b5"><a href="#orgbd6f5b5">硬件要求</a></h3>
+<div class="outline-text-3" id="text-orgbd6f5b5">
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">规模</th>
+<th scope="col" class="org-left">定义</th>
+<th scope="col" class="org-left">RAM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">小规模</td>
+<td class="org-left">Community Build / Developer，≤ 1M LOC</td>
+<td class="org-left">4 GB</td>
+</tr>
+
+<tr>
+<td class="org-left">大规模</td>
+<td class="org-left">单节点 Enterprise ≤ 50M LOC，或 DCE 的单个节点</td>
+<td class="org-left">16 GB</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul class="org-ul">
+<li>处理器：64 位系统</li>
+<li>磁盘：必须是读写性能优秀的盘（Search 节点上 SSD 相比 HDD 性能差距显著）；容量取决于分析的代码量</li>
+</ul>
+
 
 <p>
-提前安装：
+Web 和 Compute Engine 进程的默认堆大小在所有 Edition 上都调高了。如果你的实例本来就贴着内存上限跑，或者容器设了固定内存配额，升级前必须加内存，否则起不来。
+</p>
+
+
+<p>
+Sources:
 </p>
 <ul class="org-ul">
-<li>Oracle JRE 11 或者 OpenJDK 11
-<ul class="org-ul">
-<li>小规模团队:  2GBRAM才能高效运行OS需要1GB的空闲RAM</li>
-</ul></li>
-<li>docker</li>
-<li>postgres  13</li>
+<li><a href="https://docs.sonarsource.com/sonarqube-server/server-installation/server-host-requirements">Server host requirements — SonarQube Server 文档</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org9a0d665" class="outline-3">
-<h3 id="org9a0d665"><a href="#org9a0d665">部署命令</a></h3>
-<div class="outline-text-3" id="text-org9a0d665">
+<div id="outline-container-org59c345e" class="outline-3">
+<h3 id="org59c345e"><a href="#org59c345e">系统内核优化</a></h3>
+<div class="outline-text-3" id="text-org59c345e">
+<p>
+因为内嵌 Elasticsearch，主机必须满足 ES 的 production mode 要求：
+</p>
+
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-right">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">参数</th>
+<th scope="col" class="org-right">最小值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>vm.max_map_count</code></td>
+<td class="org-right">524288</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>fs.file-max</code></td>
+<td class="org-right">131072</td>
+</tr>
+
+<tr>
+<td class="org-left">用户打开文件数 (ulimit -n)</td>
+<td class="org-right">131072</td>
+</tr>
+
+<tr>
+<td class="org-left">用户线程/进程数 (ulimit -u)</td>
+<td class="org-right">8192</td>
+</tr>
+</tbody>
+</table>
+
+
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#26816;&#26597;&#24403;&#21069;&#20540;&#65306;
+</span>sysctl vm.max_map_count
+sysctl fs.file-max
+<span class="org-builtin">ulimit</span> -n
+<span class="org-builtin">ulimit</span> -u
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#20020;&#26102;&#29983;&#25928;&#65288;root&#65289;&#65306;
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">mv.max_map_count &#29992;&#20110;&#38480;&#21046;&#19968;&#20010;&#36827;&#31243;&#21487;&#20197;&#25317;&#26377;&#30340; VMA (&#34394;&#25311;&#20869;&#23384;&#21306;&#22495;)&#30340;&#25968;&#37327;
+</span>sysctl -w vm.max_map_count=524288
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#35774;&#32622;&#31995;&#32479;&#26368;&#22823;&#25171;&#24320;&#30340;&#25991;&#20214;&#25551;&#36848;&#31526;&#25968;
+</span>sysctl -w fs.file-max=131072
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#27599;&#20010;&#29992;&#25143;&#21487;&#20197;&#25171;&#24320;&#30340;&#25991;&#20214;&#25551;&#36848;&#31526;&#25968;
+</span><span class="org-builtin">ulimit</span> -n 131072
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#27599;&#20010;&#29992;&#25143;&#21487;&#20197;&#25171;&#24320;&#30340;&#32447;&#31243;&#25968;
+</span><span class="org-builtin">ulimit</span> -u 8192
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#27704;&#20037;&#29983;&#25928;&#65306;
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">&#20869;&#26680;&#21442;&#25968; &#8212;&#8212; &#20889;&#20837; /etc/sysctl.d/99-sonarqube.conf
+</span>cat &lt;&lt;EOF&gt; /etc/sysctl.d/99-sonarqube.conf<span class="org-sh-heredoc">
+vm.max_map_count=524288
+fs.file-max=131072
+EOF
+</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#29992;&#25143;&#38480;&#21046; &#8212;&#8212; &#20889;&#20837; /etc/security/limits.d/99-sonarqube.conf
+</span>cat &lt;&lt;EOF&gt; /etc/security/limits.d/99-sonarqube.conf<span class="org-sh-heredoc">
+sonarqube   -   nofile   131072
+sonarqube   -   nproc    8192
+EOF
+</span>
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#29992; systemd &#25176;&#31649;&#30340;&#35805; limits.conf &#19981;&#29983;&#25928;&#65292;&#24517;&#39035;&#20889;&#22312; unit &#25991;&#20214;&#30340; [Service] &#27573;&#37324;
+</span><span class="org-variable-name">LimitNOFILE</span>=131072
+<span class="org-variable-name">LimitNPROC</span>=8192
+</pre>
+</div>
+
+<p>
+Sources:
+</p>
+<ul class="org-ul">
+<li><a href="https://docs.sonarsource.com/sonarqube-server/server-installation/pre-installation/linux">On Linux systems — Pre-installation</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org82c8246" class="outline-3">
+<h3 id="org82c8246"><a href="#org82c8246">数据库环境依赖说明</a></h3>
+<div class="outline-text-3" id="text-org82c8246">
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">引擎</th>
+<th scope="col" class="org-left">支持版本</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">PostgreSQL</td>
+<td class="org-left">15 – 18（14 已不支持）</td>
+</tr>
+
+<tr>
+<td class="org-left">Microsoft SQL Server</td>
+<td class="org-left">2025 (17.0) / 2022 (16.0)，自带 JDBC 驱动</td>
+</tr>
+
+<tr>
+<td class="org-left">Oracle</td>
+<td class="org-left">26ai（2026.5 新增）/ 21c / 19c / XE</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+字符集与配置约束：
+</p>
+<ul class="org-ul">
+<li>PostgreSQL 必须使用 UTF-8 字符集</li>
+<li>Oracle 只支持 thin 模式（不支持 OCI）；只支持 MAX_STRING_SIZE=STANDARD（不支持 EXTENDED）；NLS_CHARACTERSET 必须是 UTF8 系列</li>
+<li>内嵌的 H2 仅供试用，生产环境必须外接数据库，且建议独立部署在另一台机器上，与 SonarQube 主机低延迟互通</li>
+</ul>
+
+
+<p>
+Sources:
+</p>
+<ul class="org-ul">
+<li><a href="https://docs.sonarsource.com/sonarqube-server/server-installation/installing-the-database">Installing the database</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgfdb707c" class="outline-3">
+<h3 id="orgfdb707c"><a href="#orgfdb707c">Java 环境依赖说明</a></h3>
+<div class="outline-text-3" id="text-orgfdb707c">
+<p>
+ZIP 包安装方式已被标记为 deprecated，官方推荐走容器（Docker）或 Kubernetes（Helm Chart）。容器镜像自带运行时，下面的 Java 要求只对 ZIP 安装生效。
+</p>
+
+<ol class="org-ol">
+<li>Java 运行时（仅 ZIP 安装）
+<ul class="org-ul">
+<li>Java 21 或 25。必须是完整 JDK，JRE 不再够用。</li>
+</ul></li>
+</ol>
+
+<p>
+范例：安装 openjdk-25-jdk
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">ubuntu
+</span>apt update &amp;&amp; apt -y install openjdk-25-jdk
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">RHEL &#31995;&#32479;&#23433;&#35013; java
+</span>yum -y install java-25-openjdk
+
+
+java -version
+</pre>
+</div>
+
+<p>
+Sources:
+</p>
+<ul class="org-ul">
+<li><a href="https://docs.sonarsource.com/sonarqube-server/server-installation/server-host-requirements">Server host requirements — SonarQube Server 文档</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgd30ba05" class="outline-3">
+<h3 id="orgd30ba05"><a href="#orgd30ba05">创建 SonarQube 用户</a></h3>
+<div class="outline-text-3" id="text-orgd30ba05">
+<p>
+使用普通账户启动 sonarqube，因为 sonarqube 内置了ES，所以不允许能 root 启动
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">Ubuntu &#20351;&#29992; useradd &#21019;&#24314;&#29992;&#25143;&#26102;&#40664;&#35748;&#20351;&#29992; /bin/sh&#65292;&#24182;&#19988;&#19981;&#21019;&#24314;&#23478;&#30446;&#24405;
+</span>useradd -s /bin/bash -m sonarqube
+</pre>
+</div>
+</div>
+</div>
+</section>
+<section id="outline-container-org3290b2f" class="outline-2">
+<h2 id="org3290b2f"><a href="#org3290b2f">安装 SonarQube 服务器</a></h2>
+<div class="outline-text-2" id="text-org3290b2f">
+</div>
+<div id="outline-container-orga8e78ba" class="outline-3">
+<h3 id="orga8e78ba"><a href="#orga8e78ba">数据库准备</a></h3>
+<div class="outline-text-3" id="text-orga8e78ba">
+</div>
+<div id="outline-container-org156ce97" class="outline-4">
+<h4 id="org156ce97"><a href="#org156ce97">安装和配置 PostgreSQL 数据库</a></h4>
+<div class="outline-text-4" id="text-org156ce97">
+<p>
+官方安装文档: <a href="https://www.postgresql.org/download/">https://www.postgresql.org/download/</a>
+</p>
+
+<p>
+安装和配置 PostgreSQL
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter">#</span><span class="org-comment">&#23548;&#20837;&#23384;&#20648;&#24211;&#31614;&#21517;&#23494;&#38053;
+</span>sudo apt install curl ca-certificates
+sudo install -d /usr/share/postgresql-common/pgdg
+sudo curl -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc --fail https://www.postgresql.org/media/keys/ACCC4CF8.asc
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">DEB822 &#26684;&#24335;&#28304;&#25991;&#20214;&#65288;&#26032;&#29256; Ubuntu &#25512;&#33616;&#65289;
+</span>. /etc/os-release
+printf <span class="org-string">'%s\n'</span> <span class="org-sh-escaped-newline">\</span>
+<span class="org-string">'Types: deb'</span> <span class="org-sh-escaped-newline">\</span>
+<span class="org-string">'URIs: https://apt.postgresql.org/pub/repos/apt'</span> <span class="org-sh-escaped-newline">\</span>
+<span class="org-string">"Suites: ${VERSION_CODENAME}-pgdg"</span> <span class="org-sh-escaped-newline">\</span>
+<span class="org-string">'Components: main'</span> <span class="org-sh-escaped-newline">\</span>
+<span class="org-string">"Architectures: $(dpkg --print-architecture)"</span> <span class="org-sh-escaped-newline">\</span>
+<span class="org-string">'Signed-By: /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc'</span> <span class="org-sh-escaped-newline">\</span>
+| sudo tee /etc/apt/sources.list.d/pgdg.sources &gt; /dev/null
+  
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#26356;&#26032;&#23384;&#20648;&#24182;&#23433;&#35013;&#26368;&#26032;&#29256;&#26412;&#65292; &#21487;&#20197;&#25351;&#23450;&#29256;&#26412;&#65292;&#22914; postgresql-18 &#20195;&#26367;postgresql
+</span>sudo apt update
+sudo apt install -y postgresql-18
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#23433;&#35013;&#26102;&#33258;&#21160;&#29983;&#25104;&#29992;&#25143; postgres
+</span>id postgres
+
+sudo -u postgres psql -c <span class="org-string">"SELECT version();"</span>
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#40664;&#35748;&#30417;&#21548;&#22312; 127.0.0.1 &#30340; 5432 &#31471;&#21475;&#65292;&#38656;&#35201;&#20462;&#25913;&#30417;&#21548;&#22320;&#22336;
+</span>root@ubuntu2604:~# ss -ntlp|grep post
+LISTEN 0      200        127.0.0.1:5432      0.0.0.0:*    users:((<span class="org-string">"postgres"</span>,<span class="org-variable-name">pid</span>=239866,<span class="org-variable-name">fd</span>=6))
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#20462;&#25913;&#30417;&#21548;&#22320;&#22336;&#25903;&#25345;&#36828;&#31243;&#36830;&#25509;&#65288;&#22914;&#26524;sonarqube&#21644;PostgreSQL&#22312;&#21516;&#19968;&#21488;&#20027;&#26426;&#65292;&#21487;&#19981;&#20570;&#20462;&#25913;&#65289;
+</span>vim /etc/postgresql/18/main/postgresql.conf
+<span class="org-variable-name">listen_addresses</span> = <span class="org-string">'*'</span> &#25110;&#32773; <span class="org-string">'0.0.0.0'</span>
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#24320;&#21551;&#36828;&#31243;&#35775;&#38382;&#65288;&#22914;&#26524;sonarqube&#21644;PostgreSQL&#22312;&#21516;&#19968;&#21488;&#20027;&#26426;&#65292;&#21487;&#19981;&#20570;&#20462;&#25913;&#65289;
+</span>vim /etc/postgresql/18/main/pg_hba.conf
+host all all 127.0.0.1/32 scram-sha-256
+host all all 0.0.0.0/0 scram-sha-256 <span class="org-comment-delimiter">#</span><span class="org-comment">&#26032;&#29256;&#26412;&#21152;&#27492;&#34892;
+</span>
+systemctl restart postgresql
+
+root@ubuntu2604:~# ss -ntl|grep 5432
+LISTEN 0      200          0.0.0.0:5432      0.0.0.0:*
+LISTEN 0      200             [::]:5432         [::]:*
+</pre>
+</div>
+
+<p>
+说明: /etc/postgresql/1X/main/pg_hba.conf
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">&#26684;&#24335;:TYPE DATABASE USER ADDRESS METHOD
+METHOD&#26377;&#22914;&#19979;&#20540;&#21487;&#36873;
+md5&#65306; &#25191;&#34892;MD5&#36523;&#20221;&#39564;&#35777;&#20197;&#39564;&#35777;&#29992;&#25143;&#30340;&#23494;&#30721;&#12290;
+peer&#65306;&#20174;&#25805;&#20316;&#31995;&#32479;&#33719;&#21462;&#23458;&#25143;&#31471;&#30340;&#25805;&#20316;&#31995;&#32479;&#29992;&#25143;&#21517;&#65292;&#24182;&#26816;&#26597;&#23427;&#26159;&#21542;&#19982;&#35831;&#27714;&#30340;&#25968;&#25454;&#24211;&#29992;&#25143;&#21517;&#21305;&#37197;&#12290;&#36825;&#20165;&#36866;&#29992;&#20110;&#26412;&#22320;
+&#36830;&#25509;&#12290;
+trust&#65306;&#20801;&#35768;&#26080;&#26465;&#20214;&#36830;&#25509;&#65292;&#20801;&#35768;&#20219;&#20309;PostgreSQL&#29992;&#25143;&#36523;&#20221;&#30331;&#24405;&#65292;&#32780;&#26080;&#38656;&#23494;&#30721;&#25110;&#20219;&#20309;&#20854;&#20182;&#36523;&#20221;&#39564;&#35777;&#12290;
+reject&#65306;&#25298;&#32477;&#20219;&#20309;&#26465;&#20214;&#36830;&#25509;&#65292;&#36825;&#23545;&#20110;&#20174;&#32452;&#20013;&#8220;&#36807;&#28388;&#25481;&#8221;&#26576;&#20123;&#20027;&#26426;&#38750;&#24120;&#26377;&#29992;&#12290;
+scram-sha-256&#65306;&#25191;&#34892;SCRAM-SHA-256&#36523;&#20221;&#39564;&#35777;&#20197;&#39564;&#35777;&#29992;&#25143;&#30340;&#23494;&#30721;&#12290;
+password&#65306;&#35201;&#25552;&#20379;&#26410;&#21152;&#23494;&#30340;&#23494;&#30721;&#20197;&#36827;&#34892;&#36523;&#20221;&#8226;&#8226;&#39564;&#35777;&#12290;&#30001;&#20110;&#23494;&#30721;&#26159;&#36890;&#36807;&#32593;&#32476;&#20197;&#26126;&#25991;&#24418;&#24335;&#21457;&#36865;&#30340;&#65292;&#22240;&#27492;&#19981;&#24212;&#22312;&#19981;
+&#21463;&#20449;&#20219;&#30340;&#32593;&#32476;&#19978;&#20351;&#29992;&#12290;
+gss&#65306;&#20351;&#29992;GSSAPI&#23545;&#29992;&#25143;&#36827;&#34892;&#36523;&#20221;&#39564;&#35777;&#65292;&#36825;&#20165;&#36866;&#29992;&#20110;TCP / IP&#36830;&#25509;&#12290;
+sspi&#65306;&#20351;&#29992;SSPI&#23545;&#29992;&#25143;&#36827;&#34892;&#36523;&#20221;&#39564;&#35777;&#65292;&#36825;&#20165;&#36866;&#29992;&#20110;Windows&#12290;
+ident&#65306;&#36890;&#36807;&#32852;&#31995;&#23458;&#25143;&#31471;&#19978;&#30340;ident&#26381;&#21153;&#22120;&#33719;&#21462;&#23458;&#25143;&#31471;&#30340;&#25805;&#20316;&#31995;&#32479;&#29992;&#25143;&#21517;&#65292;&#24182;&#26816;&#26597;&#23427;&#26159;&#21542;&#19982;&#35831;&#27714;&#30340;&#25968;&#25454;&#24211;&#29992;&#25143;
+&#21517;&#21305;&#37197;&#12290; Ident&#36523;&#20221;&#39564;&#35777;&#21482;&#33021;&#29992;&#20110;TCP/IP&#36830;&#25509;&#12290;&#20026;&#26412;&#22320;&#36830;&#25509;&#25351;&#23450;&#26102;&#65292;&#23558;&#20351;&#29992;&#23545;&#31561;&#36523;&#20221;&#39564;&#35777;&#12290;
+ldap&#65306;&#20351;&#29992;LDAP&#26381;&#21153;&#22120;&#36827;&#34892;&#36523;&#20221;&#39564;&#35777;&#12290;
+radius&#65306;&#20351;&#29992;RADIUS&#26381;&#21153;&#22120;&#36827;&#34892;&#36523;&#20221;&#39564;&#35777;&#12290;
+cert&#65306;&#20351;&#29992;SSL&#23458;&#25143;&#31471;&#35777;&#20070;&#36827;&#34892;&#36523;&#20221;&#39564;&#35777;&#12290;
+pam&#65306;&#20351;&#29992;&#25805;&#20316;&#31995;&#32479;&#25552;&#20379;&#30340;&#21487;&#25554;&#20837;&#36523;&#20221;&#39564;&#35777;&#27169;&#22359;&#65288;PAM&#65289;&#26381;&#21153;&#36827;&#34892;&#36523;&#20221;&#39564;&#35777;&#12290;
+bsd&#65306;&#20351;&#29992;&#25805;&#20316;&#31995;&#32479;&#25552;&#20379;&#30340;BSD&#36523;&#20221;&#39564;&#35777;&#26381;&#21153;&#36827;&#34892;&#36523;&#20221;&#39564;&#35777;&#12290;
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org956412a" class="outline-4">
+<h4 id="org956412a"><a href="#org956412a">创建数据库和用户授权</a></h4>
+<div class="outline-text-4" id="text-org956412a">
+<p>
+SonarQube 要求 UTF-8 字符集：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#20808;&#30830;&#35748;&#24403;&#21069;&#26377;&#20160;&#20040;&#65306;
+</span>root@ubuntu2604:~# locale -a | grep -i utf
+C.utf8
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#23433;&#35013; en_US.UTF-8
+</span>apt install -y locales
+locale-gen en_US.UTF-8
+update-locale
+systemctl restart postgresql
+
+
+sudo -u postgres psql
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#23433;&#20840;&#36215;&#35265;,&#20462;&#25913;&#25968;&#25454;&#24211;&#31649;&#29702;&#21592;postgres&#29992;&#25143;&#30340;&#23494;&#30721;,&#21487;&#36873;
+</span>ALTER USER postgres WITH ENCRYPTED PASSWORD <span class="org-string">'123456'</span>;
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#21019;&#24314;&#29992;&#25143;&#21644;&#25968;&#25454;&#24211;&#24182;&#25480;&#26435;
+</span>CREATE USER sonarqube WITH PASSWORD <span class="org-string">'123456'</span>;
+
+
+CREATE DATABASE sonarqube
+  OWNER sonarqube
+  ENCODING <span class="org-string">'UTF8'</span>
+  LC_COLLATE <span class="org-string">'en_US.UTF-8'</span>
+  LC_CTYPE <span class="org-string">'en_US.UTF-8'</span>
+  TEMPLATE template0;
+<span class="org-comment-delimiter"># </span><span class="org-comment">drop database sonarqube ;
+</span>   
+GRANT ALL PRIVILEGES ON DATABASE sonarqube TO sonarqube;
+
+-- PG 15+ &#36215; public schema &#40664;&#35748;&#19981;&#20877;&#23545;&#26222;&#36890;&#29992;&#25143;&#24320;&#25918;&#20889;&#26435;&#38480;&#65292;&#36825;&#27493;&#24517;&#39035;&#20570;
+\c sonarqube
+GRANT ALL ON SCHEMA public TO sonarqube;
+ALTER SCHEMA public OWNER TO sonarqube;
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#26597;&#30475;&#25968;&#25454;&#24211;&#26159;&#21542;&#21019;&#24314;,&#30456;&#24403;&#20110;MySQL&#20013; show databases;
+</span>\l
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#36864;&#20986;&#25968;&#25454;&#24211;&#36830;&#25509;
+</span>\q
+</pre>
+</div>
+
+
+<p>
+验证连通性
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#22312; SonarQube &#26381;&#21153;&#22120;&#19978;&#25191;&#34892;&#65306;
+</span>psql -h 10.0.0.105 -U sonarqube -d sonarqube -c <span class="org-string">"\conninfo"</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgaaf66ee" class="outline-3">
+<h3 id="orgaaf66ee"><a href="#orgaaf66ee">下载 SonarQube 和修改配置文件</a></h3>
+<div class="outline-text-3" id="text-orgaaf66ee">
+</div>
+<div id="outline-container-orgc5936ec" class="outline-4">
+<h4 id="orgc5936ec"><a href="#orgc5936ec">方法1-zip 文件安装</a></h4>
+<div class="outline-text-4" id="text-orgc5936ec">
+<ul class="org-ul">
+<li><a href="https://www.sonarsource.com/products/sonarqube/downloads/">https://www.sonarsource.com/products/sonarqube/downloads/</a></li>
+
+<li><a href="https://docs.sonarsource.com/sonarqube-server/server-installation/from-zip-file/overview">Installation overview</a></li>
+</ul>
+
+
+<p>
+ZIP 包安装方式已被标记为 deprecated，官方推荐走容器（Docker）或 Kubernetes（Helm Chart）。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">wget -P /usr/local/src https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-26.10.0.133078.zip
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#35299;&#21387;
+</span><span class="org-builtin">cd</span> /usr/local/src
+unzip sonarqube-7.9.2.zip
+mv sonarqube-26.10.0.133078 /usr/local/
+unzip sonarqube-26.10.0.133078.zip
+
+ln -s /usr/local/sonarqube-26.10.0.133078  /usr/local/sonarqube
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">useradd -s /bin/bash -m sonarqube
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">&#35774;&#32622;&#23646;&#24615;,&#27880;&#24847;&#65306;/usr/local/sonarqube/ &#26368;&#21518;&#26377;&#26012;&#32447;
+</span>chown -R sonarqube:sonarqube /usr/local/sonarqube/
+</pre>
+</div>
+</div>
+<div id="outline-container-org5b49d43" class="outline-5">
+<h5 id="org5b49d43"><a href="#org5b49d43">设置 SonarQube 连接数据库</a></h5>
+<div class="outline-text-5" id="text-org5b49d43">
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter">#</span><span class="org-comment">&#20462;&#25913;SonarQube&#37197;&#32622;&#29992;&#20110;&#36830;&#25509;postgresql&#25968;&#25454;&#24211;
+</span>vim /usr/local/sonarqube/conf/sonar.properties
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#20462;&#25913;&#36830;&#25509;postgresql&#25968;&#25454;&#24211;&#30340;&#36134;&#21495;&#21644;&#23494;&#30721;,&#21644;&#21069;&#38754;&#30340;&#37197;&#32622;&#24517;&#39035;&#21305;&#37197;
+</span>sonar.jdbc.username=sonarqube
+sonar.jdbc.password=123456
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#20462;&#25913;&#25968;&#25454;&#24211;&#30456;&#20851;&#30340;&#20449;&#24687;&#65292;&#36825;&#37324;&#24517;&#39035;&#21644;&#27492;&#21069;&#37197;&#32622;&#30340;postgresql&#20869;&#23481;&#30456;&#21305;&#37197;&#65292;&#20854;&#20013;localhost&#20026;DB&#26381;&#21153;&#22120;&#30340;&#22320;&#22336;&#65292;&#32780;sonarqube&#20026;&#25968;&#25454;&#24211;&#21517;&#31216;
+</span>sonar.jdbc.url=jdbc:postgresql://localhost/sonarqube
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#40664;&#35748;&#37197;&#32622;&#22914;&#19979;&#65292;&#24517;&#39035;&#21024;&#38500;?currentSchema=my_schema
+</span><span class="org-comment-delimiter">##</span><span class="org-comment">sonar.jdbc.url=jdbc:postgresql://localhost/sonarqube?currentSchema=my_schema
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">&#35774;&#32622; SonarQube &#30340;&#25552;&#20379;&#30340; Web Server&#30417;&#21548;&#30340;&#22320;&#22336;&#21644;&#31471;&#21475;,&#21487;&#36873;
+</span>sonar.web.host=0.0.0.0 <span class="org-comment-delimiter">#</span><span class="org-comment">&#27492;&#20026;&#40664;&#35748;&#20540;,&#21487;&#19981;&#20570;&#20462;&#25913;
+</span>sonar.web.port=9000    <span class="org-comment-delimiter">#</span><span class="org-comment">&#27492;&#20026;&#40664;&#35748;&#20540;,&#21487;&#19981;&#20570;&#20462;&#25913;
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">&#25353;&#38656;&#35201;&#20462;&#25913;SonarQube&#23384;&#20648;&#25968;&#25454;&#30340;&#30446;&#24405;&#20301;&#32622;&#65292;&#20197;&#19979;&#20004;&#20010;&#30446;&#24405;&#20026;&#30456;&#23545;&#36335;&#24452;&#65292;&#30456;&#23545;&#20110;sonarqube&#30340;&#23433;&#35013;&#30446;&#24405;&#65292;&#20063;&#21487;&#20197;&#20351;&#29992;&#32477;&#23545;&#36335;&#24452;
+</span>sonar.path.data=data <span class="org-comment-delimiter">#</span><span class="org-comment">&#40664;&#35748;&#20540;,&#21487;&#19981;&#20570;&#20462;&#25913;
+</span>sonar.path.temp=temp <span class="org-comment-delimiter">#</span><span class="org-comment">&#40664;&#35748;&#20540;,&#21487;&#19981;&#20570;&#20462;&#25913;</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org0e6e2a5" class="outline-5">
+<h5 id="org0e6e2a5"><a href="#org0e6e2a5">启动 SonarQube</a></h5>
+<div class="outline-text-5" id="text-org0e6e2a5">
+<p>
+注意:SonarQube 需要调用 Elasticsearch，而且默认需要使用普通用户启动，如果以root启动会报错
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter">#</span><span class="org-comment">&#20197;sonarqube&#29992;&#25143;&#36523;&#20221;&#21551;&#21160;&#26381;&#21153;
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">&#26041;&#27861;1:
+</span>su - sonarqube
+/usr/local/sonarqube/bin/linux-x86-64/sonar.sh start
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#26041;&#27861;2&#65306;&#25110;&#32773;&#25191;&#34892;&#19979;&#38754;&#21551;&#21160;SonarQube
+</span>su - sonarqube -c <span class="org-string">'/usr/local/sonarqube/bin/linux-x86-64/sonar.sh start'</span>
+
+/usr/local/sonarqube/bin/linux-x86-64/sonar.sh status
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#26597;&#30475;&#26159;&#21542;9000/tcp&#31471;&#21475;
+</span>ss -tnlp
+State    Recv-Q   Send-Q          Local Address:Port        Peer Address:Port   Process
+LISTEN   0        25                          *:9000                   *:*       users:((<span class="org-string">"java"</span>,<span class="org-variable-name">pid</span>=258885,<span class="org-variable-name">fd</span>=13))
+
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#39564;&#35777;&#26085;&#24535;
+</span>tail -n 3 /usr/local/sonarqube/logs/sonar.log
+</pre>
+</div>
+
+<p>
+启动后自动生成相关表
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">sudo -u sonarqube psql
+
+<span class="org-variable-name">sonarqube</span>=&gt; \c sonarqube
+You are now connected to database <span class="org-string">"sonarqube"</span> as user <span class="org-string">"sonarqube"</span>.
+<span class="org-variable-name">sonarqube</span>=&gt; \dt
+                     List of tables
+ Schema |           Name            | Type  |   Owner
+--------+---------------------------+-------+-----------
+ public | a3s_analysis_usages       | table | sonarqube
+
+<span class="org-variable-name">sonarqube</span>=&gt; exit
+root@ubuntu2604:/usr/local/src#
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgb2684af" class="outline-5">
+<h5 id="orgb2684af"><a href="#orgb2684af">创建 service 文件</a></h5>
+<div class="outline-text-5" id="text-orgb2684af">
+<div class="org-src-container">
+<pre class="src src-shell">su - sonarqube
+/usr/local/sonarqube/bin/linux-x86-64/sonar.sh stop
+/usr/local/sonarqube/bin/linux-x86-64/sonar.sh status
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#21019;&#24314;service&#25991;&#20214;
+</span>cat &lt;&lt;EOF&gt; /lib/systemd/system/sonarqube.service<span class="org-sh-heredoc">
+[Unit]
+Description=SonarQube service
+After=syslog.target network.target
+
+[Service]
+Type=simple
+User=sonarqube
+Group=sonarqube
+PermissionsStartOnly=true
+ExecStart=/bin/nohup /usr/bin/java -Xms32m -Xmx32m -Djava.net.preferIPv4Stack=true -jar /usr/local/sonarqube/lib/sonar-application-26.10.0.133078.jar
+StandardOutput=journal
+LimitNOFILE=131072
+LimitNPROC=8192
+TimeoutStartSec=5
+Restart=always
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
+EOF
+</span>
+systemctl daemon-reload
+systemctl enable --now sonarqube.service
+systemctl status sonarqube.service
+</pre>
+</div>
+
+<p>
+Sources:
+</p>
+<ul class="org-ul">
+<li><a href="https://docs.sonarsource.com/sonarqube-server/server-installation/from-zip-file/starting-stopping-server/running-as-a-service">On Linux with systemd</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-orge7a8cf2" class="outline-4">
+<h4 id="orge7a8cf2"><a href="#orge7a8cf2">方法2-通过 Docker compose 部署</a></h4>
+<div class="outline-text-4" id="text-orge7a8cf2">
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter">#</span><span class="org-comment">&#20808;&#20248;&#21270;&#20869;&#26680;&#21442;&#25968;
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">&#23481;&#22120;&#37324;&#30340; Elasticsearch &#29992;&#30340;&#26159;&#23487;&#20027;&#26426;&#20869;&#26680;&#65292;&#25152;&#20197; vm.max_map_count &#24517;&#39035;&#22312;&#23487;&#20027;&#26426;&#19978;&#35843;&#65306;
+</span><span class="org-builtin">echo</span> <span class="org-string">'vm.max_map_count=524288'</span> | sudo tee /etc/sysctl.d/99-sonarqube.conf
+<span class="org-builtin">echo</span> <span class="org-string">'fs.file-max=131072'</span> | sudo tee -a /etc/sysctl.d/99-sonarqube.conf
+sudo sysctl --system
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#39564;&#35777;
+</span>sysctl vm.max_map_count
+
+mkdir sonarqube
+<span class="org-builtin">cd</span> sonarqube
+cat &lt;&lt;\EOF&gt; docker-compose.yml<span class="org-sh-heredoc">
+services:
+  db:
+    #image: public.ecr.aws/docker/library/postgres:18
+    image: postgres:18
+    container_name: sonarqube-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: sonarqube
+      POSTGRES_PASSWORD: "123456"
+      POSTGRES_DB: sonarqube
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C.UTF-8"
+    volumes:
+      - postgresql_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sonarqube -d sonarqube"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    networks:
+      - sonarnet
+    # &#24819;&#20174;&#23487;&#20027;&#26426;&#30452;&#36830;&#23481;&#22120;&#37324;&#30340;&#24211;&#26102;&#20877;&#25171;&#24320;&#65292;&#36991;&#24320;&#23487;&#20027;&#24050;&#21344;&#29992;&#30340; 5432
+    # ports:
+    #   - "5433:5432"
+
+  sonarqube:
+    #image: public.ecr.aws/docker/library/sonarqube:26.10.0.133078-community
+    image: sonarqube:26.10.0.133078-community
+    container_name: sonarqube
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql://db:5432/sonarqube
+      SONAR_JDBC_USERNAME: sonarqube
+      SONAR_JDBC_PASSWORD: "123456"
+    ports:
+      - "9000:9000"
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
+    ulimits:
+      nofile:
+        soft: 131072
+        hard: 131072
+      nproc:
+        soft: 8192
+        hard: 8192
+    networks:
+      - sonarnet
+
+networks:
+  sonarnet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.27.0.0/16
+
+volumes:
+  postgresql_data:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:
+EOF
+</span>
+
+docker compose up -d
+docker compose ps
+docker compose logs -f sonarqube
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#31561;&#21040;&#26085;&#24535;&#20986;&#29616; SonarQube is operational&#65292;
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">&#35775;&#38382; http://&lt;&#26381;&#21153;&#22120;IP&gt;:9000&#65292;admin / admin &#39318;&#27425;&#30331;&#24405;&#24378;&#21046;&#25913;&#23494;&#30721;&#12290;</span>
+</pre>
+</div>
+
+
+
+<p>
+部署命令
+</p>
+
 <div class="org-src-container">
 <pre class="src src-shell">docker run   -d   --name sonarqube9.3   -p 8888:9000  
 -e <span class="org-variable-name">SONARQUBE_JDBC_URL</span>=jdbc:postgresql://bor.ws.com:5432/sonar_new  
@@ -147,17 +1078,280 @@ harbor.xxx.com/ops/sonarqube:latest
 </div>
 </div>
 </div>
+</div>
+<div id="outline-container-org8176da5" class="outline-3">
+<h3 id="org8176da5"><a href="#org8176da5">登录到 Web 界面</a></h3>
+<div class="outline-text-3" id="text-org8176da5">
+<p>
+用浏览器访问地址： <code>http://SonarQube服务器IP:9000</code>
+</p>
+
+<p>
+默认用户名和密码都是 admin。首次登录必须修改 admin 用户的密码
+</p>
+</div>
+</div>
 </section>
-<section id="outline-container-orgb81ff58" class="outline-2">
-<h2 id="orgb81ff58"><a href="#orgb81ff58">maven 方式接入</a></h2>
-<div class="outline-text-2" id="text-orgb81ff58">
+<section id="outline-container-org0f938b4" class="outline-2">
+<h2 id="org0f938b4"><a href="#org0f938b4">管理 SonarQube 服务器</a></h2>
+<div class="outline-text-2" id="text-org0f938b4">
+</div>
+<div id="outline-container-org881fb92" class="outline-3">
+<h3 id="org881fb92"><a href="#org881fb92">安装中文语言插件</a></h3>
+<div class="outline-text-3" id="text-org881fb92">
+<p>
+administration- Marketplace，在后面的搜索框搜索插件 chinese，然后点 install 安装：
+</p>
+
+<p>
+新版需要先理解风险，才能安装插件
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">curl -sL -o /tmp/l10nzh.jar <span class="org-sh-escaped-newline">\</span>
+  <span class="org-string">"https://ghfast.top/https://github.com/xuhuisheng/sonar-l10n-zh/releases/download/sonar-l10n-zh-plugin-26.8/sonar-
+l10n-zh-plugin-26.8.jar"</span>
+docker cp /tmp/l10nzh.jar sonarqube:/opt/sonarqube/extensions/plugins/
+docker exec -u 0 sonarqube chown 1000:1000 /opt/sonarqube/extensions/plugins/sonar-l10n-zh-plugin-26.8.jar
+docker compose restart sonarqube
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgefcefcf" class="outline-3">
+<h3 id="orgefcefcf"><a href="#orgefcefcf">安装其他插件</a></h3>
+<div class="outline-text-3" id="text-orgefcefcf">
+<p>
+Sonarquebe 对代码的扫描都基于插件实现，因此要安装扫描的各种开发语言的插件
+</p>
+
+<p>
+默认已安装 Java、Python、Go，Php，javaScript，Html 等语言对应的插件
+</p>
+
+<p>
+插件可以在 github 上找到最新版本
+</p>
+<ul class="org-ul">
+<li><a href="https://github.com/SonarSource">https://github.com/SonarSource</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orge729020" class="outline-3">
+<h3 id="orge729020"><a href="#orge729020">权限管理</a></h3>
+<div class="outline-text-3" id="text-orge729020">
+</div>
+<div id="outline-container-org617462c" class="outline-4">
+<h4 id="org617462c"><a href="#org617462c">允许匿名访问</a></h4>
+<div class="outline-text-4" id="text-org617462c">
+<p>
+新版默认取消了匿名用户访问，可以在下面配置中打开匿名访问即关闭认证
+</p>
+
+<p>
+配置&#x2013;&gt; 通用配置&#x2013;&gt;权限&#x2013;&gt;Force user authentication
+</p>
+</div>
+</div>
+<div id="outline-container-orgea2d97a" class="outline-4">
+<h4 id="orgea2d97a"><a href="#orgea2d97a">不允许匿名访问</a></h4>
+<div class="outline-text-4" id="text-orgea2d97a">
+<p>
+如果不允许匿名访问,就需要给 Jenkins 创建访问 sonarqube 所使用的用户的访问令牌
+</p>
+
+<p>
+新建用户并授权
+</p>
+<ul class="org-ul">
+<li>在SonarQube上创建用户账号（不建议使用admin账号）
+<ul class="org-ul">
+<li>配置 →权限 →用户</li>
+</ul></li>
+<li>为用户账号赋予相应的权限，例如执行分析和置备项目
+<ul class="org-ul">
+<li>配置 →权限 →全局权限</li>
+</ul></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-org60cff61" class="outline-3">
+<h3 id="org60cff61"><a href="#org60cff61">创建用户生成令牌</a></h3>
+<div class="outline-text-3" id="text-org60cff61">
+<p>
+新建用户并授权
+</p>
+<ul class="org-ul">
+<li>在SonarQube上创建用户账号（不建议使用admin账号）
+<ul class="org-ul">
+<li>配置 →权限 →用户</li>
+</ul></li>
+</ul>
+
+
+<p>
+点击 用户 页，令牌，过期于天数为永不过期
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">squ_279d0e6dd8ec056b1c26fa78d6c61763e2953f25
+</pre>
+</div>
+</div>
+</div>
+</section>
+<section id="outline-container-orgc517cba" class="outline-2">
+<h2 id="orgc517cba"><a href="#orgc517cba">部署代码扫描器 sonar-scanner</a></h2>
+<div class="outline-text-2" id="text-orgc517cba">
+<p>
+SonarScanner 是 SonarQube 代码质量管理平台的一款命令行工具，主要用于分析项目代码，并生成代码质量报告，以便开发团队发现和修复代码中的问题，提升代码质量。
+</p>
+
+<p>
+Sources:
+</p>
+<ul class="org-ul">
+<li><a href="https://docs.sonarsource.com/sonarqube-server/analyzing-source-code/scanners/sonarscanner">SonarScanner CLI</a></li>
+</ul>
+
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-builtin">cd</span> /usr/local/src
+wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-8.1.0.6389-linux-aarch64.zip
+
+unzip sonar-scanner-cli-8.1.0.6389-linux-aarch64.zip
+ln -s /usr/local/src/sonar-scanner-8.1.0.6389-linux-aarch64/ /usr/local/sonar-scanner
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#21019;&#24314;&#36719;&#38142;&#25509;&#26041;&#20415;&#36816;&#34892;
+</span>ln -sf /usr/local/sonar-scanner/bin/sonar-scanner /usr/local/bin/
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#26597;&#30475;&#29256;&#26412;&#65292;&#20869;&#32622;java&#65292;&#26080;&#38656;&#23433;&#35013;java
+</span>/usr/local/sonar-scanner/jre/bin/java --version
+sonar-scanner -v
+
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#37197;&#32622;sonar-scanner&#36830;&#25509;sonarqube&#26381;&#21153;&#22120;
+</span>vim /usr/local/sonar-scanner/conf/sonar-scanner.properties
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#25351;&#21521; sonarqube &#26381;&#21153;&#22120;&#30340;&#22320;&#22336;&#21644;&#31471;&#21475;
+</span>sonar.host.url=http://sonarqube.jasper.org:9000
+sonar.sourceEncoding=UTF-8
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#22914;&#26524;&#30331;&#24405;sonarqube server&#38656;&#35201;&#39564;&#35777;&#65292;&#36824;&#35201;&#21152;&#19979;&#38754;&#20004;&#34892; sonarqube &#30340;&#39044;&#20808;&#21019;&#24314;&#30340;&#29992;&#25143;&#20449;&#24687;
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">&#30331;&#24405;sonarqube&#26381;&#21153;&#22120;&#30340;&#39564;&#35777;&#20449;&#24687;
+</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#26041;&#24335;1&#65306;&#22522;&#20110;&#29992;&#25143;&#21517;&#21644;&#23494;&#30721;
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">sonar.login=admin
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">sonar.password=123456
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">sonar.login=jenkins
+</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#23494;&#30721;&#26041;&#24335;&#26410;&#26469;&#20250;&#28120;&#27760;
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">sonar.password=123456
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">&#26041;&#24335;2&#65306;&#24314;&#35758;&#20351;&#29992;Token&#26041;&#24335;
+</span>sonar.login=squ_279d0e6dd8ec056b1c26fa78d6c61763e2953f25
+</pre>
+</div>
+</div>
+<div id="outline-container-orgeda1fb2" class="outline-3">
+<h3 id="orgeda1fb2"><a href="#orgeda1fb2">准备测试代码和配置文件</a></h3>
+<div class="outline-text-3" id="text-orgeda1fb2">
+<p>
+sonar-scanner 扫描的代码需要提前在项目的根目录下准备名称为 <code>sonar-project.properties</code> 的文件，内容如下
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">must be unique in a given SonarQube Server instance &#27492;&#20026;&#24517;&#39035;&#39033;
+</span>sonar.projectKey=my:project
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">--- optional properties ---
+</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">defaults to project key
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">sonar.projectName=My project
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">defaults to 'not provided'
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">sonar.projectVersion=1.0
+</span> 
+<span class="org-comment-delimiter"># </span><span class="org-comment">Path is relative to the sonar-project.properties file. Defaults to .
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">sonar.sources=.
+</span> 
+<span class="org-comment-delimiter"># </span><span class="org-comment">Encoding of the source code. Default is default system encoding
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">sonar.sourceEncoding=UTF-8</span>
+</pre>
+</div>
+
+<p>
+测试代码下载:<a href="https://github.com/SonarSource/sonar-scanning-examples">https://github.com/SonarSource/sonar-scanning-examples</a>
+</p>
+
+<p>
+范例: 
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">git clone https://github.com/SonarSource/sonar-scanning-examples.git
+<span class="org-builtin">cd</span> sonar-scanning-examples/sonar-scanner/src
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#25903;&#25345;&#22810;&#31181;&#35821;&#35328;&#65292;&#20197; php &#20026;&#20363;
+</span><span class="org-builtin">cd</span> php
+sonar-scanner -Dsonar.projectName=myphp <span class="org-sh-escaped-newline">\</span>
+   -Dsonar.projectKey=myphp <span class="org-sh-escaped-newline">\</span>
+   -Dsonar.sources=./
+
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">java
+</span><span class="org-builtin">cd</span> sonar-scanning-examples/sonar-scanner-maven/maven-basic
+<span class="org-variable-name">MAVEN_OPTS</span>=<span class="org-string">"-Xmx512m"</span> mvn -U clean verify 2&gt;&amp;1 | tee /tmp/mvn-build.log
+
+sonar-scanner -Dsonar.projectName=myapp <span class="org-sh-escaped-newline">\</span>
+   -Dsonar.projectKey=myapp <span class="org-sh-escaped-newline">\</span>
+   -Dsonar.sources=./ <span class="org-sh-escaped-newline">\</span>
+   -Dsonar.java.binaries=./ <span class="org-sh-escaped-newline">\</span>
+   -Dsonar.login=squ_279d0e6dd8ec056b1c26fa78d6c61763e2953f25
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#25110;&#32773;
+</span><span class="org-variable-name">MAVEN_OPTS</span>=<span class="org-string">"-Xmx512m"</span> mvn sonar:sonar <span class="org-sh-escaped-newline">\</span>
+  -Dsonar.host.url=http://10.0.0.105:9000 <span class="org-sh-escaped-newline">\</span>
+  -Dsonar.token=squ_279d0e6dd8ec056b1c26fa78d6c61763e2953f25 <span class="org-sh-escaped-newline">\</span>
+  -Dsonar.projectKey=maven-basic <span class="org-sh-escaped-newline">\</span>
+  -Dsonar.projectName=maven-basic <span class="org-sh-escaped-newline">\</span>
+  2&gt;&amp;1 | tee /tmp/mvn-sonar.log
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#39033;&#30446;&#30340;&#21807;&#19968;&#26631;&#35782;
+</span>sonar.projectKey=helloworld-spring-boot
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#39033;&#30446;&#30340;&#21517;&#31216;,&#29992;&#20110;&#26174;&#31034;&#22312; sonarqube web &#30028;&#38754;
+</span>sonar.projectName=helloworld-spring-boot
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#39033;&#30446;&#29256;&#26412;
+</span>sonar.projectVersion=1.0
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#39033;&#30446;&#28304;&#30721;&#25152;&#22312;&#30446;&#24405;
+</span>sonar.sources=.
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#25490;&#38500;&#25195;&#25551;&#30340;&#30446;&#24405;
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">sonar.exclusions=**/test/**,**/target/**
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">&#39033;&#30446;&#28304;&#30721;&#32534;&#35793;&#29983;&#25104;&#30340;&#20108;&#36827;&#21046;&#25991;&#20214;&#36335;&#24452;&#65292;./target&#40664;&#35748;&#27809;&#26377;&#20250;&#25253;&#38169;&#65292;&#21487;&#20197;&#25163;&#21160;&#21019;&#24314;
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">sonar.java.binaries=./target
+</span>sonar.java.binaries=.
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#32534;&#31243;&#35821;&#35328;
+</span>sonar.language=java
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#32534;&#30721;&#26684;&#24335;
+</span>sonar.sourceEncoding=UTF-8
+</pre>
+</div>
+
+<p>
+Sources:
+</p>
+<ul class="org-ul">
+<li><a href="https://docs.sonarsource.com/sonarqube-server/analyzing-source-code/scanners/sonarscanner">SonarScanner CLI&#x2013;Configuring your project</a></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="outline-container-org17a2e8f" class="outline-2">
+<h2 id="org17a2e8f"><a href="#org17a2e8f">maven 方式接入</a></h2>
+<div class="outline-text-2" id="text-org17a2e8f">
 <ul class="org-ul">
 <li>登录 sonarqube 平台，创建管理员的 token 用于登录，个人&#x2013;&gt; my acount</li>
 </ul>
 </div>
-<div id="outline-container-orgf1df555" class="outline-3">
-<h3 id="orgf1df555"><a href="#orgf1df555">maven 命令接入</a></h3>
-<div class="outline-text-3" id="text-orgf1df555">
+<div id="outline-container-orgc098027" class="outline-3">
+<h3 id="orgc098027"><a href="#orgc098027">maven 命令接入</a></h3>
+<div class="outline-text-3" id="text-orgc098027">
 <p>
 在 sonarqube 上提前创建好 projectKey 对应的项目，扫描代码时候需要唯一
 </p>
@@ -174,7 +1368,6 @@ harbor.xxx.com/ops/sonarqube:latest
 -Dsonar.exclusions &#36807;&#28388;&#19981;&#25195;&#25551;
 </pre>
 </div>
-
 
 
 <p>
@@ -198,9 +1391,9 @@ WORKDIR /opt/
 </div>
 </div>
 </div>
-<div id="outline-container-org10d2c59" class="outline-3">
-<h3 id="org10d2c59"><a href="#org10d2c59">sonar-scanner</a></h3>
-<div class="outline-text-3" id="text-org10d2c59">
+<div id="outline-container-org927d4c9" class="outline-3">
+<h3 id="org927d4c9"><a href="#org927d4c9">sonar-scanner</a></h3>
+<div class="outline-text-3" id="text-org927d4c9">
 <div class="org-src-container">
 <pre class="src src-shell">sonar-scanner -Dsonar.projectKey=${<span class="org-variable-name">application</span>}_${<span class="org-variable-name">service_name</span>} -Dsonar.host.url=${<span class="org-variable-name">sonar_url</span>} -Dsonar.sourceEncoding=UTF-8 -Dsonar.sources=${<span class="org-variable-name">code_path</span>}/gameinfo-server/src/main -Dsonar.java.binaries=${<span class="org-variable-name">code_path</span>}/gameinfo-server/target/classes -Dsonar.exclusions=**/src/**/msg/**/*,**/target/**/msg/**/*,**/src/**/proto/**/*,**/target/**/proto/**/*
 </pre>
@@ -208,8 +1401,42 @@ WORKDIR /opt/
 </div>
 </div>
 </section>
-<section id="outline-container-org19b2bf2" class="outline-2">
-<h2 id="org19b2bf2"><a href="#org19b2bf2">sonarqube 审查规则</a></h2>
+<section id="outline-container-orgff5eff7" class="outline-2">
+<h2 id="orgff5eff7"><a href="#orgff5eff7">与 jenkins 集成</a></h2>
+<div class="outline-text-2" id="text-orgff5eff7">
+</div>
+<div id="outline-container-orge3bb514" class="outline-3">
+<h3 id="orge3bb514"><a href="#orge3bb514">添加 Jenkins 的回调接口</a></h3>
+<div class="outline-text-3" id="text-orge3bb514">
+<p>
+jenkins 中安装插件 SonarQube Quality Gate， 调用其"质量阈"信息，决定是否继续执行下面的构建步骤
+</p>
+
+<p>
+在 SonarQube 上添加 webhook(网络调用)
+</p>
+<ul class="org-ul">
+<li>配置 &#x2013;&gt; 网络调用 webhook &#x2013;&gt; 创建</li>
+<li>输入名称和下面 Jenkins的URL地址
+<ul class="org-ul">
+<li>密码防止攻击使用, 可以随意输入</li>
+<li>此处的密码没有复杂度和长度要求，但建议使用符合安全的密码</li>
+</ul></li>
+</ul>
+
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#29983;&#25104;Secret
+</span>http://jenkins.jasper.org:8080/sonarqube-webhook
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#29983;&#25104;Secet
+</span>openssl rand -base64 21
+</pre>
+</div>
+</div>
+</div>
+</section>
+<section id="outline-container-org633a06c" class="outline-2">
+<h2 id="org633a06c"><a href="#org633a06c">sonarqube 审查规则</a></h2>
 </section>
 </div>
 <div id="postamble" class="status">

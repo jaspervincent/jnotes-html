@@ -57,7 +57,7 @@
 <ul>
 <li><a href="#h:1784852E-E54E-44E9-8DA4-5E8A00235FBE">exporter</a></li>
 <li><a href="#h:76747311-0D20-4603-9E30-556827DF22A2">告警规则</a></li>
-<li><a href="#org812e0b4">prometheus 安装</a></li>
+<li><a href="#orgd21c7ed">prometheus 安装</a></li>
 <li><a href="#h:1BC4D555-9585-4DFC-963E-FF5A2E8E23AD">多云采集</a>
 <ul>
 <li><a href="#h:4E349C4B-75D6-4E18-AF3D-8E728DF74962">外部 prometheus 相关</a>
@@ -121,9 +121,9 @@
 </ul>
 </div>
 </section>
-<section id="outline-container-org812e0b4" class="outline-2">
-<h2 id="org812e0b4"><a href="#org812e0b4">prometheus 安装</a></h2>
-<div class="outline-text-2" id="text-org812e0b4">
+<section id="outline-container-orgd21c7ed" class="outline-2">
+<h2 id="orgd21c7ed"><a href="#orgd21c7ed">prometheus 安装</a></h2>
+<div class="outline-text-2" id="text-orgd21c7ed">
 <div class="org-src-container">
 <pre class="src src-shell">
 </pre>
@@ -611,6 +611,10 @@ services:
     user: '0'
     ports:
       - 3000:3000
+    environment:
+      - GF_FEATURE_TOGGLES_suggestedDashboards=true
+      - GF_FEATURE_TOGGLES_dashboardValidatorApp=true
+      - GF_FEATURE_TOGGLES_dashboardTemplates=true
     volumes:
       - ./grafana-data:/var/lib/grafana
     networks:

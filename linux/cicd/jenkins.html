@@ -95,9 +95,20 @@
 </li>
 <li><a href="#h:1b58ad70-1d68-4c83-a7d6-4622f97c07c2">jenkins 安装</a>
 <ul>
-<li><a href="#h:97809cb9-f609-44b5-a7a8-224d6e99ae51">启动方式</a>
+<li><a href="#orgb33caaf">安装前准备</a>
 <ul>
-<li><a href="#h:cf055f1c-c3dc-4536-85af-da3f6a9a9924">直接jar启动</a></li>
+<li><a href="#orga87adb0">安装java</a></li>
+</ul>
+</li>
+<li><a href="#h:97809cb9-f609-44b5-a7a8-224d6e99ae51">安装方式</a>
+<ul>
+<li><a href="#h:cf055f1c-c3dc-4536-85af-da3f6a9a9924">直接jar启动</a>
+<ul>
+<li><a href="#org8ea5eea">脚本启动</a></li>
+<li><a href="#orge01ca82">systemd 启动</a></li>
+<li><a href="#org5f4bb84">nginx代理</a></li>
+</ul>
+</li>
 <li><a href="#h:3b3ca7b9-b665-4def-b543-cb0141254a5f">tomact + jenkins.war 启动</a></li>
 <li><a href="#h:7b725d81-08ed-4e8c-b017-e681adcd9472">yum安装</a></li>
 <li><a href="#h:e9235429-b47a-4512-a5f1-097e2795d3ed">docker安装</a></li>
@@ -230,12 +241,12 @@
 <li><a href="#h:587694d6-c77e-4fcb-a2f0-21d9f3295d0a">AnsiColor输出颜色</a></li>
 <li><a href="#h:8e623e51-ced9-44d0-96fe-b520d84470e7">Timestamper构建任务执行时间</a></li>
 <li><a href="#h:4e2ba0a8-3c84-4ea2-91cd-9cefd9ba7137">构建信息显示</a></li>
-<li><a href="#org2548467">git Plugin</a></li>
+<li><a href="#org968f15b">git Plugin</a></li>
 <li><a href="#h:7035678c-7b6b-4b1d-af62-218cb3264f00">Git Parameter选择git分支</a></li>
 <li><a href="#h:95dd22c2-2625-493a-9a5b-fded2eb519be">Active Choices</a></li>
 <li><a href="#h:2a1f52e7-3f90-4b0e-8712-4575c1c32c9b">DingTalk钉钉通知</a></li>
-<li><a href="#org7bc10f4">SSH Agent Plugin</a></li>
-<li><a href="#org062e765">Config File Provider</a></li>
+<li><a href="#orgdfc91a6">SSH Agent Plugin</a></li>
+<li><a href="#org72cfd9b">Config File Provider</a></li>
 </ul>
 </li>
 </ul>
@@ -253,12 +264,12 @@
 <li><a href="#h:008afd5d-6a12-40e0-b900-f4fe6e04730b">pipline ci</a></li>
 </ul>
 </li>
-<li><a href="#org0dfbbd0">维护</a>
+<li><a href="#org211f82c">维护</a>
 <ul>
-<li><a href="#org5f0846b">数据迁移</a>
+<li><a href="#org73c1c9a">数据迁移</a>
 <ul>
-<li><a href="#orgc681c8c">凭据导出</a></li>
-<li><a href="#org87093a2">去除私钥带passphrase（密钥密码）</a></li>
+<li><a href="#orgff6addd">凭据导出</a></li>
+<li><a href="#orgf813f30">去除私钥带passphrase（密钥密码）</a></li>
 </ul>
 </li>
 </ul>
@@ -394,25 +405,52 @@ CI/CD 主要分为了三个方面：
 <section id="outline-container-h:1b58ad70-1d68-4c83-a7d6-4622f97c07c2" class="outline-2">
 <h2 id="h:1b58ad70-1d68-4c83-a7d6-4622f97c07c2"><a href="#h:1b58ad70-1d68-4c83-a7d6-4622f97c07c2">jenkins 安装</a></h2>
 <div class="outline-text-2" id="text-h:1b58ad70-1d68-4c83-a7d6-4622f97c07c2">
-<ol class="org-ol">
-<li>下载地址</li>
-</ol>
-
+</div>
+<div id="outline-container-orgb33caaf" class="outline-3">
+<h3 id="orgb33caaf"><a href="#orgb33caaf">安装前准备</a></h3>
+<div class="outline-text-3" id="text-orgb33caaf">
+</div>
+<div id="outline-container-orga87adb0" class="outline-4">
+<h4 id="orga87adb0"><a href="#orga87adb0">安装java</a></h4>
+<div class="outline-text-4" id="text-orga87adb0">
 <p>
-www.jenkins.io/download
+openjdk 25
 </p>
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">ubuntu
+</span>apt update &amp;&amp; apt -y install openjdk-25-jdk
 
-<p>
-mirrors.jenkins.io/war-stable/   2.222.4
-</p>
+<span class="org-comment-delimiter"># </span><span class="org-comment">RHEL &#31995;&#32479;&#23433;&#35013; java
+</span>yum -y install java-25-openjdk
 
-<ol class="org-ol">
-<li>安装java 1.8</li>
-</ol>
+java -version
+</pre>
+</div>
+</div>
+</div>
 </div>
 <div id="outline-container-h:97809cb9-f609-44b5-a7a8-224d6e99ae51" class="outline-3">
-<h3 id="h:97809cb9-f609-44b5-a7a8-224d6e99ae51"><a href="#h:97809cb9-f609-44b5-a7a8-224d6e99ae51">启动方式</a></h3>
+<h3 id="h:97809cb9-f609-44b5-a7a8-224d6e99ae51"><a href="#h:97809cb9-f609-44b5-a7a8-224d6e99ae51">安装方式</a></h3>
 <div class="outline-text-3" id="text-h:97809cb9-f609-44b5-a7a8-224d6e99ae51">
+<p>
+下载地址
+</p>
+
+<ul class="org-ul">
+<li><a href="https://www.jenkins.io/download/">https://www.jenkins.io/download/</a></li>
+<li><a href="https://mirrors.jenkins.io/war-stable/">https://mirrors.jenkins.io/war-stable/</a></li>
+</ul>
+
+
+<p>
+Sources:
+</p>
+<ul class="org-ul">
+<li><a href="https://www.jenkins.io/doc/book/installing/">Installing Jenkins</a></li>
+</ul>
+
+
+
 <p>
 主目录：JENKINS_HOME
 </p>
@@ -421,7 +459,13 @@ mirrors.jenkins.io/war-stable/   2.222.4
 <h4 id="h:cf055f1c-c3dc-4536-85af-da3f6a9a9924"><a href="#h:cf055f1c-c3dc-4536-85af-da3f6a9a9924">直接jar启动</a></h4>
 <div class="outline-text-4" id="text-h:cf055f1c-c3dc-4536-85af-da3f6a9a9924">
 <div class="org-src-container">
-<pre class="src src-shell">java -jar jenkins.war --httpPort=28080 &amp;
+<pre class="src src-shell"><span class="org-variable-name">JENKINS_VERSION</span>=2.580.1
+mkdir /opt/jenkins &amp;&amp; <span class="org-builtin">cd</span> /opt/jenkins
+wget https://get.jenkins.io/war-stable/${<span class="org-variable-name">JENKINS_VERSION</span>}/jenkins.war
+
+java -jar jenkins.war --httpPort=28080 &amp;
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#40664;&#35748;&#24037;&#20316;&#30446;&#24405;&#20026; ~/.jenkins</span>
 </pre>
 </div>
 
@@ -429,10 +473,165 @@ mirrors.jenkins.io/war-stable/   2.222.4
 浏览器访问：<a href="http://ip:28080">http://ip:28080</a>
 </p>
 </div>
+<div id="outline-container-org8ea5eea" class="outline-5">
+<h5 id="org8ea5eea"><a href="#org8ea5eea">脚本启动</a></h5>
+<div class="outline-text-5" id="text-org8ea5eea">
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-variable-name">JENKINS_VERSION</span>=2.580.1
+
+mkdir /opt/jenkins &amp;&amp; <span class="org-builtin">cd</span> /opt/jenkins
+wget https://get.jenkins.io/war-stable/${<span class="org-variable-name">JENKINS_VERSION</span>}/jenkins.war
+
+cat &lt;&lt;\EOF&gt; restart_jenkins.sh <span class="org-sh-heredoc">
+source /etc/profile
+
+ps -ef|grep /opt/jenkins/jenkins.war|grep -v grep|awk '{print $2}'|xargs kill -9
+sleep 3
+java_cmd=/usr/bin/java
+inferred_jenkins_opts="--webroot=/var/cache/jenkins/war --logfile=/var/log/jenkins/jenkins.log --httpPort=8080 --debug=5"
+java_opts_tmp="-Djava.awt.headless=true -Dhudson.model.DownloadService.noSignatureCheck=true"
+jenkins_war_tmp="/opt/jenkins/jenkins.war"
+
+[ -d  "/var/log/jenkins" ] || mkdir /var/log/jenkins
+
+"${java_cmd}" ${java_opts_tmp} -DJENKINS_HOME=/data/jenkins -jar "${jenkins_war_tmp}" ${inferred_jenkins_opts} &gt;/dev/null 2&gt;&amp;1 &amp;
+EOF</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orge01ca82" class="outline-5">
+<h5 id="orge01ca82"><a href="#orge01ca82">systemd 启动</a></h5>
+<div class="outline-text-5" id="text-orge01ca82">
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-variable-name">JENKINS_VERSION</span>=2.580.1
+
+mkdir -pv /var/log/jenkins
+mkdir /var/cache/jenkins
+mkdir -pv /usr/share/java/
+mkdir -pv /data/jenkins
+
+mkdir /opt/jenkins &amp;&amp; <span class="org-builtin">cd</span> /opt/jenkins
+curl -o /opt/jenkins/jenkins.war  https://mirror.ossplanet.net/jenkins/war-stable/${<span class="org-variable-name">JENKINS_VERSION</span>}/jenkins.war
+
+cat &lt;&lt;\EOF&gt; /lib/systemd/system/jenkins.service<span class="org-sh-heredoc">
+[Unit]
+Description=Jenkins Continuous Integration Server
+Requires=network.target
+After=network.target
+StartLimitBurst=5
+StartLimitIntervalSec=5m
+
+[Service]
+Type=notify
+NotifyAccess=main
+ExecStart=/usr/bin/java ${java_opts_tmp} -DJENKINS_HOME=/data/jenkins -jar ${jenkins_war_tmp} ${inferred_jenkins_opts}
+Restart=always
+RestartSec=10s
+SuccessExitStatus=143
+
+TimeoutStartSec=90
+
+# Unix account that runs the Jenkins daemon
+User=root
+Group=root
+
+# Directory where Jenkins stores its configuration and workspaces
+Environment="JENKINS_HOME=/data/jenkins"
+WorkingDirectory=/data/jenkins
+
+Environment="java_cmd=/usr/bin/java"
+Environment='java_opts_tmp=-Djava.awt.headless=true -Dhudson.model.DownloadService.noSignatureCheck=true'
+Environment="jenkins_war_tmp=/opt/jenkins/jenkins.war"
+Environment="inferred_jenkins_opts=--webroot=/var/cache/jenkins/war --logfile=/var/log/jenkins/jenkins.log --httpPort=8080 --debug=5"
+
+LimitCORE=infinity
+LimitFSIZE=infinity
+LimitNOFILE=8192
+LimitNPROC=32768
+
+[Install]
+WantedBy=multi-user.target
+EOF
+</span>
+systemctl daemon-reload
+systemctl reset-failed jenkins
+systemctl start jenkins
+</pre>
+</div>
+
+<p>
+admin 密码
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">cat /data/jenkins/secrets/initialAdminPassword
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org5f4bb84" class="outline-5">
+<h5 id="org5f4bb84"><a href="#org5f4bb84">nginx代理</a></h5>
+<div class="outline-text-5" id="text-org5f4bb84">
+<div class="org-src-container">
+<pre class="src src-sh">cat &lt;&lt;\EOF&gt; ci.conf <span class="org-sh-heredoc">
+server {
+    listen       443 ssl;
+    listen       80;
+    server_name  ci.xxx.in;
+    ssl_certificate      ssl/xxx.in/fullchain.cer;
+    ssl_certificate_key  ssl/xxx.in/xxx.key;
+    ssl_session_cache shared:sslcache:20m;
+    ssl_session_timeout 10m;
+
+    location / {
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+        proxy_max_temp_file_size 0;
+        client_max_body_size       10m;
+        client_body_buffer_size    128k;
+
+        proxy_pass http://127.0.0.1:8080;
+    }
+}
+EOF</span>
+</pre>
+</div>
+
+
+<p>
+Sources:
+</p>
+<ul class="org-ul">
+<li><a href="https://www.jenkins.io/doc/book/system-administration/reverse-proxy-configuration-with-jenkins/">Reverse proxy configuration&#x2013;Configuration Examples by Server Type</a></li>
+</ul>
+</div>
+</div>
 </div>
 <div id="outline-container-h:3b3ca7b9-b665-4def-b543-cb0141254a5f" class="outline-4">
 <h4 id="h:3b3ca7b9-b665-4def-b543-cb0141254a5f"><a href="#h:3b3ca7b9-b665-4def-b543-cb0141254a5f">tomact + jenkins.war 启动</a></h4>
 <div class="outline-text-4" id="text-h:3b3ca7b9-b665-4def-b543-cb0141254a5f">
+<div class="org-src-container">
+<pre class="src src-shell">https://wiki.jenkins-ci.org/display/JENKINS/Tomcat
+vim /usr/local/tomcat/bin/catalina.sh
+<span class="org-builtin">export</span> <span class="org-variable-name">JENKINS_HOME</span>=<span class="org-string">"/ops/jenkins"</span>
+<span class="org-variable-name">CATALINA_BASE</span>=/usr/local/tomcat8.0.36
+<span class="org-variable-name">JAVA_OPTS</span>=<span class="org-string">"-Xms1146m -Xmx1528m -Dfile.encoding=utf-8"</span>
+</pre>
+</div>
+
+
+<div class="org-src-container">
+<pre class="src src-shell">Jenkins&#24314;&#35758;&#22312;tomcat&#20013;&#20351;&#29992;utf-8&#32534;&#30721;&#65292;&#37197;&#32622;tomcat&#19979;conf&#30446;&#24405;&#30340;server.xml&#25991;&#20214;
+&lt;Connector <span class="org-variable-name">port</span>=<span class="org-string">"8080"</span> <span class="org-variable-name">URIEncoding</span>=<span class="org-string">"utf-8"</span> <span class="org-variable-name">protocol</span>=<span class="org-string">"HTTP/1.1"</span>
+               <span class="org-variable-name">connectionTimeout</span>=<span class="org-string">"20000"</span>
+               <span class="org-variable-name">redirectPort</span>=<span class="org-string">"8443"</span> /&gt;
+</pre>
+</div>
+<p>
+如果Job的控制台中文输出乱码，请将URIEncoding="utf-8"更改为useBodyEncodingForURI=“true"
+</p>
 </div>
 </div>
 <div id="outline-container-h:7b725d81-08ed-4e8c-b017-e681adcd9472" class="outline-4">
@@ -450,6 +649,12 @@ mirrors.jenkins.io/war-stable/   2.222.4
 <h3 id="h:cbb89150-60e5-42aa-b3de-bb4e3f75851c"><a href="#h:cbb89150-60e5-42aa-b3de-bb4e3f75851c">常用插件</a></h3>
 <div class="outline-text-3" id="text-h:cbb89150-60e5-42aa-b3de-bb4e3f75851c">
 <ul class="org-ul">
+<li><a href="https://plugins.jenkins.io/pipeline-graph-view/">Pipeline Graph View</a> 常用的 pipeline 流程图
+<ul class="org-ul">
+<li>官方指定的 Blue Ocean 接班人，活跃开发。Pipeline: Stage View 老版。</li>
+<li>设成构建页默认视图：系统管理 → Appearance（外观），勾选 <code>Pipeline Graph</code> 和 <code>Pipeline Stages</code></li>
+</ul></li>
+<li><a href="https://plugins.jenkins.io/pipeline-dora-metrics/">Pipeline DORA Metrics</a> 针对 Pipeine 的构建统计</li>
 <li>Active Choices Plug-in</li>
 <li>Blue Ocean</li>
 <li>Blue Ocean Core JS</li>
@@ -927,7 +1132,7 @@ pipeline 块：
 <p>
 echo 中
 </p>
-<pre class="example" id="org40bed91">
+<pre class="example" id="org4cae88a">
 '单行命令', '''多行命令'''： 原样输出
 "", """"""： 有变量会转译
 </pre>
@@ -935,7 +1140,7 @@ echo 中
 <p>
 sh 中
 </p>
-<pre class="example" id="org706c5ee">
+<pre class="example" id="orgebeab00">
 '单行命令', '''多行命令'''： 原样输出
 "", """"""： 有变量会转译
 </pre>
@@ -2523,7 +2728,7 @@ Harbor 的账号密码、GitLab 的私钥、Kubernetes 的证书均使用 Jenkin
 推荐方式：
 </p>
 
-<pre class="example" id="org9362279">
+<pre class="example" id="org01101e9">
 1.BlueOcean 创建 Pipline
 2.在 gitlab上 创建一个独立的项目
 3.BlueOcean 应用上面创建的 gitlab
@@ -2602,7 +2807,7 @@ aliyun  configure
 <a href="https://plugins.jenkins.io/thinBackup/">https://plugins.jenkins.io/thinBackup/</a>
 </p>
 
-<pre class="example" id="org761b231">
+<pre class="example" id="org5a49e00">
 备份目录: /data/jenkis_backup
 备份时间：H 0 * * *
 </pre>
@@ -3150,7 +3355,7 @@ external_url <span class="org-comment-delimiter">#</span><span class="org-commen
 
 
 
-<figure id="org1e6fb31">
+<figure id="orgacb0249">
 <img style="aspect-ratio:692/229" decoding="async" loading="lazy" src="./images/img_20240717_004408.webp" alt="img_20240717_004408.webp" width="50%">
 
 </figure>
@@ -3212,15 +3417,15 @@ options {
 
 
 
-<figure id="orga602a6d">
+<figure id="org93a6a25">
 <img style="aspect-ratio:291/61" decoding="async" loading="lazy" src="./images/img_20240717_004752.webp" alt="img_20240717_004752.webp" width="50%">
 
 </figure>
 </div>
 </div>
-<div id="outline-container-org2548467" class="outline-4">
-<h4 id="org2548467"><a href="#org2548467">git Plugin</a></h4>
-<div class="outline-text-4" id="text-org2548467">
+<div id="outline-container-org968f15b" class="outline-4">
+<h4 id="org968f15b"><a href="#org968f15b">git Plugin</a></h4>
+<div class="outline-text-4" id="text-org968f15b">
 <ul class="org-ul">
 <li><a href="https://plugins.jenkins.io/git/">https://plugins.jenkins.io/git/</a></li>
 </ul>
@@ -3275,7 +3480,7 @@ gitParameter
 </div>
 
 
-<figure id="org415b21a">
+<figure id="org7880b3d">
 <img style="aspect-ratio:528/128" decoding="async" loading="lazy" src="./images/img_20240717_004157.webp" alt="img_20240717_004157.webp" width="50%">
 
 </figure>
@@ -3437,15 +3642,15 @@ def dingSend(dMsg) {
 </div>
 
 
-<figure id="orgb90945d">
+<figure id="org5ba9a5b">
 <img style="aspect-ratio:988/584" decoding="async" loading="lazy" src="./images/img_20240717_004647.webp" alt="img_20240717_004647.webp" width="50%">
 
 </figure>
 </div>
 </div>
-<div id="outline-container-org7bc10f4" class="outline-4">
-<h4 id="org7bc10f4"><a href="#org7bc10f4">SSH Agent Plugin</a></h4>
-<div class="outline-text-4" id="text-org7bc10f4">
+<div id="outline-container-orgdfc91a6" class="outline-4">
+<h4 id="orgdfc91a6"><a href="#orgdfc91a6">SSH Agent Plugin</a></h4>
+<div class="outline-text-4" id="text-orgdfc91a6">
 <ul class="org-ul">
 <li><a href="https://plugins.jenkins.io/ssh-agent/">https://plugins.jenkins.io/ssh-agent/</a></li>
 </ul>
@@ -3519,9 +3724,9 @@ def dingSend(dMsg) {
 </div>
 </div>
 </div>
-<div id="outline-container-org062e765" class="outline-4">
-<h4 id="org062e765"><a href="#org062e765">Config File Provider</a></h4>
-<div class="outline-text-4" id="text-org062e765">
+<div id="outline-container-org72cfd9b" class="outline-4">
+<h4 id="org72cfd9b"><a href="#org72cfd9b">Config File Provider</a></h4>
+<div class="outline-text-4" id="text-org72cfd9b">
 <ul class="org-ul">
 <li><a href="https://plugins.jenkins.io/config-file-provider/">https://plugins.jenkins.io/config-file-provider/</a></li>
 </ul>
@@ -4039,13 +4244,13 @@ def Artifacts(projects, repos) {
 </div>
 </div>
 </section>
-<section id="outline-container-org0dfbbd0" class="outline-2">
-<h2 id="org0dfbbd0"><a href="#org0dfbbd0">维护</a></h2>
-<div class="outline-text-2" id="text-org0dfbbd0">
+<section id="outline-container-org211f82c" class="outline-2">
+<h2 id="org211f82c"><a href="#org211f82c">维护</a></h2>
+<div class="outline-text-2" id="text-org211f82c">
 </div>
-<div id="outline-container-org5f0846b" class="outline-3">
-<h3 id="org5f0846b"><a href="#org5f0846b">数据迁移</a></h3>
-<div class="outline-text-3" id="text-org5f0846b">
+<div id="outline-container-org73c1c9a" class="outline-3">
+<h3 id="org73c1c9a"><a href="#org73c1c9a">数据迁移</a></h3>
+<div class="outline-text-3" id="text-org73c1c9a">
 <p>
 参考：
 </p>
@@ -4090,9 +4295,9 @@ tar -zcvf jenkins.tar.gz <span class="org-sh-escaped-newline">\</span>
 新环境先不启动jenkins，把备份文件传输到新机器，解压到新的 jenkins 工作目录，再启动 jenkins 
 </p>
 </div>
-<div id="outline-container-orgc681c8c" class="outline-4">
-<h4 id="orgc681c8c"><a href="#orgc681c8c">凭据导出</a></h4>
-<div class="outline-text-4" id="text-orgc681c8c">
+<div id="outline-container-orgff6addd" class="outline-4">
+<h4 id="orgff6addd"><a href="#orgff6addd">凭据导出</a></h4>
+<div class="outline-text-4" id="text-orgff6addd">
 <p>
 管理Jenkins → 脚本命令行(Script Console)，粘贴 groovy 脚本执行。
 </p>
@@ -4169,9 +4374,9 @@ import org.jenkinsci.plugins.plaincredentials.impl.FileCredentialsImpl
 </div>
 </div>
 </div>
-<div id="outline-container-org87093a2" class="outline-4">
-<h4 id="org87093a2"><a href="#org87093a2">去除私钥带passphrase（密钥密码）</a></h4>
-<div class="outline-text-4" id="text-org87093a2">
+<div id="outline-container-orgf813f30" class="outline-4">
+<h4 id="orgf813f30"><a href="#orgf813f30">去除私钥带passphrase（密钥密码）</a></h4>
+<div class="outline-text-4" id="text-orgf813f30">
 <div class="org-src-container">
 <pre class="src src-shell">Enter passphrase for key <span class="org-string">'/data/jenkins/workspace/agreements-ui@tmp/jenkins-gitclient-sshxxxx.key'</span>:
 </pre>

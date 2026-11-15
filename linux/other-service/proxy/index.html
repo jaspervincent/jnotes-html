@@ -58,6 +58,7 @@
 <li><a href="#h:2b925101-1aae-4e54-a414-2f941952b024">系统环境变量</a></li>
 <li><a href="#h:1fa64731-49df-4389-b799-1b7acf20e94f">使用代理</a>
 <ul>
+<li><a href="#h:11F53960-C2AC-450A-82BB-F6526BD5975A">SSH 使用代理</a></li>
 <li><a href="#h:1ea66d4e-14de-4b9b-8953-b7c90a595ee9">包管理工具yum/apt使用代理</a></li>
 <li><a href="#h:31879526-4e57-4bcd-8cbe-d65350eb9895">容器服务使用代理</a></li>
 <li><a href="#h:bfcac1ed-0267-4403-b3b8-3ed5b5f4dcb1">Git 使用代理</a></li>
@@ -77,6 +78,9 @@
 </ul>
 </div>
 </nav>
+<ul class="org-ul">
+<li>TAGS: <a href="../index.html">Other-service</a></li>
+</ul>
 <section id="outline-container-h:2b925101-1aae-4e54-a414-2f941952b024" class="outline-2">
 <h2 id="h:2b925101-1aae-4e54-a414-2f941952b024"><a href="#h:2b925101-1aae-4e54-a414-2f941952b024">系统环境变量</a></h2>
 <div class="outline-text-2" id="text-h:2b925101-1aae-4e54-a414-2f941952b024">
@@ -270,6 +274,42 @@ no_proxy
 参考文档：<a href="https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/hybrid-nodes-proxy.html">AWS: 为混合节点功能配置代理</a>
 </p>
 </div>
+<div id="outline-container-h:11F53960-C2AC-450A-82BB-F6526BD5975A" class="outline-3">
+<h3 id="h:11F53960-C2AC-450A-82BB-F6526BD5975A"><a href="#h:11F53960-C2AC-450A-82BB-F6526BD5975A">SSH 使用代理</a></h3>
+<div class="outline-text-3" id="text-h:11F53960-C2AC-450A-82BB-F6526BD5975A">
+<p>
+ssh 完全不读 http_proxy / all_proxy 这些环境变量。ssh 走代理必须用 ProxyCommand。
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">vim ~/.ssh/config
+
+Host js-bs
+     StrictHostKeyChecking no
+     HostName x.x.x.x
+     User ubuntu
+     Port 22
+     IdentityFile ~/Documents/jp_rsa
+     <span class="org-comment-delimiter"># </span><span class="org-comment">&#36208;&#26412;&#22320; 7877 &#20195;&#29702;&#65288;mihomo &#28151;&#21512;&#31471;&#21475;&#65292;SOCKS5&#65289;
+</span>     ProxyCommand /usr/bin/nc -X 5 -x 127.0.0.1:7877 %h %p
+     <span class="org-comment-delimiter"># </span><span class="org-comment">&#22914;&#26524;&#24819;&#36208; HTTP CONNECT&#65292;&#25913;&#25104;&#19979;&#38754;&#36825;&#34892;&#65306;
+</span>     <span class="org-comment-delimiter"># </span><span class="org-comment">ProxyCommand /usr/bin/nc -X connect -x 127.0.0.1:7877 %h %p
+</span>     <span class="org-comment-delimiter"># </span><span class="org-comment">&#25239;&#21345;&#39039;
+</span>     ServerAliveInterval 15
+     ServerAliveCountMax 3
+     Compression yes
+     IPQoS cs0 cs0
+     GSSAPIAuthentication no
+     <span class="org-comment-delimiter"># </span><span class="org-comment">&#36830;&#25509;&#22797;&#29992;&#65306;&#31532;&#20108;&#20010;&#31383;&#21475;&#31186;&#24320;&#65292;&#19981;&#20877;&#37325;&#26032;&#25569;&#25163;
+</span>     ControlMaster auto
+     ControlPath ~/.ssh/cm-%r@%h:%p
+     ControlPersist 10m
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">-X 5 = SOCKS5&#65292;-X connect = HTTP CONNECT&#12290;SOCKS5 &#23545;&#35064; TCP &#26356;&#21512;&#36866;&#12290;
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">ControlMaster &#36825;&#32452;&#26159;&#39069;&#22806;&#30340;&#22823;&#22836;&#65306;&#39318;&#27425;&#36830;&#19978;&#21518; 10 &#20998;&#38047;&#20869;&#20877;&#24320;&#31383;&#21475;/&#36305; scp&#12289;rsync &#37117;&#22797;&#29992;&#21516;&#19968;&#26465;&#38567;&#36947;&#65292;&#19981;&#29992;&#37325;&#26032;&#25569;&#25163;&#12290;</span>
+</pre>
+</div>
+</div>
+</div>
 <div id="outline-container-h:1ea66d4e-14de-4b9b-8953-b7c90a595ee9" class="outline-3">
 <h3 id="h:1ea66d4e-14de-4b9b-8953-b7c90a595ee9"><a href="#h:1ea66d4e-14de-4b9b-8953-b7c90a595ee9">包管理工具yum/apt使用代理</a></h3>
 <div class="outline-text-3" id="text-h:1ea66d4e-14de-4b9b-8953-b7c90a595ee9">
@@ -329,12 +369,13 @@ containerd
 </p>
 <div class="org-src-container">
 <pre class="src src-sh">mkdir -p /etc/systemd/system/containerd.service.d
-vim /etc/systemd/system/containerd.service.d/http-proxy.conf
+cat &lt;&lt;\EOF&gt; /etc/systemd/system/containerd.service.d/http-proxy.conf<span class="org-sh-heredoc">
 [Service]
-<span class="org-variable-name">Environment</span>=<span class="org-string">"HTTP_PROXY=http://proxy-domain:port"</span>
-<span class="org-variable-name">Environment</span>=<span class="org-string">"HTTPS_PROXY=http://proxy-domain:port"</span>
-<span class="org-variable-name">Environment</span>=<span class="org-string">"NO_PROXY=localhost"</span>
-
+Environment="HTTP_PROXY=http://proxy.jasper.org:7877"
+Environment="HTTPS_PROXY=http://proxy.jasper.org:7877"
+Environment="NO_PROXY=localhost,127.0.0.1,::1,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,*.local,public.ecr.aws,*.amazonaws.com"
+EOF
+</span>
 systemctl daemon-reload
 systemctl restart containerd
 </pre>
@@ -344,9 +385,18 @@ systemctl restart containerd
 docker
 </p>
 <div class="org-src-container">
-<pre class="src src-sh"><span class="org-comment-delimiter">#</span><span class="org-comment">/usr/lib/systemd/system/docker.service
-</span><span class="org-variable-name">Environment</span>=<span class="org-string">"HTTPS_PROXY=http://IP:8118"</span>
-<span class="org-variable-name">Environment</span>=<span class="org-string">"NO_PROXY=127.0.0.0/8,172.20.0.0/16"</span>
+<pre class="src src-sh">mkdir -p /etc/systemd/system/docker.service.d
+cat &lt;&lt;\EOF&gt; /etc/systemd/system/docker.service.d/http-proxy.conf<span class="org-sh-heredoc">
+[Service]
+# &#36208;&#20869;&#32593;&#20195;&#29702;&#35775;&#38382; Docker Hub&#12290;ECR Public &#26412;&#26469;&#23601;&#30452;&#36830;&#21487;&#29992;&#19988;&#36895;&#24230;&#19981;&#38169;&#65292;
+# &#25918;&#36827; NO_PROXY &#37324;&#36991;&#20813;&#30333;&#32469;&#19968;&#22280;&#12290;
+Environment="HTTP_PROXY=http://proxy.jasper.org:7877"
+Environment="HTTPS_PROXY=http://proxy.jasper.org:7877"
+Environment="NO_PROXY=localhost,127.0.0.1,::1,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,*.local,public.ecr.aws,*.amazonaws.com"
+EOF
+</span>
+systemctl daemon-reload
+systemctl restart docker
 </pre>
 </div>
 </div>
@@ -668,7 +718,7 @@ sudo systemctl start v2raya.service  <span class="org-comment-delimiter">#</span
 <p>
 报错
 </p>
-<pre class="example" id="org7b91c4c">
+<pre class="example" id="org9cad6fe">
 failed to start v2ray-core: LocateServerRaw: ID or Sub exceed range
 </pre>
 

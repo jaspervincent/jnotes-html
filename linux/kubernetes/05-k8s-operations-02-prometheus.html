@@ -352,7 +352,7 @@ Prometheus的主要特征有：
 </p>
 
 
-<figure id="org4a7c240">
+<figure id="org4ccfbaa">
 <img src="https://prometheus.io/assets/docs/architecture.svg" alt="architecture.svg" class="org-svg">
 
 </figure>
@@ -429,7 +429,7 @@ github: <a href="https://github.com/prometheus-operator/prometheus-operator">htt
 </p>
 
 
-<figure id="orgdc3bd32">
+<figure id="org67ed4c6">
 <img style="aspect-ratio:872/328" decoding="async" loading="lazy" src="./images/Snipaste_2022-09-07_16-50-39.webp" alt="Snipaste_2022-09-07_16-50-39.webp" width="50%">
 
 </figure>
@@ -618,7 +618,7 @@ grafana 账号密码默认 admin:admin ，默认有一些 k8s 相关的模板。
 <h5 id="h:3d785849-0b6a-45ee-86aa-1edf29c0d758"><a href="#h:3d785849-0b6a-45ee-86aa-1edf29c0d758">什么是 ServiceMonitor</a></h5>
 <div class="outline-text-5" id="text-h:3d785849-0b6a-45ee-86aa-1edf29c0d758">
 
-<figure id="org283c4b7">
+<figure id="orgee757fb">
 <img style="aspect-ratio:1714/802" decoding="async" loading="lazy" src="./images/Snipaste_2022-09-07_18-58-18.webp" alt="Snipaste_2022-09-07_18-58-18.webp" width="50%">
 
 </figure>
@@ -1111,7 +1111,7 @@ total 24
 
 
 
-<figure id="org9c2ca0b">
+<figure id="orgfc572dd">
 <img style="aspect-ratio:1198/566" decoding="async" loading="lazy" src="./images/img_20240604_211831.webp" alt="img_20240604_211831.webp" width="50%">
 
 </figure>
@@ -1135,7 +1135,7 @@ total 24
 </p>
 
 
-<figure id="org7929d8a">
+<figure id="org9982d34">
 <img style="aspect-ratio:1195/556" decoding="async" loading="lazy" src="./images/img_20240604_211948.webp" alt="img_20240604_211948.webp" width="50%">
 
 </figure>
@@ -1163,7 +1163,7 @@ total 24
 </p>
 
 
-<figure id="org55f2127">
+<figure id="org5a008ee">
 <img style="aspect-ratio:1196/562" decoding="async" loading="lazy" src="./images/img_20240604_212022.webp" alt="img_20240604_212022.webp" width="50%">
 
 </figure>
@@ -1429,7 +1429,7 @@ spec:
 </p>
 
 
-<figure id="org28362c7">
+<figure id="org6886cfd">
 <img style="aspect-ratio:1192/549" decoding="async" loading="lazy" src="./images/img_20240604_212133.webp" alt="img_20240604_212133.webp" width="50%">
 
 </figure>
@@ -1440,7 +1440,7 @@ spec:
 </p>
 
 
-<figure id="org345e0a2">
+<figure id="orgf584187">
 <img style="aspect-ratio:1188/557" decoding="async" loading="lazy" src="./images/img_20240604_212203.webp" alt="img_20240604_212203.webp" width="50%">
 
 </figure>
@@ -1718,7 +1718,7 @@ probe 开头
 </p>
 
 
-<figure id="org114ab22">
+<figure id="org6f54ba3">
 <img style="aspect-ratio:1181/344" decoding="async" loading="lazy" src="./images/img_20240604_212256.webp" alt="img_20240604_212256.webp" width="50%">
 
 </figure>
@@ -4204,13 +4204,13 @@ app.rules.yml: |
 </ul>
 
 
-<figure id="org537b077">
+<figure id="orgcd37c72">
 <img style="aspect-ratio:1378/872" decoding="async" loading="lazy" src="./images/Snipaste_2023-01-02_07-43-32.webp" alt="Snipaste_2023-01-02_07-43-32.webp" width="50%">
 
 </figure>
 
 
-<figure id="orgcf924fd">
+<figure id="org2894a6c">
 <img style="aspect-ratio:866/336" decoding="async" loading="lazy" src="./images/Snipaste_2023-01-02_07-49-14.webp" alt="Snipaste_2023-01-02_07-49-14.webp" width="50%">
 
 </figure>
@@ -4429,36 +4429,159 @@ date +%s <span class="org-comment-delimiter">#</span><span class="org-comment">&
 <div id="outline-container-h:77378b9a-c99d-4ef0-9edc-0c9a6f8f5c14" class="outline-4">
 <h4 id="h:77378b9a-c99d-4ef0-9edc-0c9a6f8f5c14"><a href="#h:77378b9a-c99d-4ef0-9edc-0c9a6f8f5c14">清理数据</a></h4>
 <div class="outline-text-4" id="text-h:77378b9a-c99d-4ef0-9edc-0c9a6f8f5c14">
-<p>
-<a href="https://p8s.io/docs/pushgateway/">https://p8s.io/docs/pushgateway/</a>
-</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#25214;&#20986; cardinality &#26368;&#39640;&#30340;&#25351;&#26631;
+</span><span class="org-function-name">topk</span>(20, count by (__name__)({<span class="org-variable-name">__name__</span>=~<span class="org-string">".+"</span>}))
+</pre>
+</div>
 
 
+
 <p>
-比如删除由 {job="some_job",instance="some_instance"} 标识的分组中的所有指标，可以通过下面的命令来实现：
+delete_series 系列接口默认是关的
 </p>
 <div class="org-src-container">
-<pre class="src src-shell">curl -X DELETE http://pushgateway_ip:9091/metrics/job/some_job/instance/some_instance
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#20801;&#35768;&#20219;&#20309;&#33021;&#35775;&#38382; 9090 &#30340;&#20154;&#21024;&#24211;
+</span>--web.enable-admin-api
+
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#21024;&#38500;&#26041;&#27861;
+</span><span class="org-variable-name">AUTH</span>=<span class="org-string">"-u admin:&#20320;&#30340;&#23494;&#30721;"</span>        <span class="org-comment-delimiter"># </span><span class="org-comment">web.yml &#27809;&#37197; basic_auth &#23601;&#21024;&#25481;&#36825;&#27573;
+</span><span class="org-variable-name">ppath</span>=/opt/docker/monitor
+<span class="org-variable-name">PROM</span>=https://127.0.0.1:9090
+
+<span class="org-function-name">cl</span>() {
+  /usr/bin/curl -sS --connect-timeout 5 -m 120 <span class="org-sh-escaped-newline">\</span>
+    -XPOST --cacert ${<span class="org-variable-name">ppath</span>}/prometheus/certs/tls.crt <span class="org-sh-escaped-newline">\</span>
+    -u <span class="org-string">"$(cat ${ppath}/.reload-cred)"</span> <span class="org-sh-escaped-newline">\</span>
+    -w <span class="org-string">'%{stderr}\n[HTTP %{http_code}]\n'</span> <span class="org-sh-escaped-newline">\</span>
+    <span class="org-string">"$@"</span>
+}
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#25226;&#19978;&#38754;&#25918;&#36827; ~/.bashrc &#25110; ${ppath}/prom-env.sh &#28982;&#21518; source &#19968;&#19979;&#21363;&#21487;&#12290;
+</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#21024;&#20043;&#21069;&#20808;&#39044;&#28436;
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">delete_series &#19981;&#21487;&#25764;&#38144;&#65292;&#20808;&#29992; /api/v1/series &#30475;&#36873;&#25321;&#22120;&#21040;&#24213;&#21629;&#20013;&#20102;&#20160;&#20040;&#65306;
+</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#30475;&#21629;&#20013;&#21738;&#20123;&#24207;&#21015;
+</span><span class="org-variable-name">START</span>=$(date -d <span class="org-string">'30 days ago'</span> +%s)
+<span class="org-variable-name">END</span>=$(date -d <span class="org-string">'1 day ago'</span> +%s)
+cl <span class="org-sh-escaped-newline">\</span>
+  --data-urlencode <span class="org-string">'match[]={job="node"}'</span> <span class="org-sh-escaped-newline">\</span>
+  --data-urlencode <span class="org-string">"start=$START"</span> --data-urlencode <span class="org-string">"end=$END"</span> <span class="org-sh-escaped-newline">\</span>
+  <span class="org-string">"$PROM/api/v1/series"</span> | jq <span class="org-string">'.data | length'</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#30475;&#21069; 10 &#26465;&#38271;&#20160;&#20040;&#26679;
+</span>cl <span class="org-sh-escaped-newline">\</span>
+  --data-urlencode <span class="org-string">'match[]={job="node"}'</span> <span class="org-sh-escaped-newline">\</span>
+  <span class="org-string">"$PROM/api/v1/series"</span> | jq <span class="org-string">'.data[:10]'</span>
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#36824;&#21487;&#20197;&#20808;&#20570;&#20010;&#24555;&#29031;&#20828;&#24213; &#8212;&#8212; &#23427;&#29992;&#30828;&#38142;&#25509;&#23454;&#29616;&#65292;&#20960;&#20046;&#19981;&#21344;&#39069;&#22806;&#31354;&#38388;&#65292;&#24456;&#36866;&#21512;&#20320;&#36825;&#31181;&#30913;&#30424;&#32039;&#24352;&#30340;&#24773;&#20917;&#65306;
+</span>
+cl <span class="org-string">"$PROM/api/v1/admin/tsdb/snapshot?skip_head=true"</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#20135;&#29289;&#22312; prometheus/data/snapshots/&lt;&#26102;&#38388;&#25139;&gt;/
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">&#29992;&#23436;&#35760;&#24471; rm -rf prometheus/data/snapshots/*&#65292;&#21542;&#21017;&#21407; block &#34987;&#21024;&#21518;&#30828;&#38142;&#25509;&#20250;&#32487;&#32493;&#21344;&#30528;&#31354;&#38388;&#12290;
+</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#19968;&#12289;&#25353;&#26102;&#38388;
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">&#21024;&#38500; 1 &#22825;&#21069;&#30340;&#25152;&#26377;&#25968;&#25454;
+</span><span class="org-variable-name">END</span>=$(date -d <span class="org-string">'1 day ago'</span> +%s)
+cl <span class="org-sh-escaped-newline">\</span>
+  --data-urlencode <span class="org-string">'match[]={__name__=~".+"}'</span> <span class="org-sh-escaped-newline">\</span>
+  --data-urlencode <span class="org-string">"end=$END"</span> <span class="org-sh-escaped-newline">\</span>
+  <span class="org-string">"$PROM/api/v1/admin/tsdb/delete_series"</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#21024;&#38500;&#25351;&#23450;&#21306;&#38388;
+</span>cl <span class="org-sh-escaped-newline">\</span>
+  --data-urlencode <span class="org-string">'match[]={__name__=~".+"}'</span> <span class="org-sh-escaped-newline">\</span>
+  --data-urlencode <span class="org-string">'start=2026-10-01T00:00:00Z'</span> <span class="org-sh-escaped-newline">\</span>
+  --data-urlencode <span class="org-string">'end=2026-10-15T00:00:00Z'</span> <span class="org-sh-escaped-newline">\</span>
+  <span class="org-string">"$PROM/api/v1/admin/tsdb/delete_series"</span>
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#20108;&#12289;&#25353; job
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">&#21333;&#20010; job &#20840;&#37096;&#21382;&#21490;&#65288;&#19981;&#24102; start/end = &#21024;&#20840;&#37096;&#65289;
+</span>cl <span class="org-sh-escaped-newline">\</span>
+  --data-urlencode <span class="org-string">'match[]={job="blackbox"}'</span> <span class="org-sh-escaped-newline">\</span>
+  <span class="org-string">"$PROM/api/v1/admin/tsdb/delete_series"</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#22810;&#20010; job&#65292;OR &#20851;&#31995;
+</span>cl <span class="org-sh-escaped-newline">\</span>
+  --data-urlencode <span class="org-string">'match[]={job="blackbox"}'</span> <span class="org-sh-escaped-newline">\</span>
+  --data-urlencode <span class="org-string">'match[]={job="pushgateway"}'</span> <span class="org-sh-escaped-newline">\</span>
+  --data-urlencode <span class="org-string">'match[]={job="old-k8s"}'</span> <span class="org-sh-escaped-newline">\</span>
+  <span class="org-string">"$PROM/api/v1/admin/tsdb/delete_series"</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#27491;&#21017;&#25209;&#37327; / &#25490;&#38500;&#24335;
+</span>cl --data-urlencode <span class="org-string">'match[]={job=~"test-.*"}'</span> <span class="org-string">"$PROM/api/v1/admin/tsdb/delete_series"</span>
+cl --data-urlencode <span class="org-string">'match[]={job!="node"}'</span>    <span class="org-string">"$PROM/api/v1/admin/tsdb/delete_series"</span>
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#19977;&#12289;&#25353;&#26631;&#31614; / &#25351;&#26631;
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">&#25351;&#26631;&#21517;&#21069;&#32512;
+</span>cl <span class="org-sh-escaped-newline">\</span>
+  --data-urlencode <span class="org-string">'match[]={__name__=~"container_.*"}'</span> <span class="org-sh-escaped-newline">\</span>
+  <span class="org-string">"$PROM/api/v1/admin/tsdb/delete_series"</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#19979;&#32447;&#20027;&#26426;
+</span>cl <span class="org-sh-escaped-newline">\</span>
+  --data-urlencode <span class="org-string">'match[]={instance="10.0.0.15:9100"}'</span> <span class="org-sh-escaped-newline">\</span>
+  <span class="org-string">"$PROM/api/v1/admin/tsdb/delete_series"</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#22810;&#26631;&#31614; AND
+</span>cl <span class="org-sh-escaped-newline">\</span>
+  --data-urlencode <span class="org-string">'match[]={__name__="node_cpu_seconds_total",job="node",cluster="prod"}'</span> <span class="org-sh-escaped-newline">\</span>
+  <span class="org-string">"$PROM/api/v1/admin/tsdb/delete_series"</span>
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#22235;&#12289;&#32508;&#21512;
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">job + instance &#27491;&#21017; + &#26102;&#38388;&#31383;
+</span>cl <span class="org-sh-escaped-newline">\</span>
+  --data-urlencode <span class="org-string">'match[]={job="node",instance=~"10\\.0\\.1\\..*"}'</span> <span class="org-sh-escaped-newline">\</span>
+  --data-urlencode <span class="org-string">'start=2026-10-01T00:00:00Z'</span> <span class="org-sh-escaped-newline">\</span>
+  --data-urlencode <span class="org-string">'end=2026-11-01T00:00:00Z'</span> <span class="org-sh-escaped-newline">\</span>
+  <span class="org-string">"$PROM/api/v1/admin/tsdb/delete_series"</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#22810;&#35268;&#21017; + &#32479;&#19968;&#25130;&#27490;&#26102;&#38388;&#65288;end &#23545;&#25152;&#26377; match[] &#29983;&#25928;&#65289;
+</span>cl <span class="org-sh-escaped-newline">\</span>
+  --data-urlencode <span class="org-string">'match[]={__name__=~"container_.*"}'</span> <span class="org-sh-escaped-newline">\</span>
+  --data-urlencode <span class="org-string">'match[]={__name__=~"apiserver_.*_bucket"}'</span> <span class="org-sh-escaped-newline">\</span>
+  --data-urlencode <span class="org-string">'match[]={job=~"test-.*|dev-.*"}'</span> <span class="org-sh-escaped-newline">\</span>
+  --data-urlencode <span class="org-string">'match[]={namespace="sandbox"}'</span> <span class="org-sh-escaped-newline">\</span>
+  --data-urlencode <span class="org-string">"end=$(date -d '7 days ago' +%s)"</span> <span class="org-sh-escaped-newline">\</span>
+  <span class="org-string">"$PROM/api/v1/admin/tsdb/delete_series"</span>
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#21516;&#19968;&#20010;&#20989;&#25968;&#20063;&#33021;&#36305;&#20854;&#20182;&#25509;&#21475;
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">&#21024;&#21069;&#39044;&#28436;&#65306;&#30475;&#36873;&#25321;&#22120;&#21629;&#20013;&#21738;&#20123;&#24207;&#21015;
+</span>cl --data-urlencode <span class="org-string">'match[]={job="node"}'</span> <span class="org-string">"$PROM/api/v1/series"</span> | jq <span class="org-string">'.data | length'</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#39640;&#22522;&#25968;&#25490;&#34892;&#65292;&#20915;&#23450;&#21024;&#20160;&#20040;
+</span>cl --data-urlencode <span class="org-string">'query=topk(20, count by (__name__)({__name__=~".+"}))'</span> <span class="org-sh-escaped-newline">\</span>
+   <span class="org-string">"$PROM/api/v1/query"</span> | jq -r <span class="org-string">'.data.result[] | "\(.value[1])\t\(.metric.__name__)"'</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#24555;&#29031;&#20828;&#24213;&#65288;&#30828;&#38142;&#25509;&#65292;&#20960;&#20046;&#19981;&#21344;&#31354;&#38388;&#65289;
+</span>cl <span class="org-string">"$PROM/api/v1/admin/tsdb/snapshot?skip_head=true"</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#22238;&#25910;&#30913;&#30424;&#65288;&#24930;&#65292;&#35201;&#21152;&#22823;&#36229;&#26102;&#65289;
+</span>cl -m 1800 <span class="org-string">"$PROM/api/v1/admin/tsdb/clean_tombstones"</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#20320;&#21407;&#26469;&#30340; reload
+</span>cl <span class="org-string">"$PROM/-/reload"</span> &amp;&amp; <span class="org-builtin">echo</span> OK
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">-m 1800 &#25918;&#22312; "$@" &#37324;&#20250;&#35206;&#30422;&#21069;&#38754;&#30340; -m 120 &#8212;&#8212; curl &#21462;&#26368;&#21518;&#19968;&#20010;&#21516;&#21517;&#21442;&#25968;&#65292;&#25152;&#20197;&#36879;&#20256;&#24335;&#23553;&#35013;&#22825;&#28982;&#25903;&#25345;&#20020;&#26102;&#25913;&#36229;&#26102;&#12290;
+</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#20004;&#20010;&#21069;&#32622;&#26465;&#20214;&#36824;&#26159;&#20043;&#21069;&#37027;&#20004;&#26465;&#65306;--web.enable-admin-api &#35201;&#20808;&#21152;&#19978;&#24182; docker compose up -d&#65288;&#29616;&#22312;&#27809;&#24320;&#65292;&#35843;&#29992;&#20250;&#36820;&#22238; 404&#65289;&#65307;clean_tombstones &#35201;&#37325;&#20889; block&#12289;&#23792;&#20540;&#32422; 2 &#20493;&#31354;&#38388;&#65292;&#20320;&#29616;&#22312; 93% &#21035;&#36305;&#65292;&#20808;&#25226; retention &#38477;&#19979;&#26469;&#33150;&#31354;&#38388;&#12290;
+</span>
 </pre>
 </div>
 
 <p>
-如果你想删除所有组中的所有指标，可以使用下面的命令来实现：
-</p>
-
-<p>
-需要启用 -web.enable-admin-api 来启用管理 API
+按 block 整块删除
 </p>
 <div class="org-src-container">
-<pre class="src src-sh">curl -X PUT http://192.168.0.106:30893/api/v1/admin/wipe
-</pre>
-</div>
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#21452;&#20445;&#38505;&#65292;&#20004;&#20010;&#26465;&#20214;&#21738;&#20010;&#20808;&#35302;&#21457;&#23601;&#25353;&#21738;&#20010;&#21024;&#65292;&#20197;&#21518;&#19981;&#31649;&#25968;&#25454;&#37327;&#24590;&#20040;&#28072;&#37117;&#19981;&#20250;&#20877;&#25745;&#29190;&#30424;&#12290;
+</span>--storage.tsdb.retention.time=1d
+--storage.tsdb.retention.size=10GB
 
-<p>
-删除 job
-</p>
-<div class="org-src-container">
-<pre class="src src-shell">
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#37325;&#21551;&#26381;&#21153;
+</span>docker compose up -d prometheus
+df -h /
 </pre>
 </div>
 </div>

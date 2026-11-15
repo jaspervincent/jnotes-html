@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Linux: UCloud 使用</title>
+<meta name="generator" content="Org Mode" />
+<script>
+/* main.css 默认把 body 隐藏起来，为的是切换深色模式时不闪白。
+   恢复可见完全交给 CSS 的 html.js:not(.ready) 选择器控制：
+   - 没有 JS：下面这句不会执行，html 上没有 .js，body 一开始就是可见的
+   - 有 JS 但 main.js 加载失败或抛异常：load 事件（或 2 秒兜底）照样会加上 .ready
+   任何一条路径都不会留下白屏。 */
+(function () {
+  var el = document.documentElement;
+  el.className += ' js';
+  function reveal() { el.className += ' ready'; }
+  window.addEventListener('load', reveal);
+  setTimeout(reveal, 2000);
+})();
+</script>
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="alternate" type="application/rss+xml" title="Jasper Hsu's Blog" href="https://xuchangwei.com/rss.xml">
+<link rel="me" href="https://emacs.ch/@jasperhsu">
+
+<!-- AdSense 加载器原本在这里，2026-10 下线。恢复步骤见 assets/ADSENSE.md
+     （本文件会被注入每一页的 <head>，所以细节不写在这儿）。 -->
+
+<!-- from -->
+<!--
+<style>#back-to-top{background:#000;-webkit-border-radius:50%;-moz-border-radius:50%;border-radius:50%;bottom:20px;-webkit-box-shadow:0 2px 5px 0 rgba(0,0,0,.26);-moz-box-shadow:0 2px 5px 0 rgba(0,0,0,.26);box-shadow:0 2px 5px 0 rgba(0,0,0,.26);color:#fff;cursor:pointer;display:block;height:56px;opacity:1;outline:0;position:fixed;right:20px;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;-webkit-transition:bottom .2s,opacity .2s;-o-transition:bottom .2s,opacity .2s;-moz-transition:bottom .2s,opacity .2s;transition:bottom .2s,opacity .2s;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;width:56px;z-index:1}#back-to-top svg{display:block;fill:currentColor;height:24px;margin:16px auto 0;width:24px}#back-to-top.hidden{bottom:-56px;opacity:0}</style>
+-->
+<!-- Bootstrap 必须排在 main.css 之前 —— main.css 里有覆盖它的规则
+     （如 body.dark-theme .form-control）。见 assets/static/vendor/README.md -->
+<link rel="stylesheet" href="/static/vendor/bootstrap.min.css">
+<link rel="stylesheet" href="/static/distro-htmlize.css">
+<link rel="stylesheet" href="/static/aandds.com/css/main.css">
+<link rel="stylesheet" href="/static/aandds.com/css/drollery.min.css">
+<script type="text/javascript" src="/static/aandds.com/js/main.js"></script>
+<meta name="description" content="UCloud 没有控制台一键的「跨账号迁移」功能。你这个场景（A 账号 bs-os → B 账号 bs-os-test）有三条可行路径，按数据规模选：" />
+<link rel="canonical" href="https://xuchangwei.com/linux/cloud/ucloud.html" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Linux: UCloud 使用" />
+<meta property="og:description" content="UCloud 没有控制台一键的「跨账号迁移」功能。你这个场景（A 账号 bs-os → B 账号 bs-os-test）有三条可行路径，按数据规模选：" />
+<meta property="og:url" content="https://xuchangwei.com/linux/cloud/ucloud.html" />
+<meta property="og:site_name" content="Jasper Hsu&apos;s Blog" />
+<meta name="twitter:card" content="summary" />
+<script type="application/ld+json">{"@context":"https://schema.org","url":"https://xuchangwei.com/linux/cloud/ucloud.html","@type":"WebPage","name":"Linux: UCloud 使用","description":"UCloud 没有控制台一键的「跨账号迁移」功能。你这个场景（A 账号 bs-os → B 账号 bs-os-test）有三条可行路径，按数据规模选："}</script>
+</head>
+<body>
+<div id="content" class="content">
+<header>
+<h1 class="title">Linux: UCloud 使用</h1>
+</header><nav id="table-of-contents" role="doc-toc">
+<h2>&#30446;&#24405;</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#h:394D3D8B-8D72-4FF4-B371-512C640C9FE2">US3</a>
+<ul>
+<li><a href="#h:B850F4EE-F55A-49D6-AD85-2702F1F6AC8B">数据迁移</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+<ul class="org-ul">
+<li>TAGS: <a href="../index.html">Linux</a></li>
+</ul>
+<section id="outline-container-h:394D3D8B-8D72-4FF4-B371-512C640C9FE2" class="outline-2">
+<h2 id="h:394D3D8B-8D72-4FF4-B371-512C640C9FE2"><a href="#h:394D3D8B-8D72-4FF4-B371-512C640C9FE2">US3</a></h2>
+<div class="outline-text-2" id="text-h:394D3D8B-8D72-4FF4-B371-512C640C9FE2">
+</div>
+<div id="outline-container-h:B850F4EE-F55A-49D6-AD85-2702F1F6AC8B" class="outline-3">
+<h3 id="h:B850F4EE-F55A-49D6-AD85-2702F1F6AC8B"><a href="#h:B850F4EE-F55A-49D6-AD85-2702F1F6AC8B">数据迁移</a></h3>
+<div class="outline-text-3" id="text-h:B850F4EE-F55A-49D6-AD85-2702F1F6AC8B">
+<p>
+UCloud 没有控制台一键的「跨账号迁移」功能。你这个场景（A 账号 bs-os → B 账号 bs-os-test）有三条可行路径，按数据规模选：
+</p>
+
+
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">方案</th>
+<th scope="col" class="org-left">适用</th>
+<th scope="col" class="org-left">特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">rclone（走 US3 的 S3 兼容协议）</td>
+<td class="org-left">几百 GB ~ 数 TB，文件数千万以内</td>
+<td class="org-left">最快上手，单机/多机并发，增量好做</td>
+</tr>
+
+<tr>
+<td class="org-left">US3SYNC（UCloud 官方迁移工具）</td>
+<td class="org-left">TB~PB、亿级文件</td>
+<td class="org-left">master+worker 可横向扩，官方支持 US3→US3</td>
+</tr>
+
+<tr>
+<td class="org-left">镜像回源</td>
+<td class="org-left">需要零停机切换</td>
+<td class="org-left">只迁"被访问过"的文件，必须配合上面两者做全量</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>
+注意： <code>us3cli cp us3://a us3://b</code> 在这里用不了 —— 它的跨 bucket 复制仅限同账号同地域（一套 AK/SK），跨账号不行。
+</p>
+
+
+
+<p>
+前置准备（两条路都要做）
+</p>
+<ol class="org-ol">
+<li>A 账号：控制台 → API 密钥，拿到公钥/私钥（或给 bs-os 单独建一个只读 Token）。若用子账号，务必确认已开启 API 密钥权限。</li>
+<li>B 账号：同样拿密钥，并先手动创建好 bs-os-test，地域尽量和 bs-os 保持一致。</li>
+<li>确认两个 bucket 的地域，endpoint 不同：
+<ul class="org-ul">
+<li>原生域名：cn-bj.ufileos.com / cn-sh2.ufileos.com / cn-gd.ufileos.com / hk.ufileos.com …</li>
+<li>S3 兼容域名要加 s3- 前缀：s3-cn-bj.ufileos.com、s3-cn-sh2.ufileos.com …</li>
+</ul></li>
+<li>检查存储类型：源端若有归档（Archive）对象，必须先解冻，US3SYNC 明确不支持归档源文件直迁。</li>
+<li>准备一台中转机（建议放 A 账号同地域云主机，带宽拉满）。跨账号必然走公网，A 账号会产生外网下行流量费，先估一下成本。</li>
+</ol>
+
+<p>
+&#x2014;
+</p>
+
+<p>
+方案一：rclone（推荐先试这个）
+</p>
+
+<p>
+rclone 1.74.0 起内置了 US3 provider（老版本用 provider = Other）。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">vim ~/.config/rclone/rclone.conf&#65306;
+
+[us3-a]
+<span class="org-variable-name">type</span> = s3
+<span class="org-variable-name">provider</span> = US3
+<span class="org-variable-name">access_key_id</span> = &lt;A&#36134;&#21495;&#20844;&#38053;&gt;
+<span class="org-variable-name">secret_access_key</span> = &lt;A&#36134;&#21495;&#31169;&#38053;&gt;
+<span class="org-variable-name">endpoint</span> = s3-sg.ufileos.com
+<span class="org-variable-name">region</span> = sg
+<span class="org-variable-name">chunk_size</span> = 8M
+<span class="org-variable-name">acl</span> = private
+
+[us3-b]
+<span class="org-variable-name">type</span> = s3
+<span class="org-variable-name">provider</span> = US3
+<span class="org-variable-name">access_key_id</span> = &lt;B&#36134;&#21495;&#20844;&#38053;&gt;
+<span class="org-variable-name">secret_access_key</span> = &lt;B&#36134;&#21495;&#31169;&#38053;&gt;
+<span class="org-variable-name">endpoint</span> = s3-hk.ufileos.com
+<span class="org-variable-name">region</span> = hk
+<span class="org-variable-name">chunk_size</span> = 8M
+<span class="org-variable-name">acl</span> = private
+</pre>
+</div>
+
+<p>
+<code>chunk_size = 8M</code> 不是随便填的 —— US3 的 S3 协议分片大小固定 8M，填别的值分片上传会失败。
+</p>
+
+<p>
+验证 + 全量迁移：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">rclone lsd us3-a:                    <span class="org-comment-delimiter"># </span><span class="org-comment">&#33021;&#21015;&#20986; bs-os &#35828;&#26126;&#23494;&#38053;&#21644; endpoint &#23545;&#20102;
+</span>rclone size us3-a:bs-os              <span class="org-comment-delimiter"># </span><span class="org-comment">&#35760;&#19979;&#23545;&#35937;&#25968;&#21644;&#24635;&#22823;&#23567;&#65292;&#26368;&#21518;&#29992;&#26469;&#23545;&#36134;
+</span>
+rclone copy us3-a:bs-os us3-b:bs-os-test <span class="org-sh-escaped-newline">\</span>
+  --transfers 32 --checkers 64 <span class="org-sh-escaped-newline">\</span>
+  --s3-upload-concurrency 4 <span class="org-sh-escaped-newline">\</span>
+  --progress --stats 30s <span class="org-sh-escaped-newline">\</span>
+  --log-file=/var/log/us3-mig.log --log-level INFO
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#29992; copy &#19981;&#29992; sync&#65306;sync &#20250;&#21024;&#25481;&#30446;&#30340;&#31471;&#22810;&#20313;&#25991;&#20214;&#65292;&#39318;&#27425;&#36801;&#31227;&#27809;&#24517;&#35201;&#25215;&#25285;&#36825;&#20010;&#39118;&#38505;&#12290;
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">&#20999;&#25442;&#21069;&#36305;&#19968;&#27425;&#22686;&#37327;&#65292;&#21516;&#19968;&#26465;&#21629;&#20196;&#37325;&#36305;&#21363;&#21487;&#65292;rclone &#25353; size+mtime &#36339;&#36807;&#24050;&#20256;&#30340;&#12290;
+</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#26657;&#39564;&#65306;
+</span>rclone check us3-a:bs-os us3-b:bs-os-test --size-only
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#24517;&#39035;&#21152; --size-only&#65306;US3 &#20998;&#29255;&#19978;&#20256;&#30340; ETag &#19981;&#26159;&#25991;&#20214; MD5&#65292;&#20004;&#31471; hash &#23545;&#19981;&#19978;&#65292;&#19981;&#21152;&#20250;&#35823;&#25253;&#19968;&#29255; differ&#12290;</span>
+</pre>
+</div>
+
+<p>
+PS: 一个关键认知：跨 remote（不同账号、不同密钥）rclone 做不了服务端直传，数据是「下载到中转机 →
+再上传」，所以中转机的带宽就是迁移速度上限。数据量大的话多开几台机器，按 key 前缀分片并行跑（&#x2013;include "a*"、&#x2013;include "b*" …）。
+</p>
+
+<p>
+&#x2014;
+</p>
+
+<p>
+方案二：US3SYNC（大规模走这条）
+</p>
+
+<p>
+官方工具，支持源端为 S3 / OSS / 七牛 / 又拍 / US3 / NAS / 本地目录 / URL 列表，目的端为 US3。
+</p>
+
+<p>
+架构是 master（单点，拉源端文件列表并派发任务）+ worker（可多台横向扩，负责下载并上传），内部用 pika 做缓存，数据不落盘、按分片粒度并发 —— 这是它相对老版 ufile-import（要求磁盘 &gt; 数据总量）的主要优势。
+</p>
+
+<p>
+大致流程：
+</p>
+
+<ol class="org-ol">
+<li>从 UCloud 文档中心下载 US3SYNC 包，目录结构为 bin/（master、worker）、conf/config.toml、cert/、log/、pika/、console.sh。</li>
+<li>改 conf/config.toml，配置 master/worker 地址、pika 等。</li>
+<li>./console.sh 启动，打开自带 Web 控制台。</li>
+<li>在控制台建迁移任务：
+<ul class="org-ul">
+<li>源端：类型选 US3，填 A 账号的公私钥、bucket bs-os、对应 endpoint、前缀（空=全量）</li>
+<li>目的端：填 B 账号的公私钥、bucket bs-os-test、目的前缀</li>
+<li>覆盖策略：全覆盖 / 条件覆盖（按时间戳或大小）/ 不覆盖 —— 做增量时选条件覆盖</li>
+</ul></li>
+<li>先用一个小前缀试跑验证通路，再放开全量。</li>
+</ol>
+
+<p>
+前缀映射规则：源前缀 A/ → 目的前缀 B/，则 A/a.txt 落成 B/a.txt；目的前缀留空就进根目录。
+</p>
+
+<p>
+&#x2014;
+</p>
+
+<p>
+方案三：镜像回源（做平滑切换用）
+</p>
+
+<p>
+如果不能停业务：在 B 账号的 bs-os-test 上配置回源规则指向 A 账号 bs-os 的外网域名。业务先切到 bs-os-test，命中本地直接返回，未命中则实时回源拉取并落一份到本地。
+</p>
+
+<ul class="org-ul">
+<li>优点：请求无缝切换，用户无感知</li>
+<li>缺点：没被访问过的文件永远不会迁过来，首次访问有额外延时</li>
+<li>前提：bs-os 需公有读（或回源支持带签名）</li>
+</ul>
+
+<p>
+正确用法是组合拳：先配回源 → 业务切到 bs-os-test（此时读写已经安全了）→ 后台不紧不慢跑 rclone/US3SYNC 全量兜底 → 全量跑完对账无误后撤掉回源规则 → 下线 bs-os。
+</p>
+
+<p>
+&#x2014;
+</p>
+
+<p>
+容易被漏掉的收尾项
+</p>
+
+<p>
+这些不会跟着对象一起迁移，要在 B 账号手动重建：
+</p>
+
+<ul class="org-ul">
+<li>Bucket ACL（公有读 / 私有）</li>
+<li>生命周期规则、存储类型转换策略</li>
+<li>跨域 CORS 配置</li>
+<li>自定义域名绑定、CDN 加速配置、防盗链 / Referer 白名单</li>
+<li>回源规则、图片处理样式</li>
+<li>业务代码里的 bucket 名和域名：bs-os → bs-os-test（名字带 test，如果这其实是生产用途，建议趁迁移改个正式名字）</li>
+</ul>
+
+<p>
+对账建议留存两份 rclone size 输出（对象数 + 字节数），迁移前后比对一致再做切换。
+</p>
+</div>
+</div>
+</section>
+</div>
+<div id="postamble" class="status">
+<!-- 这里曾经放过手动 AdSense 广告位。后改为自动广告（页面上不写 <ins>），
+     2026-10 广告整体下线。见 assets/ADSENSE.md。 -->
+<script type="text/javascript" src="/static/aandds.com/js/postamble.js"></script>
+</div>
+</body>
+</html>

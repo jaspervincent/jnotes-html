@@ -70,14 +70,41 @@
 <li><a href="#h:93898ca7-9fdf-43ab-ba74-3f0c33dd3979">rsyslog 相关文件</a></li>
 <li><a href="#h:c734ec52-572a-41d2-b8da-eb409d03e9cb">rsyslog配置文件</a>
 <ul>
-<li><a href="#orgd6c6d3e">RULES配置格式</a></li>
+<li><a href="#org425913a">RULES配置格式</a></li>
 </ul>
 </li>
 <li><a href="#h:246da8d2-4357-4131-8825-5b53e5110910">启用网络日志服务</a></li>
 <li><a href="#h:2cc68133-2f80-47f9-adb9-1674f2f69f1a">常见日志文件</a></li>
 </ul>
 </li>
-<li><a href="#h:34386797-ff07-48a8-a392-582762cd7c43">日志管理工具 journalctl</a></li>
+</ul>
+</li>
+<li><a href="#h:34386797-ff07-48a8-a392-582762cd7c43">日志管理工具 journalctl</a>
+<ul>
+<li><a href="#h:bb7a7996-0467-449d-880e-f05a424f5e78">速查：Rocky 与 Ubuntu 对照</a></li>
+<li><a href="#h:7c7c35b9-1643-4387-b596-beff26822b0c">日志的配置文件</a>
+<ul>
+<li><a href="#h:984c7d05-5142-47dc-914c-f88b860acd6e">配置文件位置（systemd 257+ 的变化）</a></li>
+<li><a href="#h:ee5f162b-0f32-4b39-8080-8d32c4afae73">drop-in 命名陷阱（实测验证）</a></li>
+</ul>
+</li>
+<li><a href="#h:732ffb30-4c3d-42d9-aa64-b1c07abc37d0">journalctl 命令</a>
+<ul>
+<li><a href="#h:a2a32315-42f7-43c6-8ede-81ee33c56191">命令格式</a></li>
+<li><a href="#h:dc27330f-150d-4113-9fb7-b0844c57330e">常用命令速查表</a></li>
+<li><a href="#h:fa9b09be-a7d3-4d9f-8564-44bcfed39546">journalctl 范例</a></li>
+<li><a href="#h:5209cfc3-b21a-4da0-b156-c4d12f687f16">完整选项说明</a></li>
+</ul>
+</li>
+<li><a href="#h:850d0068-fd66-46b1-9e8b-55fc16b0ac41">优化配置</a>
+<ul>
+<li><a href="#h:8410738f-208e-4446-ab48-06e47eb42cee">Rocky 10 优化方案</a></li>
+<li><a href="#h:440aefa7-14f0-4bd1-8c09-12a17f2f3b0a">Ubuntu 26.04 优化方案</a></li>
+<li><a href="#h:652f84b2-f742-402e-ab69-e42b5abb3ce1">核心参数说明</a></li>
+<li><a href="#h:7e3c4a19-6d82-4f55-b1a7-3c9d05e8f4b2">验证方法</a></li>
+<li><a href="#h:3f1b9c27-8e54-4a06-9d13-72be8f05a1c6">避坑清单</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#h:96a0d666-b4dc-484d-95c5-ce786464309e">实战案例</a>
@@ -209,7 +236,7 @@ rsyslog 特性
 
 
 
-<figure id="orge46ace2">
+<figure id="org0f7c888">
 <img style="aspect-ratio:522/359" decoding="async" loading="lazy" src="./images/img_20241021_003903.webp" alt="img_20241021_003903.webp" width="80%">
 
 </figure>
@@ -251,7 +278,7 @@ ELK：由Elasticsearch, Logstash, Kibana三个软件组成
 </pre>
 </div>
 
-<pre class="example" id="org8d3124a">
+<pre class="example" id="orgf7f53c5">
 auth 各应用程序认证功能相关
 authpriv 各应用与授权相关
 cron 与crontable相关
@@ -314,9 +341,9 @@ syslog 其他，不便于归类的全都记录在此处
 <li>RULES：日志记录相关的规则配置</li>
 </ul>
 </div>
-<div id="outline-container-orgd6c6d3e" class="outline-5">
-<h5 id="orgd6c6d3e"><a href="#orgd6c6d3e">RULES配置格式</a></h5>
-<div class="outline-text-5" id="text-orgd6c6d3e">
+<div id="outline-container-org425913a" class="outline-5">
+<h5 id="org425913a"><a href="#org425913a">RULES配置格式</a></h5>
+<div class="outline-text-5" id="text-org425913a">
 <div class="org-src-container">
 <pre class="src src-sh">facility.priority; facility.priority&#8230;   target
 
@@ -349,7 +376,7 @@ syslog 其他，不便于归类的全都记录在此处
 日志文件有很多，如：/var/log/messages,cron,secure等，基本格式都是类似的。格式如下
 </p>
 
-<pre class="example" id="org54ebab3">
+<pre class="example" id="org460874e">
 事件产生的日期时间 主机 进程(pid)：事件内容
 </pre>
 
@@ -536,37 +563,651 @@ lastlog
 </div>
 </div>
 </div>
-<div id="outline-container-h:34386797-ff07-48a8-a392-582762cd7c43" class="outline-3">
-<h3 id="h:34386797-ff07-48a8-a392-582762cd7c43"><a href="#h:34386797-ff07-48a8-a392-582762cd7c43">日志管理工具 journalctl</a></h3>
-<div class="outline-text-3" id="text-h:34386797-ff07-48a8-a392-582762cd7c43">
+</section>
+<section id="outline-container-h:34386797-ff07-48a8-a392-582762cd7c43" class="outline-2">
+<h2 id="h:34386797-ff07-48a8-a392-582762cd7c43"><a href="#h:34386797-ff07-48a8-a392-582762cd7c43">日志管理工具 journalctl</a></h2>
+<div class="outline-text-2" id="text-h:34386797-ff07-48a8-a392-582762cd7c43">
 <p>
 CentOS 7 以后版，利用Systemd 统一管理所有 Unit的启动日志。带来的好处就
-是，可以只用journalctl一个命令，查看所有日志（内核日志和应用日志）。
+是，可以只用 journalctl 一个命令，查看所有日志（内核日志和应用日志）。
 </p>
 
 <p>
-<b>日志的配置文件：</b>
+但各发行版 journald 的默认行为差异很大，照搬一套配置往往无效。下面以
+Rocky 10.2（systemd 257）和 Ubuntu 26.04（systemd 259）实机对照说明。
+</p>
+</div>
+<div id="outline-container-h:bb7a7996-0467-449d-880e-f05a424f5e78" class="outline-3">
+<h3 id="h:bb7a7996-0467-449d-880e-f05a424f5e78"><a href="#h:bb7a7996-0467-449d-880e-f05a424f5e78">速查：Rocky 与 Ubuntu 对照</a></h3>
+<div class="outline-text-3" id="text-h:bb7a7996-0467-449d-880e-f05a424f5e78">
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">对照项</th>
+<th scope="col" class="org-left">Rocky 10.2 (systemd 257)</th>
+<th scope="col" class="org-left">Ubuntu 26.04 (systemd 259)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">主配置文件</td>
+<td class="org-left"><code>/usr/lib/systemd/journald.conf</code></td>
+<td class="org-left"><code>/etc/systemd/journald.conf</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>/etc</code> 下主配置</td>
+<td class="org-left"><b>默认不存在</b></td>
+<td class="org-left">存在（内容全是注释）</td>
+</tr>
+
+<tr>
+<td class="org-left">厂商 drop-in</td>
+<td class="org-left">无</td>
+<td class="org-left"><b>有</b> <code>journald.conf.d/syslog.conf</code></td>
+</tr>
+
+<tr>
+<td class="org-left">自定义配置建议命名</td>
+<td class="org-left"><code>99-tuning.conf</code></td>
+<td class="org-left"><code>zz-tuning.conf</code> ⚠️ 见命名陷阱</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>Storage</code> 默认值</td>
+<td class="org-left"><code>auto</code></td>
+<td class="org-left"><code>persistent</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>/var/log/journal</code></td>
+<td class="org-left"><b>默认不存在</b> → 重启丢日志 ⚠️</td>
+<td class="org-left">默认存在 → 已持久化</td>
+</tr>
+
+<tr>
+<td class="org-left">默认容量上限</td>
+<td class="org-left">文件系统的 10%（16G 盘 ≈ 1.6G）</td>
+<td class="org-left">文件系统的 10%（38G 盘 ≈ 3.7G）</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>ForwardToSyslog</code></td>
+<td class="org-left"><code>no</code></td>
+<td class="org-left"><code>yes</code> ⚠️ 厂商 drop-in 强制</td>
+</tr>
+
+<tr>
+<td class="org-left">rsyslog</td>
+<td class="org-left">默认安装且运行（与 journal 双写）</td>
+<td class="org-left"><b>默认不安装</b></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>/var/log/messages</code></td>
+<td class="org-left">有</td>
+<td class="org-left">无，全靠 journal</td>
+</tr>
+
+<tr>
+<td class="org-left">SELinux</td>
+<td class="org-left">有策略，建目录后建议 <code>restorecon</code></td>
+<td class="org-left">无</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>Audit</code> 默认</td>
+<td class="org-left">空值（不采集）</td>
+<td class="org-left"><code>yes</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>
+两边要解决的问题完全不同：
+</p>
+
+<ul class="org-ul">
+<li>Rocky 是日志不持久化。 <code>Storage=auto</code> 且 <code>/var/log/journal</code> 不存在，
+日志只在 tmpfs <code>/run/log/journal</code> 里，重启全丢。</li>
+<li>Ubuntu 是转发空转加没有容量上限。开着 <code>ForwardToSyslog=yes</code> 却没装
+rsyslog，日志可无约束涨到 3.7G。</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-h:7c7c35b9-1643-4387-b596-beff26822b0c" class="outline-3">
+<h3 id="h:7c7c35b9-1643-4387-b596-beff26822b0c"><a href="#h:7c7c35b9-1643-4387-b596-beff26822b0c">日志的配置文件</a></h3>
+<div class="outline-text-3" id="text-h:7c7c35b9-1643-4387-b596-beff26822b0c">
+</div>
+<div id="outline-container-h:984c7d05-5142-47dc-914c-f88b860acd6e" class="outline-4">
+<h4 id="h:984c7d05-5142-47dc-914c-f88b860acd6e"><a href="#h:984c7d05-5142-47dc-914c-f88b860acd6e">配置文件位置（systemd 257+ 的变化）</a></h4>
+<div class="outline-text-4" id="text-h:984c7d05-5142-47dc-914c-f88b860acd6e">
+<p>
+systemd 257 起默认配置随包放在 <code>/usr/lib/</code> 下， <code>/etc/</code> 下的主配置文件
+可能不存在。两台实机正好相反：
+</p>
+
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">文件</th>
+<th scope="col" class="org-left">Rocky 10.2</th>
+<th scope="col" class="org-left">Ubuntu 26.04</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>/etc/systemd/journald.conf</code></td>
+<td class="org-left">不存在</td>
+<td class="org-left">存在（全注释）</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>/usr/lib/systemd/journald.conf</code></td>
+<td class="org-left">存在（全注释）</td>
+<td class="org-left">不存在</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+加载顺序，后者覆盖前者：
+</p>
+
+<pre class="example" id="orgad071b3">
+1. 主配置文件    /usr/lib/systemd/journald.conf  或  /etc/systemd/journald.conf
+2. drop-in       /usr/lib/systemd/journald.conf.d/*.conf
+                 /run/systemd/journald.conf.d/*.conf
+                 /etc/systemd/journald.conf.d/*.conf
+</pre>
+
+<p>
+drop-in 永远覆盖主配置文件，所以在主配置文件里改已被 drop-in 设过的值无效。
+改配置一律用 drop-in，并用这条命令确认最终结果：
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">/etc/systemd/journald.conf
+<pre class="src src-sh">systemd-analyze cat-config systemd/journald.conf
 </pre>
 </div>
+</div>
+</div>
+<div id="outline-container-h:ee5f162b-0f32-4b39-8080-8d32c4afae73" class="outline-4">
+<h4 id="h:ee5f162b-0f32-4b39-8080-8d32c4afae73"><a href="#h:ee5f162b-0f32-4b39-8080-8d32c4afae73">drop-in 命名陷阱（实测验证）</a></h4>
+<div class="outline-text-4" id="text-h:ee5f162b-0f32-4b39-8080-8d32c4afae73">
+<p>
+drop-in 按 <b>文件名</b> 字典序排序，后者覆盖前者，与所在目录无关；只有文件名
+完全相同时，才按 <code>/etc</code> &gt; <code>/run</code> &gt; <code>/usr/lib</code> 整体替换。
+</p>
 
 <p>
-<b>journalctl命令格式</b>
+Ubuntu 自带 <code>/usr/lib/systemd/journald.conf.d/syslog.conf</code> 强制
+<code>ForwardToSyslog=yes</code> 。因为 <code>'9' &lt; 's'</code> ，习惯命名的 <code>99-tuning.conf</code>
+会排在它前面，被反向覆盖。三种命名的实测结果：
 </p>
+
+<pre class="example" id="orgcf0f80e">
+99-tuning.conf   →  ForwardToSyslog=yes   改了等于没改
+zz-tuning.conf   →  ForwardToSyslog=no    'z' &gt; 's'，生效
+syslog.conf      →  ForwardToSyslog=no    同名整体替换，厂商文件从合并结果消失
+</pre>
+
+<p>
+有厂商 drop-in 的发行版（Ubuntu/Debian），自定义文件名必须排在厂商文件
+之后， <code>zz-</code> 前缀最稳妥；或用同名文件整体屏蔽。
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-h:732ffb30-4c3d-42d9-aa64-b1c07abc37d0" class="outline-3">
+<h3 id="h:732ffb30-4c3d-42d9-aa64-b1c07abc37d0"><a href="#h:732ffb30-4c3d-42d9-aa64-b1c07abc37d0">journalctl 命令</a></h3>
+<div class="outline-text-3" id="text-h:732ffb30-4c3d-42d9-aa64-b1c07abc37d0">
+</div>
+<div id="outline-container-h:a2a32315-42f7-43c6-8ede-81ee33c56191" class="outline-4">
+<h4 id="h:a2a32315-42f7-43c6-8ede-81ee33c56191"><a href="#h:a2a32315-42f7-43c6-8ede-81ee33c56191">命令格式</a></h4>
+<div class="outline-text-4" id="text-h:a2a32315-42f7-43c6-8ede-81ee33c56191">
+<p>
+参考：
+</p>
+<ul class="org-ul">
+<li>The systemd for Administrators Blog Series
+<ul class="org-ul">
+<li><a href="https://0pointer.de/blog/projects/journalctl.html">#17: Using the Journal</a></li>
+</ul></li>
+<li>journalctl命令选项：
+<ul class="org-ul">
+<li><a href="https://manpages.debian.org/unstable/manpages-zh/journalctl.1.zh_CN.html">Debian-manpage: journalctl</a></li>
+<li><a href="https://manpages.ubuntu.com/manpages/questing/zh_CN/man1/journalctl.1.html">Ubuntu-manpage: journalctl</a></li>
+</ul></li>
+<li><a href="https://blog.csdn.net/omaidb/article/details/116019014?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=journalctl%20&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-8-116019014.142%5Ev102%5Epc_search_result_base6&amp;spm=1018.2226.3001.4187">CSDN:journalctl日志管理</a></li>
+</ul>
+
+
 
 <div class="org-src-container">
 <pre class="src src-sh">journalctl [OPTIONS...] [MATCHES...]
 </pre>
 </div>
-
+</div>
+</div>
+<div id="outline-container-h:dc27330f-150d-4113-9fb7-b0844c57330e" class="outline-4">
+<h4 id="h:dc27330f-150d-4113-9fb7-b0844c57330e"><a href="#h:dc27330f-150d-4113-9fb7-b0844c57330e">常用命令速查表</a></h4>
+<div class="outline-text-4" id="text-h:dc27330f-150d-4113-9fb7-b0844c57330e">
 <p>
-<b>选项说明：</b>
+两个发行版的 journalctl 命令完全一致，差异只在配置和默认行为上。
 </p>
 
-<pre class="example" id="org27bc20d">
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">用途</th>
+<th scope="col" class="org-left">命令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">查看全部日志</td>
+<td class="org-left"><code>journalctl</code></td>
+</tr>
+
+<tr>
+<td class="org-left">只看内核日志</td>
+<td class="org-left"><code>journalctl -k</code></td>
+</tr>
+
+<tr>
+<td class="org-left">本次启动的日志</td>
+<td class="org-left"><code>journalctl -b</code> / <code>journalctl -b -0</code></td>
+</tr>
+
+<tr>
+<td class="org-left">上次启动的日志</td>
+<td class="org-left"><code>journalctl -b -1</code></td>
+</tr>
+
+<tr>
+<td class="org-left">列出所有启动记录</td>
+<td class="org-left"><code>journalctl --list-boots</code></td>
+</tr>
+
+<tr>
+<td class="org-left">实时跟踪</td>
+<td class="org-left"><code>journalctl -f</code></td>
+</tr>
+
+<tr>
+<td class="org-left">最新 20 行</td>
+<td class="org-left"><code>journalctl -n 20</code></td>
+</tr>
+
+<tr>
+<td class="org-left">指定服务</td>
+<td class="org-left"><code>journalctl -u nginx.service</code></td>
+</tr>
+
+<tr>
+<td class="org-left">指定服务并跟踪</td>
+<td class="org-left"><code>journalctl -u nginx.service -f</code></td>
+</tr>
+
+<tr>
+<td class="org-left">多个服务合并</td>
+<td class="org-left"><code>journalctl -u nginx -u php-fpm</code></td>
+</tr>
+
+<tr>
+<td class="org-left">按时间</td>
+<td class="org-left"><code>journalctl --since today --until now</code></td>
+</tr>
+
+<tr>
+<td class="org-left">按优先级（err 及以上）</td>
+<td class="org-left"><code>journalctl -p err -b</code></td>
+</tr>
+
+<tr>
+<td class="org-left">按进程 PID</td>
+<td class="org-left"><code>journalctl _PID=1</code></td>
+</tr>
+
+<tr>
+<td class="org-left">按用户 UID</td>
+<td class="org-left"><code>journalctl _UID=33 --since today</code></td>
+</tr>
+
+<tr>
+<td class="org-left">按 tag</td>
+<td class="org-left"><code>journalctl -t sshd</code></td>
+</tr>
+
+<tr>
+<td class="org-left">JSON 输出</td>
+<td class="org-left"><code>journalctl -o json-pretty</code></td>
+</tr>
+
+<tr>
+<td class="org-left">查看占用磁盘空间</td>
+<td class="org-left"><code>journalctl --disk-usage</code></td>
+</tr>
+
+<tr>
+<td class="org-left">检查配置是否生效</td>
+<td class="org-left"><code>systemd-analyze cat-config systemd/journald.conf</code></td>
+</tr>
+
+<tr>
+<td class="org-left">按容量清理</td>
+<td class="org-left"><code>journalctl --vacuum-size=500M</code></td>
+</tr>
+
+<tr>
+<td class="org-left">按时间清理</td>
+<td class="org-left"><code>journalctl --vacuum-time=30d</code></td>
+</tr>
+
+<tr>
+<td class="org-left">按文件数清理</td>
+<td class="org-left"><code>journalctl --vacuum-files=10</code></td>
+</tr>
+
+<tr>
+<td class="org-left">归档当前活动文件</td>
+<td class="org-left"><code>journalctl --rotate</code></td>
+</tr>
+
+<tr>
+<td class="org-left">内存日志刷到磁盘</td>
+<td class="org-left"><code>journalctl --flush</code></td>
+</tr>
+
+<tr>
+<td class="org-left">校验日志完整性</td>
+<td class="org-left"><code>journalctl --verify</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>
+日志等级共 8 级， <code>-p</code> 取某级时表示"该级及更高"：
+</p>
+
+<pre class="example" id="orge55b830">
+0 emerg   1 alert   2 crit    3 err
+4 warning 5 notice  6 info    7 debug
+</pre>
+
+<p>
+命令选项
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">-f, --follow &#21482;&#26174;&#31034;&#26368;&#26032;&#30340;&#26085;&#24535;&#39033;&#65292;&#24182;&#19988;&#19981;&#26029;&#26174;&#31034;&#26032;&#29983;&#25104;&#30340;&#26085;&#24535;&#39033;&#12290; &#27492;&#36873;&#39033;&#38544;&#21547;&#20102; -n &#36873;&#39033;&#12290;
+
+-e  &#33258;&#21160;&#28378;&#21160;&#21040;&#26368;&#26032;&#30340;&#26085;&#24535;&#26465;&#30446;&#12290;&#36339;&#36716;&#21040;&#26085;&#24535;&#30340;&#23614;&#37096;&#12290;
+
+-n &#38480;&#21046;&#26174;&#31034;&#26368;&#26032;&#30340;&#26085;&#24535;&#34892;&#25968;&#12290; &#40664;&#35748;10&#34892;&#12290;
+
+-o, --output=  &#25511;&#21046;&#26085;&#24535;&#30340;&#36755;&#20986;&#26684;&#24335;&#12290; &#21487;&#20197;&#20351;&#29992;&#22914;&#19979;&#36873;&#39033;
+
+  verbose &#20197;&#32467;&#26500;&#21270;&#30340;&#26684;&#24335;&#26174;&#31034;&#27599;&#26465;&#26085;&#24535;&#30340;&#25152;&#26377;&#23383;&#27573;
+  <span class="org-builtin">export</span> &#23558;&#26085;&#24535;&#24207;&#21015;&#21270;&#20026;&#20108;&#36827;&#21046;&#23383;&#33410;&#27969;
+
+
+-b [ID][&#177;offset], --boot=[ID][&#177;offset] &#26174;&#31034;&#29305;&#23450;&#20110;&#26576;&#27425;&#21551;&#21160;&#30340;&#26085;&#24535;&#65292; &#36825;&#30456;&#24403;&#20110;&#28155;&#21152;&#20102;&#19968;&#20010; <span class="org-string">"_BOOT_ID="</span> &#21305;&#37197;&#26465;&#20214;&#12290;
+
+-k, --dmesg &#20165;&#26174;&#31034;&#20869;&#26680;&#26085;&#24535;&#12290;&#38544;&#21547;&#20102; -b &#36873;&#39033;&#20197;&#21450; <span class="org-string">"_TRANSPORT=kernel"</span> &#21305;&#37197;&#39033;&#12290;
+
+-u, --unit=UNIT|PATTERN  <span class="org-comment-delimiter">#</span><span class="org-comment">&#20165;&#26174;&#31034;&#23646;&#20110;&#29305;&#23450;&#21333;&#20803;&#30340;&#26085;&#24535;&#12290; (UNIT)
+</span>
+-x, --catalog &#22312;&#26085;&#24535;&#30340;&#36755;&#20986;&#20013;&#22686;&#21152;&#19968;&#20123;&#35299;&#37322;&#24615;&#30340;&#30701;&#25991;&#26412;&#65292; &#20197;&#24110;&#21161;&#36827;&#19968;&#27493;&#35828;&#26126;&#26085;&#24535;&#30340;&#21547;&#20041;&#12289; &#38382;&#39064;&#30340;&#35299;&#20915;&#26041;&#26696;&#12289;&#25903;&#25345;&#35770;&#22363;&#12289; &#24320;&#21457;&#25991;&#26723;&#12289;&#20197;&#21450;&#20854;&#20182;&#20219;&#20309;&#20869;&#23481;&#12290; 
+
+-S, --since=, -U, --until=
+
+  &#21442;&#25968;&#30340;&#26684;&#24335;&#31867;&#20284; <span class="org-string">"2012-10-30 18:17:16"</span> &#12290; &#21442;&#25968;&#36824;&#21487;&#20197;&#36827;&#34892;&#22914;&#19979;&#35774;&#32622;&#65306; 
+  (1)&#35774;&#20026; <span class="org-string">"yesterday"</span>, <span class="org-string">"today"</span>, <span class="org-string">"tomorrow"</span> &#20197;&#34920;&#31034;&#37027;&#19968;&#22825;&#30340;&#38646;&#28857;(00:00:00)&#12290; 
+  (2)&#35774;&#20026; <span class="org-string">"now"</span> &#20197;&#34920;&#31034;&#24403;&#21069;&#26102;&#38388;&#12290; 
+  (3)&#21487;&#20197;&#22312;<span class="org-string">"&#24180;-&#26376;-&#26085; &#26102;:&#20998;:&#31186;"</span>&#21069;&#21152;&#19978; <span class="org-string">"-"</span>(&#21069;&#31227;) &#25110; <span class="org-string">"+"</span>(&#21518;&#31227;) &#21069;&#32512;&#20197;&#34920;&#31034;&#30456;&#23545;&#20110;&#24403;&#21069;&#26102;&#38388;&#30340;&#20559;&#31227;&#12290; 
+  &#20851;&#20110;&#26102;&#38388;&#19982;&#26085;&#26399;&#30340;&#35814;&#32454;&#35268;&#33539;&#65292; &#21442;&#35265; systemd.time(7)
+
+--disk-usage &#26174;&#31034;&#25152;&#26377;&#26085;&#24535;&#25991;&#20214;(&#24402;&#26723;&#25991;&#20214;&#19982;&#27963;&#21160;&#25991;&#20214;)&#30340;&#30913;&#30424;&#21344;&#29992;&#24635;&#37327;&#12290;
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-h:fa9b09be-a7d3-4d9f-8564-44bcfed39546" class="outline-4">
+<h4 id="h:fa9b09be-a7d3-4d9f-8564-44bcfed39546"><a href="#h:fa9b09be-a7d3-4d9f-8564-44bcfed39546">journalctl 范例</a></h4>
+<div class="outline-text-4" id="text-h:fa9b09be-a7d3-4d9f-8564-44bcfed39546">
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">&#26174;&#31034;&#23614;&#37096;&#25351;&#23450;&#34892;&#25968;&#30340;&#26085;&#24535;
+</span>journalctl -n 20
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#26597;&#30475;&#20174;&#26368;&#21518;&#19968;&#27425;&#21551;&#21160;&#24320;&#22987;&#30340;&#31995;&#32479;&#26381;&#21153;&#21644;&#20869;&#26680;&#26085;&#24535;
+</span>journalctl -b --system
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#26597;&#30475;&#20174;&#26368;&#21518;&#19968;&#27425;&#21551;&#21160;&#24320;&#22987;&#30340;&#24403;&#21069;&#29992;&#25143;&#30340;&#26381;&#21153;&#26085;&#24535;
+</span>journalctl -b --user
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#26597;&#30475;&#20174;&#26368;&#21518;&#19968;&#27425;&#21551;&#21160;&#24320;&#22987;&#30340; "$unit" &#24037;&#20316;&#26085;&#24535;
+</span>journalctl -b -u $<span class="org-variable-name">unit</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#26597;&#30475;&#20174;&#26368;&#21518;&#19968;&#27425;&#21551;&#21160;&#24320;&#22987;&#30340; "$unit"&#30340;&#24037;&#20316;&#26085;&#24535; ("tail -f" &#24335;&#26679;)
+</span>journalctl -b -u $<span class="org-variable-name">unit</span> -f
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#26816;&#26597;&#24403;&#21069;&#30001;journald&#31649;&#29702;&#30340;&#25152;&#26377;&#26085;&#24535;&#30340;&#23481;&#37327;
+</span>journalctl --disk-usage
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#26597;&#30475; systemd &#26085;&#24535;
+</span>journalctl -u cron.service --since <span class="org-string">"11:40:00"</span>
+journalctl -u sshd --since <span class="org-string">"2025-05-04 04:00:00"</span> --until <span class="org-string">"2025-05-07 05:00:00"</span>
+</pre>
+</div>
+
+<p>
+显示元数据
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">$ journalctl -o verbose -n
+[...]
+Tue, 2012-10-23 23:51:38 CEST [<span class="org-variable-name">s</span>=ac9e9c423355411d87bf0ba1a9b424e8;<span class="org-variable-name">i</span>=4301;<span class="org-variable-name">b</span>=5335e9cf5d954633bb99aefc0ec38c25;<span class="org-variable-name">m</span>=882ee28d2;<span class="org-variable-name">t</span>=4ccc0f98326e6;<span class="org-variable-name">x</span>=f21e8b1b0994d7ee]
+        <span class="org-variable-name">PRIORITY</span>=6
+        <span class="org-variable-name">SYSLOG_FACILITY</span>=3
+        <span class="org-variable-name">_MACHINE_ID</span>=a91663387a90b89f185d4e860000001a
+        <span class="org-variable-name">_HOSTNAME</span>=epsilon
+        <span class="org-variable-name">_TRANSPORT</span>=syslog
+        <span class="org-variable-name">SYSLOG_IDENTIFIER</span>=avahi-daemon
+        <span class="org-variable-name">_COMM</span>=avahi-daemon
+        <span class="org-variable-name">_EXE</span>=/usr/sbin/avahi-daemon
+        <span class="org-variable-name">_SYSTEMD_CGROUP</span>=/system/avahi-daemon.service
+        <span class="org-variable-name">_SYSTEMD_UNIT</span>=avahi-daemon.service
+        <span class="org-variable-name">_SELINUX_CONTEXT</span>=system_u:system_r:avahi_t:s0
+        <span class="org-variable-name">_UID</span>=70
+        <span class="org-variable-name">_GID</span>=70
+        <span class="org-variable-name">_CMDLINE</span>=avahi-daemon: registering [epsilon.local]
+        <span class="org-variable-name">MESSAGE</span>=Joining mDNS multicast group on interface wlan0.IPv4 with address 172.31.0.53.
+        <span class="org-variable-name">_BOOT_ID</span>=5335e9cf5d954633bb99aefc0ec38c25
+        <span class="org-variable-name">_PID</span>=27937
+        <span class="org-variable-name">SYSLOG_PID</span>=27937
+        <span class="org-variable-name">_SOURCE_REALTIME_TIMESTAMP</span>=1351029098747042
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#26174;&#31034;&#25152;&#26377;&#26469;&#33258; Linux &#29992;&#25143; ID 70 &#25110; 71 &#30340;&#26085;&#24535;&#28040;&#24687;
+</span>journalctl <span class="org-variable-name">_UID</span>=70 <span class="org-variable-name">_UID</span>=71
+</pre>
+</div>
+
+<p>
+会话详情
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">&#36890;&#36807; journalctl &#36807;&#28388;&#29305;&#23450;&#20250;&#35805;
+</span>journalctl <span class="org-variable-name">_PID</span>=4771
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#25110;&#26597;&#30475;&#25152;&#26377; root &#29992;&#25143;&#20250;&#35805;
+</span>journalctl <span class="org-variable-name">_UID</span>=0
+</pre>
+</div>
+
+<p>
+范例: ssh暴力破解检查
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">~]# tail /var/log/messages
+May  8 13:50:01 overseas-tools systemd: Started Session 4786 of user root.
+
+~]# grep 14450 /var/log/secure
+May  4 04:18:22 overseas-tools sshd[14450]: Invalid user a from 195.211.191.197 port 39244
+May  4 04:18:22 overseas-tools sshd[14450]: input_userauth_request: invalid user a [preauth]
+May  4 04:18:24 overseas-tools sshd[14450]: Connection closed by 195.211.191.197 port 39244 [preauth]
+<span class="org-comment-delimiter">#</span><span class="org-comment">invalid user a&#65306;&#23581;&#35797;&#20351;&#29992;&#26080;&#25928;&#29992;&#25143;&#21517; a &#36827;&#34892;&#35748;&#35777;&#65292;
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">[preauth]&#65306;&#27492;&#27425;&#35748;&#35777;&#35831;&#27714;&#22312;SSH&#30340;&#8220;&#39044;&#35748;&#35777;&#38454;&#27573;&#8221;&#34987;&#25298;&#32477;&#65288;&#26410;&#23436;&#25104;&#23494;&#38053;&#20132;&#25442;&#25110;&#23494;&#30721;&#39564;&#35777;&#21069;&#65289;&#12290;
+</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#36890;&#36807; journalctl &#36807;&#28388;&#29305;&#23450;&#20250;&#35805;
+</span>~]# journalctl <span class="org-variable-name">_PID</span>=14450
+-- Logs begin at Thu 2023-10-19 11:48:25 CST, end at Thu 2025-05-08 14:11:00 CST. --
+Feb 19 08:10:01 overseas-tools CROND[14450]: (root) CMD (/usr/lib64/sa/sa1 1 1)
+Mar 11 14:51:03 overseas-tools sshd[14450]: Invalid user centos from 59.148.102.58 port 50150
+Mar 11 14:51:03 overseas-tools sshd[14450]: input_userauth_request: invalid user centos [preauth]
+Mar 11 14:51:03 overseas-tools sshd[14450]: Connection closed by 59.148.102.58 port 50150 [preauth]
+-- Reboot --
+May 04 04:18:22 overseas-tools sshd[14450]: Invalid user a from 195.211.191.197 port 39244
+May 04 04:18:22 overseas-tools sshd[14450]: input_userauth_request: invalid user a [preauth]
+May 04 04:18:24 overseas-tools sshd[14450]: Connection closed by 195.211.191.197 port 39244 [preauth]
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#35786;&#26029;
+</span><span class="org-comment-delimiter">## </span><span class="org-comment">&#32479;&#35745;&#25152;&#26377;&#26080;&#25928;&#29992;&#25143;&#21517;&#30340;&#23581;&#35797;&#27425;&#25968;
+</span>grep <span class="org-string">"invalid user"</span> /var/log/secure | awk <span class="org-string">'{print $(NF-1)}'</span> | sort | uniq -c | sort -nr
+<span class="org-comment-delimiter">## </span><span class="org-comment">&#25552;&#21462;&#25152;&#26377;&#23581;&#35797;&#38750;&#27861;&#30331;&#24405;&#30340;IP&#22320;&#22336;
+</span>grep <span class="org-string">"sshd.*Invalid user.*from"</span> /var/log/secure | grep -oE <span class="org-string">'([0-9]{1,3}\.){3}[0-9]{1,3}'</span> | sort | uniq -c
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#26816;&#26597;SSH&#37197;&#32622;
+</span><span class="org-comment-delimiter">##</span><span class="org-comment">&#30830;&#35748;SSH&#26381;&#21153;&#30417;&#21548;&#33539;&#22260;
+</span>ss -tulnp | grep sshd
+<span class="org-comment-delimiter">##</span><span class="org-comment">&#26597;&#30475;SSH&#35748;&#35777;&#22833;&#36133;&#35760;&#24405;
+</span>journalctl -u sshd --since <span class="org-string">"2025-05-04 04:00:00"</span> --until <span class="org-string">"2025-05-07 05:00:00"</span>
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#38450;&#25252;
+</span><span class="org-comment-delimiter">##</span><span class="org-comment">&#38480;&#21046;SSH&#35775;&#38382;IP
+</span><span class="org-builtin">echo</span> <span class="org-string">"AllowUsers *@192.168.1.0/24"</span> &gt;&gt; /etc/ssh/sshd_config
+<span class="org-comment-delimiter">##</span><span class="org-comment">&#31105;&#29992;&#23494;&#30721;&#30331;&#24405;&#65292;&#21551;&#29992;&#23494;&#38053;&#35748;&#35777;
+</span>sed -i <span class="org-string">'s/#PasswordAuthentication yes/PasswordAuthentication no/g'</span> /etc/ssh/sshd_config
+systemctl restart sshd
+<span class="org-comment-delimiter">##</span><span class="org-comment">&#26356;&#25913;SSH&#40664;&#35748;&#31471;&#21475;
+</span><span class="org-comment-delimiter">##</span><span class="org-comment">&#37096;&#32626;Fail2ban,&#33258;&#21160;&#23553;&#31105;&#22810;&#27425;&#23581;&#35797;&#22833;&#36133;&#30340;IP
+</span>apt install fail2ban  <span class="org-comment-delimiter"># </span><span class="org-comment">Debian/Ubuntu
+</span>yum install fail2ban  <span class="org-comment-delimiter"># </span><span class="org-comment">CentOS/RHEL
+</span>systemctl enable --now fail2ban
+<span class="org-comment-delimiter">##</span><span class="org-comment">&#37197;&#32622;&#38450;&#28779;&#22681;&#35268;&#21017;&#65306;&#20351;&#29992; iptables &#25110; ufw &#38480;&#21046;SSH&#31471;&#21475;&#30340;&#35775;&#38382;&#39057;&#29575;
+</span>ufw limit proto tcp to 0.0.0.0/0 port 22
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">IP&#23433;&#20840;&#26816;&#26597;
+</span><span class="org-comment-delimiter">##</span><span class="org-comment">&#26816;&#26597;&#24403;&#21069;&#36830;&#25509;&#29366;&#24577;
+</span>netstat -antp | grep 195.211.191.197
+<span class="org-comment-delimiter">##</span><span class="org-comment">&#26597;&#30475;&#21487;&#30097;&#36827;&#31243;
+</span>ps -aux | grep [PID]
+<span class="org-comment-delimiter">##</span><span class="org-comment">&#23041;&#32961;&#24773;&#25253;&#24179;&#21488;&#39564;&#35777;
+</span>&#24494;&#27493;&#22312;&#32447;&#65288;ThreatBook&#65289;&#65306;&#35775;&#38382; https://x.threatbook.cn/ &#36755;&#20837;IP&#65292;&#26597;&#30475;&#20854;&#21382;&#21490;&#23041;&#32961;&#26631;&#31614;&#65288;&#22914;&#26159;&#21542;&#20851;&#32852;&#24694;&#24847;&#36719;&#20214;&#23478;&#26063;&#25110;&#20725;&#23608;&#32593;&#32476;&#65289;&#12290;
+VirusTotal&#65306;&#36890;&#36807; https://www.virustotal.com/ &#20998;&#26512;IP&#30340;&#20449;&#35465;&#35780;&#20998;&#21450;&#20851;&#32852;&#26679;&#26412;&#12290;
+<span class="org-comment-delimiter">##</span><span class="org-comment">&#20998;&#26512;&#35813;IP&#30340;&#20840;&#29699;&#23041;&#32961;&#30011;&#20687;
+</span>&#21487;&#36890;&#36807; Shodan &#26597;&#35810;&#20854;&#24320;&#25918;&#31471;&#21475;&#21450;&#26381;&#21153;&#20449;&#24687; https://www.shodan.io/
+
+<span class="org-comment-delimiter">##</span><span class="org-comment">&#23553;&#31105;IP
+</span>iptables -A INPUT -s 195.211.191.197 -j DROP
+<span class="org-comment-delimiter">##</span><span class="org-comment">&#28145;&#24230;&#25490;&#26597;
+</span>&#26816;&#26597;&#31995;&#32479;&#23436;&#25972;&#24615;:
+- &#20351;&#29992;&#24037;&#20855;&#65288;&#22914; rkhunter&#12289;chkrootkit&#65289;&#25195;&#25551;&#38544;&#34255;&#21518;&#38376;&#25110;Rootkit
+- &#26816;&#26597;&#35745;&#21010;&#20219;&#21153;&#12289;&#21551;&#21160;&#39033;&#12289;&#26381;&#21153;&#21015;&#34920;&#26159;&#21542;&#23384;&#22312;&#24322;&#24120;&#26465;&#30446;
+&#20840;&#30424;&#26432;&#27602;&#65306;
+- &#20351;&#29992;ClamAV&#25110;&#20225;&#19994;&#32423;&#26432;&#27602;&#24037;&#20855;&#65288;&#22914;&#21345;&#24052;&#26031;&#22522;&#65289;&#25195;&#25551;&#24694;&#24847;&#25991;&#20214;
+<span class="org-comment-delimiter">##</span><span class="org-comment">&#27861;&#24459;&#19982;&#25253;&#21578;
+</span>&#30041;&#23384;&#35777;&#25454;&#65306;
+- &#23548;&#20986;&#23436;&#25972;&#26085;&#24535;&#21644;&#32593;&#32476;&#27969;&#37327;&#35760;&#24405;&#65292;&#29992;&#20110;&#21518;&#32493;&#21462;&#35777;&#12290;
+
+&#19978;&#25253;&#30456;&#20851;&#37096;&#38376;&#65306;
+- &#33509;&#30830;&#35748;&#25915;&#20987;&#28041;&#21450;&#37325;&#22823;&#23041;&#32961;&#65292;&#21487;&#32852;&#31995;&#22269;&#23478;&#32593;&#32476;&#23433;&#20840;&#36890;&#25253;&#20013;&#24515;&#25110;&#24403;&#22320;&#32593;&#35686;
+</pre>
+</div>
+
+<p>
+范例：服务无法启动排查
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">1. &#26597;&#30475;&#26381;&#21153;&#29366;&#24577;&#21644;&#26085;&#24535;
+</span>systemctl status service_name
+journalctl -u service_name -n 50
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">2. &#26816;&#26597;&#31471;&#21475;&#21344;&#29992;
+</span>ss -tlnp | grep :&#31471;&#21475;&#21495;
+lsof -i :&#31471;&#21475;&#21495;
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">3. &#26816;&#26597;&#37197;&#32622;&#25991;&#20214;&#35821;&#27861;
+</span>nginx -t
+httpd -t
+mysql --help --verbose | grep -A 1 <span class="org-string">"Default options"</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">4. &#26816;&#26597;&#26435;&#38480;&#38382;&#39064;
+</span>ls -la /path/to/service
+namei -l /path/to/service/file
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">5. &#26597;&#30475;SELinux&#38382;&#39064;
+</span>getenforce
+setenforce 0  <span class="org-comment-delimiter"># </span><span class="org-comment">&#20020;&#26102;&#20851;&#38381;&#27979;&#35797;
+</span>ausearch -m AVC -ts recent
+</pre>
+</div>
+
+<p>
+范例：使用journalctl高效排查
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#26597;&#30475;&#25351;&#23450;&#26102;&#38388;&#27573;&#30340;&#26085;&#24535;
+</span>journalctl --since <span class="org-string">"2024-01-01 00:00:00"</span> --until <span class="org-string">"2024-01-01 01:00:00"</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#26597;&#30475;&#25351;&#23450;&#26381;&#21153;&#30340;&#26085;&#24535;
+</span>journalctl -u nginx.service -f
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#26597;&#30475;&#20869;&#26680;&#26085;&#24535;
+</span>journalctl -k
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#26597;&#30475;&#25351;&#23450;&#20248;&#20808;&#32423;&#30340;&#26085;&#24535;
+</span>journalctl -p err..emerg
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#23548;&#20986;&#26085;&#24535;for&#20998;&#26512;
+</span>journalctl -u service_name -o json &gt; service.json
+</pre>
+</div>
+
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#25910;&#25947;&#26085;&#24535;
+</span>journalctl --vacuum-size=100M
+<span class="org-builtin">echo</span> <span class="org-string">'SystemMaxUse=200M'</span> &gt;&gt; /etc/systemd/journald.conf
+systemctl restart systemd-journald
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-h:5209cfc3-b21a-4da0-b156-c4d12f687f16" class="outline-4">
+<h4 id="h:5209cfc3-b21a-4da0-b156-c4d12f687f16"><a href="#h:5209cfc3-b21a-4da0-b156-c4d12f687f16">完整选项说明</a></h4>
+<div class="outline-text-4" id="text-h:5209cfc3-b21a-4da0-b156-c4d12f687f16">
+<pre class="example" id="org4c2df84">
 --no-full, --full, -l
     如果字段内容超长则以省略号(...)截断以适应列宽。
     默认显示完整的字段内容(超长的部分换行显示或者被分页工具截断)。
@@ -774,93 +1415,370 @@ CentOS 7 以后版，利用Systemd 统一管理所有 Unit的启动日志。带�
 --no-pager
     不将程序的输出内容管道(pipe)给分页程序
 </pre>
-
+</div>
+</div>
+</div>
+<div id="outline-container-h:850d0068-fd66-46b1-9e8b-55fc16b0ac41" class="outline-3">
+<h3 id="h:850d0068-fd66-46b1-9e8b-55fc16b0ac41"><a href="#h:850d0068-fd66-46b1-9e8b-55fc16b0ac41">优化配置</a></h3>
+<div class="outline-text-3" id="text-h:850d0068-fd66-46b1-9e8b-55fc16b0ac41">
 <p>
-<b>范例：journalctl用法</b>
+两边要做的事不同：
+</p>
+
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">要做的事</th>
+<th scope="col" class="org-left">Rocky 10</th>
+<th scope="col" class="org-left">Ubuntu 26.04</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">开启持久化</td>
+<td class="org-left">必须（否则重启丢日志）</td>
+<td class="org-left">已默认开启</td>
+</tr>
+
+<tr>
+<td class="org-left">关闭 <code>ForwardToSyslog</code></td>
+<td class="org-left">默认已是 <code>no</code></td>
+<td class="org-left">必须（注意文件名排序）</td>
+</tr>
+
+<tr>
+<td class="org-left">处理 rsyslog 双写</td>
+<td class="org-left">需决策（保留或停用）</td>
+<td class="org-left">未安装，无需处理</td>
+</tr>
+
+<tr>
+<td class="org-left">容量封顶</td>
+<td class="org-left">需要（默认约 1.6G）</td>
+<td class="org-left">需要（默认约 3.7G）</td>
+</tr>
+
+<tr>
+<td class="org-left">清理 <code>.journal~</code> 脏文件</td>
+<td class="org-left">视情况</td>
+<td class="org-left">视情况</td>
+</tr>
+
+<tr>
+<td class="org-left">SELinux <code>restorecon</code></td>
+<td class="org-left">建议（兜底，通常是空操作）</td>
+<td class="org-left">不涉及</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="outline-container-h:8410738f-208e-4446-ab48-06e47eb42cee" class="outline-4">
+<h4 id="h:8410738f-208e-4446-ab48-06e47eb42cee"><a href="#h:8410738f-208e-4446-ab48-06e47eb42cee">Rocky 10 优化方案</a></h4>
+<div class="outline-text-4" id="text-h:8410738f-208e-4446-ab48-06e47eb42cee">
+<p>
+新建 <code>/etc/systemd/journald.conf.d/99-tuning.conf</code> （Rocky 无厂商
+drop-in， <code>99-</code> 前缀安全）：
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh"><span class="org-comment-delimiter">#</span><span class="org-comment">&#26597;&#30475;&#25152;&#26377;&#26085;&#24535;&#65288;&#40664;&#35748;&#24773;&#20917;&#19979; &#65292;&#21482;&#20445;&#23384;&#26412;&#27425;&#21551;&#21160;&#30340;&#26085;&#24535;&#65289;
-</span>journalctl
+<pre class="src src-conf">[<span class="org-type">Journal</span>]
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#25345;&#20037;&#21270;&#21040;&#30913;&#30424;&#65288;&#26680;&#24515;&#25913;&#21160;&#65289;
+</span><span class="org-variable-name">Storage</span>=persistent
 
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#26597;&#30475;&#20869;&#26680;&#26085;&#24535;&#65288;&#19981;&#26174;&#31034;&#24212;&#29992;&#26085;&#24535;&#65289;
-</span>journalctl -k
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#23481;&#37327;&#19978;&#38480;&#65292;&#40664;&#35748;&#20250;&#21507;&#21040;&#25991;&#20214;&#31995;&#32479;&#30340; 10%&#65288;16G &#30424;&#32422; 1.6G&#65289;
+</span><span class="org-variable-name">SystemMaxUse</span>=500M
+<span class="org-variable-name">SystemKeepFree</span>=1G
+<span class="org-variable-name">SystemMaxFileSize</span>=50M
+<span class="org-variable-name">SystemMaxFiles</span>=10
 
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#26597;&#30475;&#31995;&#32479;&#26412;&#27425;&#21551;&#21160;&#30340;&#26085;&#24535;
-</span>journalctl -b
-journalctl -b -0
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#20445;&#30041;&#31383;&#21475;
+</span><span class="org-variable-name">MaxRetentionSec</span>=1month
+<span class="org-variable-name">MaxFileSec</span>=1day
 
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#26597;&#30475;&#19978;&#19968;&#27425;&#21551;&#21160;&#30340;&#26085;&#24535;&#65288;&#38656;&#26356;&#25913;&#35774;&#32622;&#65289;
-</span>journalctl -b -1
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#25345;&#20037;&#21270;&#21518;&#20869;&#23384;&#21103;&#26412;&#21487;&#20197;&#32553;&#23567;
+</span><span class="org-variable-name">RuntimeMaxUse</span>=32M
+<span class="org-variable-name">RuntimeKeepFree</span>=64M
 
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#26597;&#30475;&#25351;&#23450;&#26102;&#38388;&#30340;&#26085;&#24535;
-</span>journalctl --since=<span class="org-string">"2017-10-30 18:10:30"</span>
-journalctl --since <span class="org-string">"20 min ago"</span>
-journalctl --since yesterday
-journalctl --since <span class="org-string">"2017-01-10"</span> --until <span class="org-string">"2017-01-11 03:00"</span>
-journalctl --since 09:00 --until <span class="org-string">"1 hour ago"</span>
+<span class="org-variable-name">Compress</span>=yes
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#26410;&#37197;&#32622; FSS &#23494;&#38053;&#26102; Seal &#19981;&#29983;&#25928;&#65292;&#20851;&#25481;&#30465;&#24320;&#38144;
+</span><span class="org-variable-name">Seal</span>=no
 
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#26174;&#31034;&#23614;&#37096;&#30340;&#26368;&#26032;10&#34892;&#26085;&#24535;
-</span>journalctl -n
-
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#26174;&#31034;&#23614;&#37096;&#25351;&#23450;&#34892;&#25968;&#30340;&#26085;&#24535;
-</span>journalctl -n 20
-
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#23454;&#26102;&#28378;&#21160;&#26174;&#31034;&#26368;&#26032;&#26085;&#24535;
-</span>journalctl -f
-
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#26597;&#30475;&#25351;&#23450;&#26381;&#21153;&#30340;&#26085;&#24535;
-</span>journalctl /usr/lib/systemd/systemd
-
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#26597;&#30475;&#25351;&#23450;&#36827;&#31243;&#30340;&#26085;&#24535;
-</span>journalctl <span class="org-variable-name">_PID</span>=1
-
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#26597;&#30475;&#26576;&#20010;&#36335;&#24452;&#30340;&#33050;&#26412;&#30340;&#26085;&#24535;
-</span>journalctl /usr/bin/bash
-
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#26597;&#30475;&#25351;&#23450;&#29992;&#25143;&#30340;&#26085;&#24535;
-</span>journalctl <span class="org-variable-name">_UID</span>=33 --since today
-
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#26597;&#30475;&#26576;&#20010; Unit &#30340;&#26085;&#24535;
-</span>journalctl -u nginx.service
-journalctl -u nginx.service --since today
-
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#23454;&#26102;&#28378;&#21160;&#26174;&#31034;&#26576;&#20010; Unit &#30340;&#26368;&#26032;&#26085;&#24535;
-</span>journalctl -u nginx.service -f
-
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#21512;&#24182;&#26174;&#31034;&#22810;&#20010; Unit &#30340;&#26085;&#24535;
-</span>journalctl -u nginx.service -u php-fpm.service --since today
-
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#26597;&#30475;&#25351;&#23450;&#20248;&#20808;&#32423;&#65288;&#21450;&#20854;&#20197;&#19978;&#32423;&#21035;&#65289;&#30340;&#26085;&#24535;&#65292;&#20849;&#26377;8&#32423;
-</span>0: emerg
-1: alert
-2: crit
-3: err
-4: warning
-5: notice
-6: info
-7: debug
-journalctl -p err -b
-
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#26085;&#24535;&#40664;&#35748;&#20998;&#39029;&#36755;&#20986;&#65292;--no-pager &#25913;&#20026;&#27491;&#24120;&#30340;&#26631;&#20934;&#36755;&#20986;
-</span>journalctl --no-pager
-
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#26085;&#24535;&#31649;&#29702;journalctl
-</span><span class="org-comment-delimiter">#</span><span class="org-comment">&#20197; JSON &#26684;&#24335;&#65288;&#21333;&#34892;&#65289;&#36755;&#20986;
-</span>journalctl -b -u nginx.service -o json
-
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#20197; JSON &#26684;&#24335;&#65288;&#22810;&#34892;&#65289;&#36755;&#20986;&#65292;&#21487;&#35835;&#24615;&#26356;&#22909;
-</span>journalctl -b -u nginx.serviceqq -o json-pretty
-
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#26174;&#31034;&#26085;&#24535;&#21344;&#25454;&#30340;&#30828;&#30424;&#31354;&#38388;
-</span>journalctl --disk-usage
-
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#25351;&#23450;&#26085;&#24535;&#25991;&#20214;&#21344;&#25454;&#30340;&#26368;&#22823;&#31354;&#38388;
-</span>journalctl --vacuum-size=1G
-
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#25351;&#23450;&#26085;&#24535;&#25991;&#20214;&#20445;&#23384;&#22810;&#20037;
-</span>journalctl --vacuum-time=1years
+<span class="org-variable-name">RateLimitIntervalSec</span>=30s
+<span class="org-variable-name">RateLimitBurst</span>=10000
+<span class="org-variable-name">ForwardToSyslog</span>=no
 </pre>
+</div>
+
+<p>
+应用步骤，四步缺一不可：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">1. &#21019;&#24314;&#25345;&#20037;&#21270;&#30446;&#24405;&#65288;Storage=persistent &#20165;&#22312;&#30446;&#24405;&#23384;&#22312;&#26102;&#29983;&#25928;&#65289;
+</span>mkdir -p /var/log/journal
+systemd-tmpfiles --create --prefix /var/log/journal
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">2. &#20462;&#22797; SELinux &#19978;&#19979;&#25991;&#65288;&#20828;&#24213;&#65292;&#36890;&#24120;&#26159;&#31354;&#25805;&#20316;&#65289;
+</span>restorecon -R /var/log/journal
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">3. &#37325;&#21551; journald
+</span>systemctl restart systemd-journald
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">4. &#25163;&#21160;&#25226; /run &#37324;&#30340;&#26085;&#24535;&#21047;&#21040; /var
+</span>journalctl --flush
+</pre>
+</div>
+
+<p>
+第 4 步不能省： <code>systemd-journal-flush.service</code> 只在开机时跑一次，此后是
+<code>active (exited)</code> 。开机时 <code>/var/log/journal</code> 还不存在，仅重启 journald
+不会把已有日志迁过去。不执行这步， <code>/var/log/journal</code> 会一直是空目录。
+</p>
+
+<p>
+第 2 步是兜底。 <code>mkdir</code> 建的目录会从 <code>/var/log</code> 继承正确的 <code>var_log_t</code>
+类型，此时 <code>restorecon</code> 无事可做；只有目录来自备份恢复、 <code>cp -a</code> / <code>mv</code>
+搬迁、或单独挂载分区时标签才会错，enforcing 下会拦截写入。
+</p>
+
+<p>
+Rocky 默认装 rsyslog 并用 <code>imjournal</code> 读 journal，日志写了两份
+（journal + <code>/var/log/messages</code> ）。确认没有采集 agent、运维脚本或合规
+要求依赖这些文本文件，就可以 <code>systemctl disable --now rsyslog</code> 消除双写。
+<code>imjournal</code> 在高日志量下是已知瓶颈，必须保留 rsyslog 时可改用 <code>imuxsock</code>
+配合 journald 侧 <code>ForwardToSyslog=yes</code> 。
+</p>
+</div>
+</div>
+<div id="outline-container-h:440aefa7-14f0-4bd1-8c09-12a17f2f3b0a" class="outline-4">
+<h4 id="h:440aefa7-14f0-4bd1-8c09-12a17f2f3b0a"><a href="#h:440aefa7-14f0-4bd1-8c09-12a17f2f3b0a">Ubuntu 26.04 优化方案</a></h4>
+<div class="outline-text-4" id="text-h:440aefa7-14f0-4bd1-8c09-12a17f2f3b0a">
+<p>
+新建 <code>/etc/systemd/journald.conf.d/zz-tuning.conf</code> ，文件名必须用 <code>zz-</code>
+前缀，原因见上文命名陷阱：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-conf"><span class="org-comment-delimiter"># </span><span class="org-comment">&#25991;&#20214;&#21517;&#24517;&#39035;&#23383;&#20856;&#24207;&#25490;&#22312; /usr/lib/systemd/journald.conf.d/syslog.conf &#20043;&#21518;
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">&#21542;&#21017; ForwardToSyslog &#20250;&#34987; Ubuntu &#33258;&#24102;&#30340; drop-in &#35206;&#30422;&#22238; yes
+</span>[<span class="org-type">Journal</span>]
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#26410;&#35013; rsyslog&#65292;&#36716;&#21457;&#26080;&#20154;&#25509;&#25910;&#65288;&#26680;&#24515;&#25913;&#21160;&#65289;
+</span><span class="org-variable-name">ForwardToSyslog</span>=no
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#23481;&#37327;&#19978;&#38480;&#65292;&#40664;&#35748;&#20250;&#21507;&#21040;&#25991;&#20214;&#31995;&#32479;&#30340; 10%&#65288;38G &#30424;&#32422; 3.7G&#65289;
+</span><span class="org-variable-name">SystemMaxUse</span>=1G
+<span class="org-variable-name">SystemKeepFree</span>=2G
+<span class="org-variable-name">SystemMaxFileSize</span>=100M
+<span class="org-variable-name">SystemMaxFiles</span>=20
+
+<span class="org-variable-name">MaxRetentionSec</span>=1month
+<span class="org-variable-name">MaxFileSec</span>=1day
+
+<span class="org-variable-name">RuntimeMaxUse</span>=32M
+<span class="org-variable-name">RuntimeKeepFree</span>=64M
+
+<span class="org-variable-name">Compress</span>=yes
+<span class="org-variable-name">Seal</span>=no
+</pre>
+</div>
+
+<p>
+应用：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">systemctl restart systemd-journald
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#39564;&#35777;&#29983;&#25928;&#39034;&#24207;
+</span>systemd-analyze cat-config systemd/journald.conf | grep ForwardToSyslog
+</pre>
+</div>
+
+<p>
+<code>no</code> 要出现在 <code>syslog.conf</code> 的 <code>yes</code> 之后才算生效。判断转发是否在空转：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">systemctl is-active rsyslog            <span class="org-comment-delimiter"># </span><span class="org-comment">not-found / inactive &#35828;&#26126;&#27809;&#20154;&#25910;
+</span>ls -l /run/systemd/journal/syslog      <span class="org-comment-delimiter"># </span><span class="org-comment">socket &#19981;&#23384;&#22312;&#35828;&#26126;&#27809;&#26377;&#30417;&#21548;&#32773;
+</span>ss -lxp | grep -c syslog               <span class="org-comment-delimiter"># </span><span class="org-comment">0 &#35828;&#26126;&#30830;&#23454;&#27809;&#20154;&#30417;&#21548;</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-h:652f84b2-f742-402e-ab69-e42b5abb3ce1" class="outline-4">
+<h4 id="h:652f84b2-f742-402e-ab69-e42b5abb3ce1"><a href="#h:652f84b2-f742-402e-ab69-e42b5abb3ce1">核心参数说明</a></h4>
+<div class="outline-text-4" id="text-h:652f84b2-f742-402e-ab69-e42b5abb3ce1">
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">参数</th>
+<th scope="col" class="org-left">默认值</th>
+<th scope="col" class="org-left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>Storage</code></td>
+<td class="org-left"><code>auto</code> / <code>persistent</code></td>
+<td class="org-left"><code>persistent</code> 存磁盘； <code>volatile</code> 存内存； <code>auto</code> 取决于 <code>/var/log/journal</code> 是否存在</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SystemMaxUse</code></td>
+<td class="org-left">文件系统的 10%</td>
+<td class="org-left"><code>/var/log/journal</code> 总容量上限，含 user journal</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SystemKeepFree</code></td>
+<td class="org-left">文件系统的 15%</td>
+<td class="org-left">磁盘剩余低于此值即停止写入并清理</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SystemMaxFileSize</code></td>
+<td class="org-left"><code>SystemMaxUse</code> 的 1/8</td>
+<td class="org-left">单个日志文件大小上限</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SystemMaxFiles</code></td>
+<td class="org-left">100</td>
+<td class="org-left">日志文件数量上限</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>RuntimeMaxUse</code></td>
+<td class="org-left"><code>/run</code> 的 10%</td>
+<td class="org-left"><code>/run/log/journal</code> 上限，占的是内存</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>MaxRetentionSec</code></td>
+<td class="org-left">0（不限）</td>
+<td class="org-left">最长保留时间，设置后立即删除超期日志 ⚠️</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>MaxFileSec</code></td>
+<td class="org-left"><code>1month</code></td>
+<td class="org-left">单文件最长时间跨度，到期即轮转</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>ForwardToSyslog</code></td>
+<td class="org-left"><code>no</code> ，Ubuntu 为 <code>yes</code></td>
+<td class="org-left">是否转发给 syslog socket</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>Compress</code></td>
+<td class="org-left"><code>yes</code></td>
+<td class="org-left">大于一定阈值的字段自动压缩</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>Seal</code></td>
+<td class="org-left"><code>yes</code></td>
+<td class="org-left">FSS 防篡改，未执行 <code>--setup-keys</code> 时不生效</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SplitMode</code></td>
+<td class="org-left"><code>uid</code></td>
+<td class="org-left">按 uid 拆分 user journal； <code>none</code> 可关闭</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>RateLimitIntervalSec</code></td>
+<td class="org-left"><code>30s</code></td>
+<td class="org-left">限流时间窗口</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>RateLimitBurst</code></td>
+<td class="org-left"><code>10000</code></td>
+<td class="org-left">窗口内单服务最大日志条数</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+journald 没有单独的 <code>UserMaxUse</code> 选项， <code>System*</code> 限额覆盖整个
+<code>/var/log/journal</code> 含 user journal。实测 <code>user-1000.journal</code> 能占到总空间
+一半，必要时用 <code>SplitMode=none</code> 关闭按用户拆分，代价是普通用户读不到
+自己的日志。
+</p>
+</div>
+</div>
+<div id="outline-container-h:7e3c4a19-6d82-4f55-b1a7-3c9d05e8f4b2" class="outline-4">
+<h4 id="h:7e3c4a19-6d82-4f55-b1a7-3c9d05e8f4b2"><a href="#h:7e3c4a19-6d82-4f55-b1a7-3c9d05e8f4b2">验证方法</a></h4>
+<div class="outline-text-4" id="text-h:7e3c4a19-6d82-4f55-b1a7-3c9d05e8f4b2">
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">&#37197;&#32622;&#26159;&#21542;&#29983;&#25928;&#65288;&#33021;&#36991;&#24320; drop-in &#25490;&#24207;&#22353;&#65289;
+</span>systemd-analyze cat-config systemd/journald.conf
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">journald &#33258;&#25253;&#30340;&#38480;&#39069;&#65292;&#26368;&#30828;&#30340;&#35777;&#25454;
+</span>journalctl -u systemd-journald -n 10 --no-pager -o cat | grep -i journal
+<span class="org-comment-delimiter">#   </span><span class="org-comment">System Journal (/var/log/journal/&lt;machine-id&gt;) is 10.4M, max 500M, 489.5M free.
+</span><span class="org-comment-delimiter">#   </span><span class="org-comment">"System Journal" = &#25345;&#20037;&#21270;&#29983;&#25928;&#65292;"max 500M" = &#23481;&#37327;&#38480;&#21046;&#29983;&#25928;
+</span><span class="org-comment-delimiter">#   </span><span class="org-comment">&#26174;&#31034; "Runtime Journal" &#21017;&#20173;&#26159;&#20869;&#23384;&#23384;&#20648;&#65292;&#25345;&#20037;&#21270;&#27809;&#25104;&#21151;
+</span>
+df -hT /var/log/journal        <span class="org-comment-delimiter"># </span><span class="org-comment">Type &#24212;&#20026; xfs/ext4&#65292;&#19981;&#33021;&#26159; tmpfs
+</span>journalctl --list-boots        <span class="org-comment-delimiter"># </span><span class="org-comment">&#22810;&#26465;&#35760;&#24405;&#25165;&#35828;&#26126;&#21382;&#21490;&#26085;&#24535;&#30495;&#30340;&#30041;&#19979;&#26469;&#20102;
+</span>journalctl --disk-usage
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-h:3f1b9c27-8e54-4a06-9d13-72be8f05a1c6" class="outline-4">
+<h4 id="h:3f1b9c27-8e54-4a06-9d13-72be8f05a1c6"><a href="#h:3f1b9c27-8e54-4a06-9d13-72be8f05a1c6">避坑清单</a></h4>
+<div class="outline-text-4" id="text-h:3f1b9c27-8e54-4a06-9d13-72be8f05a1c6">
+<ol class="org-ol">
+<li>改配置一律用 drop-in，不要动 <code>/usr/lib/systemd/journald.conf</code> （升级会
+覆盖）；也不要在主配置文件里改已被 drop-in 设过的值，drop-in 优先级更高。</li>
+
+<li>Ubuntu/Debian 有厂商 drop-in，自定义文件名用 <code>zz-</code> 前缀。 <code>99-</code> 排在
+<code>syslog.conf</code> 前面，会被反向覆盖。</li>
+
+<li><code>MaxRetentionSec</code> 即时生效：配置一加载就删超期日志。实测设 <code>1month</code>
+后 boot 记录从 6 条掉到 2 条。设之前先 <code>journalctl --list-boots</code> 看
+日志年龄。</li>
+
+<li>Rocky 开持久化后要手动 <code>journalctl --flush</code> ，否则 <code>/var/log/journal</code>
+一直是空的。</li>
+
+<li><code>restorecon</code> 是兜底。 <code>mkdir</code> 建的目录标签本来就对，只有备份恢复、
+<code>cp -a</code> / <code>mv</code> 搬迁、独立挂载分区时才会错。判断 SELinux 状态用
+<code>getenforce</code> ，别看 <code>/etc/selinux/config</code> —— 后者改了要重启才生效，
+<code>setenforce</code> 则是立即生效且不写配置文件，两者经常对不上。</li>
+
+<li>大量 <code>.journal~</code> 说明反复非正常关机。脏文件不再写入但仍占配额、仍被
+<code>journalctl</code> 扫描。用 <code>journalctl --rotate</code> 加 <code>--vacuum-time</code> /
+<code>--vacuum-size</code> 清理，会删掉对应时段历史日志。</li>
+
+<li>先确认时钟已同步，时间戳不可信则一切调优无意义。 <code>timedatectl</code> 看
+<code>System clock synchronized</code> ， <code>chronyc tracking</code> 排查。跨发行版注意
+时区不一致（Rocky 用 CST、Ubuntu 用 UTC）。</li>
+</ol>
 </div>
 </div>
 </div>
@@ -873,7 +1791,7 @@ journalctl -p err -b
 <h3 id="h:275d5379-1bda-44c2-99d7-e3dd280a819a"><a href="#h:275d5379-1bda-44c2-99d7-e3dd280a819a">实战案例1：利用mysql存储日志信息</a></h3>
 <div class="outline-text-3" id="text-h:275d5379-1bda-44c2-99d7-e3dd280a819a">
 
-<figure id="org271ff35">
+<figure id="orga239390">
 <img style="aspect-ratio:470/222" decoding="async" loading="lazy" src="./images/image-20210218173451717.webp" alt="image-20210218173451717.webp">
 
 </figure>
@@ -886,7 +1804,7 @@ journalctl -p err -b
 环境准备:
 </p>
 
-<pre class="example" id="orgb0faf21">
+<pre class="example" id="orgc0144ef">
 两台主机
 
 一台：rsyslog日志服务器，IP：10.0.0.8
@@ -1018,7 +1936,7 @@ loganalyzer是用 php
 </p>
 
 
-<figure id="orgb02b5a6">
+<figure id="orgcc51189">
 <img style="aspect-ratio:712/194" decoding="async" loading="lazy" src="./images/image-20210218173514177.webp" alt="image-20210218173514177.webp">
 
 </figure>
@@ -1083,19 +2001,19 @@ loganalyzer是用 php
 </p>
 
 
-<figure id="orgb626acd">
+<figure id="orgc10f3bf">
 <img style="aspect-ratio:724/274" decoding="async" loading="lazy" src="./images/image-20210218173541534.webp" alt="image-20210218173541534.webp">
 
 </figure>
 
 
-<figure id="org501347a">
+<figure id="orgf8b4ad6">
 <img style="aspect-ratio:742/418" decoding="async" loading="lazy" src="./images/image-20210218173549814.webp" alt="image-20210218173549814.webp">
 
 </figure>
 
 
-<figure id="orgd2c2bf1">
+<figure id="org62dc0da">
 <img style="aspect-ratio:1162/621" decoding="async" loading="lazy" src="./images/image-20210218173609771.webp" alt="image-20210218173609771.webp">
 
 </figure>
@@ -1105,7 +2023,7 @@ loganalyzer是用 php
 </p>
 
 
-<figure id="org14b20bb">
+<figure id="org174917d">
 <img style="aspect-ratio:1141/366" decoding="async" loading="lazy" src="./images/image-20210218173621944.webp" alt="image-20210218173621944.webp">
 
 </figure>
@@ -1289,7 +2207,7 @@ logrotate程序是一个日志文件管理工具。用来把旧的日志文件�
 <p>
 报错：
 </p>
-<pre class="example" id="org1a61654">
+<pre class="example" id="org1f0272d">
 It's world writable or writable by group which is not "root
 解决：
 添加“su root xx”到/etc/logrotate.d/nginx文件中即可
@@ -1371,7 +2289,7 @@ test1.log test2.log
 <p>
 /etc/logrotate_php_nginx.conf
 </p>
-<pre class="example" id="org3dd1047">
+<pre class="example" id="org3a93a56">
 cat /etc/logrotate_php_nginx.conf
  /opt/log/php-fpm/php_errors.log
 /opt/log/php-fpm/php-fpm.log

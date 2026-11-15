@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CICD: Apache Maven</title>
+<meta name="generator" content="Org Mode" />
+<script>
+/* main.css 默认把 body 隐藏起来，为的是切换深色模式时不闪白。
+   恢复可见完全交给 CSS 的 html.js:not(.ready) 选择器控制：
+   - 没有 JS：下面这句不会执行，html 上没有 .js，body 一开始就是可见的
+   - 有 JS 但 main.js 加载失败或抛异常：load 事件（或 2 秒兜底）照样会加上 .ready
+   任何一条路径都不会留下白屏。 */
+(function () {
+  var el = document.documentElement;
+  el.className += ' js';
+  function reveal() { el.className += ' ready'; }
+  window.addEventListener('load', reveal);
+  setTimeout(reveal, 2000);
+})();
+</script>
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="alternate" type="application/rss+xml" title="Jasper Hsu's Blog" href="https://xuchangwei.com/rss.xml">
+<link rel="me" href="https://emacs.ch/@jasperhsu">
+
+<!-- AdSense 加载器原本在这里，2026-10 下线。恢复步骤见 assets/ADSENSE.md
+     （本文件会被注入每一页的 <head>，所以细节不写在这儿）。 -->
+
+<!-- from -->
+<!--
+<style>#back-to-top{background:#000;-webkit-border-radius:50%;-moz-border-radius:50%;border-radius:50%;bottom:20px;-webkit-box-shadow:0 2px 5px 0 rgba(0,0,0,.26);-moz-box-shadow:0 2px 5px 0 rgba(0,0,0,.26);box-shadow:0 2px 5px 0 rgba(0,0,0,.26);color:#fff;cursor:pointer;display:block;height:56px;opacity:1;outline:0;position:fixed;right:20px;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;-webkit-transition:bottom .2s,opacity .2s;-o-transition:bottom .2s,opacity .2s;-moz-transition:bottom .2s,opacity .2s;transition:bottom .2s,opacity .2s;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;width:56px;z-index:1}#back-to-top svg{display:block;fill:currentColor;height:24px;margin:16px auto 0;width:24px}#back-to-top.hidden{bottom:-56px;opacity:0}</style>
+-->
+<!-- Bootstrap 必须排在 main.css 之前 —— main.css 里有覆盖它的规则
+     （如 body.dark-theme .form-control）。见 assets/static/vendor/README.md -->
+<link rel="stylesheet" href="/static/vendor/bootstrap.min.css">
+<link rel="stylesheet" href="/static/distro-htmlize.css">
+<link rel="stylesheet" href="/static/aandds.com/css/main.css">
+<link rel="stylesheet" href="/static/aandds.com/css/drollery.min.css">
+<script type="text/javascript" src="/static/aandds.com/js/main.js"></script>
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+<meta name="description" content="在maven官网下载安装包：http://maven.apache.org/download.cgi" />
+<link rel="canonical" href="https://xuchangwei.com/linux/cicd/maven.html" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="CICD: Apache Maven" />
+<meta property="og:description" content="在maven官网下载安装包：http://maven.apache.org/download.cgi" />
+<meta property="og:url" content="https://xuchangwei.com/linux/cicd/maven.html" />
+<meta property="og:site_name" content="Jasper Hsu&apos;s Blog" />
+<meta name="twitter:card" content="summary" />
+<script type="application/ld+json">{"@context":"https://schema.org","url":"https://xuchangwei.com/linux/cicd/maven.html","@type":"WebPage","name":"CICD: Apache Maven","description":"在maven官网下载安装包：http://maven.apache.org/download.cgi"}</script>
+</head>
+<body>
+<div id="content" class="content">
+<header>
+<h1 class="title">CICD: Apache Maven</h1>
+</header><nav id="table-of-contents" role="doc-toc">
+<h2>&#30446;&#24405;</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#h:0D69D199-684C-493A-88E0-999CC89F4076">安装 Maven</a></li>
+<li><a href="#h:CEC5805F-B8B3-45C7-9F33-A00372C01D10">私服nexus</a>
+<ul>
+<li><a href="#org0a06d67">安装</a>
+<ul>
+<li><a href="#org435dc40">二进制安装</a></li>
+<li><a href="#org978fdd4">docker compose 安装</a></li>
+</ul>
+</li>
+<li><a href="#h:57E80D8A-8086-4639-8561-BFFF36518B5F">仓库类型介绍</a></li>
+<li><a href="#h:1FC2D130-4549-4B61-86D1-52F5BF4B3AF3">仓库配置</a>
+<ul>
+<li><a href="#h:10849213-C4FF-4B53-9682-3E0B8EEB848F">Maven 仓库</a>
+<ul>
+<li><a href="#h:48514C4B-769B-472E-A595-60C531907DDD">访问权限</a></li>
+<li><a href="#h:B441EC8A-845E-4B0C-A637-F3D71E475A3D">Maven 侧：settings.xml</a></li>
+<li><a href="#h:D3E4ED44-5020-410D-81BA-092C7DC2C963">把自己的包发上去</a></li>
+<li><a href="#h:47A0CCAA-3587-42D9-BF7C-2A15ACF16A57">Jenkins 侧 Jenkinsfile</a></li>
+</ul>
+</li>
+<li><a href="#h:42A08164-BE73-49D2-94EF-B5CDCAF2D2D9">npm 仓库</a></li>
+<li><a href="#h:3530E0F2-8EDE-4BE2-8FAC-8FEB490B29A8">Docker 仓库</a></li>
+<li><a href="#h:3EA16FF1-6FD3-41A3-B2C9-29E513BFC71D">PyPI 仓库</a></li>
+</ul>
+</li>
+<li><a href="#h:7EA92877-5B96-49A7-A2C7-F38675028D42">运维</a>
+<ul>
+<li><a href="#h:B12332DC-8EEB-4E59-A65B-954CF0FBC056">清理策略</a></li>
+<li><a href="#h:3AF10849-9A20-4C08-A47B-1BEEEB90B827">备份与恢复</a></li>
+<li><a href="#h:F9DB5BF8-D535-4802-A972-AB892CF2358F">日志查看</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+<ul class="org-ul">
+<li>TAGS: <a href="../cicd.html">cicd</a></li>
+</ul>
+<section id="outline-container-h:0D69D199-684C-493A-88E0-999CC89F4076" class="outline-2">
+<h2 id="h:0D69D199-684C-493A-88E0-999CC89F4076"><a href="#h:0D69D199-684C-493A-88E0-999CC89F4076">安装 Maven</a></h2>
+<div class="outline-text-2" id="text-h:0D69D199-684C-493A-88E0-999CC89F4076">
+<p>
+在maven官网下载安装包：<a href="http://maven.apache.org/download.cgi">http://maven.apache.org/download.cgi</a>
+</p>
+
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-variable-name">MAVEN_VERSION</span>=3.10.0
+wget https://dlcdn.apache.org/maven/maven-3/${<span class="org-variable-name">MAVEN_VERSION</span>}/binaries/apache-maven-${<span class="org-variable-name">MAVEN_VERSION</span>}-bin.tar.gz
+tar xf apache-maven-${<span class="org-variable-name">MAVEN_VERSION</span>}-bin.tar.gz -C /usr/local/
+ln -sv /usr/local/apache-maven-${<span class="org-variable-name">MAVEN_VERSION</span>}/  /usr/local/maven
+
+vim /usr/local/maven/conf/settings.xml
+    &lt;mirror&gt;
+      &lt;id&gt;alimaven&lt;/id&gt;
+      &lt;name&gt;aliyun maven&lt;/name&gt;
+      &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;
+      &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;       
+    &lt;/mirror&gt;
+
+cat &gt;/etc/profile.d/mvn.sh &lt;&lt;\eof<span class="org-sh-heredoc">
+export MAVEN_HOME=/usr/local/maven
+export PATH=$PATH:$MAVEN_HOME/bin
+eof
+</span>
+<span class="org-builtin">source</span> /etc/profile
+mvn -v
+</pre>
+</div>
+
+
+<p>
+关于本地仓库的位置
+默认位置: <code>${user.home}/.m2/repository</code>
+</p>
+<ul class="org-ul">
+<li>windows:C:\Documents and Settings\Administrator\.m2</li>
+<li>Linux:/root/.m2</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-shell">vim /usr/local/apache-maven-3.3.3/conf/setting.xml
+    &lt;mirror&gt;
+      &lt;id&gt;alimaven&lt;/id&gt;
+      &lt;name&gt;aliyun maven&lt;/name&gt;
+      &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;
+      &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;       
+    &lt;/mirror&gt;
+</pre>
+</div>
+</div>
+</section>
+<section id="outline-container-h:CEC5805F-B8B3-45C7-9F33-A00372C01D10" class="outline-2">
+<h2 id="h:CEC5805F-B8B3-45C7-9F33-A00372C01D10"><a href="#h:CEC5805F-B8B3-45C7-9F33-A00372C01D10">私服nexus</a></h2>
+<div class="outline-text-2" id="text-h:CEC5805F-B8B3-45C7-9F33-A00372C01D10">
+<p>
+配置在局域网环境中，为局域网中所有开发人员提供 jar 包的统一管理
+本地仓库（本机）&#x2014;&gt;私服（局域网）&#x2014;&gt;中心仓库（外部网络）
+</p>
+
+
+
+<p>
+官方文档： <a href="https://help.sonatype.com/en/sonatype-nexus-repository.html">https://help.sonatype.com/en/sonatype-nexus-repository.html</a>
+</p>
+</div>
+<div id="outline-container-org0a06d67" class="outline-3">
+<h3 id="org0a06d67"><a href="#org0a06d67">安装</a></h3>
+<div class="outline-text-3" id="text-org0a06d67">
+<ul class="org-ul">
+<li><a href="https://help.sonatype.com/en/install-nexus-repository.html">https://help.sonatype.com/en/install-nexus-repository.html</a></li>
+</ul>
+</div>
+<div id="outline-container-org435dc40" class="outline-4">
+<h4 id="org435dc40"><a href="#org435dc40">二进制安装</a></h4>
+<div class="outline-text-4" id="text-org435dc40">
+<p>
+下载最新版本的nexus
+</p>
+<ul class="org-ul">
+<li>下载地址：<a href="https://help.sonatype.com/en/download.html">https://help.sonatype.com/en/download.html</a></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-variable-name">NEXUS_VERSION</span>=3.97.0
+<span class="org-variable-name">OS</span>=$(uname -s | tr <span class="org-string">'A-Z'</span> <span class="org-string">'a-z'</span>)
+<span class="org-variable-name">ARCH</span>=$(uname -m | sed <span class="org-string">'s/x86_64/amd64/;s/aarch64/arm64/'</span>)
+<span class="org-variable-name">PLATFORM</span>=<span class="org-string">"$OS-$ARCH"</span>
+
+wget https://download.sonatype.com/nexus/3/nexus-${<span class="org-variable-name">NEXUS_VERSION</span>}-13-${<span class="org-variable-name">OS</span>}-aarch_64.tar.gz
+
+tar xf nexus-${<span class="org-variable-name">NEXUS_VERSION</span>}-13-${<span class="org-variable-name">OS</span>}-aarch_64.tar.gz -C /usr/local
+ln -sv /usr/local/nexus-${<span class="org-variable-name">NEXUS_VERSION</span>}-13  /usr/local/nexus
+<span class="org-comment-delimiter">#</span><span class="org-comment">/usr/local/nexus &#8212; &#31243;&#24207;&#23433;&#35013;&#30446;&#24405;
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">/usr/local/sonatype-work &#8212; &#25968;&#25454;&#21644;&#24037;&#20316;&#30446;&#24405;
+</span>
+useradd --system --no-create-home --shell /bin/false nexus
+chown -R nexus:nexus /usr/local/nexus/
+chown -R nexus:nexus /usr/local/sonatype-work
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#37197;&#32622;&#20869;&#23384;&#12290;&#25512;&#33616;&#37197;&#32622;&#65288;8GB &#20869;&#23384;&#26381;&#21153;&#22120;&#65289;
+</span>vim /usr/local/nexus/bin/nexus.vmoptions
+-Xms512m
+-Xmx2048m
+-XX:<span class="org-variable-name">MaxDirectMemorySize</span>=2048m
+-XX:+UnlockExperimentalVMOptions
+-XX:+UseZGC
+</pre>
+</div>
+
+<p>
+systemd 服务文件
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">cat &lt;&lt;EOF&gt; /lib/systemd/system/nexus.service<span class="org-sh-heredoc">
+[Unit]
+Description=Nexus Repository Manager
+After=network.target
+
+[Service]
+Type=forking
+LimitNOFILE=65536
+User=nexus
+Group=nexus
+ExecStart=/usr/local/nexus/bin/nexus start
+ExecStop=/usr/local/nexus/bin/nexus stop
+Restart=on-failure
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target
+EOF
+</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">export RUN_AS_USER=root
+</span>systemctl daemon-reload &amp;&amp;  systemctl enable --now nexus
+systemctl status nexus
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">admin &#23494;&#30721;
+</span>cat /usr/local/sonatype-work/nexus3/admin.password
+</pre>
+</div>
+
+<p>
+默认的端口是8081。可修改 nexus.properties 文件
+</p>
+
+<p>
+NEXUS内部使用 Jetty 作为服务器
+</p>
+
+<p>
+首次登录向导会引导你：
+</p>
+<ul class="org-ul">
+<li>设置新的管理员密码</li>
+<li>配置匿名访问（可选）</li>
+<li>完成初始设置</li>
+</ul>
+
+
+<p>
+nginx 代理
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">sudo apt install -y nginx
+cat &lt;&lt;\EOF&gt; /etc/nginx/sites-available/nexus<span class="org-sh-heredoc">
+
+upstream nexus_backend {
+    server 127.0.0.1:8081;
+}
+
+server {
+    listen 80;
+    server_name nexus.example.com;
+
+    location / {
+        proxy_pass http://nexus_backend;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        client_max_body_size 1G;
+    }
+}
+EOF
+</span>ln -s /etc/nginx/sites-available/nexus /etc/nginx/sites-enabled/
+nginx -t &amp;&amp; sudo systemctl reload nginx
+
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org978fdd4" class="outline-4">
+<h4 id="org978fdd4"><a href="#org978fdd4">docker compose 安装</a></h4>
+<div class="outline-text-4" id="text-org978fdd4">
+<div class="org-src-container">
+<pre class="src src-shell">mkdir /data/nexus-data &amp;&amp; chown -R 200 /data/nexus-data
+docker run -d -p 8081:8081 --name nexus --restart=always -v /data/nexus-data:/nexus-data sonatype/nexus3
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#20572;&#27490;&#35201;&#30830;&#20445;&#26377;&#36275;&#22815;&#30340;&#26102;&#38388;&#20851;&#38381;&#25968;&#25454;
+</span>docker stop --time=120 nexus
+<span class="org-comment-delimiter"># </span><span class="org-comment">admin&#30340;&#21021;&#22987;&#23494;&#30721;
+</span>cat /data/nexus-data/admin.password
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#35775;&#38382;
+</span>http://your_ip:8081
+&#35760;&#24471;&#26356;&#25913;&#19979;&#23494;&#30721;
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-shell">mkdir /opt/nexus &amp;&amp; <span class="org-builtin">cd</span> /opt/nexus
+
+cat &lt;&lt;\EOF&gt; docker-compose.yml<span class="org-sh-heredoc">
+services:
+  nexus:
+    # &#23448;&#26041;&#38236;&#20687;&#26377; linux/arm64&#65292;&#36890;&#36807; dockerd &#20195;&#29702;&#25289;&#21462;
+    # (/etc/systemd/system/docker.service.d/http-proxy.conf)
+    image: sonatype/nexus3:3.97.0
+    container_name: nexus
+    restart: unless-stopped
+    environment:
+      # &#27880;&#24847;&#65306;&#36825;&#20010;&#21464;&#37327;&#20250;&#25972;&#20307;&#35206;&#30422;&#38236;&#20687;&#37324;&#30340;&#40664;&#35748;&#20540;&#65292;&#38236;&#20687;&#21407;&#26412;&#21482;&#35774;&#20102; javaprefs &#37027;&#19968;&#26465;&#65292;
+      # &#33258;&#23450;&#20041;&#26102;&#24517;&#39035;&#25226;&#23427;&#24102;&#19978;&#65292;&#21542;&#21017; Java Preferences &#20250;&#24448;&#21482;&#35835;&#30340; /opt &#37324;&#20889;&#12290;
+      # &#22534;&#21644;&#22534;&#22806;&#65306;&#38236;&#20687; nexus.vmoptions &#40664;&#35748; 2703m x2&#65292;&#36825;&#21488;&#26426;&#22120;&#24635;&#20849; 3.2G
+      # &#36824;&#36305;&#30528; SonarQube&#65292;&#29031;&#25220;&#20250;&#25226;&#25972;&#26426;&#21387;&#36827; swap&#12290;
+      INSTALL4J_ADD_VM_PARAMS: &gt;-
+        -Djava.util.prefs.userRoot=/nexus-data/javaprefs
+        -Xms1024m -Xmx1024m -XX:MaxDirectMemorySize=768m
+    # &#20828;&#24213;&#65292;&#38450;&#27490; Nexus &#22833;&#25511;&#26102;&#25226; SonarQube &#25380;&#27515;
+    mem_limit: 2g
+    ports:
+      - "8081:8081"
+    volumes:
+      - nexus-data:/nexus-data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:8081/service/rest/v1/status -o /dev/null || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 180s
+    networks:
+      - nexusnet
+
+networks:
+  nexusnet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+
+volumes:
+  nexus-data:
+EOF
+</span>
+docker compose up -d
+docker compose ps
+docker compose logs -f nexus
+docker compose restart nexus
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#22791;&#20221;&#25968;&#25454;&#21367;
+</span>docker run --rm -v nexus_nexus-data:/src:ro -v /root:/bak <span class="org-sh-escaped-newline">\</span>
+  public.ecr.aws/docker/library/ubuntu:24.04 <span class="org-sh-escaped-newline">\</span>
+  tar -czf /bak/nexus-data-$(date +%F).tar.gz -C /src .
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-h:57E80D8A-8086-4639-8561-BFFF36518B5F" class="outline-3">
+<h3 id="h:57E80D8A-8086-4639-8561-BFFF36518B5F"><a href="#h:57E80D8A-8086-4639-8561-BFFF36518B5F">仓库类型介绍</a></h3>
+<div class="outline-text-3" id="text-h:57E80D8A-8086-4639-8561-BFFF36518B5F">
+<p>
+Nexus 支持三种仓库类型：
+</p>
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">类型</th>
+<th scope="col" class="org-left">说明</th>
+<th scope="col" class="org-left">使用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Proxy（代理）</td>
+<td class="org-left">代理远程仓库，缓存到本地</td>
+<td class="org-left">加速依赖下载，节省带宽</td>
+</tr>
+
+<tr>
+<td class="org-left">Hosted（托管）</td>
+<td class="org-left">存储本地发布的构件</td>
+<td class="org-left">发布团队内部构建的包</td>
+</tr>
+
+<tr>
+<td class="org-left">Group（组）</td>
+<td class="org-left">将多个仓库合并为一个 URL</td>
+<td class="org-left">简化客户端配置</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="outline-container-h:1FC2D130-4549-4B61-86D1-52F5BF4B3AF3" class="outline-3">
+<h3 id="h:1FC2D130-4549-4B61-86D1-52F5BF4B3AF3"><a href="#h:1FC2D130-4549-4B61-86D1-52F5BF4B3AF3">仓库配置</a></h3>
+<div class="outline-text-3" id="text-h:1FC2D130-4549-4B61-86D1-52F5BF4B3AF3">
+</div>
+<div id="outline-container-h:10849213-C4FF-4B53-9682-3E0B8EEB848F" class="outline-4">
+<h4 id="h:10849213-C4FF-4B53-9682-3E0B8EEB848F"><a href="#h:10849213-C4FF-4B53-9682-3E0B8EEB848F">Maven 仓库</a></h4>
+<div class="outline-text-4" id="text-h:10849213-C4FF-4B53-9682-3E0B8EEB848F">
+<p>
+Nexus 默认已创建了以下 Maven 仓库：
+</p>
+
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">仓库</th>
+<th scope="col" class="org-left">类型</th>
+<th scope="col" class="org-left">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">maven-central</td>
+<td class="org-left">proxy</td>
+<td class="org-left">代理 repo1.maven.org，缓存第三方 jar</td>
+</tr>
+
+<tr>
+<td class="org-left">maven-releases</td>
+<td class="org-left">hosted</td>
+<td class="org-left">存你自己的正式版</td>
+</tr>
+
+<tr>
+<td class="org-left">maven-snapshots</td>
+<td class="org-left">hosted</td>
+<td class="org-left">存你自己的快照版</td>
+</tr>
+
+<tr>
+<td class="org-left">maven-public</td>
+<td class="org-left">group</td>
+<td class="org-left">把上面三个聚合成一个地址，Maven 只连这一个</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+maven-releases 默认是 Disable redeploy，同一个版本号推第二次会 400，发版时注意递增版本。
+</p>
+
+<blockquote>
+<p>
+社区版有用量上限：40,000 components / 100,000 requests 每天（3.87 起从 100k/200k 降下来的），超了会在 45 天宽限期后拒绝写入新构件。代理缓存久了是会逼近 4 万的，留意 Usage Center。
+</p>
+</blockquote>
+</div>
+<div id="outline-container-h:48514C4B-769B-472E-A595-60C531907DDD" class="outline-5">
+<h5 id="h:48514C4B-769B-472E-A595-60C531907DDD"><a href="#h:48514C4B-769B-472E-A595-60C531907DDD">访问权限</a></h5>
+<div class="outline-text-5" id="text-h:48514C4B-769B-472E-A595-60C531907DDD">
+<ul class="org-ul">
+<li>创建研发人员 “读+上传” 角色 dev，角色给 <code>nx-repository-view-maven2-*-*</code>
+<ul class="org-ul">
+<li>Security → Roles</li>
+</ul></li>
+<li>创建 ci 用户，并分配开发权限
+<ul class="org-ul">
+<li>Security → Users</li>
+</ul></li>
+</ul>
+
+
+<p>
+省事：
+</p>
+<ul class="org-ul">
+<li>Administration → Security → Anonymous Access → 勾选 Enable，角色给 nx-anonymous。这样拉包不用密码，只有deploy 需要账号。</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-h:B441EC8A-845E-4B0C-A637-F3D71E475A3D" class="outline-5">
+<h5 id="h:B441EC8A-845E-4B0C-A637-F3D71E475A3D"><a href="#h:B441EC8A-845E-4B0C-A637-F3D71E475A3D">Maven 侧：settings.xml</a></h5>
+<div class="outline-text-5" id="text-h:B441EC8A-845E-4B0C-A637-F3D71E475A3D">
+<p>
+加个阿里云代理加速：
+</p>
+<ul class="org-ul">
+<li>Repository → Create repository → maven2 (proxy)，Remote storage
+填 <a href="https://maven.aliyun.com/repository/public">https://maven.aliyun.com/repository/public</a>，然后编辑 maven-public group，
+把它拖到 maven-central 前面。</li>
+</ul>
+
+
+<div class="org-src-container">
+<pre class="src src-shell">mkdir -p /root/.m2
+cat &gt; /root/.m2/settings.xml &lt;&lt;<span class="org-string">'EOF'</span>
+</pre>
+</div>
+
+
+<div class="org-src-container">
+<pre class="src src-shell">mkdir -p /root/.m2
+cat &gt; /root/.m2/settings.xml &lt;&lt;<span class="org-string">'EOF'</span><span class="org-sh-heredoc">
+&lt;settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"&gt;
+  &lt;localRepository&gt;/m2/repository&lt;/localRepository&gt;
+
+  &lt;servers&gt;
+    &lt;!-- id &#24517;&#39035;&#21644;&#19979;&#38754; mirror &#30340; id &#19968;&#33268;&#65292;&#20973;&#25454;&#38752; id &#21305;&#37197; --&gt;
+    &lt;server&gt;
+      &lt;id&gt;nexus&lt;/id&gt;
+      &lt;username&gt;ci&lt;/username&gt;
+      &lt;password&gt;******&lt;/password&gt;
+    &lt;/server&gt;
+    &lt;server&gt;&lt;id&gt;nexus-releases&lt;/id&gt;&lt;username&gt;ci&lt;/username&gt;&lt;password&gt;******&lt;/password&gt;&lt;/server&gt;
+    &lt;server&gt;&lt;id&gt;nexus-snapshots&lt;/id&gt;&lt;username&gt;ci&lt;/username&gt;&lt;password&gt;******&lt;/password&gt;&lt;/server&gt;
+  &lt;/servers&gt;
+
+  &lt;mirrors&gt;
+    &lt;mirror&gt;
+      &lt;id&gt;nexus&lt;/id&gt;
+      &lt;name&gt;nexus maven-public&lt;/name&gt;
+      &lt;url&gt;http://10.0.0.105:8081/repository/maven-public/&lt;/url&gt;
+      &lt;mirrorOf&gt;*&lt;/mirrorOf&gt;   &lt;!-- &#25152;&#26377;&#20179;&#24211;&#35831;&#27714;&#37117;&#36716;&#21040; Nexus --&gt;
+    &lt;/mirror&gt;
+  &lt;/mirrors&gt;
+
+  &lt;!--&#24341;&#29992;Nexus&#24211;jar--&gt;
+  &lt;profiles&gt;
+    &lt;profile&gt;
+      &lt;id&gt;nexus&lt;/id&gt;
+      &lt;!-- url &#26159;&#21344;&#20301;&#30340;&#65292;&#23454;&#38469;&#34987;&#19978;&#38754;&#30340; mirror &#25509;&#31649;&#65307;&#36825;&#37324;&#21482;&#20026;&#20102;&#25171;&#24320; snapshot &#24320;&#20851; --&gt;
+      &lt;repositories&gt;
+        &lt;repository&gt;
+          &lt;id&gt;central&lt;/id&gt;&lt;url&gt;http://central&lt;/url&gt;
+          &lt;releases&gt;&lt;enabled&gt;true&lt;/enabled&gt;&lt;/releases&gt;
+          &lt;snapshots&gt;&lt;enabled&gt;true&lt;/enabled&gt;&lt;updatePolicy&gt;always&lt;/updatePolicy&gt;&lt;/snapshots&gt;
+        &lt;/repository&gt;
+      &lt;/repositories&gt;
+      &lt;pluginRepositories&gt;
+        &lt;pluginRepository&gt;
+          &lt;id&gt;central&lt;/id&gt;&lt;url&gt;http://central&lt;/url&gt;
+          &lt;releases&gt;&lt;enabled&gt;true&lt;/enabled&gt;&lt;/releases&gt;
+          &lt;snapshots&gt;&lt;enabled&gt;true&lt;/enabled&gt;&lt;/snapshots&gt;
+        &lt;/pluginRepository&gt;
+      &lt;/pluginRepositories&gt;
+    &lt;/profile&gt;
+  &lt;/profiles&gt;
+  &lt;!-- &#28608;&#27963;&#19979;&#36733;&#27169;&#26495;--&gt;
+  &lt;activeProfiles&gt;&lt;activeProfile&gt;nexus&lt;/activeProfile&gt;&lt;/activeProfiles&gt;
+&lt;/settings&gt;
+EOF
+</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#25226;&#26087;&#26412;&#22320;&#20179;&#24211;&#25386;&#24320;
+</span>mv /root/.m2/repository /root/.m2/repository.bak-$(date +%F)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-h:D3E4ED44-5020-410D-81BA-092C7DC2C963" class="outline-5">
+<h5 id="h:D3E4ED44-5020-410D-81BA-092C7DC2C963"><a href="#h:D3E4ED44-5020-410D-81BA-092C7DC2C963">把自己的包发上去</a></h5>
+<div class="outline-text-5" id="text-h:D3E4ED44-5020-410D-81BA-092C7DC2C963">
+<p>
+父 pom 加：
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">&lt;distributionManagement&gt;
+  &lt;repository&gt;
+    &lt;id&gt;nexus-releases&lt;/id&gt;
+    &lt;url&gt;http://10.0.0.105:8081/repository/maven-releases/&lt;/url&gt;
+  &lt;/repository&gt;
+  &lt;snapshotRepository&gt;
+    &lt;id&gt;nexus-snapshots&lt;/id&gt;
+    &lt;url&gt;http://10.0.0.105:8081/repository/maven-snapshots/&lt;/url&gt;
+  &lt;/snapshotRepository&gt;
+&lt;/distributionManagement&gt;
+</pre>
+</div>
+
+<p>
+然后 <code>mvn deploy</code> 。版本号带 <code>-SNAPSHOT</code> 自动进 snapshots，否则进 releases。
+</p>
+</div>
+</div>
+<div id="outline-container-h:47A0CCAA-3587-42D9-BF7C-2A15ACF16A57" class="outline-5">
+<h5 id="h:47A0CCAA-3587-42D9-BF7C-2A15ACF16A57"><a href="#h:47A0CCAA-3587-42D9-BF7C-2A15ACF16A57">Jenkins 侧 Jenkinsfile</a></h5>
+<div class="outline-text-5" id="text-h:47A0CCAA-3587-42D9-BF7C-2A15ACF16A57">
+<p>
+装 Config File Provider 插件 → Managed files → 新建 Maven settings.xml，把上面内容贴进去，serverCredentialMappings 绑 Jenkins 凭据（这样密码不落在文件里）。然后在 pipeline 里：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-function-name">stage</span>(<span class="org-string">'mvn&#32534;&#35793;&#26500;&#24314;'</span>) {
+  steps {
+    configFileProvider([configFile(fileId: <span class="org-string">'nexus-settings'</span>, variable: <span class="org-string">'MVN_SETTINGS'</span>)]) {
+      sh <span class="org-string">"mvn -s $MVN_SETTINGS -Dmaven.repo.local=/m2/repository clean package -Pdev-k8s -DskipTests"</span>
+    }
+  }
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-h:42A08164-BE73-49D2-94EF-B5CDCAF2D2D9" class="outline-4">
+<h4 id="h:42A08164-BE73-49D2-94EF-B5CDCAF2D2D9"><a href="#h:42A08164-BE73-49D2-94EF-B5CDCAF2D2D9">npm 仓库</a></h4>
+<div class="outline-text-4" id="text-h:42A08164-BE73-49D2-94EF-B5CDCAF2D2D9">
+<p>
+创建 npm 仓库的步骤：
+</p>
+
+<ul class="org-ul">
+<li>进入 Administration → Repositories → Create repository</li>
+<li>选择 npm (proxy)</li>
+<li>填写仓库名称，设置远程 URL 为 <a href="https://registry.npmjs.org">https://registry.npmjs.org</a></li>
+<li>保存后，客户端即可配置使用该仓库</li>
+</ul>
+
+<p>
+客户端配置：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#35774;&#32622; registry
+</span>npm config set registry http://nexus.example.com/repository/npm-group/
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#22914;&#38656;&#35748;&#35777;
+</span>npm adduser --registry http://nexus.example.com/repository/npm-group/
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-h:3530E0F2-8EDE-4BE2-8FAC-8FEB490B29A8" class="outline-4">
+<h4 id="h:3530E0F2-8EDE-4BE2-8FAC-8FEB490B29A8"><a href="#h:3530E0F2-8EDE-4BE2-8FAC-8FEB490B29A8">Docker 仓库</a></h4>
+<div class="outline-text-4" id="text-h:3530E0F2-8EDE-4BE2-8FAC-8FEB490B29A8">
+<p>
+配置 Docker 仓库需要额外的端口：
+</p>
+<ul class="org-ul">
+<li>创建 docker (hosted) 仓库，设置 HTTP 端口（如 5000）</li>
+<li>确保 Nginx 或 HAProxy 转发该端口</li>
+</ul>
+
+
+<p>
+客户端配置：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#37197;&#32622; Docker &#20449;&#20219;&#65288;&#22914;&#26524;&#20351;&#29992;&#33258;&#31614;&#21517;&#35777;&#20070;&#65289;
+</span>sudo mkdir -p /etc/docker/certs.d/nexus.example.com:5000
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#22797;&#21046;&#35777;&#20070;&#21040;&#35813;&#30446;&#24405;
+</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#30331;&#24405;
+</span>docker login nexus.example.com:5000
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#25512;&#36865;&#38236;&#20687;
+</span>docker tag my-image nexus.example.com:5000/my-image
+docker push nexus.example.com:5000/my-image
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-h:3EA16FF1-6FD3-41A3-B2C9-29E513BFC71D" class="outline-4">
+<h4 id="h:3EA16FF1-6FD3-41A3-B2C9-29E513BFC71D"><a href="#h:3EA16FF1-6FD3-41A3-B2C9-29E513BFC71D">PyPI 仓库</a></h4>
+<div class="outline-text-4" id="text-h:3EA16FF1-6FD3-41A3-B2C9-29E513BFC71D">
+<p>
+配置 Python 包仓库：
+</p>
+<ul class="org-ul">
+<li>创建 pypi (proxy) 仓库，远程 URL 设为 <a href="https://pypi.org">https://pypi.org</a></li>
+<li>创建 pypi (hosted) 仓库用于上传私有包</li>
+<li>创建 pypi (group) 仓库合并两者</li>
+</ul>
+
+<p>
+pip 配置：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#21629;&#20196;&#34892;&#26041;&#24335;
+</span>pip install --index-url http://nexus.example.com/repository/pypi-group/simple/ <span class="org-sh-escaped-newline">\</span>
+  --trusted-host nexus.example.com package_name
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#25110;&#20889;&#20837; ~/.pip/pip.conf
+</span>[global]
+index-url = http://nexus.example.com/repository/pypi-group/simple/
+trusted-host = nexus.example.com
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-h:7EA92877-5B96-49A7-A2C7-F38675028D42" class="outline-3">
+<h3 id="h:7EA92877-5B96-49A7-A2C7-F38675028D42"><a href="#h:7EA92877-5B96-49A7-A2C7-F38675028D42">运维</a></h3>
+<div class="outline-text-3" id="text-h:7EA92877-5B96-49A7-A2C7-F38675028D42">
+</div>
+<div id="outline-container-h:B12332DC-8EEB-4E59-A65B-954CF0FBC056" class="outline-4">
+<h4 id="h:B12332DC-8EEB-4E59-A65B-954CF0FBC056"><a href="#h:B12332DC-8EEB-4E59-A65B-954CF0FBC056">清理策略</a></h4>
+<div class="outline-text-4" id="text-h:B12332DC-8EEB-4E59-A65B-954CF0FBC056">
+<p>
+定期清理不再需要的构件以释放空间：
+</p>
+
+<ul class="org-ul">
+<li>Administraton → Blob Stores：查看存储空间使用情况</li>
+<li>Administration → Tasks：创建定时清理任务</li>
+<li>Administration → Cleanup Policies：配置自动清理规则</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-h:3AF10849-9A20-4C08-A47B-1BEEEB90B827" class="outline-4">
+<h4 id="h:3AF10849-9A20-4C08-A47B-1BEEEB90B827"><a href="#h:3AF10849-9A20-4C08-A47B-1BEEEB90B827">备份与恢复</a></h4>
+<div class="outline-text-4" id="text-h:3AF10849-9A20-4C08-A47B-1BEEEB90B827">
+<p>
+备份 sonatype-work 目录即可：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#22791;&#20221;&#21069;&#20572;&#27490;&#26381;&#21153;
+</span>sudo systemctl stop nexus
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#22791;&#20221;
+</span>tar -czf nexus-backup-$(date +%Y%m%d).tar.gz /usr/local/sonatype-work/
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#24674;&#22797;&#26102;&#35299;&#21387;&#22238;&#21407;&#20301;&#32622;
+</span>tar -xzf nexus-backup-20261010.tar.gz -C /
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#21551;&#21160;&#26381;&#21153;
+</span>sudo systemctl start nexus
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-h:F9DB5BF8-D535-4802-A972-AB892CF2358F" class="outline-4">
+<h4 id="h:F9DB5BF8-D535-4802-A972-AB892CF2358F"><a href="#h:F9DB5BF8-D535-4802-A972-AB892CF2358F">日志查看</a></h4>
+<div class="outline-text-4" id="text-h:F9DB5BF8-D535-4802-A972-AB892CF2358F">
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#31995;&#32479;&#26381;&#21153;&#26085;&#24535;
+</span>sudo journalctl -u nexus -f
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Nexus &#20869;&#37096;&#26085;&#24535;
+</span>tail -f /usr/local/sonatype-work/nexus3/log/nexus.log
+</pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<div id="postamble" class="status">
+<!-- 这里曾经放过手动 AdSense 广告位。后改为自动广告（页面上不写 <ins>），
+     2026-10 广告整体下线。见 assets/ADSENSE.md。 -->
+<script type="text/javascript" src="/static/aandds.com/js/postamble.js"></script>
+</div>
+</body>
+</html>

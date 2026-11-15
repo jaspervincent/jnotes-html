@@ -119,7 +119,6 @@
 <li><a href="#h:be3a7920-7c43-404b-81a9-b530d92d7ab4">设置内核参数</a></li>
 </ul>
 </li>
-<li><a href="#h:fa9b09be-a7d3-4d9f-8564-44bcfed39546">journalctl</a></li>
 <li><a href="#h:10153c76-1ed8-43cb-861e-273504654859">/proc 目录和内核参数管理</a>
 <ul>
 <li><a href="#h:a9ad6fa0-356f-4c89-9d4c-85b27fa7d308">systctl设置/proc/sys</a></li>
@@ -230,14 +229,14 @@ rootfs 包括程序和 glibc 库
 <h4 id="h:22a12376-fbdd-4906-aa55-546dcd9816eb"><a href="#h:22a12376-fbdd-4906-aa55-546dcd9816eb">CentOS 6 启动流程</a></h4>
 <div class="outline-text-4" id="text-h:22a12376-fbdd-4906-aa55-546dcd9816eb">
 
-<figure id="org72ba124">
+<figure id="org7eb1020">
 <img style="aspect-ratio:817/398" decoding="async" loading="lazy" src="./images/image-20210120111434311.webp" alt="image-20210120111434311.webp" width="50%">
 
 </figure>
 
 
 
-<figure id="org7f10c2c">
+<figure id="orgf1cdca9">
 <img style="aspect-ratio:848/367" decoding="async" loading="lazy" src="./images/image-20210227224724401.webp" alt="image-20210227224724401.webp" width="50%">
 
 </figure>
@@ -606,7 +605,7 @@ grub-crypt
 </div>
 
 
-<figure id="org5822b6a">
+<figure id="org5d97598">
 <img style="aspect-ratio:848/342" decoding="async" loading="lazy" src="./images/image-20210120111655668.webp" alt="image-20210120111655668.webp" width="50%">
 
 </figure>
@@ -662,7 +661,7 @@ quit
 </div>
 
 
-<figure id="orge8fe2ec">
+<figure id="org6545b52">
 <img style="aspect-ratio:859/233" decoding="async" loading="lazy" src="./images/image-20210214172820316.webp" alt="image-20210214172820316.webp" width="50%">
 
 </figure>
@@ -687,7 +686,7 @@ sync
 <p>
 方法2：单用户模式，无法连网络，只能在现场
 </p>
-<pre class="example" id="orgd61041a">
+<pre class="example" id="orgc2a7034">
 1. 操作系统启动时，输入任意键显示出grub菜单。提示如下
     回车：直接启动
     e: 启动前编辑命令
@@ -1092,7 +1091,7 @@ who -r
 CentOS 5 的inittab文件还定义以下内容
 </p>
 
-<pre class="example" id="org1f2d982">
+<pre class="example" id="org98ddea2">
 初始运行级别(RUN LEVEL)
 系统初始化脚本
 对应运行级别的脚本目录
@@ -1432,7 +1431,7 @@ Password:
 <div id="outline-container-h:68d3f8f3-bb2c-493c-a893-75b491828d0e" class="outline-4">
 <h4 id="h:68d3f8f3-bb2c-493c-a893-75b491828d0e"><a href="#h:68d3f8f3-bb2c-493c-a893-75b491828d0e">CentOS6 启动过程总结</a></h4>
 <div class="outline-text-4" id="text-h:68d3f8f3-bb2c-493c-a893-75b491828d0e">
-<pre class="example" id="org62057fd">
+<pre class="example" id="org9cba518">
 POST
 boot loader
 vmlinux(initramfs.img)
@@ -1469,7 +1468,7 @@ roofs
 </p>
 
 
-<figure id="org3b77678">
+<figure id="org510be93">
 <img style="aspect-ratio:2886/2420" decoding="async" loading="lazy" src="./images/Screenshot.webp" alt="Screenshot.webp" width="50%">
 
 </figure>
@@ -1512,7 +1511,7 @@ roofs
 </ol>
 
 
-<figure id="orgdbae218">
+<figure id="orgf7d9115">
 <img style="aspect-ratio:395/191" decoding="async" loading="lazy" src="./images/image-20210120112802465.webp" alt="image-20210120112802465.webp">
 
 </figure>
@@ -1703,7 +1702,7 @@ systemd执行默认target配置，配置文件
 </div>
 
 
-<figure id="orgf3496ee">
+<figure id="org862820b">
 <img style="aspect-ratio:933/428" decoding="async" loading="lazy" src="./images/image-20210120141206840.webp" alt="image-20210120141206840.webp" width="50%">
 
 </figure>
@@ -1836,7 +1835,7 @@ b74f53e89700498b96f22ddee0f70ced-4.18.0-147.el8.x86_64.conf
 </div>
 
 
-<figure id="org15ecab7">
+<figure id="orgf62b9c8">
 <img style="aspect-ratio:670/167" decoding="async" loading="lazy" src="./images/image-20210227191424514.webp" alt="image-20210227191424514.webp" width="50%">
 
 </figure>
@@ -1861,7 +1860,7 @@ grub2-install --root-directory=/mnt/sysimage /dev/sda
 <h4 id="h:8437d6fe-03cf-4818-9a49-8a810e8fc515"><a href="#h:8437d6fe-03cf-4818-9a49-8a810e8fc515">实战案例2：Centos 7 ，8删除/boot/grub2/*所有内容进行恢复</a></h4>
 <div class="outline-text-4" id="text-h:8437d6fe-03cf-4818-9a49-8a810e8fc515">
 
-<figure id="orgc10ecfa">
+<figure id="org346ceca">
 <img style="aspect-ratio:744/189" decoding="async" loading="lazy" src="./images/image-20210120141254875.webp" alt="image-20210120141254875.webp" width="50%">
 
 </figure>
@@ -2373,7 +2372,7 @@ daemon的主要服务。原生父程序在启动结束后就会终止</li>
 </ul>
 
 
-<figure id="orgd8a0199">
+<figure id="org7b4540c">
 <img style="aspect-ratio:547/468" decoding="async" loading="lazy" src="./images/image-20210228010307414.webp" alt="image-20210228010307414.webp" width="50%">
 
 <figcaption><span class="figure-number">&#22270;1&nbsp; </span>表 1. 资源限制指令、对应的 ulimit 命令、单位</figcaption>
@@ -2915,268 +2914,6 @@ systemd.unit=emergency.target
 systemd.unit=rescue.target
 </pre>
 </div>
-</div>
-</div>
-</section>
-<section id="outline-container-h:fa9b09be-a7d3-4d9f-8564-44bcfed39546" class="outline-2">
-<h2 id="h:fa9b09be-a7d3-4d9f-8564-44bcfed39546"><a href="#h:fa9b09be-a7d3-4d9f-8564-44bcfed39546">journalctl</a></h2>
-<div class="outline-text-2" id="text-h:fa9b09be-a7d3-4d9f-8564-44bcfed39546">
-<p>
-参考：
-</p>
-<ul class="org-ul">
-<li>The systemd for Administrators Blog Series
-<ul class="org-ul">
-<li><a href="https://0pointer.de/blog/projects/journalctl.html">#17: Using the Journal</a></li>
-</ul></li>
-<li>journalctl命令选项：
-<ul class="org-ul">
-<li><a href="https://manpages.debian.org/unstable/manpages-zh/journalctl.1.zh_CN.html">Debian-manpage: journalctl</a></li>
-<li><a href="https://manpages.ubuntu.com/manpages/questing/zh_CN/man1/journalctl.1.html">Ubuntu-manpage: journalctl</a></li>
-</ul></li>
-<li><a href="https://blog.csdn.net/omaidb/article/details/116019014?ops_request_misc=&amp;request_id=&amp;biz_id=102&amp;utm_term=journalctl%20&amp;utm_medium=distribute.pc_search_result.none-task-blog-2~all~sobaiduweb~default-8-116019014.142%5Ev102%5Epc_search_result_base6&amp;spm=1018.2226.3001.4187">CSDN:journalctl日志管理</a></li>
-</ul>
-
-<p>
-命令选项
-</p>
-<div class="org-src-container">
-<pre class="src src-sh">-f, --follow &#21482;&#26174;&#31034;&#26368;&#26032;&#30340;&#26085;&#24535;&#39033;&#65292;&#24182;&#19988;&#19981;&#26029;&#26174;&#31034;&#26032;&#29983;&#25104;&#30340;&#26085;&#24535;&#39033;&#12290; &#27492;&#36873;&#39033;&#38544;&#21547;&#20102; -n &#36873;&#39033;&#12290;
-
--e  &#33258;&#21160;&#28378;&#21160;&#21040;&#26368;&#26032;&#30340;&#26085;&#24535;&#26465;&#30446;&#12290;&#36339;&#36716;&#21040;&#26085;&#24535;&#30340;&#23614;&#37096;&#12290;
-
--n &#38480;&#21046;&#26174;&#31034;&#26368;&#26032;&#30340;&#26085;&#24535;&#34892;&#25968;&#12290; &#40664;&#35748;10&#34892;&#12290;
-
--o, --output=  &#25511;&#21046;&#26085;&#24535;&#30340;&#36755;&#20986;&#26684;&#24335;&#12290; &#21487;&#20197;&#20351;&#29992;&#22914;&#19979;&#36873;&#39033;
-
-  verbose &#20197;&#32467;&#26500;&#21270;&#30340;&#26684;&#24335;&#26174;&#31034;&#27599;&#26465;&#26085;&#24535;&#30340;&#25152;&#26377;&#23383;&#27573;
-  <span class="org-builtin">export</span> &#23558;&#26085;&#24535;&#24207;&#21015;&#21270;&#20026;&#20108;&#36827;&#21046;&#23383;&#33410;&#27969;
-
-
--b [ID][&#177;offset], --boot=[ID][&#177;offset] &#26174;&#31034;&#29305;&#23450;&#20110;&#26576;&#27425;&#21551;&#21160;&#30340;&#26085;&#24535;&#65292; &#36825;&#30456;&#24403;&#20110;&#28155;&#21152;&#20102;&#19968;&#20010; <span class="org-string">"_BOOT_ID="</span> &#21305;&#37197;&#26465;&#20214;&#12290;
-
--k, --dmesg &#20165;&#26174;&#31034;&#20869;&#26680;&#26085;&#24535;&#12290;&#38544;&#21547;&#20102; -b &#36873;&#39033;&#20197;&#21450; <span class="org-string">"_TRANSPORT=kernel"</span> &#21305;&#37197;&#39033;&#12290;
-
--u, --unit=UNIT|PATTERN  <span class="org-comment-delimiter">#</span><span class="org-comment">&#20165;&#26174;&#31034;&#23646;&#20110;&#29305;&#23450;&#21333;&#20803;&#30340;&#26085;&#24535;&#12290; (UNIT)
-</span>
--x, --catalog &#22312;&#26085;&#24535;&#30340;&#36755;&#20986;&#20013;&#22686;&#21152;&#19968;&#20123;&#35299;&#37322;&#24615;&#30340;&#30701;&#25991;&#26412;&#65292; &#20197;&#24110;&#21161;&#36827;&#19968;&#27493;&#35828;&#26126;&#26085;&#24535;&#30340;&#21547;&#20041;&#12289; &#38382;&#39064;&#30340;&#35299;&#20915;&#26041;&#26696;&#12289;&#25903;&#25345;&#35770;&#22363;&#12289; &#24320;&#21457;&#25991;&#26723;&#12289;&#20197;&#21450;&#20854;&#20182;&#20219;&#20309;&#20869;&#23481;&#12290; 
-
--S, --since=, -U, --until=
-
-  &#21442;&#25968;&#30340;&#26684;&#24335;&#31867;&#20284; <span class="org-string">"2012-10-30 18:17:16"</span> &#12290; &#21442;&#25968;&#36824;&#21487;&#20197;&#36827;&#34892;&#22914;&#19979;&#35774;&#32622;&#65306; 
-  (1)&#35774;&#20026; <span class="org-string">"yesterday"</span>, <span class="org-string">"today"</span>, <span class="org-string">"tomorrow"</span> &#20197;&#34920;&#31034;&#37027;&#19968;&#22825;&#30340;&#38646;&#28857;(00:00:00)&#12290; 
-  (2)&#35774;&#20026; <span class="org-string">"now"</span> &#20197;&#34920;&#31034;&#24403;&#21069;&#26102;&#38388;&#12290; 
-  (3)&#21487;&#20197;&#22312;<span class="org-string">"&#24180;-&#26376;-&#26085; &#26102;:&#20998;:&#31186;"</span>&#21069;&#21152;&#19978; <span class="org-string">"-"</span>(&#21069;&#31227;) &#25110; <span class="org-string">"+"</span>(&#21518;&#31227;) &#21069;&#32512;&#20197;&#34920;&#31034;&#30456;&#23545;&#20110;&#24403;&#21069;&#26102;&#38388;&#30340;&#20559;&#31227;&#12290; 
-  &#20851;&#20110;&#26102;&#38388;&#19982;&#26085;&#26399;&#30340;&#35814;&#32454;&#35268;&#33539;&#65292; &#21442;&#35265; systemd.time(7)
-
---disk-usage &#26174;&#31034;&#25152;&#26377;&#26085;&#24535;&#25991;&#20214;(&#24402;&#26723;&#25991;&#20214;&#19982;&#27963;&#21160;&#25991;&#20214;)&#30340;&#30913;&#30424;&#21344;&#29992;&#24635;&#37327;&#12290;
-</pre>
-</div>
-
-
-<p>
-范例
-</p>
-<div class="org-src-container">
-<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">&#26174;&#31034;&#23614;&#37096;&#25351;&#23450;&#34892;&#25968;&#30340;&#26085;&#24535;
-</span>journalctl -n 20
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#26597;&#30475;&#20174;&#26368;&#21518;&#19968;&#27425;&#21551;&#21160;&#24320;&#22987;&#30340;&#31995;&#32479;&#26381;&#21153;&#21644;&#20869;&#26680;&#26085;&#24535;
-</span>journalctl -b --system
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#26597;&#30475;&#20174;&#26368;&#21518;&#19968;&#27425;&#21551;&#21160;&#24320;&#22987;&#30340;&#24403;&#21069;&#29992;&#25143;&#30340;&#26381;&#21153;&#26085;&#24535;
-</span>journalctl -b --user
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#26597;&#30475;&#20174;&#26368;&#21518;&#19968;&#27425;&#21551;&#21160;&#24320;&#22987;&#30340; "$unit" &#24037;&#20316;&#26085;&#24535;
-</span>journalctl -b -u $<span class="org-variable-name">unit</span>
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#26597;&#30475;&#20174;&#26368;&#21518;&#19968;&#27425;&#21551;&#21160;&#24320;&#22987;&#30340; "$unit"&#30340;&#24037;&#20316;&#26085;&#24535; ("tail -f" &#24335;&#26679;)
-</span>journalctl -b -u $<span class="org-variable-name">unit</span> -f
-
-<span class="org-comment-delimiter"># </span><span class="org-comment">&#26816;&#26597;&#24403;&#21069;&#30001;journald&#31649;&#29702;&#30340;&#25152;&#26377;&#26085;&#24535;&#30340;&#23481;&#37327;
-</span>journalctl --disk-usage
-
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#26597;&#30475; systemd &#26085;&#24535;
-</span>journalctl -u cron.service --since <span class="org-string">"11:40:00"</span>
-journalctl -u sshd --since <span class="org-string">"2025-05-04 04:00:00"</span> --until <span class="org-string">"2025-05-07 05:00:00"</span>
-</pre>
-</div>
-
-<p>
-显示元数据
-</p>
-<div class="org-src-container">
-<pre class="src src-sh">$ journalctl -o verbose -n
-[...]
-Tue, 2012-10-23 23:51:38 CEST [<span class="org-variable-name">s</span>=ac9e9c423355411d87bf0ba1a9b424e8;<span class="org-variable-name">i</span>=4301;<span class="org-variable-name">b</span>=5335e9cf5d954633bb99aefc0ec38c25;<span class="org-variable-name">m</span>=882ee28d2;<span class="org-variable-name">t</span>=4ccc0f98326e6;<span class="org-variable-name">x</span>=f21e8b1b0994d7ee]
-        <span class="org-variable-name">PRIORITY</span>=6
-        <span class="org-variable-name">SYSLOG_FACILITY</span>=3
-        <span class="org-variable-name">_MACHINE_ID</span>=a91663387a90b89f185d4e860000001a
-        <span class="org-variable-name">_HOSTNAME</span>=epsilon
-        <span class="org-variable-name">_TRANSPORT</span>=syslog
-        <span class="org-variable-name">SYSLOG_IDENTIFIER</span>=avahi-daemon
-        <span class="org-variable-name">_COMM</span>=avahi-daemon
-        <span class="org-variable-name">_EXE</span>=/usr/sbin/avahi-daemon
-        <span class="org-variable-name">_SYSTEMD_CGROUP</span>=/system/avahi-daemon.service
-        <span class="org-variable-name">_SYSTEMD_UNIT</span>=avahi-daemon.service
-        <span class="org-variable-name">_SELINUX_CONTEXT</span>=system_u:system_r:avahi_t:s0
-        <span class="org-variable-name">_UID</span>=70
-        <span class="org-variable-name">_GID</span>=70
-        <span class="org-variable-name">_CMDLINE</span>=avahi-daemon: registering [epsilon.local]
-        <span class="org-variable-name">MESSAGE</span>=Joining mDNS multicast group on interface wlan0.IPv4 with address 172.31.0.53.
-        <span class="org-variable-name">_BOOT_ID</span>=5335e9cf5d954633bb99aefc0ec38c25
-        <span class="org-variable-name">_PID</span>=27937
-        <span class="org-variable-name">SYSLOG_PID</span>=27937
-        <span class="org-variable-name">_SOURCE_REALTIME_TIMESTAMP</span>=1351029098747042
-
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#26174;&#31034;&#25152;&#26377;&#26469;&#33258; Linux &#29992;&#25143; ID 70 &#25110; 71 &#30340;&#26085;&#24535;&#28040;&#24687;
-</span>journalctl <span class="org-variable-name">_UID</span>=70 <span class="org-variable-name">_UID</span>=71
-</pre>
-</div>
-
-<p>
-会话详情
-</p>
-<div class="org-src-container">
-<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">&#36890;&#36807; journalctl &#36807;&#28388;&#29305;&#23450;&#20250;&#35805;
-</span>journalctl <span class="org-variable-name">_PID</span>=4771
-<span class="org-comment-delimiter"># </span><span class="org-comment">&#25110;&#26597;&#30475;&#25152;&#26377; root &#29992;&#25143;&#20250;&#35805;
-</span>journalctl <span class="org-variable-name">_UID</span>=0
-</pre>
-</div>
-
-<p>
-范例: ssh暴力破解检查
-</p>
-<div class="org-src-container">
-<pre class="src src-sh">~]# tail /var/log/messages
-May  8 13:50:01 overseas-tools systemd: Started Session 4786 of user root.
-
-~]# grep 14450 /var/log/secure
-May  4 04:18:22 overseas-tools sshd[14450]: Invalid user a from 195.211.191.197 port 39244
-May  4 04:18:22 overseas-tools sshd[14450]: input_userauth_request: invalid user a [preauth]
-May  4 04:18:24 overseas-tools sshd[14450]: Connection closed by 195.211.191.197 port 39244 [preauth]
-<span class="org-comment-delimiter">#</span><span class="org-comment">invalid user a&#65306;&#23581;&#35797;&#20351;&#29992;&#26080;&#25928;&#29992;&#25143;&#21517; a &#36827;&#34892;&#35748;&#35777;&#65292;
-</span><span class="org-comment-delimiter">#</span><span class="org-comment">[preauth]&#65306;&#27492;&#27425;&#35748;&#35777;&#35831;&#27714;&#22312;SSH&#30340;&#8220;&#39044;&#35748;&#35777;&#38454;&#27573;&#8221;&#34987;&#25298;&#32477;&#65288;&#26410;&#23436;&#25104;&#23494;&#38053;&#20132;&#25442;&#25110;&#23494;&#30721;&#39564;&#35777;&#21069;&#65289;&#12290;
-</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">&#36890;&#36807; journalctl &#36807;&#28388;&#29305;&#23450;&#20250;&#35805;
-</span>~]# journalctl <span class="org-variable-name">_PID</span>=14450
--- Logs begin at Thu 2023-10-19 11:48:25 CST, end at Thu 2025-05-08 14:11:00 CST. --
-Feb 19 08:10:01 overseas-tools CROND[14450]: (root) CMD (/usr/lib64/sa/sa1 1 1)
-Mar 11 14:51:03 overseas-tools sshd[14450]: Invalid user centos from 59.148.102.58 port 50150
-Mar 11 14:51:03 overseas-tools sshd[14450]: input_userauth_request: invalid user centos [preauth]
-Mar 11 14:51:03 overseas-tools sshd[14450]: Connection closed by 59.148.102.58 port 50150 [preauth]
--- Reboot --
-May 04 04:18:22 overseas-tools sshd[14450]: Invalid user a from 195.211.191.197 port 39244
-May 04 04:18:22 overseas-tools sshd[14450]: input_userauth_request: invalid user a [preauth]
-May 04 04:18:24 overseas-tools sshd[14450]: Connection closed by 195.211.191.197 port 39244 [preauth]
-
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#35786;&#26029;
-</span><span class="org-comment-delimiter">## </span><span class="org-comment">&#32479;&#35745;&#25152;&#26377;&#26080;&#25928;&#29992;&#25143;&#21517;&#30340;&#23581;&#35797;&#27425;&#25968;
-</span>grep <span class="org-string">"invalid user"</span> /var/log/secure | awk <span class="org-string">'{print $(NF-1)}'</span> | sort | uniq -c | sort -nr
-<span class="org-comment-delimiter">## </span><span class="org-comment">&#25552;&#21462;&#25152;&#26377;&#23581;&#35797;&#38750;&#27861;&#30331;&#24405;&#30340;IP&#22320;&#22336;
-</span>grep <span class="org-string">"sshd.*Invalid user.*from"</span> /var/log/secure | grep -oE <span class="org-string">'([0-9]{1,3}\.){3}[0-9]{1,3}'</span> | sort | uniq -c
-
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#26816;&#26597;SSH&#37197;&#32622;
-</span><span class="org-comment-delimiter">##</span><span class="org-comment">&#30830;&#35748;SSH&#26381;&#21153;&#30417;&#21548;&#33539;&#22260;
-</span>ss -tulnp | grep sshd
-<span class="org-comment-delimiter">##</span><span class="org-comment">&#26597;&#30475;SSH&#35748;&#35777;&#22833;&#36133;&#35760;&#24405;
-</span>journalctl -u sshd --since <span class="org-string">"2025-05-04 04:00:00"</span> --until <span class="org-string">"2025-05-07 05:00:00"</span>
-
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#38450;&#25252;
-</span><span class="org-comment-delimiter">##</span><span class="org-comment">&#38480;&#21046;SSH&#35775;&#38382;IP
-</span><span class="org-builtin">echo</span> <span class="org-string">"AllowUsers *@192.168.1.0/24"</span> &gt;&gt; /etc/ssh/sshd_config
-<span class="org-comment-delimiter">##</span><span class="org-comment">&#31105;&#29992;&#23494;&#30721;&#30331;&#24405;&#65292;&#21551;&#29992;&#23494;&#38053;&#35748;&#35777;
-</span>sed -i <span class="org-string">'s/#PasswordAuthentication yes/PasswordAuthentication no/g'</span> /etc/ssh/sshd_config
-systemctl restart sshd
-<span class="org-comment-delimiter">##</span><span class="org-comment">&#26356;&#25913;SSH&#40664;&#35748;&#31471;&#21475;
-</span><span class="org-comment-delimiter">##</span><span class="org-comment">&#37096;&#32626;Fail2ban,&#33258;&#21160;&#23553;&#31105;&#22810;&#27425;&#23581;&#35797;&#22833;&#36133;&#30340;IP
-</span>apt install fail2ban  <span class="org-comment-delimiter"># </span><span class="org-comment">Debian/Ubuntu
-</span>yum install fail2ban  <span class="org-comment-delimiter"># </span><span class="org-comment">CentOS/RHEL
-</span>systemctl enable --now fail2ban
-<span class="org-comment-delimiter">##</span><span class="org-comment">&#37197;&#32622;&#38450;&#28779;&#22681;&#35268;&#21017;&#65306;&#20351;&#29992; iptables &#25110; ufw &#38480;&#21046;SSH&#31471;&#21475;&#30340;&#35775;&#38382;&#39057;&#29575;
-</span>ufw limit proto tcp to 0.0.0.0/0 port 22
-
-<span class="org-comment-delimiter">#</span><span class="org-comment">IP&#23433;&#20840;&#26816;&#26597;
-</span><span class="org-comment-delimiter">##</span><span class="org-comment">&#26816;&#26597;&#24403;&#21069;&#36830;&#25509;&#29366;&#24577;
-</span>netstat -antp | grep 195.211.191.197
-<span class="org-comment-delimiter">##</span><span class="org-comment">&#26597;&#30475;&#21487;&#30097;&#36827;&#31243;
-</span>ps -aux | grep [PID]
-<span class="org-comment-delimiter">##</span><span class="org-comment">&#23041;&#32961;&#24773;&#25253;&#24179;&#21488;&#39564;&#35777;
-</span>&#24494;&#27493;&#22312;&#32447;&#65288;ThreatBook&#65289;&#65306;&#35775;&#38382; https://x.threatbook.cn/ &#36755;&#20837;IP&#65292;&#26597;&#30475;&#20854;&#21382;&#21490;&#23041;&#32961;&#26631;&#31614;&#65288;&#22914;&#26159;&#21542;&#20851;&#32852;&#24694;&#24847;&#36719;&#20214;&#23478;&#26063;&#25110;&#20725;&#23608;&#32593;&#32476;&#65289;&#12290;
-VirusTotal&#65306;&#36890;&#36807; https://www.virustotal.com/ &#20998;&#26512;IP&#30340;&#20449;&#35465;&#35780;&#20998;&#21450;&#20851;&#32852;&#26679;&#26412;&#12290;
-<span class="org-comment-delimiter">##</span><span class="org-comment">&#20998;&#26512;&#35813;IP&#30340;&#20840;&#29699;&#23041;&#32961;&#30011;&#20687;
-</span>&#21487;&#36890;&#36807; Shodan &#26597;&#35810;&#20854;&#24320;&#25918;&#31471;&#21475;&#21450;&#26381;&#21153;&#20449;&#24687; https://www.shodan.io/
-
-<span class="org-comment-delimiter">##</span><span class="org-comment">&#23553;&#31105;IP
-</span>iptables -A INPUT -s 195.211.191.197 -j DROP
-<span class="org-comment-delimiter">##</span><span class="org-comment">&#28145;&#24230;&#25490;&#26597;
-</span>&#26816;&#26597;&#31995;&#32479;&#23436;&#25972;&#24615;:
-- &#20351;&#29992;&#24037;&#20855;&#65288;&#22914; rkhunter&#12289;chkrootkit&#65289;&#25195;&#25551;&#38544;&#34255;&#21518;&#38376;&#25110;Rootkit
-- &#26816;&#26597;&#35745;&#21010;&#20219;&#21153;&#12289;&#21551;&#21160;&#39033;&#12289;&#26381;&#21153;&#21015;&#34920;&#26159;&#21542;&#23384;&#22312;&#24322;&#24120;&#26465;&#30446;
-&#20840;&#30424;&#26432;&#27602;&#65306;
-- &#20351;&#29992;ClamAV&#25110;&#20225;&#19994;&#32423;&#26432;&#27602;&#24037;&#20855;&#65288;&#22914;&#21345;&#24052;&#26031;&#22522;&#65289;&#25195;&#25551;&#24694;&#24847;&#25991;&#20214;
-<span class="org-comment-delimiter">##</span><span class="org-comment">&#27861;&#24459;&#19982;&#25253;&#21578;
-</span>&#30041;&#23384;&#35777;&#25454;&#65306;
-- &#23548;&#20986;&#23436;&#25972;&#26085;&#24535;&#21644;&#32593;&#32476;&#27969;&#37327;&#35760;&#24405;&#65292;&#29992;&#20110;&#21518;&#32493;&#21462;&#35777;&#12290;
-
-&#19978;&#25253;&#30456;&#20851;&#37096;&#38376;&#65306;
-- &#33509;&#30830;&#35748;&#25915;&#20987;&#28041;&#21450;&#37325;&#22823;&#23041;&#32961;&#65292;&#21487;&#32852;&#31995;&#22269;&#23478;&#32593;&#32476;&#23433;&#20840;&#36890;&#25253;&#20013;&#24515;&#25110;&#24403;&#22320;&#32593;&#35686;
-</pre>
-</div>
-
-<p>
-范例：服务无法启动排查
-</p>
-<div class="org-src-container">
-<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">1. &#26597;&#30475;&#26381;&#21153;&#29366;&#24577;&#21644;&#26085;&#24535;
-</span>systemctl status service_name
-journalctl -u service_name -n 50
-
-<span class="org-comment-delimiter"># </span><span class="org-comment">2. &#26816;&#26597;&#31471;&#21475;&#21344;&#29992;
-</span>ss -tlnp | grep :&#31471;&#21475;&#21495;
-lsof -i :&#31471;&#21475;&#21495;
-
-<span class="org-comment-delimiter"># </span><span class="org-comment">3. &#26816;&#26597;&#37197;&#32622;&#25991;&#20214;&#35821;&#27861;
-</span>nginx -t
-httpd -t
-mysql --help --verbose | grep -A 1 <span class="org-string">"Default options"</span>
-
-<span class="org-comment-delimiter"># </span><span class="org-comment">4. &#26816;&#26597;&#26435;&#38480;&#38382;&#39064;
-</span>ls -la /path/to/service
-namei -l /path/to/service/file
-
-<span class="org-comment-delimiter"># </span><span class="org-comment">5. &#26597;&#30475;SELinux&#38382;&#39064;
-</span>getenforce
-setenforce 0  <span class="org-comment-delimiter"># </span><span class="org-comment">&#20020;&#26102;&#20851;&#38381;&#27979;&#35797;
-</span>ausearch -m AVC -ts recent
-</pre>
-</div>
-
-<p>
-范例：使用journalctl高效排查
-</p>
-<div class="org-src-container">
-<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#26597;&#30475;&#25351;&#23450;&#26102;&#38388;&#27573;&#30340;&#26085;&#24535;
-</span>journalctl --since <span class="org-string">"2024-01-01 00:00:00"</span> --until <span class="org-string">"2024-01-01 01:00:00"</span>
-
-<span class="org-comment-delimiter"># </span><span class="org-comment">&#26597;&#30475;&#25351;&#23450;&#26381;&#21153;&#30340;&#26085;&#24535;
-</span>journalctl -u nginx.service -f
-
-<span class="org-comment-delimiter"># </span><span class="org-comment">&#26597;&#30475;&#20869;&#26680;&#26085;&#24535;
-</span>journalctl -k
-
-<span class="org-comment-delimiter"># </span><span class="org-comment">&#26597;&#30475;&#25351;&#23450;&#20248;&#20808;&#32423;&#30340;&#26085;&#24535;
-</span>journalctl -p err..emerg
-
-<span class="org-comment-delimiter"># </span><span class="org-comment">&#23548;&#20986;&#26085;&#24535;for&#20998;&#26512;
-</span>journalctl -u service_name -o json &gt; service.json
-</pre>
-</div>
-
-
-<div class="org-src-container">
-<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#25910;&#25947;&#26085;&#24535;
-</span>journalctl --vacuum-size=100M
-<span class="org-builtin">echo</span> <span class="org-string">'SystemMaxUse=200M'</span> &gt;&gt; /etc/systemd/journald.conf
-systemctl restart systemd-journald
-</pre>
 </div>
 </div>
 </section>
@@ -3836,7 +3573,7 @@ grub_class kernel
 </div>
 
 
-<figure id="org9d01c3e">
+<figure id="org828c480">
 <img style="aspect-ratio:811/419" decoding="async" loading="lazy" src="./images/image-20210120113001460.webp" alt="image-20210120113001460.webp" width="50%">
 
 </figure>
@@ -4148,7 +3885,7 @@ cpio     fatattr        ipcalc    mkdir     pidof       rpm            sync
 
 
 
-<figure id="org49a7a0b">
+<figure id="org5e72d7f">
 <img style="aspect-ratio:1319/534" decoding="async" loading="lazy" src="./images/img_20241001_204253.webp" alt="img_20241001_204253.webp" width="50%">
 
 </figure>
@@ -4289,28 +4026,28 @@ bash-4.1# pwd
 </p>
 
 
-<figure id="org309f525">
+<figure id="org6d7c31f">
 <img style="aspect-ratio:804/451" decoding="async" loading="lazy" src="./images/image-20210120112617421.webp" alt="image-20210120112617421.webp" width="50%">
 
 </figure>
 
 
 
-<figure id="orgfc2831f">
+<figure id="orgdd37265">
 <img style="aspect-ratio:884/641" decoding="async" loading="lazy" src="./images/img_20241001_204653.webp" alt="img_20241001_204653.webp" width="50%">
 
 </figure>
 
 
 
-<figure id="org9342de1">
+<figure id="org716fedb">
 <img style="aspect-ratio:758/226" decoding="async" loading="lazy" src="./images/img_20241001_204612.webp" alt="img_20241001_204612.webp" width="50%">
 
 </figure>
 
 
 
-<figure id="org1b2a817">
+<figure id="org4daa279">
 <img style="aspect-ratio:833/548" decoding="async" loading="lazy" src="./images/image-20210120112739319.webp" alt="image-20210120112739319.webp" width="50%">
 
 </figure>
@@ -4333,7 +4070,7 @@ bash-4.1# pwd
 </p>
 
 
-<figure id="orgb74e394">
+<figure id="orgfab7a31">
 <img decoding="async" loading="lazy" src="./images/LKM.svg" alt="LKM.svg" class="org-svg" width="100%">
 
 </figure>

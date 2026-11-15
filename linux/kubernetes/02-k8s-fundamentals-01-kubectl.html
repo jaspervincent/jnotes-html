@@ -56,9 +56,9 @@
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
 <li><a href="#h:6d6b3a69-7ddb-4756-b8fd-03133bff0331">简述</a></li>
+<li><a href="#h:de6d55b6-37c3-4283-95a1-8935770a4262">kubectl安装</a></li>
 <li><a href="#h:d1f497ed-c277-4f4e-b59b-a81dd52b995a">常用命令</a>
 <ul>
-<li><a href="#h:4b222705-4ed7-4aa3-9b82-2865d66e15c1">Kubectl 自动补全</a></li>
 <li><a href="#h:d16a9bcf-7dd6-4d6e-8e24-bca94b1a07db">Kubectl 上下文和配置</a></li>
 <li><a href="#h:003e354b-b904-4c87-8d2f-751111a8eb71">Kubectl apply</a></li>
 <li><a href="#h:33141834-8c88-413b-8eb6-94ca70aed8a2">创建对象</a></li>
@@ -80,7 +80,6 @@
 <li><a href="#h:9b826fe2-1263-40fc-8f32-661a3870919c">Kubectl 日志输出详细程度和调试</a></li>
 </ul>
 </li>
-<li><a href="#h:de6d55b6-37c3-4283-95a1-8935770a4262">kubectl安装</a></li>
 <li><a href="#h:c285c725-1765-4fa3-866d-fac8b2f8e8ed">命令详解</a>
 <ul>
 <li><a href="#h:75e751b8-ad12-40d5-9504-8de911d7ca32">查看</a>
@@ -96,6 +95,7 @@
 <li><a href="#h:523ee34e-05c8-4860-9bf8-01a9498b00b8">Events</a></li>
 <li><a href="#h:0D8CBF7D-5FCD-4DFE-8DBA-41B8530615CB">Ingress</a></li>
 <li><a href="#h:b36b36d6-e0a3-4ff0-af7b-f3199c21e585">logs</a></li>
+<li><a href="#h:D0B853B3-6777-4395-A0B7-4F4F3913D90A">Debug</a></li>
 <li><a href="#h:bdc71311-1ad8-4303-8aa9-c7aa4e145427">Service Accounts</a></li>
 <li><a href="#h:e254bd02-e754-4d55-903c-29581fc0806b">ReplicaSets</a></li>
 <li><a href="#h:752f915f-7331-4a0c-8ee3-b05c9babc5f0">Roles</a></li>
@@ -163,21 +163,17 @@
 <div class="outline-text-2" id="text-h:6d6b3a69-7ddb-4756-b8fd-03133bff0331">
 <p>
 你可以使用 Kubectl 命令行工具管理 Kubernetes 集群。 <code>kubectl</code> 在
-<code>$HOME/.kube</code> 目录中查找一个名为 <code>config</code> 的配置文件。 你可以通过设置
-KUBECONFIG 环境变量或设置
-<a href="https://kubernetes.io/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/"><code>--kubeconfig</code></a>
-参数来指定其它
-<a href="https://kubernetes.io/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/">kubeconfig</a>
-文件。
+<code>$HOME/.kube</code> 目录中查找一个名为 <code>config</code> 的配置文件。 你可以通过设置 KUBECONFIG 环境变量或设置 <a href="https://kubernetes.io/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/"><code>--kubeconfig</code></a>
+参数来指定其它 <a href="https://kubernetes.io/zh/docs/concepts/configuration/organize-cluster-access-kubeconfig/">kubeconfig</a> 文件。
 </p>
 
 <p>
 本文概述了 <code>kubectl</code> 语法和命令操作描述，并提供了常见的示例。
-有关每个命令的详细信息，包括所有受支持的参数和子命令， 请参阅
-<a href="https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands/">kubectl</a>
-参考文档。
-有关安装说明，请参见<a href="https://kubernetes.io/zh/docs/tasks/tools/install-kubectl/">安装
-kubectl</a> 。
+有关每个命令的详细信息，包括所有受支持的参数和子命令， 请参阅 <a href="https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands/">kubectl</a> 参考文档。
+</p>
+
+<p>
+有关安装说明，请参见 <a href="https://kubernetes.io/docs/tasks/tools/#kubectl">Install Tools</a>
 </p>
 
 <p>
@@ -193,6 +189,47 @@ kubectl [command] [PARAMS] -o=&lt;format&gt; &#35774;&#32622;&#36755;&#20986;&#2
 kubectl explain &lt;type&gt;.&lt;fieldName&gt;[.&lt;fieldName&gt;] &#26597;&#30475;&#36164;&#28304;&#30340;&#23450;&#20041;
 </pre>
 </div>
+</div>
+</section>
+<section id="outline-container-h:de6d55b6-37c3-4283-95a1-8935770a4262" class="outline-2">
+<h2 id="h:de6d55b6-37c3-4283-95a1-8935770a4262"><a href="#h:de6d55b6-37c3-4283-95a1-8935770a4262">kubectl安装</a></h2>
+<div class="outline-text-2" id="text-h:de6d55b6-37c3-4283-95a1-8935770a4262">
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-variable-name">K8S_VERSION</span>=1.36.4
+<span class="org-variable-name">OS</span>=$(uname -s | tr <span class="org-string">'A-Z'</span> <span class="org-string">'a-z'</span>)
+<span class="org-variable-name">ARCH</span>=$(uname -m | sed <span class="org-string">'s/x86_64/amd64/;s/aarch64/arm64/'</span>)
+<span class="org-variable-name">PLATFORM</span>=<span class="org-string">"$OS-$ARCH"</span>
+
+curl -LO https://dl.k8s.io/release/v${<span class="org-variable-name">K8S_VERSION</span>}/bin/${<span class="org-variable-name">OS</span>}/${<span class="org-variable-name">ARCH</span>}/kubectl
+install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+kubectl version --client
+kubectl cluster-info
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#33258;&#21160;&#34917;&#20840;
+</span><span class="org-builtin">source</span> /usr/share/bash-completion/bash_completion
+<span class="org-builtin">echo</span> <span class="org-string">'source &lt;(kubectl completion bash)'</span> &gt;&gt;~/.bashrc
+<span class="org-builtin">echo</span> <span class="org-string">'alias k=kubectl'</span> &gt;&gt;~/.bashrc
+<span class="org-builtin">echo</span> <span class="org-string">'complete -o default -F __start_kubectl k'</span> &gt;&gt;~/.bashrc
+<span class="org-builtin">source</span> ~/.bashrc
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">----
+</span>mkdir -p $<span class="org-variable-name">HOME</span>/.kube
+sudo cp -i /etc/kubernetes/admin.conf $<span class="org-variable-name">HOME</span>/.kube/config
+sudo chown $(id -u):$(id -g) $<span class="org-variable-name">HOME</span>/.kube/config
+</pre>
+</div>
+
+<p>
+Sources:
+</p>
+<ul class="org-ul">
+<li><a href="https://kubernetes.io/zh-cn/docs/home/supported-doc-versions/#versions-older">Kubernetes 文档支持的版本</a></li>
+<li><a href="https://kubernetes.io/zh-cn/releases/download/">下载 Kubernetes</a>
+<ul class="org-ul">
+<li>历史版本 <a href="https://www.downloadkubernetes.com/">https://www.downloadkubernetes.com/</a></li>
+<li>指定版本 <a href="https://v1-36.docs.kubernetes.io/zh-cn/releases/download/">https://v1-36.docs.kubernetes.io/zh-cn/releases/download/</a></li>
+</ul></li>
+</ul>
 </div>
 </section>
 <section id="outline-container-h:d1f497ed-c277-4f4e-b59b-a81dd52b995a" class="outline-2">
@@ -444,40 +481,6 @@ kubectl 写yaml太累，找样例麻烦？
 </pre>
 </div>
 </div>
-<div id="outline-container-h:4b222705-4ed7-4aa3-9b82-2865d66e15c1" class="outline-3">
-<h3 id="h:4b222705-4ed7-4aa3-9b82-2865d66e15c1"><a href="#h:4b222705-4ed7-4aa3-9b82-2865d66e15c1">Kubectl 自动补全</a></h3>
-<div class="outline-text-3" id="text-h:4b222705-4ed7-4aa3-9b82-2865d66e15c1">
-<p>
-BASH
-</p>
-
-<pre class="example" id="orgfc5037d">
-yum install -y bash-completion
-source &lt;(kubectl completion bash) # 在 bash 中设置当前 shell 的自动补全，要先安装 bash-completion 包。
-echo "source &lt;(kubectl completion bash)" &gt;&gt; ~/.bashrc # 在您的 bash shell 中永久的添加自动补全
-</pre>
-
-<p>
-您还可以为 <code>kubectl</code> 使用一个速记别名，该别名也可以与 completion
-一起使用：
-</p>
-
-<div class="org-src-container">
-<pre class="src src-sh"><span class="org-builtin">alias</span> <span class="org-variable-name">k</span>=kubectl
-complete -F __start_kubectl k
-</pre>
-</div>
-
-<p>
-ZSH
-</p>
-
-<pre class="example" id="org799e344">
-source &lt;(kubectl completion zsh)  # 在 zsh 中设置当前 shell 的自动补全
-echo "[[ $commands[kubectl] ]] &amp;&amp; source &lt;(kubectl completion zsh)" &gt;&gt; ~/.zshrc # 在您的 zsh shell 中永久的添加自动补全
-</pre>
-</div>
-</div>
 <div id="outline-container-h:d16a9bcf-7dd6-4d6e-8e24-bca94b1a07db" class="outline-3">
 <h3 id="h:d16a9bcf-7dd6-4d6e-8e24-bca94b1a07db"><a href="#h:d16a9bcf-7dd6-4d6e-8e24-bca94b1a07db">Kubectl 上下文和配置</a></h3>
 <div class="outline-text-3" id="text-h:d16a9bcf-7dd6-4d6e-8e24-bca94b1a07db">
@@ -528,6 +531,24 @@ kubectl config unset users.foo                       <span class="org-comment-de
 应用的推荐方法。 参见 <a href="https://kubectl.docs.kubernetes.io/">Kubectl
 文档</a>。
 </p>
+
+<p>
+上线顺序
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#37096;&#32626;&#21069;&#26816;&#26597;&#12290;&#30495;&#27491;&#21457;&#32473; apiserver &#36208;&#19968;&#36941;&#23436;&#25972;&#27969;&#31243;&#12290;--dry-run=client &#26597;&#19981;&#21040;&#20934;&#20837;&#36825;&#19968;&#23618;&#12290;
+</span>kubectl -n monitoring apply --dry-run=server -f prom-agent.yaml
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#30475;&#23454;&#38469;&#20250;&#25913;&#20160;&#20040;
+</span>kubectl -n monitoring diff -f prom-agent.yaml
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#24212;&#29992;
+</span>kubectl -n monitoring apply -f prom-agent.yaml
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#26356;&#26032;&#32467;&#26524;
+</span>kubectl -n monitoring rollout status deploy/prometheus-agent --timeout=180s
+</pre>
+</div>
 </div>
 </div>
 <div id="outline-container-h:33141834-8c88-413b-8eb6-94ca70aed8a2" class="outline-3">
@@ -872,7 +893,7 @@ kubectl attach my-pod -i                            <span class="org-comment-del
 <div id="outline-container-h:e98c97ec-2a15-47e8-b5e8-13f8c6a53fe7" class="outline-4">
 <h4 id="h:e98c97ec-2a15-47e8-b5e8-13f8c6a53fe7"><a href="#h:e98c97ec-2a15-47e8-b5e8-13f8c6a53fe7">logs</a></h4>
 <div class="outline-text-4" id="text-h:e98c97ec-2a15-47e8-b5e8-13f8c6a53fe7">
-<pre class="example" id="org9dd2003">
+<pre class="example" id="orgd6d7779">
 kubectl logs [pod_name]
 kubectl logs --since=1h [pod_name]
 kubectl logs --tail =20 [pod_name]
@@ -1155,26 +1176,6 @@ Kubectl 日志输出详细程度是通过 <code>-v</code> 或者 <code>--v</code
 </div>
 </div>
 </section>
-<section id="outline-container-h:de6d55b6-37c3-4283-95a1-8935770a4262" class="outline-2">
-<h2 id="h:de6d55b6-37c3-4283-95a1-8935770a4262"><a href="#h:de6d55b6-37c3-4283-95a1-8935770a4262">kubectl安装</a></h2>
-<div class="outline-text-2" id="text-h:de6d55b6-37c3-4283-95a1-8935770a4262">
-<div class="org-src-container">
-<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">OS X
-</span>curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl
-
-<span class="org-comment-delimiter"># </span><span class="org-comment">Linux
-</span>curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-
-mkdir -p $<span class="org-variable-name">HOME</span>/.kube
-sudo cp -i /etc/kubernetes/admin.conf $<span class="org-variable-name">HOME</span>/.kube/config
-sudo chown $(id -u):$(id -g) $<span class="org-variable-name">HOME</span>/.kube/config
-
-<span class="org-comment-delimiter"># </span><span class="org-comment">Windows
-</span>curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/windows/amd64/kubectl.exe
-</pre>
-</div>
-</div>
-</section>
 <section id="outline-container-h:c285c725-1765-4fa3-866d-fac8b2f8e8ed" class="outline-2">
 <h2 id="h:c285c725-1765-4fa3-866d-fac8b2f8e8ed"><a href="#h:c285c725-1765-4fa3-866d-fac8b2f8e8ed">命令详解</a></h2>
 <div class="outline-text-2" id="text-h:c285c725-1765-4fa3-866d-fac8b2f8e8ed">
@@ -1199,6 +1200,57 @@ resource包括集群节点、运行的pod，ReplicationController，service等�
 <pre class="src src-sh">[root@master ~]# kubectl config 
 [root@master ~]# kubectl cluster-info
 [root@master ~]# kubectl get componentstatuses
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#38598;&#32676;&#24635;&#20307;&#20449;&#24687;
+</span>
+kubectl cluster-info                 <span class="org-comment-delimiter"># </span><span class="org-comment">&#25511;&#21046;&#38754; / CoreDNS &#22320;&#22336;
+</span>kubectl cluster-info dump            <span class="org-comment-delimiter"># </span><span class="org-comment">&#20840;&#37327;&#20449;&#24687;&#65288;&#24456;&#38271;&#65292;&#24314;&#35758;&#37197;&#21512; grep&#65289;
+</span>kubectl version
+kubectl get nodes -o wide
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Service CIDR
+</span>kubectl get servicecidr
+kubectl get servicecidr kubernetes -o yaml
+  
+<span class="org-comment-delimiter"># </span><span class="org-comment">Pod CIDR
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">&#33410;&#28857; podCIDR&#65288;overlay &#27169;&#24335;&#25165;&#26377;&#20540;&#65289;
+</span>kubectl get nodes -o <span class="org-variable-name">jsonpath</span>=<span class="org-string">'{range .items[*]}{.metadata.name}{"\t"}{.spec.podCIDR}{"\n"}{end}'</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Pod CIDR &#26368;&#32456;&#30001; CNI &#20915;&#23450;&#65292;&#21644; controller-manager &#21442;&#25968;&#19981;&#19968;&#23450;&#23436;&#20840;&#19968;&#33268;&#65306;
+</span>kubectl -n kube-system get cm -o name | grep -iE <span class="org-string">'calico|cilium|flannel|amazon-vpc-cni|eni-config'</span>
+kubectl -n kube-system get cm kube-flannel-cfg -o yaml | grep Network   <span class="org-comment-delimiter"># </span><span class="org-comment">flannel
+</span>kubectl get ippools -o wide                                             <span class="org-comment-delimiter"># </span><span class="org-comment">calico
+</span>cilium-dbg status --all-addressing                                      <span class="org-comment-delimiter"># </span><span class="org-comment">cilium&#65288;&#22312; agent Pod &#20869;&#25191;&#34892;&#65289;
+</span>
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">ack
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">ACK &#33258;&#24049;&#30340;&#38598;&#32676;&#30011;&#20687;&#65292;&#36890;&#24120;&#20063;&#24102;&#32593;&#32476;&#20449;&#24687;
+</span>kubectl -n kube-system get cm ack-cluster-profile -o yaml
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#27880;&#24847;&#20320;&#36825;&#37324;&#26377; configmap/eni-config &#8212;&#8212; &#35828;&#26126;&#38598;&#32676;&#22823;&#27010;&#29575;&#29992;&#30340;&#26159; Terway&#65288;ENI &#32593;&#32476;&#65289;&#65292;Pod &#30452;&#25509;&#25343; VPC &#20132;&#25442;&#26426;&#30340; IP&#65292;&#19981;&#36208; overlay&#12290;&#36825;&#31181;&#24773;&#20917;&#19979; kubeadm-config &#37324;&#30340; podSubnet &#21482;&#26159;&#21021;&#22987;&#21270;&#26102;&#30340;&#22768;&#26126;&#20540;&#65292;&#30495;&#27491;&#30340; Pod &#32593;&#27573;&#26159; vSwitch &#30340;&#32593;&#27573;&#65306;
+</span>kubectl -n kube-system get cm eni-config -o yaml        <span class="org-comment-delimiter"># </span><span class="org-comment">&#30475; vswitches / security_group
+</span>kubectl get nodes -o <span class="org-variable-name">jsonpath</span>=<span class="org-string">'{range .items[*]}{.metadata.name}{"\t"}{.spec.podCIDR}{"\n"}{end}'</span>
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">Terway &#27169;&#24335;&#19979; .spec.podCIDR &#22810;&#21322;&#26159;&#31354;&#30340;&#25110;&#27809;&#26377;&#23454;&#38469;&#24847;&#20041;&#65307;&#22914;&#26524;&#19981;&#31354;&#12289;&#19988; ConfigMap &#37324; eni_conf &#30340; ip_stack/vswitches &#26377;&#20540;&#65292;&#20197; vSwitch &#32593;&#27573;&#20026;&#20934;&#12290;&#24819;&#30830;&#35748;&#36208;&#30340;&#26159;&#21738;&#31181;&#27169;&#24335;&#65306;
+</span>
+kubectl -n kube-system get ds -o name | grep -iE <span class="org-string">'terway|flannel'</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">terway-eniip = Pod &#29992; VPC IP&#65307;terway-eni/flannel &#21017;&#26159;&#21478;&#19968;&#22871;&#12290;
+</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">EKS
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">Service CIDR&#65306;&#25925;&#24847;&#32473;&#20010;&#38750;&#27861; ClusterIP&#65292;&#25253;&#38169;&#20250;&#21520;&#20986;&#26377;&#25928;&#33539;&#22260;
+</span>kubectl create svc clusterip probe --tcp=80 --clusterip=1.1.1.1 --dry-run=server -o yaml
+<span class="org-comment-delimiter"># </span><span class="org-comment">1.29+ &#21487;&#33021;&#30452;&#25509;&#26377; ServiceCIDR &#23545;&#35937;
+</span>kubectl get servicecidr -o wide
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">configmap/amazon-vpc-cni&#65292;&#21363; VPC CNI&#65292;Pod &#21516;&#26679;&#30452;&#25509;&#29992; VPC &#23376;&#32593; IP&#65292;&#19981;&#23384;&#22312;&#29420;&#31435;&#30340; Pod CIDR&#12290;&#35201;&#30475; Pod &#23454;&#38469;&#33021;&#29992;&#30340;&#32593;&#27573;&#23601;&#26159;&#30475;&#33410;&#28857;&#25152;&#22312;&#23376;&#32593;&#65306;
+</span>kubectl -n kube-system get cm amazon-vpc-cni -o yaml     <span class="org-comment-delimiter"># </span><span class="org-comment">&#30475;&#26159;&#21542;&#24320;&#20102; custom networking / prefix delegation
+</span>kubectl get eniconfig -o wide                            <span class="org-comment-delimiter"># </span><span class="org-comment">&#24320;&#20102; custom networking &#25165;&#26377;&#65292;&#37324;&#38754;&#26159;&#19987;&#29992; Pod &#23376;&#32593;
+</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">UK8S
+</span>kubectl get nodes -o <span class="org-variable-name">jsonpath</span>=<span class="org-string">'{range .items[*]}{.metadata.name}{"\t"}{.spec.podCIDR}{"\n"}{end}'</span>; <span class="org-builtin">echo</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#30475;&#35013;&#30340;&#26159;&#21738;&#22871; CNI
+</span>kubectl -n kube-system get ds
+kubectl get pods -A -o wide | grep -iE <span class="org-string">'cni|flannel|calico|ipamd'</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">CNI-VPC&#65288;UCloud &#40664;&#35748;&#65292;VPC &#21407;&#29983;&#65289; &#8212;&#8212; Pod &#30452;&#25509;&#25343; VPC &#23376;&#32593; IP&#65292;&#21644;&#20320;&#21069;&#38754; ACK/EKS &#30340;&#24773;&#20917;&#19968;&#26679;&#65292;&#27809;&#26377;&#29420;&#31435; Pod CIDR&#65292;.spec.podCIDR &#20250;&#26159;&#31354;&#30340;&#12290;</span>
 </pre>
 </div>
 </div>
@@ -1639,7 +1691,10 @@ kubectl get ing --all-namespaces
 
 
 <div class="org-src-container">
-<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#21015;&#20986;&#20351;&#29992;&#20102; admin-web &#30340; service &#30340; ingress
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#21015;&#20986;&#25152;&#26377;&#21629;&#21517;&#31354;&#38388;&#30340; Ingress &#22495;&#21517;&#19982;&#36335;&#24452;
+</span>kubectl get ingress -A -o custom-columns=<span class="org-string">'NAMESPACE:.metadata.namespace,NAME:.metadata.name,HOST:.spec.rules[*].host,PATH:.spec.rules[*].http.paths[*].path,SERVICE:.spec.rules[*].http.paths[*].backend.service.name'</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#21015;&#20986;&#20351;&#29992;&#20102; admin-web &#30340; service &#30340; ingress
 </span>kubectl get ingress -o custom-columns=<span class="org-string">"NAME:.metadata.name,SERVICE:.spec.rules[*].http.paths[*].backend.service.name"</span> | grep admin-web
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">&#20840;&#21517;&#31216;&#31354;&#38388;&#26597;&#25214;
@@ -1662,6 +1717,69 @@ kubectl get ing --all-namespaces
 </div>
 </div>
 </div>
+<div id="outline-container-h:D0B853B3-6777-4395-A0B7-4F4F3913D90A" class="outline-4">
+<h4 id="h:D0B853B3-6777-4395-A0B7-4F4F3913D90A"><a href="#h:D0B853B3-6777-4395-A0B7-4F4F3913D90A">Debug</a></h4>
+<div class="outline-text-4" id="text-h:D0B853B3-6777-4395-A0B7-4F4F3913D90A">
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#27880;&#20837;&#21040;&#24050;&#26377; Pod &#30340;&#32593;&#32476;&#21629;&#21517;&#31354;&#38388;&#65288;&#20849;&#20139;&#32593;&#21345;&#65292;&#30475;&#30495;&#23454;&#27969;&#37327;&#65289;
+</span>kubectl debug -it &lt;pod&gt; <span class="org-sh-escaped-newline">\</span>
+  --image=proxy.jasper.org:7877/nicolaka/netshoot <span class="org-sh-escaped-newline">\</span>
+  --target=&lt;container-name&gt; <span class="org-sh-escaped-newline">\</span>
+  -- bash
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#24773;&#20917; 1&#65306;/app &#26159;&#38236;&#20687;&#37324;&#30340;&#30446;&#24405;&#65288;&#26368;&#24120;&#35265;&#65289;
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">&#36827;&#21435;&#20043;&#21518;&#65292;&#21487;&#20197;&#30475;&#21040;&#23481;&#22120;&#30446;&#24405; /proc/1/root/&#12290; target &#19981;&#33021;&#23569;
+</span>ps aux                      <span class="org-comment-delimiter"># </span><span class="org-comment">&#25214;&#21040;&#30446;&#26631;&#23481;&#22120;&#20027;&#36827;&#31243; PID&#65288;&#36890;&#24120;&#26159; 1 &#25110;&#26576;&#20010;&#23567;&#25968;&#23383;&#65289;
+</span>ls /proc/1/root/app         <span class="org-comment-delimiter"># </span><span class="org-comment">&#36825;&#23601;&#26159;&#30446;&#26631;&#23481;&#22120;&#30340; /app
+</span><span class="org-builtin">cd</span> /proc/1/root/app
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#24773;&#20917; 2&#65306;/app &#26159; volume&#65288;PVC / emptyDir / configMap&#65289;
+</span>cat &gt; /tmp/debug.json &lt;&lt;<span class="org-string">'EOF'</span><span class="org-sh-heredoc">
+{
+  "volumeMounts": [
+    { "name": "&lt;pod &#37324;&#35813; volume &#30340; name&gt;", "mountPath": "/app" }
+  ]
+}
+EOF
+</span>
+kubectl debug -it &lt;pod&gt; <span class="org-sh-escaped-newline">\</span>
+  --image=proxy.jasper.org:7877/nicolaka/netshoot <span class="org-sh-escaped-newline">\</span>
+  --target=&lt;container-name&gt; <span class="org-sh-escaped-newline">\</span>
+  --custom=/tmp/debug.json <span class="org-sh-escaped-newline">\</span>
+  -- bash
+<span class="org-comment-delimiter">#</span><span class="org-comment">volume &#30340; name &#20174; kubectl get pod &lt;pod&gt; -o jsonpath='{.spec.containers[*].volumeMounts}' &#37324;&#26597;&#12290;
+</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#25490;&#26597;&#33410;&#28857;&#32593;&#32476;&#21017;&#29992; node debug&#65288;&#36827;&#20837;&#23487;&#20027;&#26426; netns&#65289;
+</span>kubectl debug node/&lt;node&gt; -it <span class="org-sh-escaped-newline">\</span>
+  --image=proxy.jasper.org:7877/nicolaka/netshoot
+
+kubectl debug node/&lt;node&gt;  -it <span class="org-sh-escaped-newline">\</span>
+        --image=busybox -- chroot /host bash
+
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#21551;&#21160;&#20020;&#26102;&#26381;&#21153;&#65292;redis &#27979;&#35797;
+</span>kubectl -n default run redis-probe --rm -it --restart=Never <span class="org-sh-escaped-newline">\</span>
+    --image=redis:7.2-alpine -- sh
+
+<span class="org-variable-name">H</span>=r-gs50rfs.redis.com
+nc -zv $<span class="org-variable-name">H</span> 6379
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#21551;&#21160;&#20020;&#26102;&#26381;&#21153;&#65292;nacos &#27979;&#35797;
+</span><span class="org-builtin">export</span> <span class="org-variable-name">KUBECONFIG</span>=/root/.kube/config-java 
+kubectl -n nacos run netcheck --rm -it --restart=Never <span class="org-sh-escaped-newline">\</span>
+  --image=nacos/nacos-server:v2.3.2 <span class="org-sh-escaped-newline">\</span>
+  --overrides=<span class="org-string">'{"spec":{"imagePullSecrets":[{"name":"harbor-pull"}]}}'</span> <span class="org-sh-escaped-newline">\</span>
+  --command -- bash -c <span class="org-string">'
+    H=xxx.rds.aliyuncs.com
+    getent hosts $H
+    timeout 5 bash -c "&lt;/dev/tcp/$H/3306" &amp;&amp; echo TCP_OK || echo TCP_FAIL
+    curl -s --max-time 10 https://ifconfig.me; echo
+  '</span>
+</pre>
+</div>
+</div>
+</div>
 <div id="outline-container-h:bdc71311-1ad8-4303-8aa9-c7aa4e145427" class="outline-4">
 <h4 id="h:bdc71311-1ad8-4303-8aa9-c7aa4e145427"><a href="#h:bdc71311-1ad8-4303-8aa9-c7aa4e145427">Service Accounts</a></h4>
 <div class="outline-text-4" id="text-h:bdc71311-1ad8-4303-8aa9-c7aa4e145427">
@@ -1670,6 +1788,40 @@ kubectl get ing --all-namespaces
 [root@master ~]# kubectl get sa -o yaml
 [root@master ~]# kubectl get serviceaccounts default -o yaml &gt;./sa.yaml
 [root@master ~]# kubectl replace serviceaccount default -f ./sa.yaml
+</pre>
+</div>
+
+<p>
+查账号对应权限
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-variable-name">sa</span>=prometheus-agent
+<span class="org-variable-name">namespace</span>=monitoring
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#30475;&#23427;&#22312; monitoring &#19979;&#30340;&#26435;&#38480;
+</span>kubectl auth can-i --list -n $<span class="org-variable-name">namespace</span> <span class="org-sh-escaped-newline">\</span>
+  --as=system:serviceaccount:${<span class="org-variable-name">namespace</span>}:$<span class="org-variable-name">sa</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#21333;&#39033;&#39564;&#35777;&#65292;&#27604;&#22914; Prometheus &#25235;&#21462;&#38656;&#35201;&#30340;
+</span>kubectl auth can-i list pods --all-namespaces <span class="org-sh-escaped-newline">\</span>
+  --as=system:serviceaccount:${<span class="org-variable-name">namespace</span>}:$<span class="org-variable-name">sa</span>
+kubectl auth can-i get nodes/metrics <span class="org-sh-escaped-newline">\</span>
+  --as=system:serviceaccount:${<span class="org-variable-name">namespace</span>}:$<span class="org-variable-name">sa</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">ClusterRoleBinding
+</span>kubectl get clusterrolebinding -o json | jq -r <span class="org-string">'
+  .items[] | select(.subjects[]? |
+    select(.kind=="ServiceAccount" and .name=="'"$sa"'" and .namespace=="'"${namespace}"'")) |
+  "\(.metadata.name)\t-&gt; \(.roleRef.kind)/\(.roleRef.name)"'</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">RoleBinding&#65288;&#20840;&#21629;&#21517;&#31354;&#38388;&#65289;
+</span>kubectl get rolebinding -A -o json | jq -r <span class="org-string">'
+  .items[] | select(.subjects[]? |
+    select(.kind=="ServiceAccount" and .name=="'"$sa"'" and .namespace=="'"${namespace}"'")) |
+  "\(.metadata.namespace)/\(.metadata.name)\t-&gt; \(.roleRef.kind)/\(.roleRef.name)"'</span>
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#27809;&#26377; jq &#30340;&#35805;&#29992; jsonpath &#31895;&#31579;&#65306;
+</span>
+kubectl get clusterrolebinding,rolebinding -A -o wide | grep $<span class="org-variable-name">sa</span>
 </pre>
 </div>
 </div>
@@ -1703,6 +1855,38 @@ kubectl get ing --all-namespaces
 <pre class="src src-sh">[root@master ~]# kubectl get secrets
 [root@master ~]# kubectl get secrets --all-namespaces
 [root@master ~]# kubectl get secrets -o yaml
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#29983;&#25104;&#35777;&#20070;
+</span><span class="org-variable-name">SSL_CRT</span>=jasper.org.crt
+<span class="org-variable-name">SSL_KEY</span>=jasper.org.crt
+<span class="org-variable-name">SECRET</span>=jasper-tls
+<span class="org-variable-name">NS</span>=default
+
+<span class="org-variable-name">SSL_CRT</span>=<span class="org-string">"${SSL_CRT:-origin.crt}"</span>
+<span class="org-variable-name">SSL_KEY</span>=<span class="org-string">"${SSL_KEY:-origin.key}"</span>
+
+
+kubectl -n <span class="org-string">"$NS"</span> create secret tls <span class="org-string">"$SECRET"</span> <span class="org-sh-escaped-newline">\</span>
+  --cert=<span class="org-string">"$SSL_CRT"</span> --key=<span class="org-string">"$SSL_KEY"</span> <span class="org-sh-escaped-newline">\</span>
+  --dry-run=client -o yaml | kubectl apply -f -
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#20808;&#22791;&#20221;&#29616;&#26377; Secret
+</span>kubectl -n default get secret <span class="org-string">"$SECRET"</span> -o yaml &gt; /tmp/jasper-tls.backup.$(date +%F).yaml
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#39564;&#35777;&#26032;&#35777;&#20070;&#21644;&#31169;&#38053;&#37197;&#23545;&#65292;&#20877;&#26367;&#25442;
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">&#20004;&#20010; md5 &#24517;&#39035;&#19968;&#26679;&#65292;&#19981;&#28982;&#25512;&#19978;&#21435; NGF &#30452;&#25509; ResolvedRefs=False
+</span>openssl x509 -noout -modulus -in <span class="org-string">"$SSL_CRT"</span> | openssl md5
+openssl rsa  -noout -modulus -in <span class="org-string">"$SSL_KEY"</span> | openssl md5
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#30830;&#35748; SAN &#20004;&#26465;&#37117;&#22312;
+</span>openssl x509 -in <span class="org-string">"$SSL_CRT"</span> -noout -ext subjectAltName -enddate
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#26367;&#25442;&#35777;&#20070;
+</span>kubectl -n <span class="org-string">"$NS"</span> create secret tls <span class="org-string">"$SECRET"</span> <span class="org-sh-escaped-newline">\</span>
+  --cert=<span class="org-string">"$SSL_CRT"</span> --key=<span class="org-string">"$SSL_KEY"</span> <span class="org-sh-escaped-newline">\</span>
+  --dry-run=client -o yaml | kubectl apply -f -
+
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#26597;&#30475;&#35777;&#20070;&#20449;&#24687;
+</span>kubectl -n default get secret <span class="org-string">"$SECRET"</span> -o <span class="org-variable-name">jsonpath</span>=<span class="org-string">'{.data.tls\.crt}'</span> <span class="org-sh-escaped-newline">\</span>
+  | base64 -d | openssl x509 -noout -subject -issuer -dates -ext subjectAltName
 </pre>
 </div>
 </div>
@@ -2129,10 +2313,20 @@ namespaces                        ns                                          fa
 <section id="outline-container-h:85a80de8-3b47-409c-87dd-123759ccbeed" class="outline-2">
 <h2 id="h:85a80de8-3b47-409c-87dd-123759ccbeed"><a href="#h:85a80de8-3b47-409c-87dd-123759ccbeed">别名</a></h2>
 <div class="outline-text-2" id="text-h:85a80de8-3b47-409c-87dd-123759ccbeed">
-<p>
-常用
-</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#23450;&#20041;&#20010;&#20989;&#25968;&#30465;&#20107;
+</span><span class="org-function-name">kgo</span>() { kubectl  --kubeconfig /root/.kube/config-go <span class="org-string">"$@"</span>; }
+kgo get ns
 
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#33258;&#21160;&#34917;&#20840;&#20889;&#21040; bash &#20013;
+</span><span class="org-function-name">kgo</span>() { <span class="org-variable-name">KUBECONFIG</span>=/root/.kube/config-go kubectl <span class="org-string">"$@"</span>; }
+complete -o default -F __start_kubectl kgo
+</pre>
+</div>
+
+<p>
+常用另外
+</p>
 <div class="org-src-container">
 <pre class="src src-sh"><span class="org-builtin">alias</span> <span class="org-variable-name">kcn</span>=<span class="org-string">'kubectl config set-context $(kubectl config current-context) --namespace'</span>
 <span class="org-builtin">alias</span> <span class="org-variable-name">kgp</span>=<span class="org-string">'kubectl get pods'</span>

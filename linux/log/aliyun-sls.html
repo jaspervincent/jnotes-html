@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Linux: k8s 接入阿里云 SLS 日志收集</title>
+<meta name="description" content="目标集群，选择 应用 &gt; Helm，找到 loongcollector 并单击 更新" />
+<meta name="keywords" content="计算机, 语言, log" />
+<meta name="generator" content="Org Mode" />
+<script>
+/* main.css 默认把 body 隐藏起来，为的是切换深色模式时不闪白。
+   恢复可见完全交给 CSS 的 html.js:not(.ready) 选择器控制：
+   - 没有 JS：下面这句不会执行，html 上没有 .js，body 一开始就是可见的
+   - 有 JS 但 main.js 加载失败或抛异常：load 事件（或 2 秒兜底）照样会加上 .ready
+   任何一条路径都不会留下白屏。 */
+(function () {
+  var el = document.documentElement;
+  el.className += ' js';
+  function reveal() { el.className += ' ready'; }
+  window.addEventListener('load', reveal);
+  setTimeout(reveal, 2000);
+})();
+</script>
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="alternate" type="application/rss+xml" title="Jasper Hsu's Blog" href="https://xuchangwei.com/rss.xml">
+<link rel="me" href="https://emacs.ch/@jasperhsu">
+
+<!-- AdSense 加载器原本在这里，2026-10 下线。恢复步骤见 assets/ADSENSE.md
+     （本文件会被注入每一页的 <head>，所以细节不写在这儿）。 -->
+
+<!-- from -->
+<!--
+<style>#back-to-top{background:#000;-webkit-border-radius:50%;-moz-border-radius:50%;border-radius:50%;bottom:20px;-webkit-box-shadow:0 2px 5px 0 rgba(0,0,0,.26);-moz-box-shadow:0 2px 5px 0 rgba(0,0,0,.26);box-shadow:0 2px 5px 0 rgba(0,0,0,.26);color:#fff;cursor:pointer;display:block;height:56px;opacity:1;outline:0;position:fixed;right:20px;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;-webkit-transition:bottom .2s,opacity .2s;-o-transition:bottom .2s,opacity .2s;-moz-transition:bottom .2s,opacity .2s;transition:bottom .2s,opacity .2s;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;width:56px;z-index:1}#back-to-top svg{display:block;fill:currentColor;height:24px;margin:16px auto 0;width:24px}#back-to-top.hidden{bottom:-56px;opacity:0}</style>
+-->
+<!-- Bootstrap 必须排在 main.css 之前 —— main.css 里有覆盖它的规则
+     （如 body.dark-theme .form-control）。见 assets/static/vendor/README.md -->
+<link rel="stylesheet" href="/static/vendor/bootstrap.min.css">
+<link rel="stylesheet" href="/static/distro-htmlize.css">
+<link rel="stylesheet" href="/static/aandds.com/css/main.css">
+<link rel="stylesheet" href="/static/aandds.com/css/drollery.min.css">
+<script type="text/javascript" src="/static/aandds.com/js/main.js"></script>
+<link rel="canonical" href="https://xuchangwei.com/linux/log/aliyun-sls.html" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Linux: k8s 接入阿里云 SLS 日志收集" />
+<meta property="og:description" content="目标集群，选择 应用 &gt; Helm，找到 loongcollector 并单击 更新" />
+<meta property="og:url" content="https://xuchangwei.com/linux/log/aliyun-sls.html" />
+<meta property="og:site_name" content="Jasper Hsu&apos;s Blog" />
+<meta name="twitter:card" content="summary" />
+<script type="application/ld+json">{"@context":"https://schema.org","url":"https://xuchangwei.com/linux/log/aliyun-sls.html","@type":"WebPage","name":"Linux: k8s 接入阿里云 SLS 日志收集","description":"目标集群，选择 应用 > Helm，找到 loongcollector 并单击 更新"}</script>
+</head>
+<body>
+<div id="content" class="content">
+<header>
+<h1 class="title">Linux: k8s 接入阿里云 SLS 日志收集</h1>
+</header><nav id="table-of-contents" role="doc-toc">
+<h2>&#30446;&#24405;</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#h:957671FC-B292-4AA2-BC81-0F958CC2B0BA">安装</a>
+<ul>
+<li><a href="#h:63C8FBB0-1739-4E64-B32F-86AFE4056CD9">当前账号 ACK 日志收集</a></li>
+<li><a href="#h:34BB09B9-6C1C-426A-8C12-D44B28D44BFB">阿里云 A 账号收集 阿里云 B 账号日志</a></li>
+<li><a href="#h:3D9FE2C3-7AA6-4DA8-A9F8-B33AC7C34EBF">Jenkins pipline 自建集群接入 sls</a></li>
+</ul>
+</li>
+<li><a href="#h:BDF4B86E-A55B-441B-B562-AADB3C0FD7A9">参考</a></li>
+</ul>
+</div>
+</nav>
+<section id="outline-container-h:957671FC-B292-4AA2-BC81-0F958CC2B0BA" class="outline-2">
+<h2 id="h:957671FC-B292-4AA2-BC81-0F958CC2B0BA"><a href="#h:957671FC-B292-4AA2-BC81-0F958CC2B0BA">安装</a></h2>
+<div class="outline-text-2" id="text-h:957671FC-B292-4AA2-BC81-0F958CC2B0BA">
+</div>
+<div id="outline-container-h:63C8FBB0-1739-4E64-B32F-86AFE4056CD9" class="outline-3">
+<h3 id="h:63C8FBB0-1739-4E64-B32F-86AFE4056CD9"><a href="#h:63C8FBB0-1739-4E64-B32F-86AFE4056CD9">当前账号 ACK 日志收集</a></h3>
+<div class="outline-text-3" id="text-h:63C8FBB0-1739-4E64-B32F-86AFE4056CD9">
+<p>
+1、安装日志采集组件
+</p>
+<ul class="org-ul">
+<li>在 ACK 面板 &#x2013;&gt; 组件管理 &#x2013;&gt; loongcollector 安装</li>
+</ul>
+
+<p>
+2、创建 CRD 方式采集配置
+</p>
+<ul class="org-ul">
+<li>目录集群 &#x2013;&gt; 工作负载 &#x2013;&gt; 自定义资源 &#x2013;&gt; 资源定义 &#x2013;&gt; 使用 YAML 创建资源</li>
+</ul>
+
+
+<p>
+收集容器内日志
+</p>
+<div class="org-src-container">
+<pre class="src src-yaml">apiVersion: telemetry.alibabacloud.com/v1alpha1
+kind: ClusterAliyunPipelineConfig
+metadata:
+  # 设置资源名，在当前Kubernetes集群内唯一。该名称也是创建出的采集配置名，如果名称重复则不会生效。
+  name: example-k8s-file
+spec:
+  # 指定目标Project
+  project:
+    name: k8s-log-&lt;YOUR_CLUSTER_ID&gt;
+  logstores:
+    # 创建名为 k8s-file的Logstore
+    - name: k8s-file
+  # 定义采集配置
+  config:
+    # 定义输入插件
+    inputs:
+      # 使用input_file插件采集容器内多行文本日志
+      - Type: input_file
+        # 容器内的文件路径
+        FilePaths:
+          - /data/logs/app_1/**/test.LOG
+        # 启用容器发现功能。
+        EnableContainerDiscovery: true
+        # 添加容器信息过滤条件，多个选项之间为“且”的关系。
+        CollectingContainersMeta: true
+        ContainerFilters:
+          # 指定待采集容器所在 Pod 所属的命名空间，支持正则匹配。
+          K8sNamespaceRegex: ^jp-prod$
+          # 匹配 jp- 开头的容器（用来排除sidecar）
+          K8sContainerRegex: ^jp-.*$
+          # 指定待采集容器的名称，支持正则匹配。
+          IncludeK8sLabel:
+            app: ^(.*app.*)$
+        # 开启多行日志采集，单行日志采集请删除该配置
+        Multiline:
+          # 选择自定义行首正则表达式模式
+          Mode: custom
+          # 配置行首正则表达式
+          StartPattern: '\d+-\d+-\d+\s\d+:\d+:\d+'
+    # 定义处理插件
+    processors:
+      # 使用 json 解析插件解析日志
+      - Type: processor_parse_json_native
+        # 源字段名
+        SourceKey: content
+        KeepingSourceWhenParseFail: true
+    # 定义输出插件
+    flushers:
+      # 使用flusher_sls插件输出到指定Logstore。
+      - Type: flusher_sls
+        # 需要确保该 Logstore 存在
+        Logstore: k8s-file
+</pre>
+</div>
+
+<p>
+收集容器标准输出日志
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">apiVersion: telemetry.alibabacloud.com/v1alpha1
+kind: ClusterAliyunPipelineConfig
+metadata:
+  name: jp-abc-service-log
+spec:
+  project:
+    name: jp-prod
+  logstores:
+    - name: jp-abc-service-log
+  config:
+    inputs:
+      - Type: service_docker_stdout
+        Stdout: true
+        Stderr: false
+        CollectContainersFlag: true,
+        K8sNamespaceRegex: ^jb-prod$
+        K8sContainerRegex: ^abc-service$
+    processors:
+      - ExpandConnector: <span class="org-string">''</span>  <span class="org-comment-delimiter"># </span><span class="org-comment">&#21435;&#25481;&#21069;&#23548;&#19979;&#21010;&#32447;
+</span>        ExpandDepth: 1
+        KeepSource: false    <span class="org-comment-delimiter"># </span><span class="org-comment">content &#21407;&#25991;&#19981;&#20445;&#30041;
+</span>        KeepingSourceWhenParseFail: true <span class="org-comment-delimiter"># </span><span class="org-comment">&#35299;&#26512;&#22833;&#36133;&#26102;&#25165;&#20445;&#30041;,&#19981;&#20002;&#25968;&#25454;
+</span>        SourceKey: content
+        Type: processor_json <span class="org-comment-delimiter"># </span><span class="org-comment">&#25193;&#23637;&#25554;&#20214;
+</span>    flushers:
+      - Type: flusher_sls
+        Logstore: jb-abc-service-log
+</pre>
+</div>
+
+<p>
+Sources:
+</p>
+<ul class="org-ul">
+<li><a href="https://www.alibabacloud.com/help/zh/ack/ack-managed-and-ack-dedicated/user-guide/collect-text-logs-from-ack-clusters-using-daemonset-deployed-logtail-agents">采集ACK集群容器日志（DaemonSet方式部署日志采集）</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-h:34BB09B9-6C1C-426A-8C12-D44B28D44BFB" class="outline-3">
+<h3 id="h:34BB09B9-6C1C-426A-8C12-D44B28D44BFB"><a href="#h:34BB09B9-6C1C-426A-8C12-D44B28D44BFB">阿里云 A 账号收集 阿里云 B 账号日志</a></h3>
+<div class="outline-text-3" id="text-h:34BB09B9-6C1C-426A-8C12-D44B28D44BFB">
+<p>
+1、创建日志权限账号
+</p>
+<ul class="org-ul">
+<li>阿里云 A 账号。
+<ul class="org-ul">
+<li>访问控制中，创建账号跨账号，生成激活 AccessKey 并授权 AliyunLogFullAccess 系统策略权限</li>
+
+<li>SLS 控制台 &#x2013;&gt; 新加坡 创建 Project：如 jp-prod。全球唯一，避免 helm 插件自动创建本账号 sls 名称。</li>
+</ul></li>
+</ul>
+
+<p>
+2、安装日志采集组件
+</p>
+<ul class="org-ul">
+<li>阿里云 B 账号。
+<ul class="org-ul">
+<li>在 ACK 面板 &#x2013;&gt; 组件管理 &#x2013;&gt; loongcollector 安装</li>
+<li><p>
+目标集群，选择 应用 &gt; Helm，找到 loongcollector 并单击 更新
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#26356;&#26032; helm &#30340; values.yaml &#25991;&#20214;
+</span>projectName: <span class="org-string">"&#30446;&#26631;Project&#21517;&#31216;"</span>
+region: <span class="org-string">"&#30446;&#26631;Project&#25152;&#22312;&#22320;&#22495;&#65292;&#22914;cn-shanghai"</span>
+aliUid: <span class="org-string">"&#30446;&#26631;SLS&#25152;&#23646;&#20027;&#36134;&#21495;UID"</span>
+net: Intranet  <span class="org-comment-delimiter"># </span><span class="org-comment">&#36328;&#36134;&#21495;&#24314;&#35758;&#20351;&#29992;&#20844;&#32593; Internet&#65307;&#33509;&#24050;&#25171;&#36890;&#20869;&#32593;&#21487;&#36873; Intranet
+</span>accessKeyID: <span class="org-string">"&#20855;&#22791;AliyunLogFullAccess&#26435;&#38480;&#30340;AK"</span>
+accessKeySecret: <span class="org-string">"&#23545;&#24212;&#30340;SK"</span>
+clusterID: <span class="org-string">"&#33258;&#23450;&#20041;&#38598;&#32676;ID,&#22914; jp-prod-ack"</span>
+default:
+  aliUid: <span class="org-string">"&#30446;&#26631;SLS&#25152;&#23646;&#20027;&#36134;&#21495;UID"</span>
+  projectName: &#30446;&#26631;Project&#21517;&#31216;
+  region: &#30446;&#26631;Project&#25152;&#22312;&#22320;&#22495;
+
+operator:
+  env:
+  - name: GLOBAL_ENABLE_EVENT_RECORDER
+    value: <span class="org-string">"true"</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">&#8595; &#26032;&#22686;&#12290;&#21487;&#20197;&#20351;&#29992;&#34920;&#24577; AKSK &#20449;&#24687;
+</span>  - name: GLOBAL_ACS_K8S_FLAG
+    value: <span class="org-string">"false"</span>
+</pre>
+</div></li>
+</ul></li>
+</ul>
+
+
+<p>
+3、创建采集配置
+</p>
+<ul class="org-ul">
+<li>阿里云 A 账号。
+<ul class="org-ul">
+<li>SLS 控制台 &#x2013;&gt; 新加坡 创建 Project：如 jp-prod</li>
+<li>SLS 控制台 &#x2013;&gt; 新加坡 &#x2013;&gt; Project jp-prod &#x2013;&gt; 机器组 &#x2013;&gt; 创建机器组
+<ol class="org-ol">
+<li>机器组标识类型选 用户自定义标识</li>
+<li>标识填:k8s-group-jp-prod-ack</li>
+<li>保存后等 1~2 分钟,进机器组详情看 心跳状态</li>
+</ol></li>
+<li>SLS 控制台 &#x2013;&gt; 新加坡 &#x2013;&gt; Project jp-prod &#x2013;&gt; 创建日志库。如 jp-prod-logs</li>
+<li>SLS 控制台 &#x2013;&gt; 新加坡 &#x2013;&gt; Project jp-prod &#x2013;&gt; 日志库 &#x2013;&gt; Logtail配置 &#x2013;&gt; 创建配置
+<ul class="org-ul">
+<li>数据接入方式：kubernetes 文件
+<ul class="org-ul">
+<li>文件路径，如：/app/logs/*/app.log</li>
+<li>容器过滤、日志处理-json、多行模式</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+
+
+<p>
+也可以使用 CRD 方式采集日志，自动创建 logstore 。
+</p>
+</div>
+</div>
+<div id="outline-container-h:3D9FE2C3-7AA6-4DA8-A9F8-B33AC7C34EBF" class="outline-3">
+<h3 id="h:3D9FE2C3-7AA6-4DA8-A9F8-B33AC7C34EBF"><a href="#h:3D9FE2C3-7AA6-4DA8-A9F8-B33AC7C34EBF">Jenkins pipline 自建集群接入 sls</a></h3>
+<div class="outline-text-3" id="text-h:3D9FE2C3-7AA6-4DA8-A9F8-B33AC7C34EBF">
+<div class="org-src-container">
+<pre class="src src-yaml">// =====================================================================================
+// 阿里云 SLS Logtail 组件安装 —— 独立的一次性 Jenkins Job（建议 job 名 infra-logtail-install）
+//
+// 用途：往 AWS EKS 集群里安装 Logtail（DaemonSet），采集容器日志上报到阿里云 SLS。
+//       集群组件的生命周期和业务发版完全不同，所以单独一个 job，不要塞进业务流水线
+//       —— 这里用的 AK 是 AliyunLogFullAccess，能删账号下所有 SLS project。
+//
+// 前置准备：
+//   1. RAM 子账号 + AccessKey，授权 AliyunLogFullAccess
+//      （不能用只有 log:PostLogStoreLogs 的写入 AK，controller 要自动建 logstore/机器组/下发配置）
+//   2. Jenkins 全局凭据，Kind 必须是 "Username with password"：
+//        ID       = aliyun-sls-controller-ak
+//        Username = AccessKey ID
+//        Password = AccessKey Secret
+//   3. Jenkins 已有 configFile：eks-config（EKS 的 kubeconfig）
+//
+// 换 AK / 换账号怎么操作：
+//   A. 同一个阿里云主账号内换 AK（轮换密钥、换 RAM 子账号）
+//      -&gt; 只改凭据 aliyun-sls-controller-ak 的 Username / Password，重跑本 job。
+//         ALI_UID 不用动：它是主账号 ID，同主账号下的所有子账号共用一个。
+//   B. 换成另一个阿里云主账号
+//      -&gt; 除了凭据，还必须一起改这些参数，少改一个就是采不上来：
+//           ALI_UID     新 AK 所属的主账号 ID。与 AK 不匹配时机器组认证失败。
+//           SLS_PROJECT Project 归属账号，跨账号访问不到，必须填新账号下的 Project。
+//           SLS_REGION  新 Project 若不在新加坡，跟着改。
+//         CLUSTER_ID 可以不变：机器组名是 k8s-group-{CLUSTER_ID}，
+//         按账号隔离，会在新账号下重新创建一个。
+//      -&gt; 注意采集配置不会跟着搬：logstore、索引、采集配置都留在旧 Project 里，
+//         需要在新 Project 下重新建一遍。旧账号里的机器组会变成没有心跳的空壳。
+//
+// -------------------------------------------------------------------------------------
+// 以下行为均来自 alibaba-cloud-log-all 0.5.5 包内 k8s-custom-install.sh 与 templates/ 源码，
+// 不是照文档推测的：
+//
+//   * 脚本用相对路径找 ./helm.tar.gz 和 values.yaml，helm 也是 `template . --output-dir ./result`，
+//     所以必须 cd 进包目录执行，否则会打印一堆 "empty XXX" 后 exit（且不是非 0 退出）。
+//   * confirmInput() 走 funcGetSelect()，该函数会先读同名环境变量；export confirm=yes
+//     可完全跳过交互式 select，不必往 stdin 喂数据。
+//   * values.yaml 除必填项外还有 Logtail/Deps/Controller/KubeStateMetrics 等结构化配置，
+//     整份覆盖会导致 helm 渲染报 "nil pointer evaluating interface {}.Image"。只能就地改。
+//   * DaemonSet 名 logtail-ds，label 是 k8s-app=logtail-ds（不是 app=）。
+//   * DaemonSet 自带 tolerations: [{operator: Exists}]，容忍所有污点，
+//     所以节点带 taint 不会漏采；priorityClassName 是 system-cluster-critical，
+//     集群资源不足时可能驱逐业务 Pod。hostNetwork: true。
+//   * 包内 values.yaml 的 SlsMonitoring 默认是 false（官方文档写的是 true）。
+//     只做日志采集用不到 kube-state-metrics，保持 false 更省资源，所以下面不去改它。
+//   * SLS_CONTAINERD_SOCKPATH 默认 /run/containerd/containerd.sock，与 EKS 一致，无需改。
+//   * 安装包会一并创建两个 CRD：
+//       aliyunlogconfigs.log.alibabacloud.com
+//       clusteraliyunpipelineconfigs.telemetry.alibabacloud.com   &lt;- 采集配置用这个
+//     其 spec 必填 project + config，config 必填 inputs + flushers，
+//     inputs/processors/flushers 都是 preserve-unknown-fields，插件字段由 controller 校验。
+// =====================================================================================
+
+pipeline {
+    agent any
+
+    parameters {
+        string(name: 'LOGTAIL_VERSION', defaultValue: '0.5.5',
+               description: 'Logtail 组件版本，升级时改这里重跑')
+        string(name: 'CLUSTER_ID', defaultValue: 'jp-esk-prod',
+               description: '自定义集群标识，只支持大小写字母/数字/短划线，各集群不可重复')
+        string(name: 'SLS_PROJECT', defaultValue: 'jp-esk-prod',
+               description: '目标 SLS Project')
+        string(name: 'SLS_REGION', defaultValue: 'ap-southeast-1',
+               description: 'Project 所属地域')
+        string(name: 'ALI_UID', defaultValue: '99111xx',
+               description: '阿里云主账号 ID（不是子账号）')
+    }
+
+    stages {
+
+        stage('install logtail') {
+            steps {
+                configFileProvider([configFile(fileId: 'eks-config', targetLocation: 'eks-config')]) {
+                    withCredentials([usernamePassword(
+                            credentialsId: 'aliyun-sls-controller-ak',
+                            usernameVariable: 'SLS_AK_ID',
+                            passwordVariable: 'SLS_AK_SECRET')]) {
+                        // 必须用单引号的 ''' ，让 ${} 交给 shell 展开。
+                        // 用双引号会让 Groovy 先插值，把 AccessKey Secret 拼进脚本文本，绕过 Jenkins 脱敏。
+                        sh '''
+                        set -ex
+
+                        # 参数非空校验必须放在最前面，早于 wget。
+                        # Declarative 的 parameters{} 要跑完一次之后定义才注册，
+                        # 所以新建的 job（或刚改过 parameters 块）首次运行时所有参数都取不到值。
+                        # 这段要是放在 wget 后面，LOGTAIL_VERSION 为空会先拼出
+                        # ".../kubernetes//alibaba-cloud-log-all.tgz" 这种双斜杠 URL，
+                        # OSS 返回 404、wget -q 静默退出，报错指向下载失败，
+                        # 完全看不出真实原因是参数没注册。
+                        for v in LOGTAIL_VERSION SLS_PROJECT SLS_REGION ALI_UID CLUSTER_ID SLS_AK_ID SLS_AK_SECRET; do
+                            eval "val=\\$$v"
+                            if [ -z "$val" ]; then
+                                echo "参数 $v 为空。"
+                                echo "若这是新建的 job、或刚改过 parameters 块，Jenkins 首次运行取不到值，"
+                                echo "直接再点一次构建即可（此时参数定义已注册，默认值会生效）。"
+                                exit 1
+                            fi
+                        done
+
+                        rm -rf alibaba-cloud-log-all
+
+                        # 不用 -q：静默模式下 404 只有一个非 0 退出码，构建日志里什么都看不到
+                        wget "https://logtail-release-ap-southeast-1.oss-ap-southeast-1.aliyuncs.com/kubernetes/${LOGTAIL_VERSION}/alibaba-cloud-log-all.tgz" \\
+                            || { echo "下载失败，确认 LOGTAIL_VERSION=${LOGTAIL_VERSION} 这个版本在阿里云 OSS 上存在"; exit 1; }
+
+                        # OSS 对不存在的对象有时返回 200 + XML 错误页，光看退出码不够，验一下真是归档文件。
+                        # 必须用 tar tf 而不是 gzip -t：这个包虽然叫 .tgz，实际是未压缩的
+                        # POSIX tar archive (GNU)，gzip -t 会误判成损坏。tar 自己能识别压缩与否，
+                        # 无论以后阿里云改不改成真 gzip，tar tf 都成立。
+                        file alibaba-cloud-log-all.tgz || true
+                        tar tf alibaba-cloud-log-all.tgz &gt;/dev/null \\
+                            || { echo "下载到的不是合法归档，多半是 OSS 返回了错误页，检查版本号"; exit 1; }
+
+                        tar xf alibaba-cloud-log-all.tgz
+                        chmod 744 ./alibaba-cloud-log-all/k8s-custom-install.sh
+
+                        cd alibaba-cloud-log-all
+
+                        # 确认要改的键都在，缺了说明包结构变了 —— sed 改不到是静默的，必须先挡住
+                        for k in SlsProjectName Region AliUid AccessKeyID AccessKeySercret ClusterID Net SLS_CONTAINERD_USED; do
+                            grep -q "^${k}:" values.yaml || { echo "values.yaml 里找不到 ${k}，安装包结构可能变了"; exit 1; }
+                        done
+
+                        # 就地改必填项，不要重写整个文件
+                        sed -i "s|^SlsProjectName:.*|SlsProjectName: ${SLS_PROJECT}|"      values.yaml
+                        sed -i "s|^Region:.*|Region: ${SLS_REGION}|"                       values.yaml
+                        sed -i "s|^AliUid:.*|AliUid: \\"${ALI_UID}\\"|"                    values.yaml
+                        sed -i "s|^ClusterID:.*|ClusterID: ${CLUSTER_ID}|"                 values.yaml
+                        sed -i "s|^Net:.*|Net: Internet|"                                  values.yaml
+                        sed -i "s|^SLS_CONTAINERD_USED:.*|SLS_CONTAINERD_USED: true|"      values.yaml
+
+                        # AccessKey 单独处理并关掉命令回显：set -x 会把 sed 完整命令行 trace 出来，
+                        # Secret 有 Jenkins 打码，但 usernameVariable（AK ID）默认不脱敏，会明文进构建日志。
+                        # 阿里云 AccessKey 是字母数字，不含 sed 的分隔符 |，可以安全内插。
+                        set +x
+                        sed -i "s|^AccessKeyID:.*|AccessKeyID: ${SLS_AK_ID}|"                 values.yaml
+                        # AccessKeySercret 是阿里云官方 values.yaml 里的拼写错误（Sercret），照抄，别改
+                        sed -i "s|^AccessKeySercret:.*|AccessKeySercret: ${SLS_AK_SECRET}|"   values.yaml
+                        set -x
+
+                        # 回显非敏感项确认改到位；AccessKey 只校验非空、不打印
+                        grep -E "^(SlsProjectName|Region|AliUid|ClusterID|Net|SlsMonitoring|SLS_CONTAINERD_USED):" values.yaml
+                        grep -qE "^AccessKeyID: .+"      values.yaml || { echo "AccessKeyID 没写进去";      exit 1; }
+                        grep -qE "^AccessKeySercret: .+" values.yaml || { echo "AccessKeySercret 没写进去"; exit 1; }
+
+                        # confirmInput() 里的 select 会读同名环境变量，设了就不进交互
+                        export confirm=yes
+
+                        # 脚本只把模板渲染成 YAML 放进 ./result，不碰集群
+                        bash ./k8s-custom-install.sh
+
+                        # 脚本渲染失败时不一定非 0 退出，自己确认产物存在
+                        [ -d result ] || { echo "result 目录没生成，helm 渲染失败，回看上面的报错"; exit 1; }
+                        find result -name "*.yaml" | head -20
+                        [ "$(find result -name "*.yaml" | wc -l)" -gt 0 ] || { echo "result 里没有 YAML"; exit 1; }
+
+                        # kubeconfig 在上一层目录（configFileProvider 放在 workspace 根）
+                        K="/root/bin/kubectl --kubeconfig=../eks-config"
+
+                        # ---------------------------------------------------------------
+                        # 决定这次要不要重启工作负载。
+                        #
+                        # 背景：AK / AliUid / project 都在 ConfigMap alibaba-log-configuration 里，
+                        # 由 configMapKeyRef 注入成环境变量，而 env 只在 Pod 创建时解析一次。
+                        # 改 ConfigMap 既影响不到运行中的 Pod，也不改 Pod template，
+                        # apply 判定工作负载无差异 -&gt; 不滚动更新 -&gt; rollout status 秒返回成功。
+                        # 换 AK / 换账号后若不重启，就是"构建全绿但仍在用旧凭据"。
+                        # chart 里没有 checksum/config 注解，没有自动触发的机制，只能自己判断。
+                        #
+                        # 但也不能每次构建都无条件重启：5 节点串行滚要四五分钟，
+                        # 配置没变时纯属白滚。所以拿运行中 Pod 的实际环境变量跟本次参数比。
+                        #
+                        # 为什么不比 ConfigMap：上次构建可能 apply 成功但 restart 失败，
+                        # 那时 CM 已是新值、Pod 还是旧值，比 CM 会误判成"不用重启"，
+                        # 这个不一致就永远修不回来了。Pod 里的 env 才是 ground truth。
+                        # ---------------------------------------------------------------
+                        NEED_RESTART=no
+                        REASON="全新安装，Pod 本来就是新建的"
+
+                        if $K get ds logtail-ds -n kube-system &gt;/dev/null 2&gt;&amp;1; then
+                            POD=$($K get po -n kube-system -l k8s-app=logtail-ds \
+                                  -o jsonpath='{.items[0].metadata.name}' 2&gt;/dev/null || echo "")
+                            if [ -z "${POD}" ]; then
+                                NEED_RESTART=yes
+                                REASON="DaemonSet 存在但没有运行中的 Pod"
+                            else
+                                # 关掉回显：下面会读到 AccessKey ID，
+                                # Jenkins 只脱敏 passwordVariable，usernameVariable 是明文
+                                set +x
+                                LIVE=$($K exec "${POD}" -n kube-system -c logtail -- sh -c \
+                                       'echo "$ALICLOUD_LOG_DEFAULT_PROJECT|$ALICLOUD_LOG_ACCESS_KEY_ID|$ALICLOUD_LOG_DEFAULT_MACHINE_GROUP"' \
+                                       2&gt;/dev/null | tr -d '\\r' || echo "")
+                                WANT="${SLS_PROJECT}|${SLS_AK_ID}|k8s-group-${CLUSTER_ID}"
+                                if [ -z "${LIVE}" ]; then
+                                    NEED_RESTART=yes
+                                    REASON="读不到容器内环境变量（exec 无权限或镜像无 sh），无法判断，保守重启"
+                                elif [ "${LIVE}" != "${WANT}" ]; then
+                                    NEED_RESTART=yes
+                                    REASON="运行中的 Pod 与本次配置不一致"
+                                else
+                                    REASON="运行中的 Pod 已是本次配置，无需重启"
+                                fi
+                                set -x
+                            fi
+                        fi
+                        echo "重启判定：NEED_RESTART=${NEED_RESTART}（${REASON}）"
+
+                        $K apply -R -f result
+
+                        if [ "${NEED_RESTART}" = "yes" ]; then
+                            # 断点存在 hostPath /var/lib/kube-system-logtail-ds/checkpoint，
+                            # 重启后从上次位置续采，不会丢日志。
+                            echo "重启工作负载让新配置生效"
+                            $K rollout restart ds/logtail-ds                 -n kube-system
+                            $K rollout restart deploy/alibaba-log-controller -n kube-system
+                            $K rollout restart sts/logtail-statefulset       -n kube-system || true
+                        else
+                            # 注意：这里跳过的只是"我们主动发起的重启"。
+                            # 若 apply 改动了 Pod template（比如 LOGTAIL_VERSION 变了），
+                            # k8s 自己会触发滚动更新，下面的 rollout status 照样会等它完成。
+                            echo "跳过重启"
+                        fi
+
+                        # 超时必须按节点数放大，不能写死 180s：
+                        # 全新安装时 DaemonSet 的 Pod 是并发创建的（maxUnavailable 只约束更新，
+                        # 不约束初次创建），几十秒内全部就绪；但滚动重启是串行的 ——
+                        # maxUnavailable 30%，5 节点向下取整就是一次只重建 1 个，
+                        # 而每个 Pod 的 readinessProbe 是 initialDelaySeconds 35 + periodSeconds 60，
+                        # 首探失败就得等到 95s。5 个节点最少 200s，已经超过原来的 180s。
+                        NODES=$($K get nodes --no-headers | wc -l | tr -d ' ')
+                        # 数不到节点时兜底：算出来会是 0，超时只剩 120s，反而制造假失败
+                        [ "${NODES:-0}" -ge 1 ] 2&gt;/dev/null || NODES=10
+                        DS_TIMEOUT=$(( NODES * 120 + 120 ))
+                        echo "节点数 ${NODES}，DaemonSet 滚动超时设为 ${DS_TIMEOUT}s"
+
+                        # logtail-ds 是采集的执行者，它必须成功，失败就是硬失败
+                        $K rollout status ds/logtail-ds -n kube-system --timeout=${DS_TIMEOUT}s
+
+                        # controller 单独对待，超时只告警不判定构建失败。
+                        # 它只负责把 CRD 采集配置同步到 SLS，采集动作是上面的 logtail-ds 干的，
+                        # controller 滚动滞后、甚至新旧两个 Pod 并存一会儿都不影响已生效的采集。
+                        # 实测卡点是"新 Pod 已就绪、旧 Pod 迟迟不消失"：
+                        # 单副本 Deployment 默认 maxUnavailable 算出来是 0，必须等旧 Pod 彻底消失
+                        # 才算滚完；而容器入口 run-controller.sh 是 shell 包装脚本，
+                        # 通常不转发 SIGTERM，要硬等满 terminationGracePeriodSeconds 才被 SIGKILL。
+                        # 让整个 job 因此变红是误伤 —— 此时日志采集完全正常。
+                        if ! $K rollout status deploy/alibaba-log-controller -n kube-system --timeout=300s; then
+                            echo "警告：controller 未在 300s 内完成滚动，不因此判定构建失败。"
+                            echo "      logtail-ds 已就绪，日志采集不受影响。诊断信息："
+                            $K get po -n kube-system -l k8s-app=alibaba-log-controller -o wide || true
+                            $K get po -n kube-system -l k8s-app=alibaba-log-controller \
+                               -o custom-columns=NAME:.metadata.name,PHASE:.status.phase,DELETED:.metadata.deletionTimestamp,GRACE:.spec.terminationGracePeriodSeconds,NODE:.spec.nodeName || true
+                            echo "      是否真的可用交给 verify 阶段判定。"
+                        fi
+                        '''
+                    }
+                }
+            }
+        }
+
+        stage('verify coverage') {
+            steps {
+                configFileProvider([configFile(fileId: 'eks-config', targetLocation: 'eks-config')]) {
+                    sh '''
+                    set -e
+                    K="/root/bin/kubectl --kubeconfig=eks-config"
+
+                    # label 是 k8s-app 不是 app
+                    $K get po -n kube-system -l k8s-app=logtail-ds -o wide
+                    $K get deploy alibaba-log-controller -n kube-system
+                    $K get sts logtail-statefulset -n kube-system || true
+
+                    # 上一阶段对 controller 的滚动超时只告警，所以这里必须补一道硬校验：
+                    # 不看"滚动有没有滚完"（旧 Pod 赖着不走不算故障），
+                    # 只看"有没有至少一个就绪副本"—— 这才是 controller 能不能干活的判据。
+                    CTRL_READY=$($K get deploy alibaba-log-controller -n kube-system \\
+                                 -o jsonpath='{.status.readyReplicas}' 2&gt;/dev/null || echo 0)
+                    if [ "${CTRL_READY:-0}" -lt 1 ] 2&gt;/dev/null; then
+                        echo "失败：alibaba-log-controller 没有就绪副本，采集配置无法下发到 SLS。"
+                        $K describe deploy alibaba-log-controller -n kube-system | tail -20
+                        $K logs -n kube-system -l k8s-app=alibaba-log-controller --tail=50 || true
+                        exit 1
+                    fi
+                    echo "controller 就绪副本数：${CTRL_READY}"
+
+                    # 采集配置要用的 CRD 是否注册成功
+                    $K get crd clusteraliyunpipelineconfigs.telemetry.alibabacloud.com
+
+                    DESIRED=$($K get ds logtail-ds -n kube-system -o jsonpath='{.status.desiredNumberScheduled}')
+                    READY=$($K get ds logtail-ds -n kube-system -o jsonpath='{.status.numberReady}')
+                    NODES=$($K get nodes --no-headers | wc -l | tr -d ' ')
+
+                    echo "----------------------------------------"
+                    echo "集群节点数         : ${NODES}"
+                    echo "DaemonSet 期望副本 : ${DESIRED}"
+                    echo "DaemonSet 就绪副本 : ${READY}"
+                    echo "----------------------------------------"
+
+                    # DaemonSet 自带 tolerations:[{operator: Exists}]，容忍所有污点，
+                    # 所以 DESIRED 少于节点数基本只剩一个原因：Fargate（不支持 DaemonSet）。
+                    if [ "${DESIRED}" != "${NODES}" ]; then
+                        echo "警告：${NODES} 个节点只调度了 ${DESIRED} 个副本。"
+                        echo "     DaemonSet 已容忍所有 taint，差额通常来自 Fargate profile 或不可调度节点。"
+                        $K get nodes -o custom-columns=NAME:.metadata.name,TYPE:.metadata.labels.eks\\.amazonaws\\.com/compute-type,UNSCHEDULABLE:.spec.unschedulable
+                    fi
+
+                    if [ "${READY}" != "${DESIRED}" ]; then
+                        echo "失败：有副本未就绪"
+                        $K describe ds logtail-ds -n kube-system | tail -30
+                        exit 1
+                    fi
+                    # 确认新配置真的进了运行中的 Pod，而不是只躺在 ConfigMap 里。
+                    # 必须 exec 进容器读环境变量：Pod spec 里存的是 configMapKeyRef 引用，
+                    # 不是解析后的值，kubectl get -o jsonpath 拿 .value 永远是空的。
+                    # 容器内的 env 才是 Pod 创建那一刻的快照，没重启就还是旧值。
+                    # 只对比 project（非敏感），AK 不打印 —— 同一个 ConfigMap 同一次注入，
+                    # project 对了就说明 Pod 是拿新 ConfigMap 起来的，AK 必然也是新的。
+                    POD=$($K get po -n kube-system -l k8s-app=logtail-ds -o jsonpath='{.items[0].metadata.name}')
+                    # 用 sh -c 而不是 printenv：printenv 属 coreutils，不保证镜像里有；
+                    # sh 一定有（controller 的探针就是 /bin/sh 起的）。
+                    # 单引号让 $VAR 原样传进容器，由容器内的 sh 展开，不是外层 shell。
+                    LIVE=$($K exec "${POD}" -n kube-system -c logtail -- \\
+                           sh -c 'echo "$ALICLOUD_LOG_DEFAULT_PROJECT"' 2&gt;/dev/null | tr -d '\\r')
+                    if [ -z "${LIVE}" ]; then
+                        # 读不到就明说读不到，不能打印"已校验通过"——那是假的绿灯
+                        echo "警告：无法读取容器内环境变量（exec 被拒或镜像无 sh），本次跳过凭据生效校验。"
+                        echo "     可手动确认：kubectl exec ${POD} -n kube-system -c logtail -- env | grep ALICLOUD_LOG_DEFAULT_PROJECT"
+                    elif [ "${LIVE}" != "${SLS_PROJECT}" ]; then
+                        echo "失败：Pod 上生效的 Project 是 ${LIVE}，本次要装的是 ${SLS_PROJECT}。"
+                        echo "     说明 Pod 没用新 ConfigMap 重建，凭据大概率也还是旧的。"
+                        exit 1
+                    else
+                        echo "已校验：运行中的 Logtail 使用的是本次配置（Project=${SLS_PROJECT}）。"
+                    fi
+
+                    echo "Logtail 组件就绪。下一步：创建采集配置（容器标准输出），确认能采到数据。"
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        failure {
+            echo '''
+排查顺序：
+  1. 凭据：ID 必须是 aliyun-sls-controller-ak，Kind 必须是 Username with password
+  2. AK 权限：必须有 AliyunLogFullAccess，只有写入权限的 AK 不够
+  3. 看 grep 回显的 values.yaml：SLS_CONTAINERD_USED 必须是 true，AliUid 必须带双引号
+  4. result 目录：没生成说明 helm 渲染失败，回看 k8s-custom-install.sh 的输出
+  5. rollout status 超时：看 kubectl describe ds logtail-ds -n kube-system，
+     常见是跨云拉阿里云镜像仓库失败（Net 必须是 Internet）或节点资源不足
+  6. "Pod 上生效的 Project 不是本次要装的"：rollout restart 没生效或被回滚，
+     kubectl get po -n kube-system -l k8s-app=logtail-ds 看 AGE 是不是刚重建的
+  7. 换了主账号但日志采不上来：ALI_UID 和 AK 必须属于同一个主账号，
+     SLS_PROJECT 也要换成新账号下的 Project，三者对不上表现为机器组无心跳
+'''
+        }
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+</section>
+<section id="outline-container-h:BDF4B86E-A55B-441B-B562-AADB3C0FD7A9" class="outline-2">
+<h2 id="h:BDF4B86E-A55B-441B-B562-AADB3C0FD7A9"><a href="#h:BDF4B86E-A55B-441B-B562-AADB3C0FD7A9">参考</a></h2>
+<div class="outline-text-2" id="text-h:BDF4B86E-A55B-441B-B562-AADB3C0FD7A9">
+<p>
+Sources:
+</p>
+<ul class="org-ul">
+<li><a href="https://www.alibabacloud.com/help/zh/ack/ack-managed-and-ack-dedicated/user-guide/collect-text-logs-from-ack-clusters-using-daemonset-deployed-logtail-agents">采集ACK集群容器日志（DaemonSet方式部署日志采集）</a></li>
+<li><a href="https://www.alibabacloud.com/help/zh/sls/loongcollector-installation-kubernetes-1">LoongCollector &#x2013; Kubernetes 安装配置</a></li>
+<li><a href="https://www.alibabacloud.com/help/zh/sls/use-logtail-to-collect-container-logs-across-accounts">通过Logtail跨阿里云账号采集容器日志</a></li>
+<li><a href="https://www.alibabacloud.com/help/zh/sls/collect-text-logs-of-self-built-k8s-clusters-deploy-logtail-in-daemonset-mode-2">通过Kubernetes CRD采集集群容器日志（标准输出/文件）</a></li>
+</ul>
+</div>
+</section>
+</div>
+<div id="postamble" class="status">
+<!-- 这里曾经放过手动 AdSense 广告位。后改为自动广告（页面上不写 <ins>），
+     2026-10 广告整体下线。见 assets/ADSENSE.md。 -->
+<script type="text/javascript" src="/static/aandds.com/js/postamble.js"></script>
+</div>
+</body>
+</html>

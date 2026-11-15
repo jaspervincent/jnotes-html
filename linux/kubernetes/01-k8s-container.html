@@ -344,7 +344,7 @@ c)root
 <div id="outline-container-h:6cd35b44-9b03-4848-b07f-9c93be1dcbf1" class="outline-3">
 <h3 id="h:6cd35b44-9b03-4848-b07f-9c93be1dcbf1"><a href="#h:6cd35b44-9b03-4848-b07f-9c93be1dcbf1">dockerfile</a></h3>
 <div class="outline-text-3" id="text-h:6cd35b44-9b03-4848-b07f-9c93be1dcbf1">
-<pre class="example" id="org95b1cd5">
+<pre class="example" id="orgd70bbd8">
 FROM：继承基础镜像
 MAINTAINER：镜像制作作者信息
 RUN：用来执行shell命令
@@ -675,6 +675,9 @@ ee29290948d8d       logtail                               5.25                19
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">&#30830;&#35748;pod_name
 </span>crictl ps -a |grep &lt;&#23481;&#22120;ID&gt;
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">pod &#26412;&#22320;&#20020;&#26102;&#23384;&#20648;&#12290;&#23558; &lt;NODE_NAME&gt; &#26367;&#25442;&#20026;&#20320;&#30340;&#33410;&#28857;&#21517;.
+</span>kubectl get --raw /api/v1/nodes/&lt;NODE_NAME&gt;/proxy/stats/summary | jq <span class="org-string">'.pods[] | {pod: .podRef.name, containers: [.containers[] | {name: .name, rootfsUsed: .rootfs.usedBytes}]}'</span>
 </pre>
 </div>
 </div>

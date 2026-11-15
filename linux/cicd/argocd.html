@@ -146,17 +146,17 @@
 <li><a href="#h:D8ACF1C3-E57E-4E6B-A49E-BF85D3E50457">argocd 用法说明</a></li>
 </ul>
 </li>
-<li><a href="#orgb93c5aa">案例-docker compose安装 argocd</a>
+<li><a href="#org6baa61d">案例-docker compose安装 argocd</a>
 <ul>
-<li><a href="#org21de0c5">安装 argocd</a></li>
-<li><a href="#org87276b4">另一台机器安装 argocd cli</a>
+<li><a href="#orgab98c40">安装 argocd</a></li>
+<li><a href="#orga44dd69">另一台机器安装 argocd cli</a>
 <ul>
-<li><a href="#org5d3af5b">修改 admin 密码</a></li>
-<li><a href="#orgfc7a11a">增加 argocd api同步账号</a></li>
-<li><a href="#orgbcbf2d1">增加外部 k8s 集群</a></li>
-<li><a href="#orgedd49b7">增加 appproject</a></li>
-<li><a href="#org38676d2">仓库配置</a></li>
-<li><a href="#orgce25e1e">部署服务 app</a></li>
+<li><a href="#org2282a8f">修改 admin 密码</a></li>
+<li><a href="#org81f9ba6">增加 argocd api同步账号</a></li>
+<li><a href="#org60105f7">增加外部 k8s 集群</a></li>
+<li><a href="#org5ad4a9c">增加 appproject</a></li>
+<li><a href="#orgd898a6c">仓库配置</a></li>
+<li><a href="#org39e2185">部署服务 app</a></li>
 </ul>
 </li>
 </ul>
@@ -164,7 +164,7 @@
 <li><a href="#h:7CEF77D0-A0FC-42CA-9705-176E36527ED3">维护</a>
 <ul>
 <li><a href="#h:19BCE958-A715-4C64-A057-4700F76C11C5">查看</a></li>
-<li><a href="#org86b0015">临时登录脚本</a></li>
+<li><a href="#orge730a90">临时登录脚本</a></li>
 <li><a href="#h:AB89B6B7-9D75-4D5E-B9BE-C55548EB46AF">同步</a></li>
 <li><a href="#h:EB64C1CC-E781-4B4E-B7FB-63D880EE6E43">回滚</a></li>
 <li><a href="#h:F0742739-7597-42D3-B4C9-40AA3599EE2C">订阅通知</a></li>
@@ -264,7 +264,7 @@ CNCF 认证标准符合以下 4 条，才算标准的 GitOps 实现
 
 
 
-<figure id="org2c3c015">
+<figure id="org5e93d91">
 <img style="aspect-ratio:1036/529" decoding="async" loading="lazy" src="./images/img_20260903_010220.webp" alt="img_20260903_010220.webp" width="800">
 
 </figure>
@@ -607,7 +607,7 @@ ArgoCD 是云原生计算基金会(Cloud Native Computing FoNCF)的成员。
 
 
 
-<figure id="org3da2358">
+<figure id="org609f5ca">
 <img style="aspect-ratio:743/708" decoding="async" loading="lazy" src="./images/20260903-015235.webp" alt="20260903-015235.webp" width="800">
 
 <figcaption><span class="figure-number">&#22270;2&nbsp; </span>ArgoCD 架构图</figcaption>
@@ -1237,7 +1237,7 @@ ApplicationSet 模板化批量生成多个 Application CR，解决多环境、�
 </p>
 
 
-<figure id="org4b725e7">
+<figure id="orgea06729">
 <img style="aspect-ratio:497/466" decoding="async" loading="lazy" src="./images/20260903-110242.webp" alt="20260903-110242.webp" width="800">
 
 </figure>
@@ -1552,6 +1552,8 @@ data:
 </span>
 kubectl edit cm argocd-rbac-cm -n argocd
 data:
+  policy.default: role:readonly
+  policy.csv: |
     <span class="org-comment-delimiter"># </span><span class="org-comment">Sync &#21516;&#27493;
 </span>    p, role:rync, applications, get, */*, allow
     p, role:rync, applications, sync, */*, allow
@@ -1561,7 +1563,7 @@ data:
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">3. &#29983;&#25104;&#29992;&#25143; token
 </span><span class="org-comment-delimiter">## </span><span class="org-comment">https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_account_generate-token/
-</span>% argocd account generate-token --account cdsync
+</span>% argocd account generate-token --account cdsync --id ci-$(date +%Y%m%d)
 eyJhbGciOiJIUzI1NiIsInR5cCI
 
 <span class="org-comment-delimiter">## </span><span class="org-comment">&#26597;&#30475;&#29992;&#25143; token
@@ -1760,8 +1762,31 @@ spec:
 data:
   <span class="org-comment-delimiter"># </span><span class="org-comment">&#21516;&#27493;&#38388;&#38548;&#20026; 10 + &#39069;&#22806;&#30340; 20 s &#25289;&#21160; = 30s &#21516;&#27493;
 </span>  <span class="org-comment-delimiter"># </span><span class="org-comment">&#21482;&#26159;&#25511;&#21046;&#22120; &#8220;&#22810;&#20037;&#37266;&#26469;&#19968;&#36718;&#24178;&#27963;&#8221;&#65292;&#19981;&#26159; git &#36718;&#35810;&#38388;&#38548;&#65292;&#25913;&#23567;&#23427;&#26080;&#27861;&#28040;&#38500; 2min &#32531;&#23384;&#24310;&#36831;
+</span>  <span class="org-comment-delimiter">#</span><span class="org-comment">timeout.reconciliation: 10s
+</span>  <span class="org-comment-delimiter">#</span><span class="org-comment">timeout.reconciliation.jitter: 20s
+</span>
+  <span class="org-comment-delimiter"># </span><span class="org-comment">--- Git &#21464;&#26356;&#21457;&#29616;&#24310;&#36831; ---------------------------------------------
+</span>  <span class="org-comment-delimiter"># </span><span class="org-comment">application-controller &#22810;&#20037;&#20027;&#21160; reconcile &#19968;&#27425;&#12290;&#36825;&#26159;"&#21457;&#29616; git &#26377;&#26032;
+</span>  <span class="org-comment-delimiter"># </span><span class="org-comment">commit"&#30340;&#19978;&#38480;;10s &#26159;&#20026;&#20102;&#25226;&#21457;&#29616;&#24310;&#36831;&#21387;&#36827; 10 &#31186;&#20869;&#12290;
+</span>  <span class="org-comment-delimiter">#</span><span class="org-comment">
+</span>  <span class="org-comment-delimiter"># </span><span class="org-comment">&#27880;&#24847;:&#24517;&#39035;&#21644;&#19979;&#38754; repoServer &#30340; --revision-cache-expiration &#19968;&#36215;&#35843;&#12290;
+</span>  <span class="org-comment-delimiter"># </span><span class="org-comment">repo-server &#20250;&#32531;&#23384; "HEAD -&gt; commit SHA" &#30340;&#35299;&#26512;&#32467;&#26524;(&#40664;&#35748; 2m),&#21482;&#25913;
+</span>  <span class="org-comment-delimiter"># </span><span class="org-comment">&#36825;&#37324;&#30340;&#35805; controller &#27599; 10s &#35835;&#21040;&#30340;&#20173;&#26159;&#26368;&#22810; 2 &#20998;&#38047;&#21069;&#30340;&#26087; SHA&#12290;
+</span>  <span class="org-comment-delimiter">#</span><span class="org-comment">
+</span>  <span class="org-comment-delimiter"># </span><span class="org-comment">&#20195;&#20215;&#38543; Application &#25968;&#37327;&#32447;&#24615;&#25918;&#22823;:&#27599;&#20010; app &#27599; 10s &#19968;&#27425;&#30495;&#23454; ls-remote
+</span>  <span class="org-comment-delimiter"># </span><span class="org-comment">+ &#19968;&#27425;&#20840;&#37327; compare + &#19968;&#27425; app status &#30340; etcd &#20889;&#20837;&#12290;&#21313;&#20960;&#20010; app &#20197;&#20869;
+</span>  <span class="org-comment-delimiter"># </span><span class="org-comment">&#27809;&#38382;&#39064;,&#35268;&#27169;&#19978;&#21435;&#35201;&#25913;&#29992; webhook &#25110;&#22806;&#37096;&#25506;&#27979;&#35302;&#21457; refresh&#12290;
 </span>  timeout.reconciliation: 10s
-  timeout.reconciliation.jitter: 20s
+  <span class="org-comment-delimiter"># </span><span class="org-comment">&#25238;&#21160;&#12290;&#35843;&#22823;&#21487;&#20197;&#35753;&#22810;&#20010; app &#30340; reconcile &#38169;&#24320;&#12289;&#21066;&#23792;,&#20294;&#20250;&#35753;&#21457;&#29616;&#24310;&#36831;&#21464;&#25104;
+</span>  <span class="org-comment-delimiter"># </span><span class="org-comment">[timeout, timeout+jitter] &#21306;&#38388;&#12290;&#35201;&#30830;&#23450;&#24615;&#30340; 10s &#23601;&#35774; 0s&#12290;
+</span>  timeout.reconciliation.jitter: 0s
+  <span class="org-comment-delimiter"># </span><span class="org-comment">0s = &#20851;&#38381;&#24378;&#21046;&#20840;&#37327;&#21047;&#26032;
+</span>  timeout.hard.reconciliation: 0s
+
+kubectl  -n argocd edit deployments.apps argocd-repo-server
+      - args:
+        - /usr/local/bin/argocd-repo-server
+        - --revision-cache-expiration=10s
 </pre>
 </div>
 
@@ -2444,13 +2469,13 @@ argocd proj export <span class="org-comment-delimiter"># </span><span class="org
 </div>
 </div>
 </section>
-<section id="outline-container-orgb93c5aa" class="outline-2">
-<h2 id="orgb93c5aa"><a href="#orgb93c5aa">案例-docker compose安装 argocd</a></h2>
-<div class="outline-text-2" id="text-orgb93c5aa">
+<section id="outline-container-org6baa61d" class="outline-2">
+<h2 id="org6baa61d"><a href="#org6baa61d">案例-docker compose安装 argocd</a></h2>
+<div class="outline-text-2" id="text-org6baa61d">
 </div>
-<div id="outline-container-org21de0c5" class="outline-3">
-<h3 id="org21de0c5"><a href="#org21de0c5">安装 argocd</a></h3>
-<div class="outline-text-3" id="text-org21de0c5">
+<div id="outline-container-orgab98c40" class="outline-3">
+<h3 id="orgab98c40"><a href="#orgab98c40">安装 argocd</a></h3>
+<div class="outline-text-3" id="text-orgab98c40">
 <div class="org-src-container">
 <pre class="src src-shell">mkdir -p /opt/argocd/manifests  &amp;&amp; <span class="org-builtin">cd</span> /opt/argocd
 cat &lt;&lt; \EOF &gt; docker-compose.yml<span class="org-sh-heredoc">
@@ -2498,12 +2523,31 @@ spec:
   repo: https://argoproj.github.io/argo-helm
   chart: argo-cd
   # &#19981;&#20889; version &#21462;&#26368;&#26032;;&#35201;&#21487;&#22797;&#29616;&#23601;&#22266;&#23450;,&#20363;&#22914; version: "8.0.0"
+  version: "10.10.1"
   targetNamespace: argocd
   createNamespace: true
   valuesContent: |-
     configs:
       params:
         server.insecure: true
+      cm:
+        # --- Git &#21464;&#26356;&#21457;&#29616;&#24310;&#36831; ---------------------------------------------
+        # application-controller &#22810;&#20037;&#20027;&#21160; reconcile &#19968;&#27425;&#12290;&#36825;&#26159;"&#21457;&#29616; git &#26377;&#26032;
+        # commit"&#30340;&#19978;&#38480;;10s &#26159;&#20026;&#20102;&#25226;&#21457;&#29616;&#24310;&#36831;&#21387;&#36827; 10 &#31186;&#20869;&#12290;
+        #
+        # &#27880;&#24847;:&#24517;&#39035;&#21644;&#19979;&#38754; repoServer &#30340; --revision-cache-expiration &#19968;&#36215;&#35843;&#12290;
+        # repo-server &#20250;&#32531;&#23384; "HEAD -&gt; commit SHA" &#30340;&#35299;&#26512;&#32467;&#26524;(&#40664;&#35748; 2m),&#21482;&#25913;
+        # &#36825;&#37324;&#30340;&#35805; controller &#27599; 10s &#35835;&#21040;&#30340;&#20173;&#26159;&#26368;&#22810; 2 &#20998;&#38047;&#21069;&#30340;&#26087; SHA&#12290;
+        #
+        # &#20195;&#20215;&#38543; Application &#25968;&#37327;&#32447;&#24615;&#25918;&#22823;:&#27599;&#20010; app &#27599; 10s &#19968;&#27425;&#30495;&#23454; ls-remote
+        # + &#19968;&#27425;&#20840;&#37327; compare + &#19968;&#27425; app status &#30340; etcd &#20889;&#20837;&#12290;&#21313;&#20960;&#20010; app &#20197;&#20869;
+        # &#27809;&#38382;&#39064;,&#35268;&#27169;&#19978;&#21435;&#35201;&#25913;&#29992; webhook &#25110;&#22806;&#37096;&#25506;&#27979;&#35302;&#21457; refresh&#12290;
+        timeout.reconciliation: 10s
+        # &#25238;&#21160;&#12290;&#35843;&#22823;&#21487;&#20197;&#35753;&#22810;&#20010; app &#30340; reconcile &#38169;&#24320;&#12289;&#21066;&#23792;,&#20294;&#20250;&#35753;&#21457;&#29616;&#24310;&#36831;&#21464;&#25104;
+        # [timeout, timeout+jitter] &#21306;&#38388;&#12290;&#35201;&#30830;&#23450;&#24615;&#30340; 10s &#23601;&#35774; 0s&#12290;
+        timeout.reconciliation.jitter: 0s
+        # 0s = &#20851;&#38381;&#24378;&#21046;&#20840;&#37327;&#21047;&#26032;
+        timeout.hard.reconciliation: 0s
     server:
       service:
         type: NodePort
@@ -2515,6 +2559,14 @@ spec:
       replicas: 1
     repoServer:
       replicas: 1
+      # revision &#32531;&#23384; TTL,&#40664;&#35748; 2m&#12290;&#35265;&#19978;&#38754; timeout.reconciliation &#30340;&#35828;&#26126;,
+      # &#20004;&#32773;&#19981;&#19968;&#33268;&#30340;&#35805;&#30701;&#30340;&#37027;&#20010;&#19981;&#36215;&#20316;&#29992;&#12290;
+      #
+      # &#36825;&#20010;&#21442;&#25968; chart &#27809;&#26377;&#19987;&#38376;&#30340; value,&#20063;&#27809;&#26377;&#36890;&#36807; argocd-cmd-params-cm &#26292;&#38706;
+      # (v3.5.4 &#21482;&#26292;&#38706;&#20102; reposerver.revision.cache.lock.timeout),
+      # &#21482;&#33021;&#29992; extraArgs &#36861;&#21152;&#21040;&#23481;&#22120; args&#12290;
+      extraArgs:
+        - --revision-cache-expiration=10s
     applicationSet:
       replicas: 1
     dex:
@@ -2538,15 +2590,22 @@ kubectl -n argocd get pods -w
 <span class="org-comment-delimiter">#</span><span class="org-comment">UI &#22312; http://localhost:30080,&#36134;&#21495; admin&#12290;</span>
 </pre>
 </div>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#23450;&#20041;&#20010;&#20989;&#25968;&#30465;&#20107;
+</span><span class="org-function-name">kc</span>() { docker exec -i argocd-standalone-k3s-1 kubectl <span class="org-string">"$@"</span>; }
+kc -n argocd get pod
+</pre>
 </div>
 </div>
-<div id="outline-container-org87276b4" class="outline-3">
-<h3 id="org87276b4"><a href="#org87276b4">另一台机器安装 argocd cli</a></h3>
-<div class="outline-text-3" id="text-org87276b4">
 </div>
-<div id="outline-container-org5d3af5b" class="outline-4">
-<h4 id="org5d3af5b"><a href="#org5d3af5b">修改 admin 密码</a></h4>
-<div class="outline-text-4" id="text-org5d3af5b">
+<div id="outline-container-orga44dd69" class="outline-3">
+<h3 id="orga44dd69"><a href="#orga44dd69">另一台机器安装 argocd cli</a></h3>
+<div class="outline-text-3" id="text-orga44dd69">
+</div>
+<div id="outline-container-org2282a8f" class="outline-4">
+<h4 id="org2282a8f"><a href="#org2282a8f">修改 admin 密码</a></h4>
+<div class="outline-text-4" id="text-org2282a8f">
 <div class="org-src-container">
 <pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#30331;&#24405;
 </span><span class="org-variable-name">argos</span>=<span class="org-string">'10.20.2.220:30080'</span>
@@ -2557,21 +2616,22 @@ argocd login  $<span class="org-variable-name">argos</span> --username admin --p
 </div>
 </div>
 </div>
-<div id="outline-container-orgfc7a11a" class="outline-4">
-<h4 id="orgfc7a11a"><a href="#orgfc7a11a">增加 argocd api同步账号</a></h4>
-<div class="outline-text-4" id="text-orgfc7a11a">
+<div id="outline-container-org81f9ba6" class="outline-4">
+<h4 id="org81f9ba6"><a href="#org81f9ba6">增加 argocd api同步账号</a></h4>
+<div class="outline-text-4" id="text-org81f9ba6">
 <div class="org-src-container">
 <pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">1. &#21019;&#24314;&#26412;&#22320;&#29992;&#25143;&#65288;&#20462;&#25913; argocd&#8209;cm&#65289;
 </span>kubectl edit cm argocd-cm -n argocd
-
 data:
   accounts.cdsync.enabled: <span class="org-string">"true"</span>
   accounts.cdsync: <span class="org-string">"apiKey"</span>
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">2. &#35774;&#32622;&#20840;&#23616; RBAC &#26435;&#38480; (argocd&#8209;rbac&#8209;cm)
-</span>
-kubectl edit cm argocd-rbac-cm -n argocd
+</span><span class="org-comment-delimiter">## </span><span class="org-comment">&#27880;&#24847;&#19979;&#27425;&#37325;&#26032;&#37096;&#32626; helm &#26102;&#65292;&#26435;&#38480;&#20250;&#34987;&#35206;&#30422;&#25104;&#21407;&#20540;&#12290;
+</span>kubectl edit cm argocd-rbac-cm -n argocd
 data:
+  policy.default: role:readonly
+  policy.csv: |
     <span class="org-comment-delimiter"># </span><span class="org-comment">Sync &#21516;&#27493;
 </span>    p, role:rync, applications, get, */*, allow
     p, role:rync, applications, sync, */*, allow
@@ -2581,7 +2641,7 @@ data:
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">3. &#29983;&#25104;&#29992;&#25143; token
 </span><span class="org-comment-delimiter">## </span><span class="org-comment">https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_account_generate-token/
-</span>% argocd account generate-token --account cdsync
+</span>% argocd account generate-token --account cdsync --id ci-$(date +%Y%m%d)
 eyJhbGciOiJIUzI1NiIsInR5cCI
 
 <span class="org-comment-delimiter">## </span><span class="org-comment">&#26597;&#30475;&#29992;&#25143; token
@@ -2598,9 +2658,9 @@ argocd app list --server <span class="org-string">"$ARGOCD_SERVER"</span> --auth
 </div>
 </div>
 </div>
-<div id="outline-container-orgbcbf2d1" class="outline-4">
-<h4 id="orgbcbf2d1"><a href="#orgbcbf2d1">增加外部 k8s 集群</a></h4>
-<div class="outline-text-4" id="text-orgbcbf2d1">
+<div id="outline-container-org60105f7" class="outline-4">
+<h4 id="org60105f7"><a href="#org60105f7">增加外部 k8s 集群</a></h4>
+<div class="outline-text-4" id="text-org60105f7">
 <div class="org-src-container">
 <pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#30830;&#35748;&#24403;&#21069; kubectl &#33021;&#35775;&#38382; k8s
 </span>~]# kubectl  config get-contexts
@@ -2623,9 +2683,9 @@ argocd login  $<span class="org-variable-name">argos</span> --username admin --p
 </div>
 </div>
 </div>
-<div id="outline-container-orgedd49b7" class="outline-4">
-<h4 id="orgedd49b7"><a href="#orgedd49b7">增加 appproject</a></h4>
-<div class="outline-text-4" id="text-orgedd49b7">
+<div id="outline-container-org5ad4a9c" class="outline-4">
+<h4 id="org5ad4a9c"><a href="#org5ad4a9c">增加 appproject</a></h4>
+<div class="outline-text-4" id="text-org5ad4a9c">
 <div class="org-src-container">
 <pre class="src src-shell"><span class="org-builtin">cd</span> /opt/argocd/app
 <span class="org-builtin">export</span> <span class="org-variable-name">KUBECONFIG</span>=$<span class="org-variable-name">PWD</span>/kube/kubeconfig.yaml
@@ -2670,9 +2730,9 @@ argocd project list
 </div>
 </div>
 </div>
-<div id="outline-container-org38676d2" class="outline-4">
-<h4 id="org38676d2"><a href="#org38676d2">仓库配置</a></h4>
-<div class="outline-text-4" id="text-org38676d2">
+<div id="outline-container-orgd898a6c" class="outline-4">
+<h4 id="orgd898a6c"><a href="#orgd898a6c">仓库配置</a></h4>
+<div class="outline-text-4" id="text-orgd898a6c">
 <p>
 通过 SSH 添加 git 仓库
 </p>
@@ -2731,9 +2791,9 @@ Settings --&gt; Repository certificates and known hosts
 </div>
 </div>
 </div>
-<div id="outline-container-orgce25e1e" class="outline-4">
-<h4 id="orgce25e1e"><a href="#orgce25e1e">部署服务 app</a></h4>
-<div class="outline-text-4" id="text-orgce25e1e">
+<div id="outline-container-org39e2185" class="outline-4">
+<h4 id="org39e2185"><a href="#org39e2185">部署服务 app</a></h4>
+<div class="outline-text-4" id="text-org39e2185">
 <div class="org-src-container">
 <pre class="src src-shell">cat &lt;&lt;\EOF&gt; argocd/kustomize/prod.yaml <span class="org-sh-heredoc">
 apiVersion: argoproj.io/v1alpha1
@@ -2812,9 +2872,9 @@ kubectl 查看 Application CR 内记录的资源
 </div>
 </div>
 </div>
-<div id="outline-container-org86b0015" class="outline-3">
-<h3 id="org86b0015"><a href="#org86b0015">临时登录脚本</a></h3>
-<div class="outline-text-3" id="text-org86b0015">
+<div id="outline-container-orge730a90" class="outline-3">
+<h3 id="orge730a90"><a href="#orge730a90">临时登录脚本</a></h3>
+<div class="outline-text-3" id="text-orge730a90">
 <p>
 不用 token 登录会保存配置到 <code>~/.config/argocd/config</code> 中
 </p>

@@ -55,44 +55,55 @@
 <h2>&#30446;&#24405;</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#org1e1db98">grafana 模板</a></li>
-<li><a href="#orgab532ec">数据库</a>
+<li><a href="#h:E8762376-7CEC-4510-9FB5-7E2235B7164D">grafana 模板</a></li>
+<li><a href="#h:ACDD5CF2-DB7D-42B0-A730-924179C13B06">数据库</a>
 <ul>
-<li><a href="#orgb9a72c2">mysqld-exporter</a>
+<li><a href="#h:79A6DE26-317D-4E92-B9FF-3A298BCB0EAD">mysqld-exporter</a>
 <ul>
-<li><a href="#org09ec9c9">数据库授权</a></li>
-<li><a href="#org95e54b9">部署方法1-docker-compose</a></li>
-<li><a href="#org30570f2">部署方法2-k8s</a></li>
+<li><a href="#h:6EFA4602-7D63-45C3-A4BC-437A44D76E54">数据库授权</a></li>
+<li><a href="#h:65489B09-8648-4C17-9D35-7936C4997F54">部署方法1-docker-compose</a></li>
+<li><a href="#h:860E91E4-2F4F-453D-ABFD-1FDA530D3DF9">部署方法2-k8s</a></li>
 </ul>
 </li>
-<li><a href="#org876bf82">Redis exporter</a>
+<li><a href="#h:0678F759-D805-4C5C-90E1-6FC2D338B599">Redis exporter</a>
 <ul>
-<li><a href="#org6bb3eff">部署方法1-docker-compose</a></li>
+<li><a href="#h:0ECE17AF-2CE0-4C6F-A1BA-F4BF1A25F8B0">部署方法1-docker-compose</a></li>
 <li><a href="#h:EF45D176-E7AE-4E2E-B646-9EDE63980F24">部署方法2-k8s</a></li>
 </ul>
 </li>
-<li><a href="#org6883c2c">MongoDB exporter</a></li>
-<li><a href="#orgb75d8ef">部署方法1-docker-compose</a></li>
-</ul>
-</li>
-<li><a href="#orge6ab41d">硬件相关</a></li>
-<li><a href="#orgdd7421f">问题跟踪器和持续集成</a></li>
-<li><a href="#org902ca8e">消息系统</a>
+<li><a href="#h:9844F9E8-0474-49FF-8A56-1CE1FE570CA2">MongoDB exporter</a>
 <ul>
-<li><a href="#org683b049">RocketMQ exporter</a></li>
-<li><a href="#org8b99726">RabbitMQ exporter</a>
+<li><a href="#h:CDE4B4F9-E09F-400D-92AA-CD322775E0F4">部署方法1-docker-compose</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#h:E56AC38D-FE10-4683-AFA3-64944F840775">硬件相关</a></li>
+<li><a href="#h:0712BD87-BCF0-430E-8CAE-5CDD6DC8D1FF">问题跟踪器和持续集成</a></li>
+<li><a href="#h:A8ACD45C-054C-47DF-B007-60594663BE15">消息系统</a>
 <ul>
-<li><a href="#org8692be9">部署方法2-k8s</a></li>
+<li><a href="#h:00EE899F-4D21-4700-AF75-BD0AECCFE527">RocketMQ exporter</a></li>
+<li><a href="#h:AB6AA2B4-84EE-4510-B889-80CAA46160A0">RabbitMQ exporter</a>
+<ul>
+<li><a href="#h:9C322790-ADCD-44A8-BF41-1B137301BFE4">部署方法2-k8s</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#org86690eb">存储</a></li>
-<li><a href="#orgd8f5062">HTTP</a></li>
-<li><a href="#orgf3cd1eb">APIs</a></li>
-<li><a href="#orgf8f3f57">日志</a></li>
-<li><a href="#org9b01c8b">金融运营</a></li>
-<li><a href="#org95e9fc8">其他</a></li>
+<li><a href="#h:331E553B-E088-40C6-A79B-383D37A93301">存储</a></li>
+<li><a href="#h:1AFF171E-F44A-4958-8F97-0C7035C18EF9">HTTP</a></li>
+<li><a href="#h:C4ABB3E6-EEAC-4EDC-828D-30356BCFDA50">APIs</a></li>
+<li><a href="#h:5C1C117F-6499-4E9D-8494-45615CEAEF52">日志</a></li>
+<li><a href="#h:DCD41BEF-6D57-44DA-9300-CA9199EFF58C">金融运营</a></li>
+<li><a href="#h:F2ED750D-0C1F-4416-9526-963A03BAF9B2">其他</a>
+<ul>
+<li><a href="#h:DA6C4BC9-35CB-444E-941D-1BC9FF320969">Alibaba Cloudmonitor exporter</a>
+<ul>
+<li><a href="#h:51043149-14F1-4A74-99AE-255AB420D746">docker compose 方式</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 </nav>
@@ -107,9 +118,9 @@
 <p>
 指标导出器一些应用现实
 </p>
-<section id="outline-container-org1e1db98" class="outline-2">
-<h2 id="org1e1db98"><a href="#org1e1db98">grafana 模板</a></h2>
-<div class="outline-text-2" id="text-org1e1db98">
+<section id="outline-container-h:E8762376-7CEC-4510-9FB5-7E2235B7164D" class="outline-2">
+<h2 id="h:E8762376-7CEC-4510-9FB5-7E2235B7164D"><a href="#h:E8762376-7CEC-4510-9FB5-7E2235B7164D">grafana 模板</a></h2>
+<div class="outline-text-2" id="text-h:E8762376-7CEC-4510-9FB5-7E2235B7164D">
 <p>
 <a href="https://grafana.com/grafana/dashboards/">https://grafana.com/grafana/dashboards/</a>
 </p>
@@ -133,20 +144,20 @@
 </ul>
 </div>
 </section>
-<section id="outline-container-orgab532ec" class="outline-2">
-<h2 id="orgab532ec"><a href="#orgab532ec">数据库</a></h2>
-<div class="outline-text-2" id="text-orgab532ec">
+<section id="outline-container-h:ACDD5CF2-DB7D-42B0-A730-924179C13B06" class="outline-2">
+<h2 id="h:ACDD5CF2-DB7D-42B0-A730-924179C13B06"><a href="#h:ACDD5CF2-DB7D-42B0-A730-924179C13B06">数据库</a></h2>
+<div class="outline-text-2" id="text-h:ACDD5CF2-DB7D-42B0-A730-924179C13B06">
 </div>
-<div id="outline-container-orgb9a72c2" class="outline-3">
-<h3 id="orgb9a72c2"><a href="#orgb9a72c2">mysqld-exporter</a></h3>
-<div class="outline-text-3" id="text-orgb9a72c2">
+<div id="outline-container-h:79A6DE26-317D-4E92-B9FF-3A298BCB0EAD" class="outline-3">
+<h3 id="h:79A6DE26-317D-4E92-B9FF-3A298BCB0EAD"><a href="#h:79A6DE26-317D-4E92-B9FF-3A298BCB0EAD">mysqld-exporter</a></h3>
+<div class="outline-text-3" id="text-h:79A6DE26-317D-4E92-B9FF-3A298BCB0EAD">
 <p>
 <a href="https://github.com/prometheus/mysqld_exporter">https://github.com/prometheus/mysqld_exporter</a>
 </p>
 </div>
-<div id="outline-container-org09ec9c9" class="outline-4">
-<h4 id="org09ec9c9"><a href="#org09ec9c9">数据库授权</a></h4>
-<div class="outline-text-4" id="text-org09ec9c9">
+<div id="outline-container-h:6EFA4602-7D63-45C3-A4BC-437A44D76E54" class="outline-4">
+<h4 id="h:6EFA4602-7D63-45C3-A4BC-437A44D76E54"><a href="#h:6EFA4602-7D63-45C3-A4BC-437A44D76E54">数据库授权</a></h4>
+<div class="outline-text-4" id="text-h:6EFA4602-7D63-45C3-A4BC-437A44D76E54">
 <div class="org-src-container">
 <pre class="src src-sh">CREATE USER <span class="org-string">'mysqld_exporter'</span>@<span class="org-string">'%'</span> IDENTIFIED BY <span class="org-string">'hIhO6h_j(azn=F17'</span> WITH MAX_USER_CONNECTIONS 10;
 GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO <span class="org-string">'mysqld_exporter'</span>@<span class="org-string">'%'</span>;
@@ -155,9 +166,9 @@ flush privileges;
 </div>
 </div>
 </div>
-<div id="outline-container-org95e54b9" class="outline-4">
-<h4 id="org95e54b9"><a href="#org95e54b9">部署方法1-docker-compose</a></h4>
-<div class="outline-text-4" id="text-org95e54b9">
+<div id="outline-container-h:65489B09-8648-4C17-9D35-7936C4997F54" class="outline-4">
+<h4 id="h:65489B09-8648-4C17-9D35-7936C4997F54"><a href="#h:65489B09-8648-4C17-9D35-7936C4997F54">部署方法1-docker-compose</a></h4>
+<div class="outline-text-4" id="text-h:65489B09-8648-4C17-9D35-7936C4997F54">
 <p>
 准备配置文件
 </p>
@@ -243,9 +254,9 @@ pormetheus集成
 </div>
 </div>
 </div>
-<div id="outline-container-org30570f2" class="outline-4">
-<h4 id="org30570f2"><a href="#org30570f2">部署方法2-k8s</a></h4>
-<div class="outline-text-4" id="text-org30570f2">
+<div id="outline-container-h:860E91E4-2F4F-453D-ABFD-1FDA530D3DF9" class="outline-4">
+<h4 id="h:860E91E4-2F4F-453D-ABFD-1FDA530D3DF9"><a href="#h:860E91E4-2F4F-453D-ABFD-1FDA530D3DF9">部署方法2-k8s</a></h4>
+<div class="outline-text-4" id="text-h:860E91E4-2F4F-453D-ABFD-1FDA530D3DF9">
 <p>
 安装 mysqld-export
 </p>
@@ -505,16 +516,16 @@ EOF</span>
 </div>
 </div>
 </div>
-<div id="outline-container-org876bf82" class="outline-3">
-<h3 id="org876bf82"><a href="#org876bf82">Redis exporter</a></h3>
-<div class="outline-text-3" id="text-org876bf82">
+<div id="outline-container-h:0678F759-D805-4C5C-90E1-6FC2D338B599" class="outline-3">
+<h3 id="h:0678F759-D805-4C5C-90E1-6FC2D338B599"><a href="#h:0678F759-D805-4C5C-90E1-6FC2D338B599">Redis exporter</a></h3>
+<div class="outline-text-3" id="text-h:0678F759-D805-4C5C-90E1-6FC2D338B599">
 <p>
 <a href="https://github.com/oliver006/redis_exporter">https://github.com/oliver006/redis_exporter</a>
 </p>
 </div>
-<div id="outline-container-org6bb3eff" class="outline-4">
-<h4 id="org6bb3eff"><a href="#org6bb3eff">部署方法1-docker-compose</a></h4>
-<div class="outline-text-4" id="text-org6bb3eff">
+<div id="outline-container-h:0ECE17AF-2CE0-4C6F-A1BA-F4BF1A25F8B0" class="outline-4">
+<h4 id="h:0ECE17AF-2CE0-4C6F-A1BA-F4BF1A25F8B0"><a href="#h:0ECE17AF-2CE0-4C6F-A1BA-F4BF1A25F8B0">部署方法1-docker-compose</a></h4>
+<div class="outline-text-4" id="text-h:0ECE17AF-2CE0-4C6F-A1BA-F4BF1A25F8B0">
 <p>
 准备密码文件
 </p>
@@ -707,17 +718,16 @@ pormetheus集成
 </div>
 </div>
 </div>
-<div id="outline-container-org6883c2c" class="outline-3">
-<h3 id="org6883c2c"><a href="#org6883c2c">MongoDB exporter</a></h3>
-<div class="outline-text-3" id="text-org6883c2c">
+<div id="outline-container-h:9844F9E8-0474-49FF-8A56-1CE1FE570CA2" class="outline-3">
+<h3 id="h:9844F9E8-0474-49FF-8A56-1CE1FE570CA2"><a href="#h:9844F9E8-0474-49FF-8A56-1CE1FE570CA2">MongoDB exporter</a></h3>
+<div class="outline-text-3" id="text-h:9844F9E8-0474-49FF-8A56-1CE1FE570CA2">
 <p>
 <a href="https://github.com/percona/mongodb_exporter">https://github.com/percona/mongodb_exporter</a>
 </p>
 </div>
-</div>
-<div id="outline-container-orgb75d8ef" class="outline-3">
-<h3 id="orgb75d8ef"><a href="#orgb75d8ef">部署方法1-docker-compose</a></h3>
-<div class="outline-text-3" id="text-orgb75d8ef">
+<div id="outline-container-h:CDE4B4F9-E09F-400D-92AA-CD322775E0F4" class="outline-4">
+<h4 id="h:CDE4B4F9-E09F-400D-92AA-CD322775E0F4"><a href="#h:CDE4B4F9-E09F-400D-92AA-CD322775E0F4">部署方法1-docker-compose</a></h4>
+<div class="outline-text-4" id="text-h:CDE4B4F9-E09F-400D-92AA-CD322775E0F4">
 <p>
 启动mongodb-exporter
 </p>
@@ -788,22 +798,25 @@ grafana监控：<a href="https://github.com/percona/grafana-dashboards/blob/main
 </p>
 </div>
 </div>
-</section>
-<section id="outline-container-orge6ab41d" class="outline-2">
-<h2 id="orge6ab41d"><a href="#orge6ab41d">硬件相关</a></h2>
-</section>
-
-<section id="outline-container-orgdd7421f" class="outline-2">
-<h2 id="orgdd7421f"><a href="#orgdd7421f">问题跟踪器和持续集成</a></h2>
-</section>
-
-<section id="outline-container-org902ca8e" class="outline-2">
-<h2 id="org902ca8e"><a href="#org902ca8e">消息系统</a></h2>
-<div class="outline-text-2" id="text-org902ca8e">
 </div>
-<div id="outline-container-org683b049" class="outline-3">
-<h3 id="org683b049"><a href="#org683b049">RocketMQ exporter</a></h3>
-<div class="outline-text-3" id="text-org683b049">
+</section>
+<section id="outline-container-h:E56AC38D-FE10-4683-AFA3-64944F840775" class="outline-2">
+<h2 id="h:E56AC38D-FE10-4683-AFA3-64944F840775"><a href="#h:E56AC38D-FE10-4683-AFA3-64944F840775">硬件相关</a></h2>
+<div class="outline-text-2" id="text-h:E56AC38D-FE10-4683-AFA3-64944F840775">
+</div>
+</section>
+<section id="outline-container-h:0712BD87-BCF0-430E-8CAE-5CDD6DC8D1FF" class="outline-2">
+<h2 id="h:0712BD87-BCF0-430E-8CAE-5CDD6DC8D1FF"><a href="#h:0712BD87-BCF0-430E-8CAE-5CDD6DC8D1FF">问题跟踪器和持续集成</a></h2>
+<div class="outline-text-2" id="text-h:0712BD87-BCF0-430E-8CAE-5CDD6DC8D1FF">
+</div>
+</section>
+<section id="outline-container-h:A8ACD45C-054C-47DF-B007-60594663BE15" class="outline-2">
+<h2 id="h:A8ACD45C-054C-47DF-B007-60594663BE15"><a href="#h:A8ACD45C-054C-47DF-B007-60594663BE15">消息系统</a></h2>
+<div class="outline-text-2" id="text-h:A8ACD45C-054C-47DF-B007-60594663BE15">
+</div>
+<div id="outline-container-h:00EE899F-4D21-4700-AF75-BD0AECCFE527" class="outline-3">
+<h3 id="h:00EE899F-4D21-4700-AF75-BD0AECCFE527"><a href="#h:00EE899F-4D21-4700-AF75-BD0AECCFE527">RocketMQ exporter</a></h3>
+<div class="outline-text-3" id="text-h:00EE899F-4D21-4700-AF75-BD0AECCFE527">
 <p>
 <a href="https://github.com/apache/rocketmq-exporter">https://github.com/apache/rocketmq-exporter</a>
 </p>
@@ -861,9 +874,9 @@ pormetheus集成
 </div>
 </div>
 </div>
-<div id="outline-container-org8b99726" class="outline-3">
-<h3 id="org8b99726"><a href="#org8b99726">RabbitMQ exporter</a></h3>
-<div class="outline-text-3" id="text-org8b99726">
+<div id="outline-container-h:AB6AA2B4-84EE-4510-B889-80CAA46160A0" class="outline-3">
+<h3 id="h:AB6AA2B4-84EE-4510-B889-80CAA46160A0"><a href="#h:AB6AA2B4-84EE-4510-B889-80CAA46160A0">RabbitMQ exporter</a></h3>
+<div class="outline-text-3" id="text-h:AB6AA2B4-84EE-4510-B889-80CAA46160A0">
 <ul class="org-ul">
 <li><a href="https://github.com/kbudde/rabbitmq_exporter">https://github.com/kbudde/rabbitmq_exporter</a></li>
 </ul>
@@ -895,9 +908,9 @@ pormetheus集成
 </pre>
 </div>
 </div>
-<div id="outline-container-org8692be9" class="outline-4">
-<h4 id="org8692be9"><a href="#org8692be9">部署方法2-k8s</a></h4>
-<div class="outline-text-4" id="text-org8692be9">
+<div id="outline-container-h:9C322790-ADCD-44A8-BF41-1B137301BFE4" class="outline-4">
+<h4 id="h:9C322790-ADCD-44A8-BF41-1B137301BFE4"><a href="#h:9C322790-ADCD-44A8-BF41-1B137301BFE4">部署方法2-k8s</a></h4>
+<div class="outline-text-4" id="text-h:9C322790-ADCD-44A8-BF41-1B137301BFE4">
 <div class="org-src-container">
 <pre class="src src-shell">cat &gt;exporter.yaml&lt;&lt;\EOF<span class="org-sh-heredoc">
 apiVersion: v1
@@ -1023,24 +1036,240 @@ EOF
 </div>
 </div>
 </section>
-<section id="outline-container-org86690eb" class="outline-2">
-<h2 id="org86690eb"><a href="#org86690eb">存储</a></h2>
+<section id="outline-container-h:331E553B-E088-40C6-A79B-383D37A93301" class="outline-2">
+<h2 id="h:331E553B-E088-40C6-A79B-383D37A93301"><a href="#h:331E553B-E088-40C6-A79B-383D37A93301">存储</a></h2>
+<div class="outline-text-2" id="text-h:331E553B-E088-40C6-A79B-383D37A93301">
+</div>
 </section>
+<section id="outline-container-h:1AFF171E-F44A-4958-8F97-0C7035C18EF9" class="outline-2">
+<h2 id="h:1AFF171E-F44A-4958-8F97-0C7035C18EF9"><a href="#h:1AFF171E-F44A-4958-8F97-0C7035C18EF9">HTTP</a></h2>
+<div class="outline-text-2" id="text-h:1AFF171E-F44A-4958-8F97-0C7035C18EF9">
+</div>
+</section>
+<section id="outline-container-h:C4ABB3E6-EEAC-4EDC-828D-30356BCFDA50" class="outline-2">
+<h2 id="h:C4ABB3E6-EEAC-4EDC-828D-30356BCFDA50"><a href="#h:C4ABB3E6-EEAC-4EDC-828D-30356BCFDA50">APIs</a></h2>
+<div class="outline-text-2" id="text-h:C4ABB3E6-EEAC-4EDC-828D-30356BCFDA50">
+</div>
+</section>
+<section id="outline-container-h:5C1C117F-6499-4E9D-8494-45615CEAEF52" class="outline-2">
+<h2 id="h:5C1C117F-6499-4E9D-8494-45615CEAEF52"><a href="#h:5C1C117F-6499-4E9D-8494-45615CEAEF52">日志</a></h2>
+<div class="outline-text-2" id="text-h:5C1C117F-6499-4E9D-8494-45615CEAEF52">
+</div>
+</section>
+<section id="outline-container-h:DCD41BEF-6D57-44DA-9300-CA9199EFF58C" class="outline-2">
+<h2 id="h:DCD41BEF-6D57-44DA-9300-CA9199EFF58C"><a href="#h:DCD41BEF-6D57-44DA-9300-CA9199EFF58C">金融运营</a></h2>
+<div class="outline-text-2" id="text-h:DCD41BEF-6D57-44DA-9300-CA9199EFF58C">
+</div>
+</section>
+<section id="outline-container-h:F2ED750D-0C1F-4416-9526-963A03BAF9B2" class="outline-2">
+<h2 id="h:F2ED750D-0C1F-4416-9526-963A03BAF9B2"><a href="#h:F2ED750D-0C1F-4416-9526-963A03BAF9B2">其他</a></h2>
+<div class="outline-text-2" id="text-h:F2ED750D-0C1F-4416-9526-963A03BAF9B2">
+</div>
+<div id="outline-container-h:DA6C4BC9-35CB-444E-941D-1BC9FF320969" class="outline-3">
+<h3 id="h:DA6C4BC9-35CB-444E-941D-1BC9FF320969"><a href="#h:DA6C4BC9-35CB-444E-941D-1BC9FF320969">Alibaba Cloudmonitor exporter</a></h3>
+<div class="outline-text-3" id="text-h:DA6C4BC9-35CB-444E-941D-1BC9FF320969">
+<ul class="org-ul">
+<li><a href="https://github.com/aylei/aliyun-exporter">https://github.com/aylei/aliyun-exporter</a></li>
+</ul>
 
-<section id="outline-container-orgd8f5062" class="outline-2">
-<h2 id="orgd8f5062"><a href="#orgd8f5062">HTTP</a></h2>
-</section>
-<section id="outline-container-orgf3cd1eb" class="outline-2">
-<h2 id="orgf3cd1eb"><a href="#orgf3cd1eb">APIs</a></h2>
-</section>
-<section id="outline-container-orgf8f3f57" class="outline-2">
-<h2 id="orgf8f3f57"><a href="#orgf8f3f57">日志</a></h2>
-</section>
-<section id="outline-container-org9b01c8b" class="outline-2">
-<h2 id="org9b01c8b"><a href="#org9b01c8b">金融运营</a></h2>
-</section>
-<section id="outline-container-org95e9fc8" class="outline-2">
-<h2 id="org95e9fc8"><a href="#org95e9fc8">其他</a></h2>
+
+<p>
+2019 年停止维护。可用开通企业云监控接入对应基础服务，提供 proemtheus 查询接口。
+</p>
+</div>
+<div id="outline-container-h:51043149-14F1-4A74-99AE-255AB420D746" class="outline-4">
+<h4 id="h:51043149-14F1-4A74-99AE-255AB420D746"><a href="#h:51043149-14F1-4A74-99AE-255AB420D746">docker compose 方式</a></h4>
+<div class="outline-text-4" id="text-h:51043149-14F1-4A74-99AE-255AB420D746">
+<p>
+下面以 RDS / redis 监控为例
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">mkdir aliyun-exporter
+
+cat &lt;&lt;\EOF&gt; docker-compose.yml<span class="org-sh-heredoc">
+services:
+  aliyun-exporter-sg:
+    image: aylei/aliyun-exporter:0.3.1
+    container_name: aliyun-exporter-sg
+    hostname: aliyun-exporter-sg
+    restart: unless-stopped
+    command:
+      - '-c'
+      - '/etc/aliyun-exporter/config.yml'
+      - '-p'
+      - '9525'
+    environment:
+      - TZ=Asia/Shanghai
+      - ALIYUN_ACCESS_ID=${ALIYUN_AK_ID}
+      - ALIYUN_ACCESS_SECRET=${ALIYUN_AK_SECRET}
+      - ALIYUN_REGION=ap-southeast-1
+    volumes:
+      - ./aliyun-exporter/config.yml:/etc/aliyun-exporter/config.yml:ro
+    ports:
+      - 9525:9525
+    networks:
+      - monitor_net
+
+  aliyun-exporter-hk:
+    image: aylei/aliyun-exporter:0.3.1
+    container_name: aliyun-exporter-hk
+    hostname: aliyun-exporter-hk
+    restart: unless-stopped
+    command:
+      - '-c'
+      - '/etc/aliyun-exporter/config.yml'
+      - '-p'
+      - '9525'
+    environment:
+      - TZ=Asia/Shanghai
+      - ALIYUN_ACCESS_ID=${ALIYUN_AK_ID}
+      - ALIYUN_ACCESS_SECRET=${ALIYUN_AK_SECRET}
+      - ALIYUN_REGION=cn-hongkong
+    volumes:
+      - ./aliyun-exporter/config-meta.yml:/etc/aliyun-exporter/config.yml:ro
+    ports:
+      - 9526:9525
+    networks:
+      - monitor_net
+
+networks:
+  monitor_net:
+    name: monitor_net
+    driver: bridge
+EOF
+</span>
+cat &lt;&lt;EOF&gt; .env<span class="org-sh-heredoc">
+ALIYUN_AK_ID=xxx
+ALIYUN_AK_SECRET=xxx
+EOF
+</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">- config.yml&#65288;sg&#65289;&#65306;&#21457; 21 &#27425; CMS &#35843;&#29992;&#65292;&#19968;&#27425;&#23601;&#25226;&#20004;&#20010;&#22320;&#22495;&#30340;&#23454;&#20363;&#20840;&#25343;&#22238;&#26469;&#65307;&#39034;&#24102;&#25289;&#26032;&#21152;&#22369;&#30340;&#23454;&#20363;&#28165;&#21333;
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">- config-meta.yml&#65288;hk&#65289;&#65306;&#19968;&#27425; CMS &#35843;&#29992;&#37117;&#19981;&#21457;&#65292;&#21807;&#19968;&#32844;&#36131;&#26159;&#29992; ALIYUN_REGION=cn-hongkong &#21435;&#25289;&#39321;&#28207;&#30340;&#23454;&#20363;&#28165;&#21333;
+</span>cat &lt;&lt;EOF&gt; aliyun-exporter/config-meta.yml <span class="org-sh-heredoc">
+rate_limit: 5      # &#27599;&#31186; API &#35843;&#29992;&#19978;&#38480;&#65292;&#20113;&#30417;&#25511;&#26377;&#38480;&#27969;&#65292;&#21035;&#35843;&#22823;
+pool_size: 10
+
+metrics: {}
+
+info_metrics:
+  - rds
+  - redis
+EOF
+</span>
+cat &lt;&lt;EOF&gt; aliyun-exporter/config.yml <span class="org-sh-heredoc">
+rate_limit: 5      # &#27599;&#31186; API &#35843;&#29992;&#19978;&#38480;&#65292;&#20113;&#30417;&#25511;&#26377;&#38480;&#27969;&#65292;&#21035;&#35843;&#22823;
+pool_size: 10
+
+credential: {}     # &#30041;&#31354;&#65292;&#30001;&#29615;&#22659;&#21464;&#37327;&#27880;&#20837;
+
+metrics:
+  acs_rds_dashboard:
+    # &#8212;&#8212; &#36164;&#28304;&#27700;&#20301;&#65288;&#36890;&#29992;&#65292;&#19981;&#20998;&#24341;&#25806;&#65289;&#8212;&#8212;
+    - {name: CpuUsage,                   period: 60}
+    - {name: MemoryUsage,                period: 60}
+    - {name: DiskUsage,                  period: 60}
+    - {name: IOPSUsage,                  period: 60}
+    - {name: ConnectionUsage,            period: 60}
+    - {name: DataDelay,                  period: 60}
+    # &#8212;&#8212; &#21534;&#21520; &#8212;&#8212;
+    - {name: MySQL_QPS,                  period: 60}
+    - {name: MySQL_TPS,                  period: 60}
+    # &#8212;&#8212; &#20250;&#35805; / &#36830;&#25509; &#8212;&#8212;
+    - {name: MySQL_ThreadsConnected,     period: 60}
+    - {name: MySQL_ThreadsRunning,       period: 60}
+    - {name: MySQL_ActiveSessions,       period: 60}
+    # &#8212;&#8212; &#24930;&#26597;&#35810; &#8212;&#8212;
+    - {name: MySQL_SlowQueries,          period: 60}
+    # &#8212;&#8212; &#32593;&#32476; &#8212;&#8212;
+    - {name: MySQL_NetworkInNew,         period: 60}
+    - {name: MySQL_NetworkOutNew,        period: 60}
+    # &#8212;&#8212; &#31354;&#38388;&#21344;&#29992; &#8212;&#8212;
+    - {name: MySQL_InstanceDiskSize,     period: 60}
+    - {name: MySQL_DataDiskSize,         period: 60}
+    - {name: MySQL_LogDiskSize,          period: 60}
+    - {name: MySQL_TmpDiskSize,          period: 60}
+    # &#8212;&#8212; InnoDB Buffer Pool &#8212;&#8212;
+    - {name: MySQL_IbufReadHit,          period: 60}
+    - {name: MySQL_IbufUseRatio,         period: 60}
+    - {name: MySQL_IbufDirtyRatio,       period: 60}
+    # &#8212;&#8212; InnoDB &#34892;&#25805;&#20316; &#8212;&#8212;
+    - {name: MySQL_InnoDBRowRead,        period: 60}
+    - {name: MySQL_InnoDBRowInsert,      period: 60}
+    - {name: MySQL_InnoDBRowUpdate,      period: 60}
+    - {name: MySQL_InnoDBRowDelete,      period: 60}
+    # &#8212;&#8212; InnoDB &#29289;&#29702; IO &#8212;&#8212;
+    - {name: MySQL_InnoDBDataRead,       period: 60}
+    - {name: MySQL_InnoDBDataWritten,    period: 60}
+    # &#8212;&#8212; &#38145; &#8212;&#8212;
+    - {name: MySQL_InnoDBRowLockTimePs,  period: 60}
+    - {name: MySQL_MDLLockSession,       period: 60}
+    # &#8212;&#8212; &#20020;&#26102;&#34920; &#8212;&#8212;
+    - {name: MySQL_TempDiskTableCreates, period: 60}
+    # &#8212;&#8212; &#20027;&#20174;&#32447;&#31243;&#29366;&#24577; &#8212;&#8212;
+    - {name: MySQL_SlaveIORunning,       period: 60}
+    - {name: MySQL_SlaveSQLRunning,      period: 60}
+
+  acs_kvstore:
+    # &#8212;&#8212; &#36890;&#29992;&#65288;&#19968;&#27425;&#35843;&#29992;&#35206;&#30422;&#38598;&#32676;&#29256;&#21644;&#26631;&#20934;&#29256;&#20004;&#20010;&#23454;&#20363;&#65289;&#8212;&#8212;
+    - {name: CpuUsage,                   period: 60}
+    - {name: MemoryUsage,                period: 60}
+    - {name: ConnectionUsage,            period: 60}
+    - {name: UsedMemory,                 period: 60}
+    - {name: UsedConnection,             period: 60}
+    - {name: UsedQPS,                    period: 60}
+    - {name: IntranetIn,                 period: 60}
+    - {name: IntranetOut,                period: 60}
+    - {name: IntranetInRatio,            period: 60}
+    - {name: IntranetOutRatio,           period: 60}
+    - {name: FailedCount,                period: 60}
+    # &#8212;&#8212; &#38598;&#32676;&#29256;&#19987;&#23646;&#65288;java-redis / tair.rdb.cluster.sharding.common&#65289;&#8212;&#8212;
+    - {name: ShardingHitRate,                period: 60}
+    - {name: ShardingKeys,                   period: 60}
+    - {name: ShardingGetQps,                 period: 60}
+    - {name: ShardingPutQps,                 period: 60}
+    - {name: ShardingAvgRt,                  period: 60}
+    - {name: ShardingSlowlogCount,           period: 60}
+    - {name: ShardingEvictedKeysPerSecond,   period: 60}
+    - {name: ShardingExpiredKeysPerSecond,   period: 60}
+    # &#8212;&#8212; &#26631;&#20934;&#29256;&#19987;&#23646;&#65288;hk-go-m-redis / tair.rdb.1g&#65289;&#8212;&#8212;
+    - {name: StandardHitRate,                period: 60}
+    - {name: StandardKeys,                   period: 60}
+    - {name: StandardGetQps,                 period: 60}
+    - {name: StandardPutQps,                 period: 60}
+    - {name: StandardAvgRt,                  period: 60}
+    - {name: StandardSlowlogCount,           period: 60}
+    - {name: StandardEvictedKeysPerSecond,   period: 60}
+    - {name: StandardExpiredKeysPerSecond,   period: 60}
+
+info_metrics:
+  - rds
+  - redis
+EOF
+</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#33719;&#21462;&#25968;&#25454; prometheus/prometheus.yml 
+</span>- job_name: <span class="org-string">'aliyun-cms'</span>
+  scrape_interval: 240s
+  scrape_timeout: 120s
+  static_configs:
+    - targets: [<span class="org-string">'aliyun-exporter-sg:9525'</span>]
+      labels:
+        cloud_provider: aliyun
+        cloud_account: jp-aliyun-01
+        cloud_account_id: <span class="org-string">"xxx"</span>
+        environment: prod
+    - targets: [<span class="org-string">'aliyun-exporter-hk:9525'</span>]
+      labels:
+        cloud_provider: aliyun
+        cloud_account: jp-aliyun-01
+        cloud_account_id: <span class="org-string">"xxx"</span>
+        environment: prod
+</pre>
+</div>
+</div>
+</div>
+</div>
 </section>
 </div>
 <div id="postamble" class="status">

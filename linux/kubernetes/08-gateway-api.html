@@ -58,19 +58,15 @@
 <ul>
 <li><a href="#h:AE191BD0-7478-4896-942F-987852705AC4">安装</a>
 <ul>
-<li><a href="#h:A991B7DA-A94B-49AB-A53C-2D156441B17B">安装 gatewayapi crd</a></li>
+<li><a href="#h:A991B7DA-A94B-49AB-A53C-2D156441B17B">安装 Gateway API CRD</a></li>
 <li><a href="#h:ADE80387-26B3-49F4-B3AC-66104FDAB749">安装 nginx gateway crd</a></li>
-<li><a href="#h:E293C312-10FF-4509-8B85-F821B841029F">安装 nginx-gateway-fabric</a>
+<li><a href="#h:E293C312-10FF-4509-8B85-F821B841029F">安装 nginx-gateway-fabric</a></li>
+<li><a href="#h:A5214F40-47A2-437A-B1B6-3ADF9A5E1B4F">Gatewayclass</a>
 <ul>
-<li><a href="#h:EFDD73DA-5C01-4A89-9636-7377339F90AC">AWS 公网 NLB 配置</a></li>
+<li><a href="#h:3A835111-0259-4530-9085-0D953219D4B9">生成 ngixnxporxy</a></li>
 </ul>
 </li>
-<li><a href="#h:A5214F40-47A2-437A-B1B6-3ADF9A5E1B4F">Gatewayclass</a></li>
-<li><a href="#h:BF3394C4-4101-4916-AE93-56F6D4C05863">创建 gateway</a>
-<ul>
-<li><a href="#h:82174615-AD70-449E-A67A-DC14754CCED6">安装多个 gateway 内外网</a></li>
-</ul>
-</li>
+<li><a href="#h:BF3394C4-4101-4916-AE93-56F6D4C05863">创建 gateway</a></li>
 <li><a href="#h:C963E69A-9061-412E-B8EC-FF76D617C0E5">部署应用</a></li>
 <li><a href="#h:CF3F4D42-6B5E-48AD-8549-EEF321FCE32A">使用 httproute 访问</a></li>
 <li><a href="#h:71BB5978-4763-4DEA-A38C-93438694AAA6">ingress to gateway 转换工具</a></li>
@@ -79,12 +75,34 @@
 <li><a href="#h:3B89B53E-22AC-4700-9BDC-BB844DF10D1C">配置</a>
 <ul>
 <li><a href="#h:E3D94861-8D83-4D21-94FC-13FB8D523996">时区与日志格式化</a></li>
+<li><a href="#h:66E4F9A6-8D23-4444-A632-797761CBCAFD">强制 HTTPS</a></li>
 <li><a href="#h:A867CD1C-B7C2-4F3E-A09D-B880C7ED2210">Rewrite 路径重写</a></li>
 <li><a href="#h:469119C9-9B3D-4DDE-96D7-20B0A39B3873">上传限制</a></li>
 <li><a href="#h:DFE755D5-9371-4394-9663-4B60EFBB13E4">NGF 数据面的 gzip 压缩</a>
 <ul>
 <li><a href="#h:D129A0AB-ECDA-4D0B-8941-E1648753D33C">Gateway 全局压缩 SnippetsPolicy</a></li>
 <li><a href="#h:72519CD5-C320-41A6-AFE3-CEFDD6AF9421">HTTPRoute 压缩 SnippetsFilter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#h:71D8900B-BD33-4AC2-8AF2-76AFD1A3676C">案例</a>
+<ul>
+<li><a href="#h:82174615-AD70-449E-A67A-DC14754CCED6">安装多个 gateway 内外网</a>
+<ul>
+<li><a href="#h:EFDD73DA-5C01-4A89-9636-7377339F90AC">公网 nginxporxy</a>
+<ul>
+<li><a href="#h:6F42AA49-F6C8-41AA-ADA3-A0F546A7B17A">AWS 公网 NLB</a></li>
+</ul>
+</li>
+<li><a href="#h:4866744D-F522-4EE9-B606-437BE50FE1AA">公网 gateway</a></li>
+<li><a href="#h:21DBF770-534F-4490-B34B-9F6BFA524AAD">内网 nginxproxy</a>
+<ul>
+<li><a href="#h:F81E3735-3843-407E-B294-DAE392CF54A2">安装了 AWS LBC</a></li>
+</ul>
+</li>
+<li><a href="#h:F38DE222-00BA-40AF-981A-96D3DF2C79FA">内网 gateway</a></li>
+<li><a href="#h:656336CD-C3E8-4293-A924-B8806E11711D">httproute</a></li>
 </ul>
 </li>
 </ul>
@@ -145,7 +163,7 @@ ingress to gateway 转换工具
 </p>
 </div>
 <div id="outline-container-h:A991B7DA-A94B-49AB-A53C-2D156441B17B" class="outline-3">
-<h3 id="h:A991B7DA-A94B-49AB-A53C-2D156441B17B"><a href="#h:A991B7DA-A94B-49AB-A53C-2D156441B17B">安装 gatewayapi crd</a></h3>
+<h3 id="h:A991B7DA-A94B-49AB-A53C-2D156441B17B"><a href="#h:A991B7DA-A94B-49AB-A53C-2D156441B17B">安装 Gateway API CRD</a></h3>
 <div class="outline-text-3" id="text-h:A991B7DA-A94B-49AB-A53C-2D156441B17B">
 <ul class="org-ul">
 <li><a href="https://gateway-api.sigs.k8s.io/guides/getting-started/introduction/">安装 Gateway API</a> CRD</li>
@@ -155,8 +173,13 @@ ingress to gateway 转换工具
 
 <div class="org-src-container">
 <pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#23433;&#35013;&#26631;&#20934;&#29256; gateway api CRD
-</span>kubectl apply --server-side -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.6.1/standard-install.yaml
+</span><span class="org-variable-name">GATEWAYAPI_VERSION</span>=1.6.3
 
+kubectl apply --server-side -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v${<span class="org-variable-name">GATEWAYAPI_VERSION</span>}/standard-install.yaml
+
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">kubectl apply --server-side -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.6.1/standard-install.yaml
+</span>
 <span class="org-comment-delimiter"># </span><span class="org-comment">&#33539;&#20363;
 </span>root@ip-172-31-18-198:/docker/nginx/data/site.d# kubectl apply --server-side -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.6.1/standard-install.yaml
 customresourcedefinition.apiextensions.k8s.io/backendtlspolicies.gateway.networking.k8s.io serverside-applied
@@ -196,8 +219,9 @@ udproutes.gateway.networking.k8s.io             2026-08-26T09:10:33Z
 
 <div class="org-src-container">
 <pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#23433;&#35013; NGINX Gateway Fabric CRDs
-</span><span class="org-comment-delimiter"># </span><span class="org-comment">https://github.com/nginx/nginx-gateway-fabric/tree/v2.6.7/deploy
-</span>kubectl apply --server-side -f https://raw.githubusercontent.com/nginx/nginx-gateway-fabric/refs/tags/v2.6.7/deploy/crds.yaml
+</span><span class="org-variable-name">NGINXGAPI_VERSION</span>=2.8.1
+<span class="org-comment-delimiter"># </span><span class="org-comment">https://github.com/nginx/nginx-gateway-fabric/tree/v2.6.7/deploy
+</span>kubectl apply --server-side -f https://raw.githubusercontent.com/nginx/nginx-gateway-fabric/refs/tags/v${<span class="org-variable-name">NGINXGAPI_VERSION</span>}/deploy/crds.yaml
 <span class="org-comment-delimiter"># </span><span class="org-comment">&#26222;&#36890; kubectl apply &#26159;&#23458;&#25143;&#31471; apply&#65306;&#26412;&#22320;&#20445;&#23384;&#19968;&#20221;&#27880;&#35299; kubectl.kubernetes.io/last-applied-configuration&#65292;&#29992;&#26469;&#23545;&#27604;&#21464;&#26356;&#12290;
 </span><span class="org-comment-delimiter"># </span><span class="org-comment">--server&#8209;side &#26159;&#25226;&#21512;&#24182;&#36923;&#36753;&#20132;&#32473; **k8s APIServer &#26381;&#21153;&#31471;&#22788;&#29702;**&#65292;&#19981;&#22312;&#23458;&#25143;&#31471;&#23384;&#22823;&#27573; last&#8209;applied &#27880;&#35299;&#12290;
 </span>
@@ -226,8 +250,7 @@ observabilitypolicies.gateway.nginx.org         2026-08-26T09:37:50Z <span class
 </span>snippetsfilters.gateway.nginx.org               2026-08-26T09:37:51Z
 snippetspolicies.gateway.nginx.org              2026-08-26T09:37:51Z
 upstreamsettingspolicies.gateway.nginx.org      2026-08-26T09:37:51Z
-wafpolicies.gateway.nginx.org                   2026-08-26T09:37:51Z <span class="org-comment-delimiter"># </span><span class="org-comment">&#24212;&#29992;&#38450;&#28779;&#22681;&#35268;&#21017;
-</span>
+wafpolicies.gateway.nginx.org                   2026-08-26T09:37:51Z <span class="org-comment-delimiter"># </span><span class="org-comment">&#24212;&#29992;&#38450;&#28779;&#22681;&#35268;&#21017;</span>
 </pre>
 </div>
 </div>
@@ -246,7 +269,7 @@ wafpolicies.gateway.nginx.org                   2026-08-26T09:37:51Z <span class
 <span class="org-builtin">cd</span> ngfdir/
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">&#19979;&#36733; 2.6.7 &#29256;&#26412;&#25991;&#20214;&#12290;&#25289;&#21462; OCI &#26684;&#24335; Helm chart&#65292;&#35299;&#21387;&#21040;&#26412;&#22320;
-</span>helm pull oci://ghcr.io/nginx/charts/nginx-gateway-fabric --version 2.6.7 --untar
+</span>helm pull oci://ghcr.io/nginx/charts/nginx-gateway-fabric --version 2.8.1 --untar
 <span class="org-builtin">cd</span> nginx-gateway-fabric/
 
 helm install ngf . <span class="org-sh-escaped-newline">\</span>
@@ -261,6 +284,23 @@ helm install ngf . <span class="org-sh-escaped-newline">\</span>
 </span><span class="org-comment-delimiter">#    </span><span class="org-comment">Local&#65306;&#20445;&#30041;&#30495;&#23454;&#23458;&#25143;&#31471;&#28304; IP&#65292;&#20294;&#27969;&#37327;&#21482;&#33021;&#33853;&#21040;&#21518;&#31471; Pod &#25152;&#22312;&#33410;&#28857;&#12290;
 </span><span class="org-comment-delimiter">#  </span><span class="org-comment">--set nginxGateway.snippets.enable=true  NGF &#30340;&#25193;&#23637;&#33021;&#21147;&#65292;&#21487;&#20197;&#22312; Gateway API &#36164;&#28304;&#20013;&#23884;&#20837;&#21407;&#29983; Nginx &#37197;&#32622;&#29255;&#27573;&#65288;nginx.conf &#29255;&#27573;&#65289;&#12290;&#21516;&#26102;&#21551;&#29992; SnippetsFilter &#21644; SnippetsPolicy&#12290;
 </span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#25110;&#32773;&#23558;&#37197;&#32622;&#20889;&#21040; value &#25991;&#20214;&#20013;
+</span>
+cat &lt;&lt;EOF&gt; values-dev.yaml<span class="org-sh-heredoc">
+#  NGF &#30340;&#25193;&#23637;&#33021;&#21147;
+nginxGateway:
+  snippets:
+    enable: true
+# nginxproxy &#37197;&#32622;
+nginx:
+  replicas: 1 # &#40664;&#35748; 1 &#20010;
+  service:
+    type: LoadBalancer
+    externalTrafficPolicy: Cluster
+EOF
+</span>
+
+
 root@ip-172-31-18-198:~/.jasper/ngfdir/nginx-gateway-fabric# kubectl  get ns |grep gateway
 nginx-gateway       Active   16m
 
@@ -272,101 +312,19 @@ root@ip-172-31-18-198:~/.jasper/ngfdir/nginx-gateway-fabric# kubectl  get svc -n
 NAME                       TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
 ngf-nginx-gateway-fabric   ClusterIP   10.210.167.53   &lt;none&gt;        443/TCP   2m7s
 
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#26597;&#30475; snippets &#25193;&#23637;&#26159;&#21542;&#24320;&#21551;
+</span>kubectl -n nginx-gateway get deploy ngf-nginx-gateway-fabric -oyaml
+    spec:
+      automountServiceAccountToken: true
+      containers:
+      - args:
+        ... &#30053;
+        - --snippets
+
 <span class="org-comment-delimiter"># </span><span class="org-comment">&#21368;&#36733;
 </span><span class="org-comment-delimiter"># </span><span class="org-comment">helm uninstall ngf -n nginx-gateway
 </span><span class="org-comment-delimiter"># </span><span class="org-comment">kubectl delete ns nginx-gateway --ignore-not-found</span>
 </pre>
-</div>
-</div>
-<div id="outline-container-h:EFDD73DA-5C01-4A89-9636-7377339F90AC" class="outline-4">
-<h4 id="h:EFDD73DA-5C01-4A89-9636-7377339F90AC"><a href="#h:EFDD73DA-5C01-4A89-9636-7377339F90AC">AWS 公网 NLB 配置</a></h4>
-<div class="outline-text-4" id="text-h:EFDD73DA-5C01-4A89-9636-7377339F90AC">
-<div class="org-src-container">
-<pre class="src src-shell">root@ip-172-31-18-198:~/.jasper/ngfdir/nginx-gateway-fabric# cat values-dev.yaml
-nginx:
-  config:
-    <span class="org-comment-delimiter"># </span><span class="org-comment">&#20449;&#20219; TCP Proxy&#8209;Protocol v2 &#22235;&#23618; NLb
-</span>    rewriteClientIP:
-      mode: ProxyProtocol
-      <span class="org-comment-delimiter"># </span><span class="org-comment">AWS VPC CIDR&#65292;&#20449;&#20219;NLB&#30340;&#26469;&#28304;&#32593;&#27573;
-</span>      trustedAddresses:
-        - type: CIDR
-          value: <span class="org-string">"172.31.0.0/16"</span>
-  service:
-    <span class="org-builtin">type</span>: LoadBalancer
-    externalTrafficPolicy: Cluster
-    patches:
-    - type: StrategicMerge
-      value:
-        metadata:
-          annotations:
-            <span class="org-comment-delimiter"># </span><span class="org-comment">&#21019;&#24314;&#20844;&#32593; nlb
-</span>            service.beta.kubernetes.io/aws-load-balancer-type: <span class="org-string">"external"</span>
-            service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: <span class="org-string">"ip"</span>
-            service.beta.kubernetes.io/aws-load-balancer-scheme: <span class="org-string">"internet-facing"</span>
-            service.beta.kubernetes.io/aws-load-balancer-subnets: <span class="org-string">"subnet-0a415b6c73,subnet-0efd7596"</span>
-            service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: <span class="org-string">"Env=Dev"</span>
-            <span class="org-comment-delimiter"># </span><span class="org-comment">&#35753; AWS NLB &#21521;&#22806;&#21457; Proxy&#8209;Protocol v2
-</span>            service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: <span class="org-string">"*"</span>
-        <span class="org-comment-delimiter">#</span><span class="org-comment">spec: # 2.7.0 &#19981;&#38656;&#35201;
-</span>        <span class="org-comment-delimiter">#  </span><span class="org-comment">loadBalancerClass: service.k8s.aws/nlb
-</span>    
-    
-<span class="org-comment-delimiter"># </span><span class="org-comment">balancer-subnets &#20026;&#20844;&#26377;&#23376;&#32593;&#65292;pod&#25152;&#22312;&#23454;&#20363;&#23433;&#20840;&#32452;&#20801;&#35768;&#35813;&#32593;&#27573;
-</span>
-helm install ngf . <span class="org-sh-escaped-newline">\</span>
-  --create-namespace -n nginx-gateway <span class="org-sh-escaped-newline">\</span>
-  -f ./values-dev.yaml <span class="org-sh-escaped-newline">\</span>
-  --wait --timeout 5m
-
-<span class="org-comment-delimiter"># </span><span class="org-comment">&#23433;&#35013;&#23436;&#25104;&#21518;&#26657;&#39564; NginxProxy CR &#26159;&#21542;&#28210;&#26579;&#27491;&#30830; patches&#65306;
-</span>kubectl get nginxproxy ngf-proxy-config -n nginx-gateway -o yaml
-</pre>
-</div>
-
-
-<p>
-修改 LBC 兼容 NGF，这样可以自动更新 service nlb 端口
-</p>
-
-
-<div class="org-src-container">
-<pre class="src src-shell"><span class="org-comment-delimiter">#</span><span class="org-comment">&#30830;&#35748;&#26469; lbc webhook &#20869;&#23481;
-</span>kubectl get mutatingwebhookconfiguration aws-load-balancer-webhook <span class="org-sh-escaped-newline">\</span>
-    -o <span class="org-variable-name">jsonpath</span>=<span class="org-string">'{range .webhooks[*]}{@.name}{"\t"}{@.objectSelector}{"\n"}{end}'</span> | nl -v0
-<span class="org-comment-delimiter"># </span><span class="org-comment">&#36755;&#20986;&#22914;&#19979;
-</span>     0  mservice.elbv2.k8s.aws  {<span class="org-string">"matchExpressions"</span>:[{<span class="org-string">"key"</span>:<span class="org-string">"app.kubernetes.io/name"</span>,<span class="org-string">"operator"</span>:<span class="org-string">"NotIn"</span>,<span class="org-string">"values"</span>:[<span class="org-string">"aws-load-balancer-controller"</span>]}]}
-     1  mpod.elbv2.k8s.aws      {<span class="org-string">"matchExpressions"</span>:[{<span class="org-string">"key"</span>:<span class="org-string">"app.kubernetes.io/name"</span>,<span class="org-string">"operator"</span>:<span class="org-string">"NotIn"</span>,<span class="org-string">"values"</span>:[<span class="org-string">"aws-load-balancer-controller"</span>]}]}
-     2  mtargetgroupbinding.elbv2.k8s.aws       {}
-
-kubectl get mutatingwebhookconfiguration aws-load-balancer-webhook <span class="org-sh-escaped-newline">\</span>
-    -o <span class="org-variable-name">jsonpath</span>=<span class="org-string">'{range .webhooks[?(@.name=="mservice.elbv2.k8s.aws")]}{.objectSelector}{"\n"}{end}'</span>
-
-<span class="org-comment-delimiter"># </span><span class="org-comment">&#21512;&#24182;&#65292;&#26032;&#22686; NGF 
-</span>cat &gt;lbc-webhook-objectselector.yaml &lt;&lt;\EOF<span class="org-sh-heredoc">
-webhooks:
-  - name: mservice.elbv2.k8s.aws
-    objectSelector:
-      matchExpressions:
-        - key: app.kubernetes.io/name          # &#21407;&#26377;&#65306;&#19981; mutate LBC &#33258;&#24049;
-          operator: NotIn
-          values:
-            - aws-load-balancer-controller
-        - key: gateway.networking.k8s.io/gateway-name   # &#26032;&#22686;&#65306;&#19981; mutate NGF &#25968;&#25454;&#38754;
-          operator: DoesNotExist
-EOF
-</span>
-kubectl patch mutatingwebhookconfiguration aws-load-balancer-webhook <span class="org-sh-escaped-newline">\</span>
-   --type=strategic --patch-file=lbc-webhook-objectselector.yaml <span class="org-sh-escaped-newline">\</span>
-   --dry-run=server <span class="org-sh-escaped-newline">\</span>
-   -o <span class="org-variable-name">jsonpath</span>=<span class="org-string">'{range .webhooks[*]}{@.name}{"\n  sel="}{@.objectSelector}{"\n  ns="}{@.namespaceSelector}{"\n  ops="}{@.rules[*].operations}{"\n"}{end}'</span>
-
-<span class="org-comment-delimiter"># </span><span class="org-comment">&#29983;&#25928;
-</span>kubectl patch mutatingwebhookconfiguration aws-load-balancer-webhook <span class="org-sh-escaped-newline">\</span>
-   --type=strategic --patch-file=lbc-webhook-objectselector.yaml <span class="org-sh-escaped-newline">\</span>
-   -o <span class="org-variable-name">jsonpath</span>=<span class="org-string">'{range .webhooks[*]}{@.name}{"\n  sel="}{@.objectSelector}{"\n  ns="}{@.namespaceSelector}{"\n  ops="}{@.rules[*].operations}{"\n"}{end}'</span>
-</pre>
-</div>
 </div>
 </div>
 </div>
@@ -383,8 +341,18 @@ kubectl patch mutatingwebhookconfiguration aws-load-balancer-webhook <span class
 </span>root@ip-172-31-18-198:~/.jasper/ngfdir/nginx-gateway-fabric# kubectl  get gatewayclasses -n nginx-gateway
 NAME    CONTROLLER                                   ACCEPTED   AGE
 nginx   gateway.nginx.org/nginx-gateway-controller   True       2m55s
+</pre>
+</div>
+</div>
+<div id="outline-container-h:3A835111-0259-4530-9085-0D953219D4B9" class="outline-4">
+<h4 id="h:3A835111-0259-4530-9085-0D953219D4B9"><a href="#h:3A835111-0259-4530-9085-0D953219D4B9">生成 ngixnxporxy</a></h4>
+<div class="outline-text-4" id="text-h:3A835111-0259-4530-9085-0D953219D4B9">
+<p>
+nginxproxy 比较重要。生产 service 定制全局日志都靠它。
+</p>
 
-<span class="org-comment-delimiter"># </span><span class="org-comment">nginxproxy &#30456;&#24403;&#35828;configmap
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">nginxproxy &#30456;&#24403;&#20110; configmap
 </span>root@ip-172-31-18-198:~/.jasper/ngfdir/nginx-gateway-fabric# kubectl  get nginxproxy -n nginx-gateway
 NAME               AGE
 ngf-proxy-config   4m33s
@@ -413,13 +381,19 @@ items:
             repository: ghcr.io/nginx/nginx-gateway-fabric/nginx
             tag: 2.6.7
         replicas: 1
-      service:
+      <span class="org-comment-delimiter"># </span><span class="org-comment">helm &#33258;&#23450;&#20041;&#21442;&#25968;
+</span>      service:
         externalTrafficPolicy: Cluster
         <span class="org-builtin">type</span>: LoadBalancer
 kind: List
 metadata:
   resourceVersion: <span class="org-string">""</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">helm &#35774;&#32622;&#30340;&#21442;&#25968;
+</span><span class="org-comment-delimiter">#  </span><span class="org-comment">--set nginx.service.type=LoadBalancer \
+</span><span class="org-comment-delimiter">#  </span><span class="org-comment">--set nginx.service.externalTrafficPolicy=Cluster \</span>
 </pre>
+</div>
 </div>
 </div>
 </div>
@@ -448,6 +422,8 @@ spec:
         from: All # &#20801;&#35768;&#25152;&#26377;namespace&#30340;HTTPRoute&#32465;&#23450;&#36825;&#20010;Gateway&#12290;&#40664;&#35748;&#20026;&#20801;&#35768;&#24403;&#21069;&#21517;&#31216;&#31354;&#38388;&#30340;&#35268;&#21017;
 EOF
 </span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">
+</span>
 kubectl apply -f 01-gateway-test.yaml
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">gateway &#30340;&#22320;&#22336;&#23601;&#26159; service &#30340;&#22320;&#22336;
@@ -461,149 +437,6 @@ nginx-gateway-test-nginx       LoadBalancer   10.210.170.159   k8s-d-1.amazonaws
 kubectl -n default get svc nginx-gateway-test-nginx <span class="org-sh-escaped-newline">\</span>
     -o <span class="org-variable-name">jsonpath</span>=<span class="org-string">'class=[{.spec.loadBalancerClass}] ports={.spec.ports[*].port}{"\n"}'</span>
 </pre>
-</div>
-
-
-<p>
-新建 gateway 并加证书
-</p>
-<div class="org-src-container">
-<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#29983;&#25104;&#35777;&#20070;
-</span>curl https://get.acme.sh | sh -s <span class="org-variable-name">email</span>=jasper@jasper.org
-
-
-<span class="org-builtin">export</span> <span class="org-variable-name">CF_Token</span>=<span class="org-string">"cfut_xxxx"</span>
-<span class="org-builtin">export</span> <span class="org-variable-name">CF_Email</span>=<span class="org-string">"xxx@gmail.com"</span>
-acme.sh --set-default-ca --server letsencrypt
-acme.sh --issue --dns dns_cf -d jasper.org -d *.jasper.org --dnssleep 120
-
-
-<span class="org-comment-delimiter"># </span><span class="org-comment">&#32473; gateway &#21152;&#35777;&#20070;
-</span>kubectl -n default create secret tls jasper-tls --cert=jasper.org.cer --key=jasper.org.key
-
-cat &gt; gateway-public.yaml &lt;&lt;\EOF<span class="org-sh-heredoc">
-apiVersion: gateway.networking.k8s.io/v1
-kind: Gateway
-metadata:
-  name: gateway-public
-  namespace: default
-spec:
-  gatewayClassName: nginx
-  listeners:
-  - allowedRoutes:
-      namespaces:
-        from: All
-    name: http
-    port: 80
-    protocol: HTTP
-  - name: https
-    port: 443
-    protocol: HTTPS
-    hostname: "*.xxx.com"
-    tls:
-      mode: Terminate
-      certificateRefs:
-        - kind: Secret
-          name: xxx-tls
-    allowedRoutes:
-      namespaces:
-        from: All
-EOF
-</span>
-kubectl apply -f gateway-public.yaml
-</pre>
-</div>
-</div>
-<div id="outline-container-h:82174615-AD70-449E-A67A-DC14754CCED6" class="outline-4">
-<h4 id="h:82174615-AD70-449E-A67A-DC14754CCED6"><a href="#h:82174615-AD70-449E-A67A-DC14754CCED6">安装多个 gateway 内外网</a></h4>
-<div class="outline-text-4" id="text-h:82174615-AD70-449E-A67A-DC14754CCED6">
-<p>
-gateway class 只能有一个。上文 gateway 是公网的，下面添加内网 gateway
-</p>
-
-<p>
-先创建 nginxporxy，再创建 gateway
-</p>
-<div class="org-src-container">
-<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#21019;&#24314; nginxporxy
-</span>cat &lt;&lt;\EOF&gt;&gt; nginxproxy-internal-config.yaml <span class="org-sh-heredoc">
-apiVersion: gateway.nginx.org/v1alpha2
-kind: NginxProxy
-metadata:
-  annotations:
-    meta.helm.sh/release-name: ngf
-    meta.helm.sh/release-namespace: nginx-gateway
-  labels:
-    app.kubernetes.io/instance: ngf
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: nginx-gateway-fabric
-    app.kubernetes.io/version: 2.6.7
-    helm.sh/chart: nginx-gateway-fabric-2.6.7
-  name: nginxproxy-internal-config
-  namespace: default
-spec:
-  ipFamily: dual
-  kubernetes:
-    deployment:
-      container:
-        image:
-          pullPolicy: IfNotPresent
-          repository: ghcr.io/nginx/nginx-gateway-fabric/nginx
-          tag: 2.6.7
-        resources:
-          requests:
-            cpu: 500m
-            memory: 256Mi
-          limits:
-            memory: 1Gi # &#19981;&#35201;&#35774; cpu limit&#65292;&#39640;&#27969;&#37327;&#19979;&#20250;&#34987; throttle&#65292;&#30151;&#29366;&#24456;&#20687;&#38480;&#27969;
-      replicas: 1
-    service:
-      externalTrafficPolicy: Cluster
-      patches:
-      - type: StrategicMerge
-        value:
-          metadata:
-            annotations:
-              service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: Env=Dev
-              service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
-              service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: '*'
-              service.beta.kubernetes.io/aws-load-balancer-scheme: internal
-              service.beta.kubernetes.io/aws-load-balancer-subnets: subnet-01c,subnet-0b,subnet-03
-              service.beta.kubernetes.io/aws-load-balancer-type: external
-              service.beta.kubernetes.io/aws-load-balancer-attributes: load_balancing.cross_zone.enabled=true
-
-      type: LoadBalancer
-  rewriteClientIP:
-    mode: ProxyProtocol
-    trustedAddresses:
-    - type: CIDR
-      value: 172.31.0.0/16
-EOF
-</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">&#21019;&#24314;&#20869;&#32593; gateway
-</span>cat &lt;&lt;\EOF&gt;&gt; ng-internal-gateway.yaml <span class="org-sh-heredoc">
-apiVersion: gateway.networking.k8s.io/v1
-kind: Gateway
-metadata:
-  name: gateway-internal
-  namespace: default
-spec:
-  gatewayClassName: nginx
-  infrastructure:
-    parametersRef:
-      group: gateway.nginx.org
-      kind: NginxProxy
-      name: nginxproxy-internal-config
-  listeners:
-  - name: http
-    protocol: HTTP
-    port: 80
-    allowedRoutes:
-      namespaces:
-        from: All
-EOF</span>
-</pre>
-</div>
 </div>
 </div>
 </div>
@@ -839,6 +672,120 @@ EOF
 </span><span class="org-comment-delimiter"># </span><span class="org-comment">Grafana &#37324;&#21487;&#30452;&#25509;&#20570;&#25968;&#20540;&#27604;&#36739;&#21644;&#32858;&#21512;&#12290;
 </span><span class="org-comment-delimiter"># </span><span class="org-comment">upstream &#30456;&#20851;&#21464;&#37327;&#22312;&#26410;&#36208;&#21040;&#19978;&#28216;&#26102;&#20250;&#26159;&#31354;&#20540;&#65292;&#24517;&#39035;&#21152;&#24341;&#21495;&#65292;&#21542;&#21017;
 </span><span class="org-comment-delimiter"># </span><span class="org-comment">&#20250;&#20135;&#29983; "upstream_status":, &#36825;&#31181;&#38750;&#27861; JSON&#12290;</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#26597;&#30475;&#26377;&#27809;&#26377;&#29983;&#25928;
+</span>kubectl -n nginx-gateway get nginxproxies.gateway.nginx.org  ngf-proxy-config -oyaml
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#33258;&#23450;&#20041; nginxproxy
+</span>cat &lt;&lt;\EOF&gt; proxy-public-config.yaml <span class="org-sh-heredoc">
+apiVersion: gateway.nginx.org/v1alpha2
+kind: NginxProxy
+metadata:
+  labels:
+    app.kubernetes.io/version: 2.8.1
+  name: proxy-public-config
+  namespace: gw
+spec:
+  # &#20449;&#20219; NLB &#21457;&#26469;&#30340; Proxy-Protocol v2
+  # in-tree NLB(instance &#30446;&#26631;)+ externalTrafficPolicy: Cluster,
+  # kube-proxy &#20250; SNAT,pod &#30475;&#21040;&#30340;&#28304;&#26159;&#33410;&#28857; IP
+  rewriteClientIP:
+    mode: ProxyProtocol
+    trustedAddresses:
+    - type: CIDR
+      value: 172.31.0.0/16
+  logging:
+    accessLog:
+      escape: json
+      format: '{"time":"$time_iso8601", "cf_ray":"$http_cf_ray", "request_id":"$request_id",
+        "cf_connecting_ip":"$http_cf_connecting_ip","remote_addr":"$remote_addr",
+        "x_forwarded_for":"$http_x_forwarded_for", "cf_country":"$http_cf_ipcountry",
+        "method":"$request_method", "scheme":"$scheme","host":"$host", "path":"$uri",
+        "protocol":"$server_protocol", "status":$status, "request_length":$request_length,
+        "body_bytes_sent":$body_bytes_sent,"request_time":$request_time, "upstream_addr":"$upstream_addr",
+        "upstream_connect_time":"$upstream_connect_time","upstream_header_time":"$upstream_header_time",
+        "upstream_response_time":"$upstream_response_time", "upstream_status":"$upstream_status","referer":"$http_referer",
+        "user_agent":"$http_user_agent", "xff_prefix":"$http_x_forwarded_prefix",
+        "request_uri":"$request_uri"}'
+    agentLevel: error
+    errorLevel: warn
+  kubernetes:
+    deployment:
+      container:
+        image:
+          pullPolicy: IfNotPresent
+          repository: ghcr.io/nginx/nginx-gateway-fabric/nginx
+          tag: 2.8.1
+        resources:
+          requests:
+            cpu: 500m
+            memory: 256Mi
+          limits:
+            memory: 1Gi # &#19981;&#35201;&#35774; cpu limit&#65292;&#39640;&#27969;&#37327;&#19979;&#20250;&#34987; throttle&#65292;&#30151;&#29366;&#24456;&#20687;&#38480;&#27969;
+      # &#23481;&#22120;&#25346;&#36733;&#19978;&#28023;&#26102;&#21306;
+      patches:
+      - type: JSONPatch
+        value:
+        - op: add
+          path: /spec/template/spec/volumes/-
+          value:
+            hostPath:
+              path: /usr/share/zoneinfo/Asia/Shanghai
+              type: File
+            name: tz-shanghai
+        - op: add
+          path: /spec/template/spec/containers/0/volumeMounts/-
+          value:
+            mountPath: /etc/localtime
+            name: tz-shanghai
+            readOnly: true
+      replicas: 2
+EOF</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-h:66E4F9A6-8D23-4444-A632-797761CBCAFD" class="outline-3">
+<h3 id="h:66E4F9A6-8D23-4444-A632-797761CBCAFD"><a href="#h:66E4F9A6-8D23-4444-A632-797761CBCAFD">强制 HTTPS</a></h3>
+<div class="outline-text-3" id="text-h:66E4F9A6-8D23-4444-A632-797761CBCAFD">
+<div class="org-src-container">
+<pre class="src src-shell">cat httproute-www.yaml 
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: www
+  namespace: default
+spec:
+  parentRefs:
+  - name: gw-public-admin
+    namespace: gw
+  hostnames:
+  - www.jasper.org
+  rules:
+  - matches:
+    - path:
+        <span class="org-builtin">type</span>: PathPrefix
+        value: /
+    backendRefs:
+    - name: www-svc
+      port: 80
+    filters:
+    - type: RequestRedirect
+      requestRedirect:
+        scheme: https                 <span class="org-comment-delimiter"># </span><span class="org-comment">&#24378;&#21046;http --&gt; https
+</span>        hostname: www.jasper.org
+        statusCode: 301
+    - type: ExtensionRef
+      extensionRef:
+        group: gateway.nginx.org
+        kind: SnippetsFilter
+        name: global-security
 </pre>
 </div>
 </div>
@@ -1202,6 +1149,1083 @@ spec:
         application/manifest+json
         application/vnd.api+json
         image/svg+xml
+EOF</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="outline-container-h:71D8900B-BD33-4AC2-8AF2-76AFD1A3676C" class="outline-2">
+<h2 id="h:71D8900B-BD33-4AC2-8AF2-76AFD1A3676C"><a href="#h:71D8900B-BD33-4AC2-8AF2-76AFD1A3676C">案例</a></h2>
+<div class="outline-text-2" id="text-h:71D8900B-BD33-4AC2-8AF2-76AFD1A3676C">
+</div>
+<div id="outline-container-h:82174615-AD70-449E-A67A-DC14754CCED6" class="outline-3">
+<h3 id="h:82174615-AD70-449E-A67A-DC14754CCED6"><a href="#h:82174615-AD70-449E-A67A-DC14754CCED6">安装多个 gateway 内外网</a></h3>
+<div class="outline-text-3" id="text-h:82174615-AD70-449E-A67A-DC14754CCED6">
+<p>
+gateway class 只能有一个。 可以创建内网和公网 gateway 区分访问，默认情况下使用 nginx-gateway 名称空间下的 nginxproxies 做为 gateway 配置，可指定自己生成的 nginxproxy。
+</p>
+</div>
+<div id="outline-container-h:EFDD73DA-5C01-4A89-9636-7377339F90AC" class="outline-4">
+<h4 id="h:EFDD73DA-5C01-4A89-9636-7377339F90AC"><a href="#h:EFDD73DA-5C01-4A89-9636-7377339F90AC">公网 nginxporxy</a></h4>
+<div class="outline-text-4" id="text-h:EFDD73DA-5C01-4A89-9636-7377339F90AC">
+</div>
+<div id="outline-container-h:6F42AA49-F6C8-41AA-ADA3-A0F546A7B17A" class="outline-5">
+<h5 id="h:6F42AA49-F6C8-41AA-ADA3-A0F546A7B17A"><a href="#h:6F42AA49-F6C8-41AA-ADA3-A0F546A7B17A">AWS 公网 NLB</a></h5>
+<div class="outline-text-5" id="text-h:6F42AA49-F6C8-41AA-ADA3-A0F546A7B17A">
+<p>
+下面配置 <code>externalTrafficPolicy: Cluster</code> 是 Cluster，想要获得客户端真实 IP 需要 AWS 上负载均衡器的目标组开启  Proxy‑Protocol 。如果是 Local 建议开启跨区域负载均衡，因为空着的 AZ 会成为流量黑洞，所以必须靠跨区兜底。
+</p>
+<ul class="org-ul">
+<li>Cluster 如果开了跨区负载会多付跨 AZ 流量费却没好处：Cluster 模式下 kube-proxy 本来就在全集群的 endpoint 里挑 pod，跨 AZ 转发已经发生了；NLB 这层再做一次跨区只是多一跳。</li>
+</ul>
+
+<p>
+如果生成 NBL 负载均衡分两种情况：
+</p>
+<ul class="org-ul">
+<li>安装了 AWS LBC：使用 <code>aws-load-balancer-type: "external"</code> ， 目标组为 pod ip，同时生成专属安全组。需要开启跨区域负载均衡， NLB 注册的是 pod IP，不是节点。所以健康目标的分布取决于 pod 落在哪些 AZ，而不是节点分布。</li>
+<li>未安装 AWS LBC：使用 <code>aws-load-balancer-type: nlb</code> ， 目标组为 节点 IP，使用节点已有的安全组。不需要开启跨区域负载均衡</li>
+</ul>
+</div>
+<ul class="org-ul">
+<li><a id="h:89D28446-E2C4-4F77-AC84-4E7AB82F2164"></a><a href="#h:89D28446-E2C4-4F77-AC84-4E7AB82F2164">安装了 AWS LBC</a><br>
+<div class="outline-text-6" id="text-h:89D28446-E2C4-4F77-AC84-4E7AB82F2164">
+<ul class="org-ul">
+<li>service 使用 <code>externalTrafficPolicy: Cluster</code></li>
+<li>service 注解 <code>aws-load-balancer-type: "external"</code></li>
+<li>需要开启跨区域负载均衡。</li>
+<li>自动创建安全组。</li>
+</ul>
+
+<p>
+访客 → Cloudflare 边缘 → NLB → (PROXY v2) → nginx pod
+</p>
+<ul class="org-ul">
+<li>dev:external + target-type: ip,IP 目标默认不保留客户端 IP → pod 看到的 TCP 源是 NLB ENI(172.31.x.x)</li>
+</ul>
+
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">Helm value 
+</span>cat &lt;&lt;\EOF&gt; values-dev.yaml <span class="org-sh-heredoc">
+nginxGateway:
+  snippetsFilters:
+    enable: true
+
+nginx:
+  config:
+    # &#20449;&#20219; NLB &#21457;&#26469;&#30340; Proxy-Protocol v2
+    # &#27880;&#24847;:&#36825;&#37324;&#22635;&#30340;&#26159; TCP &#23545;&#31471;(NLB ENI),&#19981;&#26159; Cloudflare &#32593;&#27573;
+    # external + target-type:ip &#19981;&#20445;&#30041;&#23458;&#25143;&#31471; IP,pod &#30475;&#21040;&#30340;&#28304;&#26159; NLB &#22312; VPC &#20869;&#30340; ENI
+    rewriteClientIP:
+      mode: ProxyProtocol
+      trustedAddresses:
+        - type: CIDR
+          value: "172.31.0.0/16"
+    logging:
+      errorLevel: warn
+      accessLog:
+        escape: json
+        # &#25552;&#37266;:&#37325;&#20889;&#21518; $remote_addr = Cloudflare &#36793;&#32536; IP,&#35775;&#23458;&#30495;&#23454; IP &#22312; $http_cf_connecting_ip
+        format: '{"time":"$time_iso8601", "cf_ray":"$http_cf_ray", "request_id":"$request_id", "cf_connecting_ip":"$http_cf_connecting_ip","remote_addr":"$remote_addr", "x_forwarded_for":"$http_x_forwarded_for", "cf_country":"$http_cf_ipcountry", "method":"$request_method", "scheme":"$scheme","host":"$host", "path":"$uri", "protocol":"$server_protocol", "status":$status, "request_length":$request_length, "body_bytes_sent":$body_bytes_sent,"request_time":$request_time, "upstream_addr":"$upstream_addr", "upstream_connect_time":"$upstream_connect_time","upstream_header_time":"$upstream_header_time", "upstream_response_time":"$upstream_response_time", "upstream_status":"$upstream_status","referer":"$http_referer", "user_agent":"$http_user_agent", "xff_prefix":"$http_x_forwarded_prefix", "request_uri":"$request_uri"}'
+  patches:
+  - type: JSONPatch
+    value:
+    - op: add
+      path: /spec/template/spec/volumes/-
+      value:
+        name: tz-shanghai
+        hostPath:
+          path: /usr/share/zoneinfo/Asia/Shanghai
+          type: File
+    - op: add
+      path: /spec/template/spec/containers/0/volumeMounts/-
+      value:
+        name: tz-shanghai
+        mountPath: /etc/localtime
+        readOnly: true
+  service:
+    type: LoadBalancer
+    externalTrafficPolicy: Cluster
+    patches:
+    - type: StrategicMerge
+      value:
+        metadata:
+          annotations:
+            # &#30001; AWS Load Balancer Controller &#21019;&#24314;&#20844;&#32593; NLB
+            service.beta.kubernetes.io/aws-load-balancer-type: "external"
+            service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"
+            service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+            service.beta.kubernetes.io/aws-load-balancer-subnets: "subnet-0a415b6c7f8914523,subnet-0ef0b0cd6d66d7596,subnet-07bd62a59b71427dc"
+            service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: "Env=Dev"
+            # &#35753; NLB &#21521;&#21518;&#31471;&#21457; Proxy-Protocol v2
+            service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
+        spec:
+          # 2.7.0 &#19981;&#38656;&#35201;&#20889; loadBalancerClass
+          loadBalancerClass: service.k8s.aws/nlb
+          # &#21482;&#20801;&#35768; Cloudflare &#22238;&#28304;&#12290;&#35268;&#21017;&#33853;&#22312; NLB &#21069;&#31471; SG &#19978;,
+          # &#20581;&#24247;&#26816;&#26597;&#30001; LBC &#36890;&#36807;&#21518;&#31471; SG &#24341;&#29992;&#33258;&#21160;&#25918;&#34892;,&#26080;&#38656;&#22312;&#27492;&#25918;&#34892; VPC &#27573;&#12290;
+          # &#26469;&#28304;:https://www.cloudflare.com/ips-v4
+          loadBalancerSourceRanges:
+          # Cloudflare IPv4
+          - 173.245.48.0/20
+          - 103.21.244.0/22
+          - 103.22.200.0/22
+          - 103.31.4.0/22
+          - 141.101.64.0/18
+          - 108.162.192.0/18
+          - 190.93.240.0/20
+          - 188.114.96.0/20
+          - 197.234.240.0/22
+          - 198.41.128.0/17
+          - 162.158.0.0/15
+          - 104.16.0.0/13
+          - 104.24.0.0/14
+          - 172.64.0.0/13
+          - 131.0.72.0/22
+          # NLB &#26410;&#35774; ip-address-type,&#40664;&#35748; ipv4-only,&#25925;&#26080;&#38656; Cloudflare IPv6 &#27573;&#12290;
+          # &#33509;&#23558;&#26469;&#21152; aws-load-balancer-ip-address-type: dualstack,&#38656;&#34917;:
+          #  2400:cb00::/32  2606:4700::/32  2803:f800::/32  2405:b500::/32
+          #  2405:8100::/32  2a06:98c0::/29  2c0f:f248::/32
+          #
+          # &#25353;&#38656;&#35201;&#25918;&#34892;
+          - x.x.x.x/32      # jenkins-cli &#20986;&#21475;&#65292;&#27979;&#23436;&#21024;
+EOF
+</span>
+
+helm install ngf . <span class="org-sh-escaped-newline">\</span>
+  --create-namespace -n nginx-gateway <span class="org-sh-escaped-newline">\</span>
+  -f ./values-dev.yaml <span class="org-sh-escaped-newline">\</span>
+  --wait --timeout 5m
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#26356;&#26032;&#29992;
+</span>helm upgrade --install ngf . <span class="org-sh-escaped-newline">\</span>
+  --create-namespace -n nginx-gateway <span class="org-sh-escaped-newline">\</span>
+  -f ./values-dev.yaml <span class="org-sh-escaped-newline">\</span>
+  --wait --timeout 5m
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#23433;&#35013;&#23436;&#25104;&#21518;&#26657;&#39564; NginxProxy CR &#26159;&#21542;&#28210;&#26579;&#27491;&#30830; patches&#65306;
+</span>kubectl get nginxproxy ngf-proxy-config -n nginx-gateway -o yaml
+</pre>
+</div>
+
+<p>
+或者直接新建个自定义 nginxproxy
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">kubectl create ns gw
+
+cat &lt;&lt;\EOF&gt; gw-public.yaml <span class="org-sh-heredoc">
+apiVersion: gateway.nginx.org/v1alpha2
+kind: NginxProxy
+metadata:
+  labels:
+    app.kubernetes.io/version: 2.6.7
+  name: proxy-public-config
+  namespace: gw
+spec:
+  ipFamily: dual
+  kubernetes:
+    deployment:
+      container:
+        image:
+          pullPolicy: IfNotPresent
+          repository: ghcr.io/nginx/nginx-gateway-fabric/nginx
+          tag: 2.6.7
+        resources:
+          limits:
+            memory: 1Gi
+          requests:
+            cpu: 500m
+            memory: 256Mi
+      patches:
+      - type: JSONPatch
+        value:
+        - op: add
+          path: /spec/template/spec/volumes/-
+          value:
+            hostPath:
+              path: /usr/share/zoneinfo/Asia/Shanghai
+              type: File
+            name: tz-shanghai
+        - op: add
+          path: /spec/template/spec/containers/0/volumeMounts/-
+          value:
+            mountPath: /etc/localtime
+            name: tz-shanghai
+            readOnly: true
+      replicas: 1
+    service:
+      externalTrafficPolicy: Cluster
+      patches:
+      - type: StrategicMerge
+        value:
+          spec:
+            loadBalancerSourceRanges:
+            # &#21482;&#20801;&#35768; Cloudflare &#22238;&#28304;&#12290;&#35268;&#21017;&#33853;&#22312; NLB &#21069;&#31471; SG &#19978;,
+            # &#24247;&#26816;&#26597;&#30001; LBC &#36890;&#36807;&#21518;&#31471; SG &#24341;&#29992;&#33258;&#21160;&#25918;&#34892;,&#26080;&#38656;&#22312;&#27492;&#25918;&#34892; VPC &#27573;&#12290;
+            # &#26469;&#28304;:https://www.cloudflare.com/ips-v4  (&#20250;&#21464;&#21160;)
+            - 173.245.48.0/20
+            - 103.21.244.0/22
+            - 103.22.200.0/22
+            - 103.31.4.0/22
+            - 141.101.64.0/18
+            - 108.162.192.0/18
+            - 190.93.240.0/20
+            - 188.114.96.0/20
+            - 197.234.240.0/22
+            - 198.41.128.0/17
+            - 162.158.0.0/15
+            - 104.16.0.0/13
+            - 104.24.0.0/14
+            - 172.64.0.0/13
+            - 131.0.72.0/22
+            # &#20020;&#26102;&#32469;&#36807;
+            - x.x.x.x/32  # jp pc
+      - type: StrategicMerge
+        value:
+          metadata:
+            annotations:
+              # &#30001; AWS Load Balancer Controller &#21019;&#24314;&#20844;&#32593; NLB
+              service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: Env=Dev
+              service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+              service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+              service.beta.kubernetes.io/aws-load-balancer-subnets: subnet-x1,subnet-x2,subnet-x3
+              service.beta.kubernetes.io/aws-load-balancer-type: external
+              # &#35753; NLB &#21521;&#21518;&#31471;&#21457; Proxy-Protocol v2
+              service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: '*'
+          spec:
+            loadBalancerClass: service.k8s.aws/nlb
+      type: LoadBalancer
+  logging:
+    accessLog:
+      escape: json
+      # &#25552;&#37266;:&#37325;&#20889;&#21518; $remote_addr = Cloudflare &#36793;&#32536; IP,&#35775;&#23458;&#30495;&#23454; IP &#22312; $http_cf_connecting_ip
+      format: '{"time":"$time_iso8601", "cf_ray":"$http_cf_ray", "request_id":"$request_id",
+        "cf_connecting_ip":"$http_cf_connecting_ip","remote_addr":"$remote_addr",
+        "x_forwarded_for":"$http_x_forwarded_for", "cf_country":"$http_cf_ipcountry",
+        "method":"$request_method", "scheme":"$scheme","host":"$host", "path":"$uri",
+        "protocol":"$server_protocol", "status":$status, "request_length":$request_length,
+        "body_bytes_sent":$body_bytes_sent,"request_time":$request_time, "upstream_addr":"$upstream_addr",
+        "upstream_connect_time":"$upstream_connect_time","upstream_header_time":"$upstream_header_time",
+        "upstream_response_time":"$upstream_response_time", "upstream_status":"$upstream_status","referer":"$http_referer",
+        "user_agent":"$http_user_agent", "xff_prefix":"$http_x_forwarded_prefix",
+        "request_uri":"$request_uri"}'
+    agentLevel: error
+    errorLevel: warn
+  # &#20449;&#20219; NLB &#21457;&#26469;&#30340; Proxy-Protocol v2
+  # &#27880;&#24847;:&#36825;&#37324;&#22635;&#30340;&#26159; TCP &#23545;&#31471;(NLB ENI),&#19981;&#26159; Cloudflare &#32593;&#27573;
+  # external + target-type:ip &#19981;&#20445;&#30041;&#23458;&#25143;&#31471; IP,pod &#30475;&#21040;&#30340;&#28304;&#26159; NLB &#22312; VPC &#20869;&#30340; ENI
+  rewriteClientIP:
+    mode: ProxyProtocol
+    trustedAddresses:
+    - type: CIDR
+      value: 172.31.0.0/16
+EOF
+</span>    
+    
+<span class="org-comment-delimiter"># </span><span class="org-comment">balancer-subnets &#20026;&#20844;&#26377;&#23376;&#32593;&#65292;pod&#25152;&#22312;&#23454;&#20363;&#23433;&#20840;&#32452;&#20801;&#35768;&#35813;&#32593;&#27573;
+</span>
+kubect apply -f  gw-public.yaml
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#26597;&#30475; nginxproxy
+</span>kubectl  -n gw get nginxproxy  proxy-public-config
+</pre>
+</div>
+
+
+<p>
+修改 LBC 兼容 NGF，这样可以自动更新 service nlb 端口
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter">#</span><span class="org-comment">&#30830;&#35748;&#26469; lbc webhook &#20869;&#23481;
+</span>kubectl get mutatingwebhookconfiguration aws-load-balancer-webhook <span class="org-sh-escaped-newline">\</span>
+    -o <span class="org-variable-name">jsonpath</span>=<span class="org-string">'{range .webhooks[*]}{@.name}{"\t"}{@.objectSelector}{"\n"}{end}'</span> | nl -v0
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#36755;&#20986;&#22914;&#19979;
+</span>     0  mservice.elbv2.k8s.aws  {<span class="org-string">"matchExpressions"</span>:[{<span class="org-string">"key"</span>:<span class="org-string">"app.kubernetes.io/name"</span>,<span class="org-string">"operator"</span>:<span class="org-string">"NotIn"</span>,<span class="org-string">"values"</span>:[<span class="org-string">"aws-load-balancer-controller"</span>]}]}
+     1  mpod.elbv2.k8s.aws      {<span class="org-string">"matchExpressions"</span>:[{<span class="org-string">"key"</span>:<span class="org-string">"app.kubernetes.io/name"</span>,<span class="org-string">"operator"</span>:<span class="org-string">"NotIn"</span>,<span class="org-string">"values"</span>:[<span class="org-string">"aws-load-balancer-controller"</span>]}]}
+     2  mtargetgroupbinding.elbv2.k8s.aws       {}
+
+kubectl get mutatingwebhookconfiguration aws-load-balancer-webhook <span class="org-sh-escaped-newline">\</span>
+    -o <span class="org-variable-name">jsonpath</span>=<span class="org-string">'{range .webhooks[?(@.name=="mservice.elbv2.k8s.aws")]}{.objectSelector}{"\n"}{end}'</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#21512;&#24182;&#65292;&#26032;&#22686; NGF 
+</span>cat &gt;lbc-webhook-objectselector.yaml &lt;&lt;\EOF<span class="org-sh-heredoc">
+webhooks:
+  - name: mservice.elbv2.k8s.aws
+    objectSelector:
+      matchExpressions:
+        - key: app.kubernetes.io/name          # &#21407;&#26377;&#65306;&#19981; mutate LBC &#33258;&#24049;
+          operator: NotIn
+          values:
+            - aws-load-balancer-controller
+        - key: gateway.networking.k8s.io/gateway-name   # &#26032;&#22686;&#65306;&#19981; mutate NGF &#25968;&#25454;&#38754;
+          operator: DoesNotExist
+EOF
+</span>
+kubectl patch mutatingwebhookconfiguration aws-load-balancer-webhook <span class="org-sh-escaped-newline">\</span>
+   --type=strategic --patch-file=lbc-webhook-objectselector.yaml <span class="org-sh-escaped-newline">\</span>
+   --dry-run=server <span class="org-sh-escaped-newline">\</span>
+   -o <span class="org-variable-name">jsonpath</span>=<span class="org-string">'{range .webhooks[*]}{@.name}{"\n  sel="}{@.objectSelector}{"\n  ns="}{@.namespaceSelector}{"\n  ops="}{@.rules[*].operations}{"\n"}{end}'</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#29983;&#25928;
+</span>kubectl patch mutatingwebhookconfiguration aws-load-balancer-webhook <span class="org-sh-escaped-newline">\</span>
+   --type=strategic --patch-file=lbc-webhook-objectselector.yaml <span class="org-sh-escaped-newline">\</span>
+   -o <span class="org-variable-name">jsonpath</span>=<span class="org-string">'{range .webhooks[*]}{@.name}{"\n  sel="}{@.objectSelector}{"\n  ns="}{@.namespaceSelector}{"\n  ops="}{@.rules[*].operations}{"\n"}{end}'</span>
+</pre>
+</div>
+</div>
+</li>
+<li><a id="h:9B04FE21-82BF-4770-91A5-848FC23631C2"></a><a href="#h:9B04FE21-82BF-4770-91A5-848FC23631C2">未安装 AWS LBC</a><br>
+<div class="outline-text-6" id="text-h:9B04FE21-82BF-4770-91A5-848FC23631C2">
+<ul class="org-ul">
+<li>service 使用 <code>externalTrafficPolicy: Cluster</code></li>
+<li>service 注解 <code>aws-load-balancer-type: nlb</code></li>
+<li>不需要开启跨区域负载均衡。</li>
+<li>使用已有的节点安全组。</li>
+</ul>
+
+
+<p>
+访客 → Cloudflare 边缘 → NLB → (PROXY v2) → nginx pod
+</p>
+<ul class="org-ul">
+<li>prod:in-tree NLB + instance 目标 + externalTrafficPolicy: Cluster → kube-proxy 做了 SNAT,pod 看到的是节点 IP(172.31.x.x)</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-shell">cat &lt;&lt;\EOF&gt; values-prod.yaml <span class="org-sh-heredoc">
+nginxGateway:
+  snippets:
+    enable: true
+nginx:
+  replicas: 2
+  config:
+    # &#20449;&#20219; TCP Proxy&#8209;Protocol v2 &#22235;&#23618; NLb
+    rewriteClientIP:
+      mode: ProxyProtocol
+      # AWS VPC CIDR&#65292;&#20449;&#20219;NLB&#30340;&#26469;&#28304;&#32593;&#27573;
+      trustedAddresses:
+        - type: CIDR
+          value: "172.31.0.0/16"
+    logging:
+      errorLevel: warn
+      accessLog:
+        escape: json
+        # &#25552;&#37266;:&#37325;&#20889;&#21518; $remote_addr = Cloudflare &#36793;&#32536; IP,&#35775;&#23458;&#30495;&#23454; IP &#22312; $http_cf_connecting_ip
+        format: '{"time":"$time_iso8601", "cf_ray":"$http_cf_ray", "request_id":"$request_id", "cf_connecting_ip":"$http_cf_connecting_ip","remote_addr":"$remote_addr", "x_forwarded_for":"$http_x_forwarded_for", "cf_country":"$http_cf_ipcountry", "method":"$request_method", "scheme":"$scheme","host":"$host", "path":"$uri", "protocol":"$server_protocol", "status":$status, "request_length":$request_length, "body_bytes_sent":$body_bytes_sent,"request_time":$request_time, "upstream_addr":"$upstream_addr", "upstream_connect_time":"$upstream_connect_time","upstream_header_time":"$upstream_header_time", "upstream_response_time":"$upstream_response_time", "upstream_status":"$upstream_status","referer":"$http_referer", "user_agent":"$http_user_agent", "xff_prefix":"$http_x_forwarded_prefix", "request_uri":"$request_uri"}'
+  patches:
+  - type: JSONPatch
+    value:
+    - op: add
+      path: /spec/template/spec/volumes/-
+      value:
+        name: tz-shanghai
+        hostPath:
+          path: /usr/share/zoneinfo/Asia/Shanghai
+          type: File
+    - op: add
+      path: /spec/template/spec/containers/0/volumeMounts/-
+      value:
+        name: tz-shanghai
+        mountPath: /etc/localtime
+        readOnly: true
+  service:
+    type: LoadBalancer
+    externalTrafficPolicy: Cluster
+    patches:
+    - type: StrategicMerge
+      value:
+        spec:
+          loadBalancerSourceRanges:
+          # &#21482;&#20801;&#35768; Cloudflare &#22238;&#28304;&#12290;in-tree NLB &#30340;&#35268;&#21017;&#33853;&#22312;&#33410;&#28857; SG &#19978;,
+          # &#22240;&#27492;&#24517;&#39035;&#39069;&#22806;&#25918;&#34892; VPC &#27573;,&#21542;&#21017;&#20581;&#24247;&#26816;&#26597;&#20250;&#22833;&#36133;&#12290;
+          - 173.245.48.0/20
+          - 103.21.244.0/22
+          - 103.22.200.0/22
+          - 103.31.4.0/22
+          - 141.101.64.0/18
+          - 108.162.192.0/18
+          - 190.93.240.0/20
+          - 188.114.96.0/20
+          - 197.234.240.0/22
+          - 198.41.128.0/17
+          - 162.158.0.0/15
+          - 104.16.0.0/13
+          - 104.24.0.0/14
+          - 172.64.0.0/13
+          - 131.0.72.0/22
+          # &#20581;&#24247;&#26816;&#26597;&#24517;&#39035;&#25918;&#34892;
+          - 172.31.0.0/16
+          # &#25353;&#38656;&#25918;&#34892;
+          - 13.x.x.x/32      # jenkins-cli &#20986;&#21475;&#65292;&#27979;&#23436;&#21024;&#25481;
+    - type: StrategicMerge
+      value:
+        metadata:
+          annotations:
+            # &#26087;&#29256; in-tree NLB(&#38750; LBC)&#12290;
+            service.beta.kubernetes.io/aws-load-balancer-type: nlb
+            service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+            service.beta.kubernetes.io/aws-load-balancer-subnets: "subnet-0f18f79849d93eeef,subnet-0ac7f4e0797b8b451,subnet-035af6d4bf2e63818"
+            service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: "Env=Prod"
+            service.beta.kubernetes.io/aws-load-balancer-attributes: load_balancing.cross_zone.enabled=true
+            # &#35753; NLB &#21521;&#21518;&#31471;&#21457; Proxy-Protocol v2
+            service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
+EOF
+</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#26356;&#26032;&#29992;
+</span>helm upgrade --install ngf . <span class="org-sh-escaped-newline">\</span>
+  --create-namespace -n nginx-gateway <span class="org-sh-escaped-newline">\</span>
+  -f ./values-prod.yaml <span class="org-sh-escaped-newline">\</span>
+  --wait --timeout 5m
+</pre>
+</div>
+
+<p>
+或者直接用自定义 nginxproxy
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">kubectl create ns gw
+
+cat &lt;&lt;\EOF&gt; proxy-public-config.yaml <span class="org-sh-heredoc">
+apiVersion: gateway.nginx.org/v1alpha2
+kind: NginxProxy
+metadata:
+  labels:
+    app.kubernetes.io/version: 2.8.1
+  name: proxy-public-config
+  namespace: gw
+spec:
+  # &#20449;&#20219; NLB &#21457;&#26469;&#30340; Proxy-Protocol v2
+  # in-tree NLB(instance &#30446;&#26631;)+ externalTrafficPolicy: Cluster,
+  # kube-proxy &#20250; SNAT,pod &#30475;&#21040;&#30340;&#28304;&#26159;&#33410;&#28857; IP
+  rewriteClientIP:
+    mode: ProxyProtocol
+    trustedAddresses:
+    - type: CIDR
+      value: 172.31.0.0/16
+
+  kubernetes:
+    deployment:
+      container:
+        image:
+          pullPolicy: IfNotPresent
+          repository: ghcr.io/nginx/nginx-gateway-fabric/nginx
+          tag: 2.8.1
+        resources:
+          requests:
+            cpu: 500m
+            memory: 256Mi
+          limits:
+            memory: 1Gi # &#19981;&#35201;&#35774; cpu limit&#65292;&#39640;&#27969;&#37327;&#19979;&#20250;&#34987; throttle&#65292;&#30151;&#29366;&#24456;&#20687;&#38480;&#27969;
+      # &#23481;&#22120;&#25346;&#36733;&#19978;&#28023;&#26102;&#21306;
+      patches:
+      - type: JSONPatch
+        value:
+        - op: add
+          path: /spec/template/spec/volumes/-
+          value:
+            hostPath:
+              path: /usr/share/zoneinfo/Asia/Shanghai
+              type: File
+            name: tz-shanghai
+        - op: add
+          path: /spec/template/spec/containers/0/volumeMounts/-
+          value:
+            mountPath: /etc/localtime
+            name: tz-shanghai
+            readOnly: true
+      replicas: 2
+    service:
+      externalTrafficPolicy: Cluster
+      patches:
+      - type: StrategicMerge
+        value:
+          spec:
+            loadBalancerSourceRanges:
+            # &#21482;&#20801;&#35768; Cloudflare &#22238;&#28304;&#12290;in-tree NLB &#30340;&#35268;&#21017;&#33853;&#22312;&#33410;&#28857; SG &#19978;,
+            # &#22240;&#27492;&#24517;&#39035;&#39069;&#22806;&#25918;&#34892; VPC &#27573;,&#21542;&#21017;&#20581;&#24247;&#26816;&#26597;&#20250;&#22833;&#36133;&#12290;
+            - 173.245.48.0/20
+            - 103.21.244.0/22
+            - 103.22.200.0/22
+            - 103.31.4.0/22
+            - 141.101.64.0/18
+            - 108.162.192.0/18
+            - 190.93.240.0/20
+            - 188.114.96.0/20
+            - 197.234.240.0/22
+            - 198.41.128.0/17
+            - 162.158.0.0/15
+            - 104.16.0.0/13
+            - 104.24.0.0/14
+            - 172.64.0.0/13
+            - 131.0.72.0/22
+            # &#20581;&#24247;&#26816;&#26597;&#24517;&#39035;&#25918;&#34892;
+            - 172.31.0.0/16
+            # &#20020;&#26102;&#25918;&#34892;
+            - x.x.x.x/32  # jp pc
+      - type: StrategicMerge
+        value:
+          metadata:
+            annotations:
+              # &#26087;&#29256; in-tree NLB(&#38750; LBC)&#12290;&#24453;&#36801;&#31227;&#33267; external,&#35265;&#25991;&#26411;&#24453;&#21150;&#12290;
+              service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: Env=Prod
+              service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+              service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+              service.beta.kubernetes.io/aws-load-balancer-subnets: subnet-0f18f79849d93eeef,subnet-0ac7f4e0797b8b451,subnet-035af6d4bf2e63818
+              service.beta.kubernetes.io/aws-load-balancer-type: nlb
+              # &#35753; NLB &#21521;&#21518;&#31471;&#21457; Proxy-Protocol v2 &#12290;&#38656;&#35201;&#25163;&#21160;&#24320;&#21551;&#12290;
+              #service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: '*'
+      type: LoadBalancer
+  logging:
+    accessLog:
+      escape: json
+      format: '{"time":"$time_iso8601", "cf_ray":"$http_cf_ray", "request_id":"$request_id",
+        "cf_connecting_ip":"$http_cf_connecting_ip","remote_addr":"$remote_addr",
+        "x_forwarded_for":"$http_x_forwarded_for", "cf_country":"$http_cf_ipcountry",
+        "method":"$request_method", "scheme":"$scheme","host":"$host", "path":"$uri",
+        "protocol":"$server_protocol", "status":$status, "request_length":$request_length,
+        "body_bytes_sent":$body_bytes_sent,"request_time":$request_time, "upstream_addr":"$upstream_addr",
+        "upstream_connect_time":"$upstream_connect_time","upstream_header_time":"$upstream_header_time",
+        "upstream_response_time":"$upstream_response_time", "upstream_status":"$upstream_status","referer":"$http_referer",
+        "user_agent":"$http_user_agent", "xff_prefix":"$http_x_forwarded_prefix",
+        "request_uri":"$request_uri"}'
+    agentLevel: error
+    errorLevel: warn
+EOF</span>
+</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-h:4866744D-F522-4EE9-B606-437BE50FE1AA" class="outline-4">
+<h4 id="h:4866744D-F522-4EE9-B606-437BE50FE1AA"><a href="#h:4866744D-F522-4EE9-B606-437BE50FE1AA">公网 gateway</a></h4>
+<div class="outline-text-4" id="text-h:4866744D-F522-4EE9-B606-437BE50FE1AA">
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#29983;&#25104;&#35777;&#20070;
+</span>curl https://get.acme.sh | sh -s <span class="org-variable-name">email</span>=jasper@jasper.org
+
+
+<span class="org-builtin">export</span> <span class="org-variable-name">CF_Token</span>=<span class="org-string">"cfut_xxxx"</span>
+<span class="org-builtin">export</span> <span class="org-variable-name">CF_Email</span>=<span class="org-string">"xxx@gmail.com"</span>
+acme.sh --set-default-ca --server letsencrypt
+acme.sh --issue --dns dns_cf -d jasper.org -d *.jasper.org --dnssleep 120
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#32473; gateway &#21152;&#35777;&#20070;
+</span><span class="org-variable-name">SSL_CRT</span>=jasper.org.crt
+<span class="org-variable-name">SSL_KEY</span>=jasper.org.crt
+<span class="org-variable-name">SECRET</span>=jasper-tls
+<span class="org-variable-name">NS</span>=default
+
+<span class="org-variable-name">SSL_CRT</span>=<span class="org-string">"${SSL_CRT:-origin.crt}"</span>
+<span class="org-variable-name">SSL_KEY</span>=<span class="org-string">"${SSL_KEY:-origin.key}"</span>
+
+
+kubectl -n <span class="org-string">"$NS"</span> create secret tls <span class="org-string">"$SECRET"</span> <span class="org-sh-escaped-newline">\</span>
+  --cert=<span class="org-string">"$SSL_CRT"</span> --key=<span class="org-string">"$SSL_KEY"</span> <span class="org-sh-escaped-newline">\</span>
+  --dry-run=client -o yaml | kubectl apply -f -
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#20808;&#22791;&#20221;&#29616;&#26377; Secret
+</span>kubectl -n <span class="org-string">"$NS"</span> get secret <span class="org-string">"$SECRET"</span> -o yaml &gt; /tmp/jasper-tls.backup.$(date +%F).yaml
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#39564;&#35777;&#26032;&#35777;&#20070;&#21644;&#31169;&#38053;&#37197;&#23545;&#65292;&#20877;&#26367;&#25442;
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">&#20004;&#20010; md5 &#24517;&#39035;&#19968;&#26679;&#65292;&#19981;&#28982;&#25512;&#19978;&#21435; NGF &#30452;&#25509; ResolvedRefs=False
+</span>openssl x509 -noout -modulus -in <span class="org-string">"$SSL_CRT"</span> | openssl md5
+openssl rsa  -noout -modulus -in <span class="org-string">"$SSL_KEY"</span> | openssl md5
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#30830;&#35748; SAN &#20004;&#26465;&#37117;&#22312;
+</span>openssl x509 -in <span class="org-string">"$SSL_CRT"</span> -noout -ext subjectAltName -enddate
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#26367;&#25442;&#35777;&#20070;
+</span>kubectl -n <span class="org-string">"$NS"</span> create secret tls <span class="org-string">"$SECRET"</span> <span class="org-sh-escaped-newline">\</span>
+  --cert=<span class="org-string">"$SSL_CRT"</span> --key=<span class="org-string">"$SSL_KEY"</span> <span class="org-sh-escaped-newline">\</span>
+  --dry-run=client -o yaml | kubectl apply -f -
+
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#26597;&#30475;&#35777;&#20070;&#20449;&#24687;
+</span>kubectl -n <span class="org-string">"$NS"</span> get secret <span class="org-string">"$SECRET"</span> -o <span class="org-variable-name">jsonpath</span>=<span class="org-string">'{.data.tls\.crt}'</span> <span class="org-sh-escaped-newline">\</span>
+  | base64 -d | openssl x509 -noout -subject -issuer -dates -ext subjectAltName
+
+cat &gt; gateway-public.yaml &lt;&lt;\EOF<span class="org-sh-heredoc">
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: gateway-public
+  namespace: default
+spec:
+  gatewayClassName: nginx
+  # &#22914;&#26524;&#25351;&#23450;&#33258;&#23450;&#20041; nginxproxy&#65292;&#38656;&#35201;&#21333;&#29420;&#20889; infrastructure &#27573;
+  listeners:
+  - allowedRoutes:
+      namespaces:
+        # &#40664;&#35748;Once &#24403;&#21069;&#21517;&#31216;&#31354;&#38388;&#65292;All &#25152;&#26377;&#21517;&#31216;&#31354;&#38388;&#33021;&#29992;&#36825;&#20010; gateway&#12290; select &#25351;&#23450;&#21517;&#31216;&#31354;&#38388;
+        from: All
+    name: http
+    port: 80
+    protocol: HTTP
+  - name: https
+    port: 443
+    protocol: HTTPS
+    hostname: "*.xxx.com"
+    tls:
+      mode: Terminate
+      certificateRefs:
+        - kind: Secret
+          name: xxx-tls
+    allowedRoutes:
+      namespaces:
+        from: All
+EOF
+</span>
+kubectl apply -f gateway-public.yaml
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-shell">cat &lt;&lt;\EOF&gt; gw-public.yaml <span class="org-sh-heredoc">
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: gw-public
+  namespace: gw
+spec:
+  gatewayClassName: nginx
+  # &#25351;&#23450; nginxproxy &#37197;&#32622;
+  infrastructure:
+    parametersRef:
+      group: gateway.nginx.org
+      kind: NginxProxy
+      name: proxy-public-config
+  listeners:
+  - name: http
+    port: 80
+    protocol: HTTP
+    allowedRoutes:
+      # &#20165; default &#21517;&#31216;&#31354;&#38388;&#33021;&#29992;&#36825;&#20010; gateway
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            kubernetes.io/metadata.name: default
+  - name: https-vbipay
+    port: 443
+    protocol: HTTPS
+    hostname: "*.xxx.com"
+    tls:
+      mode: Terminate
+      certificateRefs:
+      # &#40664;&#35748;&#24341;&#29992;&#24403;&#21069;&#21517;&#31216;&#31354;&#38388;&#19979;&#30340;&#35777;&#20070;&#25991;&#20214;&#12290;&#22914;&#26524;&#20351;&#29992;&#21035;&#30340;&#21517;&#31216;&#31354;&#38388;&#35777;&#20070;&#38656;&#35201;&#25351;&#23450; ReferenceGrant &#25480;&#26435;
+      - kind: Secret
+        name: xxx-tls-secret
+        namespace: default
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            kubernetes.io/metadata.name: default
+  # &#27867;&#22495;&#21517;&#35777;&#20070;&#19981;&#21305;&#37197; apex&#65292;xxx.com &#24517;&#39035;&#21333;&#21015; listener
+  - name: https-vbipay-apex
+    port: 443
+    protocol: HTTPS
+    hostname: "xxx.com"
+    tls:
+      mode: Terminate
+      certificateRefs:
+      - kind: Secret
+        name: xxx-tls-secret
+        namespace: default
+    allowedRoutes:
+      namespaces:
+        from: Selector
+        selector:
+          matchLabels:
+            kubernetes.io/metadata.name: default
+
+---
+# &#27809;&#26377;&#36825;&#20010; ReferenceGrant&#65292;&#19978;&#38754;&#25152;&#26377; https listener &#37117;&#26159;
+# ResolvedRefs=False / RefNotPermitted&#65292;TLS &#30452;&#25509;&#36215;&#19981;&#26469;&#12290;
+#
+# &#27880;&#24847;&#23427;&#24517;&#39035;&#24314;&#22312;**&#35777;&#20070;&#25152;&#22312;&#30340; namespace**&#65288;default&#65289;&#65292;&#19981;&#26159; gw&#12290;
+# &#35821;&#20041;&#26159; default &#30340;&#31649;&#29702;&#21592;&#20027;&#21160;&#25480;&#26435;&#65292;&#32780;&#19981;&#26159; gw &#21333;&#26041;&#38754;&#21435;&#21462;&#12290;
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: gw-to-default-secrets
+  namespace: default
+spec:
+  from:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    namespace: gw
+  to:
+  - group: ""
+    kind: Secret
+    # &#38480;&#23450;&#21482;&#33021;&#35835;&#36825;&#20004;&#20010;&#35777;&#20070;&#65292;&#19981;&#20889; name &#23601;&#26159; default &#37324;&#30340;&#25152;&#26377; Secret
+    name: admin-tls-secret
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: gw-to-default-secrets-vbipay
+  namespace: default
+spec:
+  from:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    namespace: gw
+  to:
+  - group: ""
+    kind: Secret
+    name: vbipay-tls-secret
+EOF</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-h:21DBF770-534F-4490-B34B-9F6BFA524AAD" class="outline-4">
+<h4 id="h:21DBF770-534F-4490-B34B-9F6BFA524AAD"><a href="#h:21DBF770-534F-4490-B34B-9F6BFA524AAD">内网 nginxproxy</a></h4>
+<div class="outline-text-4" id="text-h:21DBF770-534F-4490-B34B-9F6BFA524AAD">
+</div>
+<div id="outline-container-h:F81E3735-3843-407E-B294-DAE392CF54A2" class="outline-5">
+<h5 id="h:F81E3735-3843-407E-B294-DAE392CF54A2"><a href="#h:F81E3735-3843-407E-B294-DAE392CF54A2">安装了 AWS LBC</a></h5>
+<div class="outline-text-5" id="text-h:F81E3735-3843-407E-B294-DAE392CF54A2">
+<div class="org-src-container">
+<pre class="src src-shell">cat &lt;&lt;\EOF&gt; gw-internal.yaml <span class="org-sh-heredoc">
+apiVersion: gateway.nginx.org/v1alpha2
+kind: NginxProxy
+metadata:
+  labels:
+    app.kubernetes.io/version: 2.6.7
+  name: proxy-internal-config
+  namespace: gw
+spec:
+  ipFamily: dual
+  kubernetes:
+    deployment:
+      container:
+        image:
+          pullPolicy: IfNotPresent
+          repository: ghcr.io/nginx/nginx-gateway-fabric/nginx
+          tag: 2.6.7
+        resources:
+          requests:
+            cpu: 500m
+            memory: 256Mi
+          limits:
+            memory: 1Gi # &#19981;&#35201;&#35774; cpu limit&#65292;&#39640;&#27969;&#37327;&#19979;&#20250;&#34987; throttle&#65292;&#30151;&#29366;&#24456;&#20687;&#38480;&#27969;
+      replicas: 1
+
+    service:
+      externalTrafficPolicy: Cluster
+      patches:
+      - type: StrategicMerge
+        value:
+          metadata:
+            annotations:
+              service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: Env=Dev
+              service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+              service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: '*'
+              service.beta.kubernetes.io/aws-load-balancer-scheme: internal
+              service.beta.kubernetes.io/aws-load-balancer-subnets: subnet-in1,subnet-in2,subnet-in3
+              service.beta.kubernetes.io/aws-load-balancer-type: external
+              service.beta.kubernetes.io/aws-load-balancer-attributes: load_balancing.cross_zone.enabled=true
+      type: LoadBalancer
+  rewriteClientIP:
+    mode: ProxyProtocol
+    trustedAddresses:
+    - type: CIDR
+      value: 172.31.0.0/16
+EOF
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">&#27880;&#24847;&#23376;&#32593;&#20351;&#29992;&#20869;&#32593;&#32593;&#27573;
+</span>
+kubectl apply -f gw-internal.yaml
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-h:F38DE222-00BA-40AF-981A-96D3DF2C79FA" class="outline-4">
+<h4 id="h:F38DE222-00BA-40AF-981A-96D3DF2C79FA"><a href="#h:F38DE222-00BA-40AF-981A-96D3DF2C79FA">内网 gateway</a></h4>
+<div class="outline-text-4" id="text-h:F38DE222-00BA-40AF-981A-96D3DF2C79FA">
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#21019;&#24314;&#20869;&#32593; gateway
+</span>cat &lt;&lt;\EOF&gt; gateway-internal.yaml <span class="org-sh-heredoc">
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: gateway-internal
+  namespace: gw
+spec:
+  gatewayClassName: nginx
+  infrastructure:
+    parametersRef:
+      group: gateway.nginx.org
+      kind: NginxProxy
+      name: proxy-internal-config
+  listeners:
+  - name: http
+    protocol: HTTP
+    port: 80
+    allowedRoutes:
+      namespaces:
+        from: All
+EOF
+</span>
+kubectl apply -f  gateway-internal.yaml
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-h:656336CD-C3E8-4293-A924-B8806E11711D" class="outline-4">
+<h4 id="h:656336CD-C3E8-4293-A924-B8806E11711D"><a href="#h:656336CD-C3E8-4293-A924-B8806E11711D">httproute</a></h4>
+<div class="outline-text-4" id="text-h:656336CD-C3E8-4293-A924-B8806E11711D">
+<p>
+安装设置 SnippetsFilter
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">cat &lt;&lt;\EOF&gt; 30-security-snippets.yaml <span class="org-sh-heredoc">
+apiVersion: gateway.nginx.org/v1alpha1
+kind: SnippetsFilter
+metadata:
+  name: global-security
+  namespace: default
+spec:
+  snippets:
+  # http.server &#19978;&#19979;&#25991; == ingress-nginx &#30340; server-snippet&#65292;&#35821;&#20041;&#19968;&#19968;&#23545;&#24212;&#12290;
+  # $request_uri &#26159;&#26410;&#32463;&#35299;&#30721;&#30340;&#21407;&#22987; URI&#65288;&#21547; query string&#65289;&#65292;~* &#20026;&#19981;&#21306;&#20998;&#22823;&#23567;&#20889;&#30340;
+  # &#23376;&#20018;&#21305;&#37197; &#8212;&#8212; /api/actuator/health&#12289;/ACTUATOR &#37117;&#20250;&#34987;&#25318;&#65292;&#36825;&#28857;&#21644;&#21407;&#26469;&#19968;&#33268;&#65292;
+  # &#29992; PathPrefix &#30340; HTTPRoute &#20570;&#19981;&#21040;&#31561;&#20215;&#12290;
+  - context: http.server
+    value: |
+      if ($request_uri ~* "/actuator")  { return 403; }
+      if ($request_uri ~* "snail-?job") { return 403; }
+      if ($http_x_forwarded_prefix ~* "actuator|snail-?job") { return 403; }
+      if ($request_uri ~*  "~*/(v[23]/api-docs|swagger-ui|swagger-resources|knife4j|webjars)(/|\?|$)") {return 403; }
+
+      # &#36335;&#24452;&#31359;&#36234; / &#22810;&#37325; URL &#32534;&#30721;&#32469;&#36807;
+      #
+      # &#25429;&#33719;&#65306;GET /api/basic/..%252fchain/v2/zz9608t  &#8594; 200
+      #   %25 = '%'&#65292;nginx &#35299;&#30721;&#19968;&#27425;&#24471;&#21040; ..%2f&#65292;&#23545;&#23427;&#32780;&#35328;&#21482;&#26159;&#26222;&#36890;&#23383;&#31526;&#20018;&#65292;
+      #   &#20869;&#24314;&#30340;&#36335;&#24452;&#35268;&#33539;&#21270;&#19981;&#20250;&#35302;&#21457;&#65292;&#35831;&#27714;&#34987;&#21407;&#26679;&#36716;&#32473;&#21518;&#31471;&#65307;
+      #   &#21518;&#31471;&#65288;&#23588;&#20854; Spring Cloud Gateway&#65289;&#33509;&#20877;&#35299;&#30721;&#19968;&#27425;&#23601;&#21464;&#25104; ../&#65292;
+      #   &#21487;&#29992;&#20110;&#22312;&#24494;&#26381;&#21153;&#20043;&#38388;&#27178;&#21521;&#36339;&#36716;&#12290;
+      #
+      # &#29992; $request_uri&#65288;&#26410;&#35299;&#30721;&#30340;&#21407;&#22987; URI&#65289;&#21305;&#37197;&#65292;&#25165;&#33021;&#30475;&#21040; %252f &#36825;&#23618;&#12290;
+      # &#21482;&#25318; ".." &#32039;&#36319;&#20998;&#38548;&#31526;&#30340;&#24418;&#24335;&#65292;&#19981;&#25318;&#35064; %25 / %2f &#8212;&#8212;
+      # &#37027;&#20004;&#20010;&#22312;&#25628;&#32034;&#21442;&#25968;&#12289;&#21547;&#26012;&#26464;&#30340;&#36164;&#28304; ID &#37324;&#26159;&#21512;&#27861;&#30340;&#65292;&#20250;&#35823;&#20260;&#12290;
+      if ($request_uri ~* "\.\.(/|%2f|%252f|%5c|%255c)") { return 403; }
+      if ($request_uri ~* "(%2e%2e|%252e)")              { return 403; }
+
+      # &#9472;&#9472; &#25903;&#20184;&#29366;&#24577; / &#37329;&#39069;&#31713;&#25913;&#21442;&#25968; &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+      # &#25429;&#33719;&#65306; &#25343;&#30495;&#23454;&#25910;&#38134;&#21488;&#20250;&#35805;&#65292;&#22312; 03:54 &#19968;&#20998;&#38047;&#20869;&#36830;&#25171;
+      #   ?payStatus=1  ?payStatus=PAID  ?tradeStatus=SUCCESS  ?success=true
+      #   ?amount=999   ?amount=0.01     ?payAmount=1          ?sign=1
+      # 04:10 &#21448;&#34917;&#20102;&#26041;&#27861;&#35206;&#30422; ?_method=POST&amp;status=1&amp;tradeStatus=SUCCESS
+      # &#21644;&#21442;&#25968;&#27745;&#26579; ?status=1&amp;status=0&#12289;&#25968;&#32452;&#20889;&#27861; ?status[]=1&#12290;
+      if ($args ~* "(^|&amp;)_method=")                                             { return 403; }
+      if ($args ~* "(^|&amp;)(pay_?status|trade_?status|order_?status|payment_?status)=")  { return 403; }
+      if ($args ~* "(^|&amp;)(pay_?amount|total_?amount|real_?amount|paid_?amount)=")      { return 403; }
+      if ($args ~* "(^|&amp;)(mock|sandbox|test_?mode|debug)=(1|true|yes|on)")      { return 403; }
+
+      # &#9472;&#9472; &#25195;&#25551;&#24037;&#20855; UA &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+      # &#21482;&#23553;&#26126;&#30830;&#33258;&#25253;&#23478;&#38376;&#30340;&#25915;&#20987;&#24037;&#20855;&#12290;**&#19981;&#25353;&#29228;&#34411; UA &#23553;** &#8212;&#8212; 34.48 &#29992;&#20102; 24 &#20010;
+      # &#20266;&#36896;&#29228;&#34411; UA&#65288;Googlebot/GPTBot/Claude-User/Kimi/Qwenbot&#8230;&#65289;&#65292;&#25353; UA &#23553;&#25318;&#19981;&#20303;
+      # &#20182;&#65288;&#25442;&#19968;&#20010;&#23601;&#34892;&#65289;&#65292;&#21364;&#20250;&#35823;&#20260;&#30495;&#23454; Googlebot &#24433;&#21709; SEO&#12290;
+      # &#20266;&#36896;&#29228;&#34411;&#30340;&#27491;&#30830;&#35299;&#27861;&#26159; Cloudflare &#30340; Verified Bots&#65288;&#25353; ASN + &#21453;&#21521;&#35299;&#26512;&#26657;&#39564;&#65289;&#12290;
+      if ($http_user_agent ~* "(sqlmap|nikto|nuclei|acunetix|nessus|openvas|wpscan|dirbuster|gobuster|feroxbuster|ffuf|masscan|zgrab|nmap|hydra|metasploit|xray)") { return 403; }
+
+      # &#9472;&#9472; &#20174;&#19981;&#21512;&#27861;&#30340; HTTP &#26041;&#27861; &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+      # TRACE/TRACK &#21487;&#29992;&#20110; XST &#36328;&#31449;&#36861;&#36394;&#65292;CONNECT &#26159;&#20195;&#29702;&#26041;&#27861;&#65292;&#27491;&#24120;&#19994;&#21153;&#27704;&#36828;&#29992;&#19981;&#21040;&#12290;
+      # &#27880;&#24847;&#36825;&#37324;&#27809;&#26377;&#25318; PUT/PATCH/DELETE &#8212;&#8212; &#37027;&#20960;&#20010;&#22312;&#20854;&#20182; REST &#25509;&#21475;&#19978;&#26159;&#21512;&#27861;&#30340;&#65292;
+      # &#20840;&#23616;&#25318;&#20250;&#35823;&#20260;&#65307;"&#21482;&#35835;&#25903;&#20184;&#26597;&#35810;&#25509;&#21475;&#19978;&#20986;&#29616;&#20889;&#26041;&#27861;"&#30001; Loki &#21578;&#35686;&#26816;&#27979;&#12290;
+      if ($request_method ~ "^(TRACE|TRACK|CONNECT)$") { return 405; }
+
+      # &#9472;&#9472; &#25195;&#25551;&#22120; payload &#23383;&#20856;&#65288;34&#30340; 352 &#20010;&#35831;&#27714;&#65289;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+      # &#36825;&#20123;&#36335;&#24452;&#22312;&#24179;&#21488;&#19978;&#23436;&#20840;&#19981;&#23384;&#22312;&#65292;&#20986;&#29616;&#21363;&#20026;&#25506;&#27979;&#12290;
+      # &#19978;&#38754;&#30340; ".." &#35268;&#21017;&#24050;&#32463;&#25377;&#19979;&#20102;&#24403;&#26202;&#30340;&#20840;&#37096;&#26679;&#26412;&#65292;&#36825;&#37324;&#34917;&#30340;&#26159;&#19981;&#24102; ../ &#30340;&#21464;&#20307;&#12290;
+      if ($request_uri ~* "/proc/self/(environ|cmdline|status|fd)")  { return 403; }
+      if ($request_uri ~* "/userfiles(/|\?|$)")                      { return 403; }
+      if ($request_uri ~* "jobs_u/get_log_file")                     { return 403; }
+      if ($request_uri ~* "/api/console/api_server")                 { return 403; }
+      if ($request_uri ~* "(wp-login|wp-admin|wp-content|xmlrpc\.php)")  { return 403; }
+      if ($request_uri ~* "/(_profiler|telescope|phpinfo|server-status|solr|phpmyadmin|adminer)(/|\?|$)")  { return 403; }
+      if ($request_uri ~* "[?&amp;](rest_route|input_file|SPX_KEY|SPX_UI_URI|cmd|exec)=")  { return 403; }
+
+      # &#9472;&#9472; &#25353;&#30495;&#23454;&#35775;&#23458; IP &#23553;&#31105; &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+      if ($http_cf_connecting_ip = "x.x.x.x")     { return 403; }  # GCP&#65306;12 &#20998;&#38047; 352 &#35831;&#27714;&#65292;24 &#20010;&#20266;&#36896;&#29228;&#34411; UA
+      if ($http_cf_connecting_ip = "x.x.x.x1")    { return 403; }  # Cogent&#65306;&#25903;&#20184;&#31713;&#25913; + &#30446;&#24405;&#29190;&#30772;
+      if ($http_cf_connecting_ip = "x.x.x.x2") { return 403; }  # Oracle(IN)&#65306;actuator &#27880;&#20837; + &#20973;&#25454;&#29190;&#30772;
+
+  # X-Forwarded-Prefix &#27880;&#20837;&#38450;&#25252;&#65288;&#21407; ingress-nginx &#27809;&#26377;&#65292;&#26159;&#36801;&#31227;&#20013;&#21457;&#29616;&#30340;&#30495;&#23454;&#25915;&#20987;&#65289;
+  #
+  # &#25429;&#33719;&#21040;&#30340;&#25506;&#27979;&#65306;
+  #   X-Forwarded-Prefix: /socket/actuator/env
+  #   GET /api?Authorization=...        cf_country=MY  status=200
+  #
+  # Spring Cloud Gateway &#29992;&#36825;&#20010;&#22836;&#37325;&#24314;&#35831;&#27714;&#36335;&#24452;&#65292;&#25915;&#20987;&#32773;&#20511;&#27492;&#32469;&#36807;&#22522;&#20110;
+  # $request_uri &#30340;&#36807;&#28388;&#30452;&#36798;&#20869;&#37096; actuator&#12290;&#21407;&#35268;&#21017;&#21482;&#30475; URI&#65292;&#23436;&#20840;&#27809;&#21629;&#20013;&#12290;
+  #
+  # &#20004;&#23618;&#38450;&#25252;&#32570;&#19968;&#19981;&#21487;&#65306;
+  #   &#183; &#19979;&#38754;&#30340; proxy_set_header &#25226;&#22836;&#28165;&#31354; &#8212;&#8212; &#21518;&#31471;&#25910;&#19981;&#21040;&#65292;&#22581;&#27515;&#21033;&#29992;&#38142;
+  #   &#183; &#19978;&#38754;&#30340; if &#24403;&#22330;&#36820;&#22238; 403      &#8212;&#8212; &#22312;&#26085;&#24535;&#37324;&#30041;&#30165;&#65292;&#25165;&#33021;&#21578;&#35686;
+  # &#21482;&#26377;&#21069;&#32773;&#30340;&#35805;&#25915;&#20987;&#30830;&#23454;&#34987;&#25377;&#20303;&#20102;&#65292;&#20294;&#26085;&#24535;&#37324;&#26159; 200&#65292;&#30475;&#19981;&#20986;&#26377;&#20154;&#22312;&#25171;&#12290;
+  - context: http.server.location
+    value: |
+      proxy_set_header X-Forwarded-Prefix "";
+
+---
+# &#36890;&#29992;&#30340;"&#25298;&#32477;"&#36807;&#28388;&#22120; &#8212;&#8212; &#32473;&#20828;&#24213;&#35268;&#21017;&#29992;&#65292;&#35753;&#26410;&#26174;&#24335;&#25918;&#34892;&#30340;&#36335;&#24452;&#36820;&#22238; 403 &#32780;&#19981;&#26159; 404&#12290;
+#
+# &#29992;&#27861;&#65306;&#22312; HTTPRoute &#37324;&#21152;&#19968;&#26465; PathPrefix: / &#30340;&#35268;&#21017;&#24341;&#29992;&#23427;&#12290;
+# Gateway API &#25353;&#26368;&#38271;&#21069;&#32512;&#21305;&#37197;&#65292;&#20855;&#20307;&#36335;&#24452;&#30340;&#35268;&#21017;&#20250;&#21387;&#36807; /&#65292;&#25152;&#20197;&#30333;&#21517;&#21333;&#29031;&#24120;&#24037;&#20316;&#12290;
+#
+# &#9888; &#20828;&#24213;&#35268;&#21017;&#24517;&#39035;&#20445;&#30041; backendRefs&#65288;&#38543;&#20415;&#25351;&#19968;&#20010;&#23384;&#22312;&#30340; Service&#65289;&#12290;
+#   NGF &#23545;&#27809;&#26377; backendRef &#30340;&#35268;&#21017;&#20250;&#28210;&#26579;&#25104; return 500&#65292;&#21644;&#36825;&#37324;&#30340; return 403
+#   &#25758;&#36710;&#19988;&#20808;&#21518;&#39034;&#24207;&#19981;&#21487;&#25511;&#12290;&#30041;&#21344;&#20301; backend &#21518;&#65292;return 403 &#22312; rewrite &#38454;&#27573;
+#   &#23601;&#30701;&#36335;&#20102;&#65292;proxy_pass &#27704;&#36828;&#19981;&#20250;&#25191;&#34892;&#65292;&#19981;&#20250;&#30495;&#30340;&#20135;&#29983;&#22238;&#28304;&#27969;&#37327;&#12290;
+apiVersion: gateway.nginx.org/v1alpha1
+kind: SnippetsFilter
+metadata:
+  name: deny-all
+  namespace: default
+spec:
+  snippets:
+  - context: http.server.location
+    value: |
+      return 403;
+EOF</span>
+</pre>
+</div>
+
+<p>
+后端业务域名
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">cat &lt;&lt;\EOF&gt; httproute-openapi.yaml<span class="org-sh-heredoc">
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: in-openapi
+  namespace: default
+spec:
+  hostnames:
+  - openapi.test.jp
+  parentRefs:
+  - name: gateway-internal
+    namespace: gw
+    sectionName: http
+  rules:
+  - backendRefs:
+    # nginx &#20869;&#37096;&#37197;&#32622;&#20570;&#23433;&#35013;&#20828;&#24213;
+    - name: jp-gateway-svc
+      port: 8080
+    matches:
+    - path:
+        type: PathPrefix
+        value: /api/pay
+    - path:
+        type: PathPrefix
+        value: /api/pay/createOrder
+    - path:
+        type: PathPrefix
+        value: /api/pay/payout
+    filters:
+    - type: ExtensionRef
+      extensionRef: {group: gateway.nginx.org, kind: SnippetsFilter, name: global-security}
+
+  # &#9472;&#9472; &#20828;&#24213;&#65306;&#20854;&#20313;&#36335;&#24452; 403
+  - matches:
+    - path: {type: PathPrefix, value: /}
+    filters:
+    - type: ExtensionRef
+      extensionRef: {group: gateway.nginx.org, kind: SnippetsFilter, name: deny-all}
+    backendRefs:
+    - name: jp-gateway-svc
+      port: 8080
+EOF</span>
+</pre>
+</div>
+
+<p>
+前端业务
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">cat &lt;&lt;\EOF&gt; httproute-admin.yaml <span class="org-sh-heredoc">
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: in-admin
+  namespace: default
+spec:
+  hostnames:
+  - admin.test.jp
+  parentRefs:
+  - name: gateway-internal
+    namespace: gw
+    sectionName: http
+  rules:
+  - backendRefs:
+    - name: admin-svc
+      port: 80
+    matches:
+    - path:
+        type: PathPrefix
+        value: /
+    filters:
+    - type: ExtensionRef
+      extensionRef:
+        group: gateway.nginx.org
+        kind: SnippetsFilter
+        name: global-security
+  - backendRefs:
+    - name: admin-server-svc
+      port: 8080
+    matches:
+    - path:
+        type: PathPrefix
+        value: /alpha/v1/
+    filters:
+    - type: ExtensionRef
+      extensionRef: {group: gateway.nginx.org, kind: SnippetsFilter, name: global-security}
+    - type: URLRewrite
+      urlRewrite:
+        path:
+          type: ReplacePrefixMatch
+          replacePrefixMatch: /
+    - type: ExtensionRef
+      extensionRef: {group: gateway.nginx.org, kind: SnippetsFilter, name: admin-sinppetsfilter}
+
+---
+apiVersion: gateway.nginx.org/v1alpha1
+kind: ClientSettingsPolicy
+metadata:
+  name: admin-client-policy
+  namespace: default
+spec:
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: HTTPRoute
+    name: in-admin
+  body:
+    maxSize: "100m"
+---
+apiVersion: gateway.nginx.org/v1alpha1
+kind: SnippetsFilter
+metadata:
+  name: admin-sinppetsfilter
+  namespace: default
+spec:
+  snippets:
+  - context: http.server.location
+    value: |
+      proxy_read_timeout 5m;
+      proxy_send_timeout 5m;
+      proxy_set_header X-Forwarded-Proto $http_x_forwarded_proto;
 EOF</span>
 </pre>
 </div>

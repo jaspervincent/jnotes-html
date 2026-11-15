@@ -147,7 +147,13 @@
 <li><a href="#h:10FB6A57-A6AB-4563-9887-F04515E80647">过期密钥续期</a></li>
 <li><a href="#h:F142B42C-277E-4408-AB0E-4C1F0DE4E06D">签名与验签</a></li>
 <li><a href="#h:7328a823-6fb7-4830-89d7-22b38d184511">使用公钥服务器</a></li>
-<li><a href="#h:21EC1EEB-CAA1-42A7-B23C-009B9DDBB43B">gpg-agent 相关</a></li>
+<li><a href="#h:21EC1EEB-CAA1-42A7-B23C-009B9DDBB43B">gpg-agent 相关</a>
+<ul>
+<li><a href="#h:0DB15F47-2DAA-4A63-87D9-B421C3C1EE5B">pinentry 怎么选</a></li>
+<li><a href="#h:A7DDE68D-55CF-466D-8235-E48F83DA9448">SSH 密钥是另一套 ttl</a></li>
+<li><a href="#h:895816E2-23A8-411E-A3B4-9345EE1BCC12">查看与清理缓存</a></li>
+</ul>
+</li>
 <li><a href="#h:d1e63a13-088c-47cf-9b04-d2fa82bb6c52">Git 集成</a></li>
 <li><a href="#h:3718D8DA-E40A-4316-B657-D5F436C023E1">速查</a></li>
 </ul>
@@ -323,7 +329,7 @@
 <li><a href="#h:9e5b72a0-48d1-4c63-b0f6-3a71dc9e8206">签发服务端 + 客户端证书</a></li>
 <li><a href="#h:c3f80d16-5a24-4e97-8b03-72d6a91e04b5">openssl 实测握手</a>
 <ul>
-<li><a href="#h:751DEDBD-FCD7-49C9-81D8-1DA92BD2F99B">关键：=-Verify= 单独用会给出假阳性</a></li>
+<li><a href="#h:751DEDBD-FCD7-49C9-81D8-1DA92BD2F99B">关键： <code>-Verify</code> 单独用会给出假阳性</a></li>
 <li><a href="#h:DC390A7F-5805-4B2E-82D2-287A604641F8">三种情况的实测对照</a></li>
 <li><a href="#h:B2B74684-58C7-47FB-B9AB-E2A10EB6B3D5">curl 直连验证</a></li>
 </ul>
@@ -364,6 +370,13 @@
 </ul>
 </li>
 <li><a href="#h:5062dade-b835-49e4-8e58-8d16231fd4cd">实测：证书性能</a></li>
+<li><a href="#h:4B9D84FF-30B7-4B15-A5B0-987DE1ABAF86">查看</a>
+<ul>
+<li><a href="#h:94EC5B95-A49B-4BCF-8DC4-548A65260DCC">查看 TLS 版本</a></li>
+<li><a href="#h:FD18E3D5-8461-4BCC-9277-BA7B4A6D3F86">Cloudflare 根证书验证</a></li>
+<li><a href="#h:4DE4BDB0-6277-48FF-B790-8DC87963C725">端口测试</a></li>
+</ul>
+</li>
 <li><a href="#h:7346fd8c-09cd-4225-99e1-2795136fe203">证书转换</a>
 <ul>
 <li><a href="#h:44fc5963-96bc-44a9-b569-81d540c66841">PFX(PKCS12)格式和JKS格式证书</a></li>
@@ -470,7 +483,11 @@
 <li><a href="#h:7aa7d43e-5ec6-40e8-bad3-e2a1f543381c">轻量级自动化运维工具 pssh</a></li>
 </ul>
 </li>
-<li><a href="#h:BCA291BE-672C-4930-836C-C3F6B70F8848">SSH 多路复用</a></li>
+<li><a href="#h:BCA291BE-672C-4930-836C-C3F6B70F8848">SSH 多路复用</a>
+<ul>
+<li><a href="#h:B9ADE104-039D-4A58-B167-19B5EB73A96A">案例-代理优化</a></li>
+</ul>
+</li>
 <li><a href="#h:786a44d7-2098-46cd-9d77-d27aada7a4bd">dropbear</a></li>
 </ul>
 </li>
@@ -494,7 +511,16 @@
 <li><a href="#h:ea670f28-c7a7-4621-8b05-1b058c35b672">常用PAM模块</a>
 <ul>
 <li><a href="#h:8ad8c396-efaf-4b36-86a9-6f406a8c9685"><code>pam_nologin.so</code> 模块</a></li>
-<li><a href="#h:f21d7f5a-9400-4ede-b15f-10f3311ca447"><code>pam_limits.so</code> 模块</a></li>
+<li><a href="#h:f21d7f5a-9400-4ede-b15f-10f3311ca447"><code>pam_limits.so</code> 模块</a>
+<ul>
+<li><a href="#h:9d0d04d2-ff07-4bb6-8f19-c507b37aa73d">四层作用域</a></li>
+<li><a href="#h:e5c38cc4-2fcc-43ec-9e8a-98082afaa1f2">配置文件格式</a></li>
+<li><a href="#h:d55b6309-951f-4471-a497-4713f2a53ff0">ulimit 速查</a></li>
+<li><a href="#h:3342db67-86eb-4526-8605-b4f7dd9a5ec9">常见坑</a></li>
+<li><a href="#h:c7f5a2b1-3e84-4d96-a0f2-5b1e9c47d830">生产模板</a></li>
+<li><a href="#h:b4e9d37c-8a21-4f05-9c6d-2fa8e1b05493">验证</a></li>
+</ul>
+</li>
 <li><a href="#h:6e40e5e6-d416-4054-b270-9d0027461808"><code>pam_google_authenticator</code> 模块</a></li>
 <li><a href="#h:11bfdac4-0863-4209-8a31-f18f796e638b"><code>pam_succeed_if</code> 模块</a></li>
 <li><a href="#h:6e042263-7e8d-4345-8eb2-501011ff70f3"><code>pam_access.so</code> 模块</a></li>
@@ -710,7 +736,7 @@ mail
 <h4 id="h:b8c01f60-9db6-42ac-9a35-3949ce96ad0c"><a href="#h:b8c01f60-9db6-42ac-9a35-3949ce96ad0c">对称加密算法</a></h4>
 <div class="outline-text-4" id="text-h:b8c01f60-9db6-42ac-9a35-3949ce96ad0c">
 
-<figure id="org1a58299">
+<figure id="orgbb3e8ff">
 <img style="aspect-ratio:658/316" decoding="async" loading="lazy" src="./images/image-20210120153703478.webp" alt="image-20210120153703478.webp" width="50%">
 
 </figure>
@@ -805,7 +831,7 @@ AES：Advanced Data Encryption Standard 高级加密标准 (128, 192, 256bits)
 比如 wifi 加密用的 AES 加密 
 </p>
 
-<figure id="org03de035">
+<figure id="org10c5086">
 <img style="aspect-ratio:926/434" decoding="async" loading="lazy" src="./images/image-20210302073004893.webp" alt="image-20210302073004893.webp" width="50%">
 
 </figure>
@@ -928,7 +954,7 @@ RSA: 1G &#25968;&#25454;&#65292;&#20351;&#29992;&#38750;&#23545;&#31216;&#21152;
 </p>
 
 
-<figure id="orged9c69b">
+<figure id="orga5752b1">
 <img style="aspect-ratio:655/309" decoding="async" loading="lazy" src="./images/image-20210120153751008.webp" alt="image-20210120153751008.webp" width="50%">
 
 </figure>
@@ -961,7 +987,7 @@ RSA: 1G &#25968;&#25454;&#65292;&#20351;&#29992;&#38750;&#23545;&#31216;&#21152;
 </p>
 
 
-<figure id="orga7b898a">
+<figure id="orgf0c8646">
 <img style="aspect-ratio:647/307" decoding="async" loading="lazy" src="./images/image-20210120153809695.webp" alt="image-20210120153809695.webp" width="50%">
 
 </figure>
@@ -1076,7 +1102,7 @@ a.c: OK
 </p>
 
 
-<figure id="orgd674004">
+<figure id="org22ce8fc">
 <img style="aspect-ratio:896/555" decoding="async" loading="lazy" src="./images/image-20210120153936904.webp" alt="image-20210120153936904.webp" width="50%">
 
 </figure>
@@ -1104,13 +1130,13 @@ rpm --checksig pakage_file_name (or-K)
 </p>
 
 
-<figure id="org9442dd6">
+<figure id="orgf5a2c8b">
 <img style="aspect-ratio:538/280" decoding="async" loading="lazy" src="./images/image-20210303023818589.webp" alt="image-20210303023818589.webp" width="50%">
 
 </figure>
 
 
-<figure id="org2cd58ca">
+<figure id="org651fb54">
 <img style="aspect-ratio:774/408" decoding="async" loading="lazy" src="./images/image-20210120154029857.webp" alt="image-20210120154029857.webp" width="50%">
 
 </figure>
@@ -1124,7 +1150,7 @@ rpm --checksig pakage_file_name (or-K)
 </p>
 
 
-<figure id="org0cbc9a0">
+<figure id="org4a8eee8">
 <img style="aspect-ratio:780/333" decoding="async" loading="lazy" src="./images/image-20210120154059975.webp" alt="image-20210120154059975.webp" width="50%">
 
 </figure>
@@ -1145,7 +1171,7 @@ rpm --checksig pakage_file_name (or-K)
 </ul>
 
 
-<figure id="orga075a11">
+<figure id="org1138abb">
 <img style="aspect-ratio:997/515" decoding="async" loading="lazy" src="./images/image-20210120154128669.webp" alt="image-20210120154128669.webp" width="50%">
 
 </figure>
@@ -1168,13 +1194,13 @@ rpm --checksig pakage_file_name (or-K)
 </ul>
 
 
-<figure id="orgf4e5d1a">
+<figure id="org1e79fc1">
 <img style="aspect-ratio:1057/343" decoding="async" loading="lazy" src="./images/image-20210120154155432.webp" alt="image-20210120154155432.webp" width="50%">
 
 </figure>
 
 
-<figure id="orgca0efca">
+<figure id="org559cd39">
 <img style="aspect-ratio:1911/2172" decoding="async" loading="lazy" src="./images/data-ssl.webp" alt="data-ssl.webp" width="50%">
 
 </figure>
@@ -1265,7 +1291,7 @@ B:&#35745;&#31639;&#24471;&#20986; [(g^a%p)^b] %<span class="org-variable-name">
 Man-in-the-middle，简称为 MITM，中间人
 </p>
 
-<figure id="org64f0a7c">
+<figure id="org6a2ac8a">
 <img style="aspect-ratio:654/385" decoding="async" loading="lazy" src="./images/image-20210120154225691.webp" alt="image-20210120154225691.webp" width="50%">
 
 </figure>
@@ -1275,13 +1301,13 @@ Man-in-the-middle，简称为 MITM，中间人
 <h4 id="h:fde4a67e-c078-4fc3-944c-ca54747208d2"><a href="#h:fde4a67e-c078-4fc3-944c-ca54747208d2">CA 和证书</a></h4>
 <div class="outline-text-4" id="text-h:fde4a67e-c078-4fc3-944c-ca54747208d2">
 
-<figure id="org28a6d1f">
+<figure id="orga0f4482">
 <img style="aspect-ratio:733/303" decoding="async" loading="lazy" src="./images/image-20210120154454189.webp" alt="image-20210120154454189.webp" width="50%">
 
 </figure>
 
 
-<figure id="orga423fa0">
+<figure id="org5a8b501">
 <img style="aspect-ratio:1050/769" decoding="async" loading="lazy" src="./images/image-20210120154716488.webp" alt="image-20210120154716488.webp" width="50%">
 
 </figure>
@@ -1294,7 +1320,7 @@ Man-in-the-middle，简称为 MITM，中间人
 </ul>
 
 
-<figure id="orgfce0740">
+<figure id="org90a0508">
 <img style="aspect-ratio:588/606" decoding="async" loading="lazy" src="./images/image-20210304073450321.webp" alt="image-20210304073450321.webp" width="50%">
 
 </figure>
@@ -1427,13 +1453,13 @@ SSL：Secure Socket Layer，TLS: Transport Layer Security
 <h5 id="h:e4eec987-40c8-4eea-92b7-b8912a551498"><a href="#h:e4eec987-40c8-4eea-92b7-b8912a551498">SSL/TLS组成</a></h5>
 <div class="outline-text-5" id="text-h:e4eec987-40c8-4eea-92b7-b8912a551498">
 
-<figure id="orgdb5baad">
+<figure id="org3b1461a">
 <img style="aspect-ratio:2243/1218" decoding="async" loading="lazy" src="./images/ssl.webp" alt="ssl.webp" width="50%">
 
 </figure>
 
 
-<figure id="orge9b75da">
+<figure id="orgff982dd">
 <img style="aspect-ratio:1043/553" decoding="async" loading="lazy" src="./images/image-20210120154851499.webp" alt="image-20210120154851499.webp" width="50%">
 
 </figure>
@@ -1486,7 +1512,7 @@ RSA 密钥交换、RSA 数字签名
 </p>
 
 
-<figure id="org551c832">
+<figure id="orgeaf2fe7">
 <img style="aspect-ratio:1002/608" decoding="async" loading="lazy" src="./images/image-20210120154924933.webp" alt="image-20210120154924933.webp" width="50%">
 
 </figure>
@@ -1538,7 +1564,7 @@ Server的证书是否被吊销。只有Server的证书可用了，才保证了�
 </p>
 
 
-<figure id="org57a2334">
+<figure id="org61723ae">
 <img style="aspect-ratio:1063/629" decoding="async" loading="lazy" src="./images/image-20210120155014829.webp" alt="image-20210120155014829.webp" width="50%">
 
 </figure>
@@ -1566,7 +1592,7 @@ Server的证书是否被吊销。只有Server的证书可用了，才保证了�
 </p>
 
 
-<figure id="org14c7b1f">
+<figure id="org49797e4">
 <img style="aspect-ratio:1069/520" decoding="async" loading="lazy" src="./images/image-20210120155041380.webp" alt="image-20210120155041380.webp" width="50%">
 
 </figure>
@@ -1586,7 +1612,7 @@ HTTPS 协议：就是“HTTP 协议”和“SSL/TLS 协议”的组合。HTTP ov
 <h5 id="h:2d83ae51-97be-4e21-bc10-f5571bb44b4d"><a href="#h:2d83ae51-97be-4e21-bc10-f5571bb44b4d">HTTPS 结构</a></h5>
 <div class="outline-text-5" id="text-h:2d83ae51-97be-4e21-bc10-f5571bb44b4d">
 
-<figure id="org3d13dd0">
+<figure id="org09cc9ce">
 <img style="aspect-ratio:862/497" decoding="async" loading="lazy" src="./images/image-20210120155104049.webp" alt="image-20210120155104049.webp" width="50%">
 
 </figure>
@@ -1596,7 +1622,7 @@ HTTPS 协议：就是“HTTP 协议”和“SSL/TLS 协议”的组合。HTTP ov
 <h5 id="h:69652a05-d081-4988-8f97-1a43529185d6"><a href="#h:69652a05-d081-4988-8f97-1a43529185d6">HTTPS 工作的简化过程</a></h5>
 <div class="outline-text-5" id="text-h:69652a05-d081-4988-8f97-1a43529185d6">
 
-<figure id="orgf812f43">
+<figure id="orge5c3fe2">
 <img style="aspect-ratio:818/671" decoding="async" loading="lazy" src="./images/image-20210120155123597.webp" alt="image-20210120155123597.webp" width="50%">
 
 </figure>
@@ -2765,10 +2791,61 @@ gpgconf --kill gpg-agent    <span class="org-comment-delimiter"># </span><span c
 桌面环境装 <code>pinentry-gnome3</code> ，纯 SSH 环境装 <code>pinentry-curses</code> 或 <code>pinentry-tty</code> (<code>apt install pinentry-curses</code>)。
 </p>
 
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">macOS
+</span>brew install pinentry-mac <span class="org-comment-delimiter">#</span><span class="org-comment">&#35013;&#19978; GUI &#29256;&#23494;&#30721;&#36755;&#20837;&#26694;
+</span>cat &lt;&lt;EOF&gt;  ~/.gnupg/gpg-agent.conf<span class="org-sh-heredoc">
+# &#27599;&#27425;&#20351;&#29992;&#21518;&#37325;&#26032;&#35745;&#26102;&#65292;1 &#23567;&#26102;&#20869;&#20813;&#36755;
+default-cache-ttl 3600
+# &#26368;&#38271; 8 &#23567;&#26102;&#65292;&#26080;&#35770;&#26399;&#38388;&#29992;&#36807;&#22810;&#23569;&#27425;&#37117;&#24378;&#21046;&#36807;&#26399;
+max-cache-ttl 28800
+# mac &#29615;&#22659;&#29992;&#36825;&#20010;
+pinentry-program /opt/homebrew/bin/pinentry-mac
+EOF
+</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#25913;&#23436;&#37325;&#36733;&#21363;&#21487;&#29983;&#25928;
+</span>gpgconf --reload gpg-agent
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#25110;&#24443;&#24213;&#37325;&#21551;
+</span>gpgconf --kill gpg-agent
+</pre>
+</div>
+</div>
+<div id="outline-container-h:0DB15F47-2DAA-4A63-87D9-B421C3C1EE5B" class="outline-4">
+<h4 id="h:0DB15F47-2DAA-4A63-87D9-B421C3C1EE5B"><a href="#h:0DB15F47-2DAA-4A63-87D9-B421C3C1EE5B">pinentry 怎么选</a></h4>
+<div class="outline-text-4" id="text-h:0DB15F47-2DAA-4A63-87D9-B421C3C1EE5B">
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">macOS &#26700;&#38754;
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">/opt/homebrew/bin/pinentry-mac
+</span>brew install pinentry-mac
 
+<span class="org-comment-delimiter"># </span><span class="org-comment">Linux &#26700;&#38754;
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">/usr/bin/pinentry-gnome3
+</span>apt install pinentry-gnome3
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#32431; SSH / &#26080;&#22270;&#24418;
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">/opt/homebrew/bin/pinentry-curses
+</span>brew install pinentry
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-h:A7DDE68D-55CF-466D-8235-E48F83DA9448" class="outline-4">
+<h4 id="h:A7DDE68D-55CF-466D-8235-E48F83DA9448"><a href="#h:A7DDE68D-55CF-466D-8235-E48F83DA9448">SSH 密钥是另一套 ttl</a></h4>
+<div class="outline-text-4" id="text-h:A7DDE68D-55CF-466D-8235-E48F83DA9448">
 <p>
-查看哪些密钥的口令被缓存了
+上面两项只管 OpenPGP 口令。若 gpg-agent 同时当 ssh-agent 用（ <code>~/.gnupg/sshcontrol</code> 有内容），SSH 密钥走独立的参数，默认 1800 / 7200 秒，不受上面影响：
 </p>
+
+<div class="org-src-container">
+<pre class="src src-shell">default-cache-ttl-ssh 3600
+max-cache-ttl-ssh 28800
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-h:895816E2-23A8-411E-A3B4-9345EE1BCC12" class="outline-4">
+<h4 id="h:895816E2-23A8-411E-A3B4-9345EE1BCC12"><a href="#h:895816E2-23A8-411E-A3B4-9345EE1BCC12">查看与清理缓存</a></h4>
+<div class="outline-text-4" id="text-h:895816E2-23A8-411E-A3B4-9345EE1BCC12">
 <div class="org-src-container">
 <pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#26597;&#30475;&#32531;&#23384;&#29366;&#24577;
 </span>gpg-connect-agent <span class="org-string">'keyinfo --list'</span> /bye
@@ -2781,12 +2858,46 @@ S KEYINFO EAE252BB3FF823401983BC248701953F99C86A49 D - - 1 P - - -
 </span><span class="org-comment-delimiter">#</span><span class="org-comment">- D &#34920;&#31034;&#23494;&#38053;&#23384;&#22312;&#30913;&#30424;&#19978;&#65288;T &#21017;&#26159;&#26234;&#33021;&#21345;/YubiKey&#65289;&#65292;P &#34920;&#31034;&#31169;&#38053;&#25991;&#20214;&#21463;&#21475;&#20196;&#20445;&#25252;
 </span>
 
-<span class="org-comment-delimiter"># </span><span class="org-comment">&#26597;&#30475; keygrip &#23545;&#24212;&#22238;&#20855;&#20307;&#23494;&#38053;
-</span>gpg --list-secret-keys --with-keygrip
+
 
 <span class="org-comment-delimiter"># </span><span class="org-comment">&#31435;&#21363;&#28165;&#25481;&#32531;&#23384;
 </span>gpg-connect-agent reloadagent /bye
+gpgconf --reload gpg-agent
 </pre>
+</div>
+
+<p>
+查看与清理：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">gpg-connect-agent <span class="org-string">'keyinfo --list'</span> /bye
+S KEYINFO DF406230653656D8AF81333538441B9ADEE6A015 D - - - P - - -
+S KEYINFO EAE252BB3FF823401983BC248701953F99C86A49 D - - 1 P - - -
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#23383;&#27573;&#20381;&#27425;&#26159;&#65306;keygrip  &#31867;&#22411;  &#21345;&#24207;&#21015;&#21495;  idstr  &#24050;&#32531;&#23384;  &#20445;&#25252;&#26041;&#24335;  ssh&#25351;&#32441;  ttl  flags
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">- &#31532; 5 &#21015;&#26159;&#20851;&#38190;&#65306;1 &#20026;&#21475;&#20196;&#24050;&#32531;&#23384;&#22312; agent &#37324;&#65292;- &#20026;&#26410;&#32531;&#23384;
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">- D &#34920;&#31034;&#23494;&#38053;&#23384;&#22312;&#30913;&#30424;&#19978;&#65288;T &#21017;&#26159;&#26234;&#33021;&#21345;/YubiKey&#65289;&#65292;P &#34920;&#31034;&#31169;&#38053;&#25991;&#20214;&#21463;&#21475;&#20196;&#20445;&#25252;
+</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#24403;&#21069;&#32531;&#23384;&#29366;&#24577;&#65292;&#31532; 7 &#21015; 1=&#24050;&#32531;&#23384; -=&#26410;&#32531;&#23384;
+</span>gpg-connect-agent <span class="org-string">'KEYINFO --list'</span> /bye | awk <span class="org-string">'$3!=""{print $3, $7}'</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#26597;&#30475; keygrip &#23545;&#24212;&#22238;&#20855;&#20307;&#23494;&#38053;
+</span>gpg --list-secret-keys --with-keygrip
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#28165;&#29702;
+</span>gpgconf --reload gpg-agent
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#22914;&#26159;  MacOS
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">pinentry-mac &#30340;&#24377;&#26694;&#26377;&#12300;&#23384;&#20837;&#38053;&#21273;&#20018;&#12301;&#22797;&#36873;&#26694;&#65292;&#21246;&#19978;&#21363;&#25226;&#21475;&#20196;&#27704;&#20037;&#20889;&#20837;&#30331;&#24405;&#38053;&#21273;&#20018;
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">CMD-&#31354;&#26684;&#65306;&#12300;&#38053;&#21273;&#20018;&#35775;&#38382;&#12301;--&gt;&#36873; &#12300;&#25171;&#24320;&#38053;&#21273;&#20018;&#35775;&#38382;&#12301; --&gt; &#25628;&#32034;&#26694;&#36755; GnuPG
+</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#26597;&#30475;&#38053;&#21273;&#20018;&#37324;&#30340; GnuPG &#26465;&#30446;
+</span>security find-generic-password -s GnuPG 2&gt;&amp;1 | grep -E <span class="org-string">'acct|cdat'</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#28165;&#29702;
+</span>security delete-generic-password -s GnuPG -a &lt;keygrip&gt;
+</pre>
+</div>
 </div>
 </div>
 </div>
@@ -2968,7 +3079,7 @@ Base64 是网络上最常见的用于传输 8Bit 字节码的编码方式之一�
 </div>
 
 
-<figure id="orgbe07e2c">
+<figure id="orgbfb0963">
 <img style="aspect-ratio:849/520" decoding="async" loading="lazy" src="./images/image-20210120185004074.webp" alt="image-20210120185004074.webp" width="50%">
 
 </figure>
@@ -2996,7 +3107,7 @@ Base64 是网络上最常见的用于传输 8Bit 字节码的编码方式之一�
 </p>
 
 
-<figure id="org6b8063b">
+<figure id="org5f4d488">
 <img style="aspect-ratio:606/108" decoding="async" loading="lazy" src="./images/image-20210120185027750.webp" alt="image-20210120185027750.webp" width="50%">
 
 </figure>
@@ -3152,7 +3263,7 @@ gpg -d a.c.gpg
 aes-128-cbc
 </p>
 
-<pre class="example" id="orgca4d4d1">
+<pre class="example" id="orgc9e050c">
 [root@test ~]# echo testsda | openssl aes-128-cbc -k 3flreaem37123456 -base64
 U2FsdGVkX19PWoSmneIPSEsa42aYcs/tiFiWmmjI4tU=
 
@@ -8692,7 +8803,7 @@ client.crt: OK
 </p>
 </div>
 <div id="outline-container-h:751DEDBD-FCD7-49C9-81D8-1DA92BD2F99B" class="outline-5">
-<h5 id="h:751DEDBD-FCD7-49C9-81D8-1DA92BD2F99B"><a href="#h:751DEDBD-FCD7-49C9-81D8-1DA92BD2F99B">关键：=-Verify= 单独用会给出假阳性</a></h5>
+<h5 id="h:751DEDBD-FCD7-49C9-81D8-1DA92BD2F99B"><a href="#h:751DEDBD-FCD7-49C9-81D8-1DA92BD2F99B">关键： <code>-Verify</code> 单独用会给出假阳性</a></h5>
 <div class="outline-text-5" id="text-h:751DEDBD-FCD7-49C9-81D8-1DA92BD2F99B">
 <p>
 这一条务必先看，否则你的测试结果是假的：
@@ -10205,6 +10316,135 @@ OpenSSL 自带了性能评测工具，你可以使用它对系统的能力和上
 </div>
 </div>
 </div>
+<div id="outline-container-h:4B9D84FF-30B7-4B15-A5B0-987DE1ABAF86" class="outline-3">
+<h3 id="h:4B9D84FF-30B7-4B15-A5B0-987DE1ABAF86"><a href="#h:4B9D84FF-30B7-4B15-A5B0-987DE1ABAF86">查看</a></h3>
+<div class="outline-text-3" id="text-h:4B9D84FF-30B7-4B15-A5B0-987DE1ABAF86">
+</div>
+<div id="outline-container-h:94EC5B95-A49B-4BCF-8DC4-548A65260DCC" class="outline-4">
+<h4 id="h:94EC5B95-A49B-4BCF-8DC4-548A65260DCC"><a href="#h:94EC5B95-A49B-4BCF-8DC4-548A65260DCC">查看 TLS 版本</a></h4>
+<div class="outline-text-4" id="text-h:94EC5B95-A49B-4BCF-8DC4-548A65260DCC">
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-variable-name">DOMAIN</span>=www.jasper.org
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">1. openssl&#65288;&#26368;&#30452;&#25509;&#65292;&#25512;&#33616;&#65289;
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">&#30475;&#40664;&#35748;&#21327;&#21830;&#21040;&#21738;&#20010;&#29256;&#26412;
+</span><span class="org-builtin">echo</span> | openssl s_client -connect <span class="org-string">"$DOMAIN"</span>:443 -servername <span class="org-string">"$DOMAIN"</span> 2&gt;&amp;1 | grep -E <span class="org-string">"^New,|^Protocol"</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#24378;&#21046;&#26576;&#20010;&#29256;&#26412;&#65292;&#30475;&#26381;&#21153;&#31471;&#25910;&#19981;&#25910;
+</span><span class="org-builtin">echo</span> | openssl s_client -connect <span class="org-string">"$DOMAIN"</span>:443 -servername <span class="org-string">"$DOMAIN"</span> -tls1_2
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#25104;&#21151; &#8594;  New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">&#22833;&#36133; &#8594;  New, (NONE), Cipher is (NONE)        &#8592; &#22806;&#21152; alert protocol version
+</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">2. curl&#65288;&#26368;&#24555;&#65289;
+</span>curl -sv https://<span class="org-string">"$DOMAIN"</span>/ 2&gt;&amp;1 | grep -i <span class="org-string">"SSL connection using"</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#8594; SSL connection using TLSv1.3 / TLS_AES_256_GCM_SHA384
+</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#39564;&#35777; 1.2 &#30830;&#23454;&#34987;&#25298;
+</span>curl -sv --tls-max 1.2 https://<span class="org-string">"$DOMAIN"</span>/ 2&gt;&amp;1 | tail -3
+
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">3. &#27983;&#35272;&#22120;
+</span><span class="org-comment-delimiter">#</span><span class="org-comment">Chrome F12 &#8594; Security &#38754;&#26495;&#65292;&#20250;&#20889; Connection &#8212; secure (TLS 1.3, X25519, AES_256_GCM)&#12290;
+</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">4. SSL Labs&#65288;&#26368;&#20840;&#65292;&#32780;&#19988;&#23545;&#20320;&#20204;&#26368;&#26377;&#29992;&#65289;
+</span>https://www.ssllabs.com/ssltest/analyze.html?<span class="org-variable-name">d</span>=www.vbipay.com
+
+&#38500;&#20102;&#35780;&#32423;&#65292;&#37325;&#28857;&#30475; Handshake Simulation &#37027;&#19968;&#27573; &#8212;&#8212; &#23427;&#20250;&#21015;&#20986;&#20960;&#21313;&#31181;&#30495;&#23454;&#23458;&#25143;&#31471;&#65288;&#21508;&#29256;&#26412; Android/iOS/Java/OpenSSL/&#27983;&#35272;&#22120;&#65289;&#33021;&#19981;&#33021;&#36830;&#19978;&#65292;&#30452;&#25509;&#21578;&#35785;&#20320;&#36825;&#27425;&#25913;&#21160;&#26029;&#20102;&#35841;&#12290;
+
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">5. &#30830;&#35748; Cloudflare &#20391;&#30340;&#37197;&#32622;&#20540;
+</span>
+curl -s <span class="org-string">"https://api.cloudflare.com/client/v4/zones/&lt;ZONE_ID&gt;/settings/min_tls_version"</span> <span class="org-sh-escaped-newline">\</span>
+  -H <span class="org-string">"Authorization: Bearer &lt;TOKEN&gt;"</span> | jq .result.value
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#21435; Cloudflare Analytics &#8594; Traffic &#30475;&#26368;&#36817; 30 &#22825;&#30340; TLS &#29256;&#26412;&#20998;&#24067;&#12290;</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-h:FD18E3D5-8461-4BCC-9277-BA7B4A6D3F86" class="outline-4">
+<h4 id="h:FD18E3D5-8461-4BCC-9277-BA7B4A6D3F86"><a href="#h:FD18E3D5-8461-4BCC-9277-BA7B4A6D3F86">Cloudflare 根证书验证</a></h4>
+<div class="outline-text-4" id="text-h:FD18E3D5-8461-4BCC-9277-BA7B4A6D3F86">
+<p>
+Origin CA 证书是按签发时指定的 hostname 列表生成的，漏掉的域名在 strict 模式下会直接 526 Invalid SSL certificate。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-variable-name">DOMAIN</span>=www.jasper.org
+<span class="org-variable-name">NLB</span>=xx.x.com
+<span class="org-variable-name">IP</span>=$(dig +short $<span class="org-variable-name">NLB</span> | head -1)
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">1) &#30475; SAN &#35206;&#30422;&#21738;&#20123;&#22495;&#21517; + &#26377;&#25928;&#26399;
+</span><span class="org-builtin">echo</span> | openssl s_client -connect $<span class="org-variable-name">IP</span>:443 -servername <span class="org-string">"$DOMAIN"</span> 2&gt;/dev/null <span class="org-sh-escaped-newline">\</span>
+  | openssl x509 -noout -dates -ext subjectAltName
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">2) &#29992; Cloudflare Origin CA &#26681;&#35777;&#20070;&#39564;&#65292;&#24212;&#35813;&#36820;&#22238; 0
+</span>curl -sO https://developers.cloudflare.com/ssl/static/origin_ca_rsa_root.pem
+<span class="org-builtin">echo</span> | openssl s_client -connect $<span class="org-variable-name">IP</span>:443 -servername <span class="org-string">"$DOMAIN"</span> <span class="org-sh-escaped-newline">\</span>
+  -CAfile origin_ca_rsa_root.pem 2&gt;&amp;1 | grep <span class="org-string">"Verify return code"</span>
+<span class="org-comment-delimiter">#   </span><span class="org-comment">&#26399;&#26395;&#36755;&#20986;&#65306;Verify return code: 0 (ok)
+</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">3) &#36880;&#20010;&#22495;&#21517;&#30830;&#35748;&#37117;&#33021;&#25569;&#25163;&#65288;strict &#19979;&#20219;&#20309;&#19968;&#20010;&#19981;&#21305;&#37197;&#37117;&#20250; 526&#65289;
+</span><span class="org-variable-name">DOMAINS</span>=<span class="org-string">"www.jasper.org
+app.jasper.org
+"</span>
+<span class="org-keyword">for</span> H<span class="org-keyword"> in</span> $<span class="org-variable-name">DOMAINS</span> ; <span class="org-keyword">do</span>
+  <span class="org-variable-name">R</span>=$(<span class="org-builtin">echo</span> | openssl s_client -connect $<span class="org-variable-name">IP</span>:443 -servername $<span class="org-variable-name">H</span> <span class="org-sh-escaped-newline">\</span>
+        -verify_hostname $<span class="org-variable-name">H</span> -CAfile origin_ca_rsa_root.pem 2&gt;&amp;1 <span class="org-sh-escaped-newline">\</span>
+        | grep -oE <span class="org-string">"Verify return code: [0-9]+"</span> | head -1)
+  <span class="org-builtin">echo</span> <span class="org-string">"  $H  &#8594;  $R"</span>
+<span class="org-keyword">done</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-h:4DE4BDB0-6277-48FF-B790-8DC87963C725" class="outline-4">
+<h4 id="h:4DE4BDB0-6277-48FF-B790-8DC87963C725"><a href="#h:4DE4BDB0-6277-48FF-B790-8DC87963C725">端口测试</a></h4>
+<div class="outline-text-4" id="text-h:4DE4BDB0-6277-48FF-B790-8DC87963C725">
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#30452;&#25509;80 443 &#31471;&#21475;&#29366;&#24577;
+</span><span class="org-variable-name">DOMAIN</span>=www.jasper.org
+<span class="org-variable-name">NLB</span>=xx.x.com
+<span class="org-comment-delimiter">#</span><span class="org-comment">IP=$(dig +short $NLB | head -1)
+</span>
+<span class="org-keyword">for</span> IP<span class="org-keyword"> in</span> $(dig +short $<span class="org-variable-name">NLB</span>); <span class="org-keyword">do</span>
+  printf <span class="org-string">'%-16s 80=%-4s 443=%-4s\n'</span> $<span class="org-variable-name">IP</span> <span class="org-sh-escaped-newline">\</span>
+    <span class="org-string">"$(curl -s  --max-time 8 --resolve "$DOMAIN":80:$IP  http://"$DOMAIN"/ -o /dev/null -w '%{http_code}')"</span> <span class="org-sh-escaped-newline">\</span>
+    <span class="org-string">"$(curl -sk --max-time 8 --resolve "$DOMAIN":443:$IP https://"$DOMAIN"/ -o /dev/null -w '%{http_code}')"</span>
+<span class="org-keyword">done</span>
+
+
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#39564;&#35777;&#38450;&#25252;
+</span><span class="org-variable-name">DOMAIN</span>=www.jasper.org
+<span class="org-variable-name">NLB</span>=xx.x.com
+<span class="org-variable-name">IP</span>=$(dig +short $<span class="org-variable-name">NLB</span> | head -1)
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#24102;&#25915;&#20987;&#22836;
+</span>curl -s --resolve <span class="org-string">"$DOMAIN"</span>:443:$<span class="org-variable-name">IP</span> <span class="org-sh-escaped-newline">\</span>
+  -H <span class="org-string">'X-Forwarded-Prefix: /v-pay-wallet-socket/actuator/env'</span> <span class="org-sh-escaped-newline">\</span>
+  <span class="org-string">"https://$DOMAIN/api"</span> -o /dev/null -w <span class="org-string">'xfp&#27880;&#20837;  %{http_code}\n'</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#36335;&#24452;&#37324;&#30452;&#25509;&#24102; actuator
+</span>curl -s --resolve <span class="org-string">"$DOMAIN"</span>:443:$<span class="org-variable-name">IP</span> <span class="org-sh-escaped-newline">\</span>
+  <span class="org-string">"https://$DOMAIN/api/actuator/env"</span> -o /dev/null -w <span class="org-string">'uri&#21629;&#20013;  %{http_code}\n'</span>
+
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">--path-as-is &#19981;&#33021;&#30465;&#65292;&#21542;&#21017; curl &#22312;&#26412;&#22320;&#23601;&#25226; ../ &#21507;&#25481;&#20102;&#65292;&#27979;&#19981;&#21040;&#30495;&#23454;&#34892;&#20026;
+</span><span class="org-keyword">for</span> P<span class="org-keyword"> in</span> <span class="org-string">'/api/basic/..%252fchain/v2/zz9608t'</span> <span class="org-sh-escaped-newline">\</span>
+         <span class="org-string">'/api/basic/..%2fchain/v2/x'</span> <span class="org-sh-escaped-newline">\</span>
+         <span class="org-string">'/api/../../etc/passwd'</span> <span class="org-sh-escaped-newline">\</span>
+         <span class="org-string">'/api/%2e%2e/admin'</span> <span class="org-sh-escaped-newline">\</span>
+         <span class="org-string">'/api/search?q=50%25off'</span> <span class="org-sh-escaped-newline">\</span>
+         <span class="org-string">'/api/files/a%2fb/meta'</span> ; <span class="org-keyword">do</span>
+  printf <span class="org-string">'%-40s %s\n'</span> <span class="org-string">"$P"</span> <span class="org-sh-escaped-newline">\</span>
+    <span class="org-string">"$(curl -s --path-as-is --max-time 8 --resolve $DOMAIN:80:$IP "http://${DOMAIN}$P" -o /dev/null -w '%{http_code}')"</span>
+<span class="org-keyword">done</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
 <div id="outline-container-h:7346fd8c-09cd-4225-99e1-2795136fe203" class="outline-3">
 <h3 id="h:7346fd8c-09cd-4225-99e1-2795136fe203"><a href="#h:7346fd8c-09cd-4225-99e1-2795136fe203">证书转换</a></h3>
 <div class="outline-text-3" id="text-h:7346fd8c-09cd-4225-99e1-2795136fe203">
@@ -10291,7 +10531,7 @@ MIIE5zCCA8+gAwIBAgIQN+whYc2BgzAogau0dc3PtzANBgkqh......
 </p>
 
 
-<figure id="orgc0a22a4">
+<figure id="org00df24e">
 <img style="aspect-ratio:765/344" decoding="async" loading="lazy" src="./images/image-20210326143152617.webp" alt="image-20210326143152617.webp" width="50%">
 
 </figure>
@@ -10484,14 +10724,14 @@ Provider包
 <a href="http://repo2.maven.org/maven2/org/bouncycastle/bcprov-jdk16/1.46/bcprov-jdk16-1.46.jar">http://repo2.maven.org/maven2/org/bouncycastle/bcprov-jdk16/1.46/bcprov-jdk16-1.46.jar</a>
 </p>
 
-<pre class="example" id="orgb22b9c7">
+<pre class="example" id="org451d014">
 keytool -importcert -v -trustcacerts -alias 位置1 -file 位置2 -keystore 位置3 -storetype BKS -providerclass org.bouncycastle.jce.provider.BouncyCastleProvider -providerpath 位置4 -storepass 位置5
 </pre>
 
 <p>
 说明：
 </p>
-<pre class="example" id="org8bf948a">
+<pre class="example" id="orge32cd34">
 位置1:是个随便取的别名
 位置2:cer或crt证书的全地址
 位置3:生成后bks文件的位置,建议写全地址
@@ -10606,7 +10846,7 @@ Verifying - Enter Export Password: p12password
 </p>
 
 
-<figure id="orgbff2005">
+<figure id="orgfe4c326">
 <img style="aspect-ratio:583/252" decoding="async" loading="lazy" src="./images/image-20210326162811853.webp" alt="image-20210326162811853.webp" width="60%">
 
 </figure>
@@ -10616,7 +10856,7 @@ Verifying - Enter Export Password: p12password
 </p>
 
 
-<figure id="org2294329">
+<figure id="orge5ddec7">
 <img style="aspect-ratio:1235/496" decoding="async" loading="lazy" src="./images/image-20210326163459822.webp" alt="image-20210326163459822.webp" width="60%">
 
 </figure>
@@ -10630,7 +10870,7 @@ Verifying - Enter Export Password: p12password
 </p>
 
 
-<figure id="org4488e6b">
+<figure id="org3f1bcb1">
 <img style="aspect-ratio:1243/495" decoding="async" loading="lazy" src="./images/image-20210326163518446.webp" alt="image-20210326163518446.webp" width="60%">
 
 </figure>
@@ -10640,7 +10880,7 @@ Verifying - Enter Export Password: p12password
 </p>
 
 
-<figure id="org955d743">
+<figure id="org50b6a38">
 <img style="aspect-ratio:1234/492" decoding="async" loading="lazy" src="./images/image-20210326163540182.webp" alt="image-20210326163540182.webp" width="60%">
 
 </figure>
@@ -10650,7 +10890,7 @@ Verifying - Enter Export Password: p12password
 </p>
 
 
-<figure id="orgbfcb17f">
+<figure id="org63967fe">
 <img style="aspect-ratio:1234/496" decoding="async" loading="lazy" src="./images/image-20210326163554631.webp" alt="image-20210326163554631.webp" width="60%">
 
 </figure>
@@ -10664,7 +10904,7 @@ Verifying - Enter Export Password: p12password
 </p>
 
 
-<figure id="orgdadb1a7">
+<figure id="org89921fa">
 <img style="aspect-ratio:1239/656" decoding="async" loading="lazy" src="./images/image-20210326163612640.webp" alt="image-20210326163612640.webp" width="60%">
 
 </figure>
@@ -10790,7 +11030,7 @@ InputStream <span class="org-variable-name">in</span> = getResources().openRawRe
 简单解释下这条命令涉及的几个参数：
 </p>
 
-<pre class="example" id="org762d51c">
+<pre class="example" id="org59f5ae8">
 --issue是 acme.sh 脚本用来颁发证书的指令；
 -d是--domain的简称，其后面须填写已备案的域名；
 -w是--webroot的简称，其后面须填写网站的根目录。
@@ -11089,13 +11329,13 @@ SSH协议版本
 </ul>
 
 
-<figure id="orgbe069f9">
+<figure id="org8733f2c">
 <img style="aspect-ratio:896/418" decoding="async" loading="lazy" src="./images/image-20210120191513811.webp" alt="image-20210120191513811.webp" width="50%">
 
 </figure>
 
 
-<figure id="org7942c49">
+<figure id="orgca641a0">
 <img style="aspect-ratio:1051/638" decoding="async" loading="lazy" src="./images/image-20210120191532193.webp" alt="image-20210120191532193.webp" width="50%">
 
 </figure>
@@ -11104,7 +11344,7 @@ SSH协议版本
 主机公钥和私钥位置/etc/ssh/
 </p>
 
-<pre class="example" id="org5748c01">
+<pre class="example" id="org916dd44">
 # 主机公钥和私钥位置/etc/ssh/
 [root@pre-prod ~]# ll /etc/ssh/
 -rw-r--r--  1 root root       2284 Dec 21 15:32 ssh_config
@@ -11342,7 +11582,7 @@ Sha256 Hash检索网站：<a href="https://search.censys.io/data">https://search
 搜索语法：
 </p>
 
-<pre class="example" id="org1c6101d">
+<pre class="example" id="orgfaef9d7">
 services.ssh.server_host_key.fingerprint_sha256=3344ebb77ea0faece5b3bae2d7fb5424150bd61e02ae051160017ad44bd3767d
 </pre>
 </div>
@@ -11352,7 +11592,7 @@ services.ssh.server_host_key.fingerprint_sha256=3344ebb77ea0faece5b3bae2d7fb5424
 <h4 id="h:0511cf72-d86c-46ff-8ffa-01844e986fde"><a href="#h:0511cf72-d86c-46ff-8ffa-01844e986fde">ssh加密通讯原理</a></h4>
 <div class="outline-text-4" id="text-h:0511cf72-d86c-46ff-8ffa-01844e986fde">
 
-<figure id="org60747ec">
+<figure id="orgb8729b4">
 <img style="aspect-ratio:1138/327" decoding="async" loading="lazy" src="./images/image-20210120191544765.webp" alt="image-20210120191544765.webp" width="50%">
 
 </figure>
@@ -11499,7 +11739,7 @@ EOF</span>
 <b>格式：</b>
 </p>
 
-<pre class="example" id="org83a8e02">
+<pre class="example" id="org7c87a41">
 ssh [user@]host [COMMAND]
 ssh [-l user] host [COMMAND]
 </pre>
@@ -11508,7 +11748,7 @@ ssh [-l user] host [COMMAND]
 常见选项
 </p>
 
-<pre class="example" id="org736fdb4">
+<pre class="example" id="org172c4c6">
 -p port：远程服务器监听的端口
 -b 指定连接的源IP
 -v 调试模式，"-vvv"可更详细
@@ -11667,7 +11907,7 @@ ssh服务登录的验证方式
 </p>
 
 
-<figure id="org091f9d1">
+<figure id="org055fd75">
 <img style="aspect-ratio:772/581" decoding="async" loading="lazy" src="./images/image-20210120191707930.webp" alt="image-20210120191707930.webp" width="50%">
 
 </figure>
@@ -11683,7 +11923,7 @@ ssh服务登录的验证方式
 </p>
 
 
-<figure id="org6a56348">
+<figure id="orgf2ac60f">
 <img style="aspect-ratio:728/480" decoding="async" loading="lazy" src="./images/image-20210120191725505.webp" alt="image-20210120191725505.webp" width="50%">
 
 </figure>
@@ -11918,37 +12158,37 @@ Last login: Fri May 22 23:43:11 2020 from 10.0.0.8
 </p>
 
 
-<figure id="org70c1c62">
+<figure id="org5733cc9">
 <img style="aspect-ratio:512/247" decoding="async" loading="lazy" src="./images/image-20210120194553421.webp" alt="image-20210120194553421.webp" width="20%">
 
 </figure>
 
 
-<figure id="org7e4b2d0">
+<figure id="org0d845d9">
 <img style="aspect-ratio:633/479" decoding="async" loading="lazy" src="./images/image-20210120194615981.webp" alt="image-20210120194615981.webp" width="20%">
 
 </figure>
 
 
-<figure id="org83f5a13">
+<figure id="org6fe53b8">
 <img style="aspect-ratio:633/492" decoding="async" loading="lazy" src="./images/image-20210120194645851.webp" alt="image-20210120194645851.webp" width="20%">
 
 </figure>
 
 
-<figure id="orgb65de13">
+<figure id="orge7ce02e">
 <img style="aspect-ratio:646/500" decoding="async" loading="lazy" src="./images/image-20210120194720098.webp" alt="image-20210120194720098.webp" width="20%">
 
 </figure>
 
 
-<figure id="orge589b3e">
+<figure id="org16972be">
 <img style="aspect-ratio:637/489" decoding="async" loading="lazy" src="./images/image-20210120194731859.webp" alt="image-20210120194731859.webp" width="20%">
 
 </figure>
 
 
-<figure id="orgb6b2d21">
+<figure id="orgb2b81b3">
 <img style="aspect-ratio:633/379" decoding="async" loading="lazy" src="./images/image-20210120194747633.webp" alt="image-20210120194747633.webp" width="20%">
 
 </figure>
@@ -11973,19 +12213,19 @@ ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAIEAw4zT+e9iFU691e+oRs32VMZppWm9EKK11HqogMqIQ8sQ
 </p>
 
 
-<figure id="org39b9e37">
+<figure id="orgbb6856e">
 <img style="aspect-ratio:669/266" decoding="async" loading="lazy" src="./images/image-20210409153924877.webp" alt="image-20210409153924877.webp" width="20%">
 
 </figure>
 
 
-<figure id="orgf12045b">
+<figure id="orga5f5365">
 <img style="aspect-ratio:669/340" decoding="async" loading="lazy" src="./images/image-20210409153949139.webp" alt="image-20210409153949139.webp" width="20%">
 
 </figure>
 
 
-<figure id="orge843035">
+<figure id="orga5006c2">
 <img style="aspect-ratio:670/423" decoding="async" loading="lazy" src="./images/image-20210409154023483.webp" alt="image-20210409154023483.webp" width="20%">
 
 </figure>
@@ -12136,7 +12376,7 @@ chmod 644 id_rsa.pub
 选项：
 </p>
 
-<pre class="example" id="orgda46bdd">
+<pre class="example" id="org7c40aab">
 常用选项
 -C 压缩数据流
 -r 递归复制
@@ -12218,7 +12458,7 @@ sftp&gt; help
 常用选项：
 </p>
 
-<pre class="example" id="orge75e05c">
+<pre class="example" id="org1dd0620">
 -n 模拟复制过程
 -v 显示详细过程
 -r 递归复制目录树
@@ -12644,7 +12884,7 @@ SSH本地端口转发
 选项：
 </p>
 
-<pre class="example" id="org63e3f01">
+<pre class="example" id="org45fdd91">
 -L 表示本地转发 
 -f 后台启用
 -N 不打开远程shell，处于等待状态;即不执行远程命令（专门做端口转发）
@@ -12704,7 +12944,7 @@ telnet 127.0.0.1 9527
 </p>
 
 
-<figure id="org723f2e3">
+<figure id="org22bb45a">
 <img style="aspect-ratio:960/351" decoding="async" loading="lazy" src="./images/image-20210120194923288.webp" alt="image-20210120194923288.webp" width="50%">
 
 </figure>
@@ -12736,7 +12976,7 @@ VPN用来在外网与内网之间建立一条加密通道。内网的服务器�
 （ <code>~/.ssh/config</code> ）
 </p>
 
-<pre class="example" id="orgc732e10">
+<pre class="example" id="org9fa88d2">
 Host test.example.com
 LocalForward client-IP:client-port server-IP:server-port
 </pre>
@@ -12842,13 +13082,13 @@ ssh -f -N t-stg
 </p>
 
 
-<figure id="org9618047">
+<figure id="org9e176f6">
 <img style="aspect-ratio:1600/1132" decoding="async" loading="lazy" src="./images/image-20211122140940050.webp" alt="image-20211122140940050.webp" width="50%">
 
 </figure>
 
 
-<figure id="org8117ea6">
+<figure id="orgf023c73">
 <img style="aspect-ratio:1794/500" decoding="async" loading="lazy" src="./images/image-20211122141019274.webp" alt="image-20211122141019274.webp" width="50%">
 
 </figure>
@@ -12873,25 +13113,25 @@ beijing-to-singapore: ssh连接北京，本地隧道9101到新加坡ssh端口
 </p>
 
 
-<figure id="orge465254">
+<figure id="org0b952a2">
 <img style="aspect-ratio:634/207" decoding="async" loading="lazy" src="./images/image-20211217051955933.webp" alt="image-20211217051955933.webp" width="50%">
 
 </figure>
 
 
-<figure id="orga634cb4">
+<figure id="org1df43c6">
 <img style="aspect-ratio:570/471" decoding="async" loading="lazy" src="./images/image-20211217052022361.webp" alt="image-20211217052022361.webp" width="50%">
 
 </figure>
 
 
-<figure id="org4525687">
+<figure id="org65d2d0f">
 <img style="aspect-ratio:570/471" decoding="async" loading="lazy" src="./images/image-20211217052042961.webp" alt="image-20211217052042961.webp" width="50%">
 
 </figure>
 
 
-<figure id="org80ccad1">
+<figure id="org0eae4ae">
 <img style="aspect-ratio:572/498" decoding="async" loading="lazy" src="./images/image-20211217052104728.webp" alt="image-20211217052104728.webp" width="50%">
 
 </figure>
@@ -12905,7 +13145,7 @@ singapore-to-bombay: ssh连接本地9101，本地隧道9102到孟买ssh端口
 </p>
 
 
-<figure id="org1b2e97e">
+<figure id="orgd79ba4a">
 <img style="aspect-ratio:508/219" decoding="async" loading="lazy" src="./images/image-20211217052516313.webp" alt="image-20211217052516313.webp" width="50%">
 
 </figure>
@@ -12915,19 +13155,19 @@ singapore-to-bombay: ssh连接本地9101，本地隧道9102到孟买ssh端口
 </p>
 
 
-<figure id="orga784700">
+<figure id="org4031d54">
 <img style="aspect-ratio:570/471" decoding="async" loading="lazy" src="./images/image-20211217052918501.webp" alt="image-20211217052918501.webp" width="50%">
 
 </figure>
 
 
-<figure id="orgfcc8ec4">
+<figure id="orgfee86f7">
 <img style="aspect-ratio:572/498" decoding="async" loading="lazy" src="./images/image-20211217052906963.webp" alt="image-20211217052906963.webp" width="50%">
 
 </figure>
 
 
-<figure id="org216375e">
+<figure id="orgf7e5169">
 <img style="aspect-ratio:317/256" decoding="async" loading="lazy" src="./images/image-20211217052848391.webp" alt="image-20211217052848391.webp" width="50%">
 
 </figure>
@@ -13054,7 +13294,7 @@ ssh &#8211;R 9527:telnetsrv:23 &#8211;Nf sshsrv
 </p>
 
 
-<figure id="org144510b">
+<figure id="org701925c">
 <img style="aspect-ratio:944/441" decoding="async" loading="lazy" src="./images/image-20210120194948379.webp" alt="image-20210120194948379.webp" width="50%">
 
 </figure>
@@ -13123,7 +13363,7 @@ RemoteForward local-IP:local-port target-ip:target-port
 </div>
 
 
-<figure id="orgccfafe2">
+<figure id="orgdce6ea4">
 <img style="aspect-ratio:653/351" decoding="async" loading="lazy" src="./images/image-20210120195813397.webp" alt="image-20210120195813397.webp" width="50%">
 
 </figure>
@@ -13145,7 +13385,7 @@ ssh -D 1080 root@sshserver -fNg
 </p>
 
 
-<figure id="orga02367c">
+<figure id="org088d8b9">
 <img style="aspect-ratio:621/319" decoding="async" loading="lazy" src="./images/image-20210120195833477.webp" alt="image-20210120195833477.webp">
 
 </figure>
@@ -13156,7 +13396,7 @@ ssh -D 1080 root@sshserver -fNg
 </div>
 
 
-<figure id="orgf02c064">
+<figure id="orgf76e750">
 <img style="aspect-ratio:637/464" decoding="async" loading="lazy" src="./images/image-20210120195855252.webp" alt="image-20210120195855252.webp" width="50%">
 
 </figure>
@@ -13166,7 +13406,7 @@ ssh -D 1080 root@sshserver -fNg
 </p>
 
 
-<figure id="org7ff7204">
+<figure id="orgf56f3a9">
 <img style="aspect-ratio:620/331" decoding="async" loading="lazy" src="./images/image-20210120195908239.webp" alt="image-20210120195908239.webp" width="50%">
 
 </figure>
@@ -13663,7 +13903,7 @@ Match originalhost git.ustclug.org, user !git
 假设你有若干服务器，如lug.ustc.edu.cn, mirrors.ustc.edu.cn, pxe.ustc.edu.cn 等等，实验室有一些服务器，如server{1,2,3}.mylab.ustc.edu.cn，为了平时敲命令时可以少敲一些字符，那么可以这样配置：
 </p>
 
-<pre class="example" id="org92d80bb">
+<pre class="example" id="org07b0b7c">
 Host *.ustc.edu.cn !*.mylab.ustc.edu.cn
     User your-user-name
     IdentityFile your-key-1
@@ -13682,7 +13922,7 @@ Host *
 <p>
 这样，当执行 ssh mirrors 时：
 </p>
-<pre class="example" id="orgef02cc6">
+<pre class="example" id="org0d28c37">
 - 首先尝试匹配第一段 Host *.ustc.edu.cn !*.mylab.ustc.edu.cn ，失败
 - 接着尝试匹配第二段，失败
 - 然后匹配第三段 "Host *"，成功，应用其中的参数。ssh会尝试解析 mirrors.mylab.ustc.edu.cn，失败，再尝试解析 mirrors.ustc.edu.cn，成功，于是HostName被改写成mirrors.ustc.edu.cn
@@ -13696,7 +13936,7 @@ Host *
 如果在很多实验室都有服务器，比如 *.lab1.ustc.edu.cn, *.lab2.ustc.edu.cn
 </p>
 
-<pre class="example" id="orgec33e63">
+<pre class="example" id="org627b4b9">
 Host *.ustc.edu.cn !*.lab1.ustc.edu.cn !*.lab2.ustc.edu.cn
     ...
 Host *.lab1.ustc.edu.cn
@@ -13756,7 +13996,7 @@ Filesystem      1K-blocks   Used    Available   Use%    Mounted on
 格式：
 </p>
 
-<pre class="example" id="orgddefe78">
+<pre class="example" id="org565f092">
 sshpass [option] command parameters
 </pre>
 
@@ -13906,7 +14146,7 @@ rsh，Kerberos IV和ssh，项目：<a href="https://pdsh.googlecode.com/">https:
 pssh 命令选项如下：
 </p>
 
-<pre class="example" id="org719d631">
+<pre class="example" id="org5af66c7">
 -H：主机字符串，内容格式”[user@]host[:port]”
 -h file：主机列表文件，内容格式”[user@]host[:port]”
 -A：手动输入密码模式,（注意这个参数添加后只是提示作用，随便输入或者不输入直接回车都可以）
@@ -14138,6 +14378,7 @@ pslurp选项
 用 SSH 的 <code>ControlMaster</code> 多路复用：认证一次建立一条"主连接"，之后所有命令都从这条已认证的 TCP 连接上开子通道，完全不再走认证流程。
 </p>
 
+
 <div class="org-src-container">
 <pre class="src src-shell"><span class="org-comment-delimiter">#</span><span class="org-comment">&#24314;&#31435;&#20027;&#36830;&#25509;&#65306;
 </span><span class="org-builtin">export</span> <span class="org-variable-name">SSHPASS</span>=123456
@@ -14187,6 +14428,82 @@ EOF
 </span>/tmp/vmssh.sh <span class="org-string">'ls -l'</span>
 </pre>
 </div>
+
+<p>
+如果放 <code>~/.ssh/config</code> 中
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">cat &lt;&lt;\EOF&gt;&gt;  ~/.ssh/config<span class="org-sh-heredoc">
+Host vm
+  HostName 10.0.0.101
+  User root
+  # &#36830;&#25509;&#22797;&#29992;&#65306;&#31532;&#20108;&#20010;&#31383;&#21475;&#31186;&#24320;&#65292;&#19981;&#20877;&#37325;&#26032;&#25569;&#25163;
+  ControlMaster auto
+  ControlPath ~/.ssh/cm/%r@%h:%p.sock
+  ControlPersist 120m
+  # &#23494;&#30721;&#30331;&#24405;&#26102;&#24314;&#35758;&#24102;&#19978;&#65292;&#36991;&#20813; ssh &#20808;&#21435;&#35797;&#20844;&#38053;&#23548;&#33268; sshpass &#25235;&#19981;&#21040;&#25552;&#31034;&#31526;
+  PubkeyAuthentication no
+  PreferredAuthentications password
+  NumberOfPasswordPrompts 1
+  StrictHostKeyChecking no
+  ServerAliveInterval 15
+  ServerAliveCountMax 3
+EOF
+</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">ssh &#19981;&#20250;&#33258;&#21160;&#21019;&#24314; ControlPath &#30340;&#30446;&#24405;
+</span>mkdir ~/.ssh/cm/ ; chmod 700 ~/.ssh/cm/
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">1. &#24314;&#20027;&#36830;&#25509;&#65288;&#21482;&#26377;&#36825;&#19968;&#27425;&#38656;&#35201;&#23494;&#30721;&#65289;
+</span><span class="org-builtin">export</span> <span class="org-variable-name">SSHPASS</span>=123456
+sshpass -e ssh -f -N vm
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">2. &#20043;&#21518;&#27599;&#26465;&#21629;&#20196;&#65292;&#24178;&#20928;&#20102;
+</span>ssh vm <span class="org-string">'&lt;command&gt;'</span>
+scp file vm:/tmp/        <span class="org-comment-delimiter"># </span><span class="org-comment">scp/rsync/git &#20063;&#33258;&#21160;&#22797;&#29992;
+</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">3. &#20851;&#38381;
+</span>ssh -O exit vm
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#26597;&#29366;&#24577;&#65306;
+</span>ssh -O check vm&#12290;
+</pre>
+</div>
+</div>
+<div id="outline-container-h:B9ADE104-039D-4A58-B167-19B5EB73A96A" class="outline-4">
+<h4 id="h:B9ADE104-039D-4A58-B167-19B5EB73A96A"><a href="#h:B9ADE104-039D-4A58-B167-19B5EB73A96A">案例-代理优化</a></h4>
+<div class="outline-text-4" id="text-h:B9ADE104-039D-4A58-B167-19B5EB73A96A">
+<p>
+ssh 完全不读 http_proxy / all_proxy 这些环境变量。ssh 走代理必须用 ProxyCommand。
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">vim ~/.ssh/config
+
+Host js-bs
+     StrictHostKeyChecking no
+     HostName x.x.x.x
+     User ubuntu
+     Port 22
+     IdentityFile ~/Documents/jp_rsa
+     <span class="org-comment-delimiter"># </span><span class="org-comment">&#36208;&#26412;&#22320; 7877 &#20195;&#29702;&#65288;mihomo &#28151;&#21512;&#31471;&#21475;&#65292;SOCKS5&#65289;
+</span>     ProxyCommand /usr/bin/nc -X 5 -x 127.0.0.1:7877 %h %p
+     <span class="org-comment-delimiter"># </span><span class="org-comment">&#22914;&#26524;&#24819;&#36208; HTTP CONNECT&#65292;&#25913;&#25104;&#19979;&#38754;&#36825;&#34892;&#65306;
+</span>     <span class="org-comment-delimiter"># </span><span class="org-comment">ProxyCommand /usr/bin/nc -X connect -x 127.0.0.1:7877 %h %p
+</span>     <span class="org-comment-delimiter"># </span><span class="org-comment">&#25239;&#21345;&#39039;
+</span>     ServerAliveInterval 15
+     ServerAliveCountMax 3
+     Compression yes
+     IPQoS cs0 cs0
+     GSSAPIAuthentication no
+     <span class="org-comment-delimiter"># </span><span class="org-comment">&#36830;&#25509;&#22797;&#29992;&#65306;&#31532;&#20108;&#20010;&#31383;&#21475;&#31186;&#24320;&#65292;&#19981;&#20877;&#37325;&#26032;&#25569;&#25163;
+</span>     ControlMaster auto
+     ControlPath ~/.ssh/cm-%r@%h:%p
+     ControlPersist 10m
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">-X 5 = SOCKS5&#65292;-X connect = HTTP CONNECT&#12290;SOCKS5 &#23545;&#35064; TCP &#26356;&#21512;&#36866;&#12290;
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">ControlMaster &#36825;&#32452;&#26159;&#39069;&#22806;&#30340;&#22823;&#22836;&#65306;&#39318;&#27425;&#36830;&#19978;&#21518; 10 &#20998;&#38047;&#20869;&#20877;&#24320;&#31383;&#21475;/&#36305; scp&#12289;rsync &#37117;&#22797;&#29992;&#21516;&#19968;&#26465;&#38567;&#36947;&#65292;&#19981;&#29992;&#37325;&#26032;&#25569;&#25163;&#12290;</span>
+</pre>
+</div>
+</div>
 </div>
 </div>
 <div id="outline-container-h:786a44d7-2098-46cd-9d77-d27aada7a4bd" class="outline-3">
@@ -14208,7 +14525,7 @@ OpenSSH，尤其是嵌入式系统
 格式：
 </p>
 
-<pre class="example" id="org8903e46">
+<pre class="example" id="orgb1ad5f6">
 dbclient [options] [user@]host[/port][,[user@]host/port],...] [command]
 
 dropbearkey：主机密钥生成工具
@@ -14737,7 +15054,7 @@ API，通过提供一些动态链接库和一套统一的API，将系统提供�
 <h3 id="h:93f38dac-54bc-45da-a170-57c83886be27"><a href="#h:93f38dac-54bc-45da-a170-57c83886be27">PAM架构</a></h3>
 <div class="outline-text-3" id="text-h:93f38dac-54bc-45da-a170-57c83886be27">
 
-<figure id="orgadebf0b">
+<figure id="org3fd0652">
 <img style="aspect-ratio:646/342" decoding="async" loading="lazy" src="./images/image-20210120200416213.webp" alt="image-20210120200416213.webp" width="50%">
 
 </figure>
@@ -14842,7 +15159,7 @@ PAM认证首先要确定那一项服务，然后加载相应的PAM的配置文�
 </p>
 
 
-<figure id="org357f834">
+<figure id="org2afdacb">
 <img style="aspect-ratio:642/224" decoding="async" loading="lazy" src="./images/image-20210120200457594.webp" alt="image-20210120200457594.webp" width="50%">
 
 </figure>
@@ -14991,7 +15308,7 @@ auth [<span class="org-variable-name">user_unknown</span>=ignore <span class="or
 </div>
 
 
-<figure id="org59a75cd">
+<figure id="org29cf9fa">
 <img style="aspect-ratio:784/128" decoding="async" loading="lazy" src="./images/image-20210413153724276.webp" alt="image-20210413153724276.webp" width="50%">
 
 </figure>
@@ -15098,8 +15415,344 @@ sshd:account    required     pam_nologin.so
 <h4 id="h:f21d7f5a-9400-4ede-b15f-10f3311ca447"><a href="#h:f21d7f5a-9400-4ede-b15f-10f3311ca447"><code>pam_limits.so</code> 模块</a></h4>
 <div class="outline-text-4" id="text-h:f21d7f5a-9400-4ede-b15f-10f3311ca447">
 <p>
-功能：在用户级别实现对其可使用的资源的限制，例如：可打开的文件数量，可
-运行的进程数量，可用内存空间
+限制用户可使用的资源：打开的文件数、进程数、可加锁内存等。由
+<code>session required pam_limits.so</code> 在登录时读取 <code>/etc/security/limits.conf</code>
+和 <code>/etc/security/limits.d/*.conf</code> 并应用到会话。
+</p>
+
+<p>
+它 <b>只管 PAM 登录会话</b> 。systemd 服务和容器各有各的来源，改 limits.conf 对
+它们没有任何影响——这是 limits 调优最常见的误区。
+</p>
+</div>
+<div id="outline-container-h:9d0d04d2-ff07-4bb6-8f19-c507b37aa73d" class="outline-5">
+<h5 id="h:9d0d04d2-ff07-4bb6-8f19-c507b37aa73d"><a href="#h:9d0d04d2-ff07-4bb6-8f19-c507b37aa73d">四层作用域</a></h5>
+<div class="outline-text-5" id="text-h:9d0d04d2-ff07-4bb6-8f19-c507b37aa73d">
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">作用对象</th>
+<th scope="col" class="org-left">配置位置</th>
+<th scope="col" class="org-left">查看</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">当前 shell</td>
+<td class="org-left"><code>ulimit -n 65535</code> ，登出失效</td>
+<td class="org-left"><code>ulimit -a</code></td>
+</tr>
+
+<tr>
+<td class="org-left">PAM 登录会话</td>
+<td class="org-left"><code>/etc/security/limits.d/*.conf</code></td>
+<td class="org-left">重新登录后 <code>ulimit -Sn</code></td>
+</tr>
+
+<tr>
+<td class="org-left">systemd 服务</td>
+<td class="org-left"><code>/etc/systemd/system.conf.d/*.conf</code> 或单元 drop-in</td>
+<td class="org-left"><code>cat /proc/&lt;pid&gt;/limits</code></td>
+</tr>
+
+<tr>
+<td class="org-left">容器</td>
+<td class="org-left">dockerd 的 <code>default-ulimits</code> 或 compose <code>ulimits</code></td>
+<td class="org-left"><code>docker exec &lt;c&gt; sh -c 'ulimit -Sn'</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>
+查服务的实际限制一律看 <code>/proc/&lt;pid&gt;/limits</code> ， <code>systemctl show</code> 显示的是配置值，
+进程没重启就还是旧的。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">systemctl show nginx -p MainPID --value          <span class="org-comment-delimiter"># </span><span class="org-comment">&#25343;&#21040; PID
+</span>cat /proc/$(systemctl show nginx -p MainPID --value)/limits
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-h:e5c38cc4-2fcc-43ec-9e8a-98082afaa1f2" class="outline-5">
+<h5 id="h:e5c38cc4-2fcc-43ec-9e8a-98082afaa1f2"><a href="#h:e5c38cc4-2fcc-43ec-9e8a-98082afaa1f2">配置文件格式</a></h5>
+<div class="outline-text-5" id="text-h:e5c38cc4-2fcc-43ec-9e8a-98082afaa1f2">
+<p>
+每行一条： <code>&lt;domain&gt; &lt;type&gt; &lt;item&gt; &lt;value&gt;</code>
+</p>
+
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">字段</th>
+<th scope="col" class="org-left">取值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>domain</code></td>
+<td class="org-left">用户名、 <code>@组名</code> 、 <code>*</code> 通配、 <code>%</code> 仅 maxlogins、uid/gid 范围</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>type</code></td>
+<td class="org-left"><code>soft</code> 用户可自行调整、 <code>hard</code> 内核强制上限、 <code>-</code> 两者相同</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>item</code></td>
+<td class="org-left"><code>nofile</code> 文件描述符、 <code>nproc</code> 进程数、 <code>memlock</code> 可加锁内存 等</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>value</code></td>
+<td class="org-left">数值或 <code>unlimited</code></td>
+</tr>
+</tbody>
+</table>
+
+<p>
+<code>*</code> 通配 <b>不包含 root</b> ，root 必须单列。
+</p>
+</div>
+</div>
+<div id="outline-container-h:d55b6309-951f-4471-a497-4713f2a53ff0" class="outline-5">
+<h5 id="h:d55b6309-951f-4471-a497-4713f2a53ff0"><a href="#h:d55b6309-951f-4471-a497-4713f2a53ff0">ulimit 速查</a></h5>
+<div class="outline-text-5" id="text-h:d55b6309-951f-4471-a497-4713f2a53ff0">
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">选项</th>
+<th scope="col" class="org-left">含义</th>
+<th scope="col" class="org-left">单位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>-a</code></td>
+<td class="org-left">显示全部</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>-n</code></td>
+<td class="org-left">打开文件描述符数</td>
+<td class="org-left">个</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>-u</code></td>
+<td class="org-left">用户最大进程数</td>
+<td class="org-left">个</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>-l</code></td>
+<td class="org-left">可加锁内存</td>
+<td class="org-left">KB</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>-c</code></td>
+<td class="org-left">core 文件大小</td>
+<td class="org-left">blocks</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>-s</code></td>
+<td class="org-left">线程栈大小</td>
+<td class="org-left">KB</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>-v</code></td>
+<td class="org-left">可用虚拟内存</td>
+<td class="org-left">KB</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>-f</code></td>
+<td class="org-left">可创建文件的最大尺寸</td>
+<td class="org-left">blocks</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>-q</code></td>
+<td class="org-left">POSIX 消息队列</td>
+<td class="org-left">bytes</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>-t</code></td>
+<td class="org-left">CPU 占用时间</td>
+<td class="org-left">秒</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>-S</code></td>
+<td class="org-left">操作软限制（默认读取软值）</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>-H</code></td>
+<td class="org-left">操作硬限制</td>
+<td class="org-left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+<code>ulimit</code> 是 shell 内置命令，per-process 生效，只影响当前 shell 及其子进程，
+登出即失效。
+</p>
+</div>
+</div>
+<div id="outline-container-h:3342db67-86eb-4526-8605-b4f7dd9a5ec9" class="outline-5">
+<h5 id="h:3342db67-86eb-4526-8605-b4f7dd9a5ec9"><a href="#h:3342db67-86eb-4526-8605-b4f7dd9a5ec9">常见坑</a></h5>
+<div class="outline-text-5" id="text-h:3342db67-86eb-4526-8605-b4f7dd9a5ec9">
+</div>
+<ul class="org-ul">
+<li><a id="h:978252c9-d470-4b79-9ccd-111b2d86ad5b"></a><a href="#h:978252c9-d470-4b79-9ccd-111b2d86ad5b">不要把 soft 也设成百万</a><br>
+<div class="outline-text-6" id="text-h:978252c9-d470-4b79-9ccd-111b2d86ad5b">
+<p>
+有些程序启动时会从 fd 0 循环 <code>close()</code> 到 <code>RLIMIT_NOFILE</code> ，soft 设成 1000000
+会让它们启动慢到卡死。systemd 上游刻意把 soft 留在 1024、hard 放到 524288。
+惯例是 soft 给合理值、hard 放高，让应用自己 <code>setrlimit()</code> 抬。用 <code>-</code> 会把两者
+一起设，要分开就写 <code>soft</code> 和 <code>hard</code> 两行。
+</p>
+</div>
+</li>
+<li><a id="h:4899a42d-5413-4c15-95da-c95977fb227a"></a><a href="#h:4899a42d-5413-4c15-95da-c95977fb227a">其它</a><br>
+<div class="outline-text-6" id="text-h:4899a42d-5413-4c15-95da-c95977fb227a">
+<ul class="org-ul">
+<li><code>limits.d/*.conf</code> 在 <code>limits.conf</code> <b>之后</b> 加载并覆盖它。Ubuntu 自带的
+<code>/etc/security/limits.d/10-coredump-debian.conf</code> 会把 <code>core</code> 软限制压回 0，
+所以配置应写成 <code>99-</code> 开头的独立文件，而不是追加到 <code>limits.conf</code> 。</li>
+<li><code>nproc</code> 的实际天花板是 <code>kernel.threads-max</code> （按内存算出来的，3G 内存的机器
+只有一两万）。写 <code>nproc 1000000</code> 没有意义。</li>
+<li><code>nofile</code> 的硬上限不能超过 <code>fs.nr_open</code> 。</li>
+<li>容器不读宿主机的 limits.conf，默认值来自 dockerd 进程。</li>
+<li>RHEL 系早期版本带 <code>/etc/security/limits.d/20-nproc.conf</code> ，会覆盖 <code>limits.conf</code>
+里的 nproc 设置；Rocky 10 已不再提供。</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div id="outline-container-h:c7f5a2b1-3e84-4d96-a0f2-5b1e9c47d830" class="outline-5">
+<h5 id="h:c7f5a2b1-3e84-4d96-a0f2-5b1e9c47d830"><a href="#h:c7f5a2b1-3e84-4d96-a0f2-5b1e9c47d830">生产模板</a></h5>
+<div class="outline-text-5" id="text-h:c7f5a2b1-3e84-4d96-a0f2-5b1e9c47d830">
+<p>
+以跑 docker compose（nacos / elasticsearch / nginx / redis）的机器为例，
+四层都要配。
+</p>
+
+<p>
+登录会话：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">cat &gt; /etc/security/limits.d/99-tuning.conf &lt;&lt;<span class="org-string">'EOF'</span><span class="org-sh-heredoc">
+# root &#19981;&#34987; * &#36890;&#37197;&#31526;&#35206;&#30422;&#65292;&#24517;&#39035;&#21333;&#21015;
+root  soft  nofile   65535
+root  hard  nofile   1048576
+*     soft  nofile   65535
+*     hard  nofile   1048576
+
+# Elasticsearch bootstrap.memory_lock &#38656;&#35201;
+root  soft  memlock  unlimited
+root  hard  memlock  unlimited
+*     soft  memlock  unlimited
+*     hard  memlock  unlimited
+EOF</span>
+</pre>
+</div>
+
+<p>
+systemd 服务全局默认：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">mkdir -p /etc/systemd/system.conf.d
+cat &gt; /etc/systemd/system.conf.d/99-limits.conf &lt;&lt;<span class="org-string">'EOF'</span><span class="org-sh-heredoc">
+[Manager]
+DefaultLimitNOFILE=65535:1048576
+DefaultLimitMEMLOCK=infinity
+EOF
+</span>systemctl daemon-reexec
+</pre>
+</div>
+
+<p>
+只放宽单个服务（影响面更小，优先用这个）：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">systemctl edit nginx.service
+<span class="org-comment-delimiter"># </span><span class="org-comment">[Service]
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">LimitNOFILE=1048576</span>
+</pre>
+</div>
+
+<p>
+容器默认值 (<code>daemon.json</code> 改完要重启 docker，容器会随之重启)：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh">cat &gt; /etc/docker/daemon.json &lt;&lt;<span class="org-string">'EOF'</span><span class="org-sh-heredoc">
+{
+  "default-ulimits": {
+    "nofile":  { "Name": "nofile",  "Soft": 65535, "Hard": 1048576 },
+    "memlock": { "Name": "memlock", "Soft": -1, "Hard": -1 }
+  }
+}
+EOF
+</span>systemctl restart docker
+</pre>
+</div>
+
+<p>
+单个 compose 服务覆盖：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">services:
+  elasticsearch:
+    ulimits:
+      nofile: { soft: 65535, hard: 65535 }
+      memlock: { soft: -1, hard: -1 }
+</pre>
+</div>
+
+<p>
+配套的内核参数（见 <a href="../../stability/performance/sysctl_conf.html">sysctl.conf</a> ）：
 </p>
 
 <table>
@@ -15114,316 +15767,139 @@ sshd:account    required     pam_nologin.so
 </colgroup>
 <thead>
 <tr>
-<th scope="col" class="org-left">选项 [options]</th>
-<th scope="col" class="org-left">含义</th>
-<th scope="col" class="org-left">例子</th>
+<th scope="col" class="org-left">参数</th>
+<th scope="col" class="org-left">值</th>
+<th scope="col" class="org-left">为什么</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="org-left">-H</td>
-<td class="org-left">设置硬资源限制，一旦设置不能增加。</td>
-<td class="org-left">ulimit -Hs 64；限制硬资源，线程栈大小为 64K。</td>
+<td class="org-left"><code>vm.max_map_count</code></td>
+<td class="org-left">≥262144</td>
+<td class="org-left">Elasticsearch 启动自检，不够直接拒绝启动</td>
 </tr>
 
 <tr>
-<td class="org-left">-S</td>
-<td class="org-left">设置软资源限制，设置后可以增加，但是不能超过硬资源设置。</td>
-<td class="org-left">ulimit -Sn 32；限制软资源，32 个文件描述符。</td>
+<td class="org-left"><code>vm.overcommit_memory</code></td>
+<td class="org-left">1</td>
+<td class="org-left">Redis fork 做 RDB/AOF 重写不失败</td>
 </tr>
 
 <tr>
-<td class="org-left">-a</td>
-<td class="org-left">显示当前所有的 limit 信息。</td>
-<td class="org-left">ulimit -a；显示当前所有的 limit 信息。</td>
+<td class="org-left"><code>net.core.somaxconn</code></td>
+<td class="org-left">≥65535</td>
+<td class="org-left">Redis / nginx 的 listen backlog</td>
 </tr>
 
 <tr>
-<td class="org-left">-c</td>
-<td class="org-left">最大的 core 文件的大小， 以 blocks 为单位。</td>
-<td class="org-left">ulimit -c unlimited； 对生成的 core 文件的大小不进行限制。</td>
-</tr>
-
-<tr>
-<td class="org-left">-d</td>
-<td class="org-left">进程最大的数据段的大小，以 Kbytes 为单位。</td>
-<td class="org-left">ulimit -d unlimited；对进程的数据段大小不进行限制。</td>
-</tr>
-
-<tr>
-<td class="org-left">-f</td>
-<td class="org-left">进程可以创建文件的最大值，以 blocks 为单位。</td>
-<td class="org-left">ulimit -f 2048；限制进程可以创建的最大文件大小为 2048 blocks。</td>
-</tr>
-
-<tr>
-<td class="org-left">-l</td>
-<td class="org-left">最大可加锁内存大小，以 Kbytes 为单位。</td>
-<td class="org-left">ulimit -l 32；限制最大可加锁内存大小为 32 Kbytes。</td>
-</tr>
-
-<tr>
-<td class="org-left">-m</td>
-<td class="org-left">最大内存大小，以 Kbytes 为单位。</td>
-<td class="org-left">ulimit -m unlimited；对最大内存不进行限制。</td>
-</tr>
-
-<tr>
-<td class="org-left">-n</td>
-<td class="org-left">可以打开最大文件描述符的数量。</td>
-<td class="org-left">ulimit -n 128；限制最大可以使用 128 个文件描述符。</td>
-</tr>
-
-<tr>
-<td class="org-left">-p</td>
-<td class="org-left">管道缓冲区的大小，以 Kbytes 为单位。</td>
-<td class="org-left">ulimit  -p 512；限制管道缓冲区的大小为 512 Kbytes。</td>
-</tr>
-
-<tr>
-<td class="org-left">-s</td>
-<td class="org-left">线程栈大小，以 Kbytes 为单位。</td>
-<td class="org-left">ulimit -s 512；限制线程栈的大小为 512 Kbytes。</td>
-</tr>
-
-<tr>
-<td class="org-left">-t</td>
-<td class="org-left">最大的 CPU 占用时间，以秒为单位。</td>
-<td class="org-left">ulimit -t unlimited；对最大的 CPU 占用时间不进行限制。</td>
-</tr>
-
-<tr>
-<td class="org-left">-u</td>
-<td class="org-left">用户最大可用的进程数。</td>
-<td class="org-left">ulimit -u 64；限制用户最多可以使用 64 个进程。</td>
-</tr>
-
-<tr>
-<td class="org-left">-v</td>
-<td class="org-left">进程最大可用的虚拟内存，以 Kbytes 为单位。</td>
-<td class="org-left">ulimit -v 200000；限制最大可用的虚拟内存为 200000 Kbytes。</td>
+<td class="org-left"><code>vm.swappiness</code></td>
+<td class="org-left">10</td>
+<td class="org-left">ES 不希望堆被换出，但别写 0</td>
 </tr>
 </tbody>
 </table>
 
 <p>
-修改限制的实现方式：
-</p>
-
-<p>
-(1) ulimit命令
-</p>
-<ul class="org-ul">
-<li>ulimit是linux shell的内置命令，它具有一套参数集，用于对shell进程及其子进程资源限制。</li>
-<li>ulimit的设定值是pre-process的，也就是说，每个进程有自己的limit值。</li>
-<li>立即生效，但无法保存</li>
-<li>ulimit只影响shell进程及其子进程，用户登出后失效。</li>
-<li>可以在profile中加入ulimit的设置，变相的做到永久生效</li>
-</ul>
-
-<div class="org-src-container">
-<pre class="src src-sh">help ulimit
-
--n &#27599;&#20010;&#36827;&#31243;&#26368;&#22810;&#30340;&#25171;&#24320;&#30340;&#25991;&#20214;&#25551;&#36848;&#31526;&#20010;&#25968;
--u &#26368;&#22823;&#29992;&#25143;&#36827;&#31243;&#25968;
--S &#20351;&#29992; soft&#65288;&#36719;&#65289;&#36164;&#28304;&#38480;&#21046;
--H &#20351;&#29992; hard&#65288;&#30828;&#65289;&#36164;&#28304;&#38480;&#21046;
-
-<span class="org-builtin">ulimit</span> -HSn 65535  <span class="org-comment-delimiter">#  </span><span class="org-comment">&#35774;&#23450;&#27599;&#20010;&#36827;&#31243;&#26368;&#22823;&#25991;&#20214;&#25551;&#36848;&#31526;&#30340;&#25968;&#37327;</span>
-</pre>
-</div>
-
-<p>
-(2) 配置文件：
+透明大页为 <code>always</code> 时 Redis 会告警且延迟抖动，调成 <code>madvise</code> 或 <code>never</code> 。
+这不是 sysctl，要用 systemd 单元持久化：
 </p>
 
 <div class="org-src-container">
-<pre class="src src-sh">/etc/security/limits.conf &#65288;&#31435;&#21363;&#29983;&#25928;&#65289;
-/etc/security/limits.d/*.conf (&#31435;&#21363;&#29983;&#25928;)
-</pre>
-</div>
+<pre class="src src-sh">cat &gt; /etc/systemd/system/disable-thp.service &lt;&lt;<span class="org-string">'EOF'</span><span class="org-sh-heredoc">
+[Unit]
+Description=Set transparent hugepage to madvise
+After=sysinit.target local-fs.target
+Before=docker.service redis.service
 
-<p>
-配置文件格式：
-</p>
-
-<div class="org-src-container">
-<pre class="src src-sh"><span class="org-comment-delimiter">#</span><span class="org-comment">&#27599;&#34892;&#19968;&#20010;&#23450;&#20041;
-</span>&lt;domain&gt; &lt;type&gt; &lt;item&gt; &lt;value&gt;
-
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#26684;&#24335;&#35828;&#26126;&#65306;
-</span><span class="org-comment-delimiter">#</span><span class="org-comment">&lt;domain&gt;&#65306;&#24212;&#29992;&#20110;&#21738;&#20123;&#23545;&#35937;
-</span>Username  <span class="org-comment-delimiter">#</span><span class="org-comment">&#21333;&#20010;&#29992;&#25143;
-</span>@group    <span class="org-comment-delimiter">#</span><span class="org-comment">&#32452;&#20869;&#25152;&#26377;&#29992;&#25143;
-</span>*         <span class="org-comment-delimiter">#</span><span class="org-comment">&#25152;&#26377;&#29992;&#25143;
-</span>%         <span class="org-comment-delimiter">#</span><span class="org-comment">&#20165;&#29992;&#20110;&#38480;&#21046; maxlogins limit , &#21487;&#20197;&#20351;&#29992; %group &#35821;&#27861;. 
-</span>          <span class="org-comment-delimiter">#</span><span class="org-comment">&#21482;&#29992; % &#30456;&#24403;&#20110; * &#23545;&#25152;&#26377;&#29992;&#25143;maxsyslogins limit&#38480;&#21046;. 
-</span>          <span class="org-comment-delimiter">#</span><span class="org-comment">%group &#34920;&#31034;&#38480;&#21046;&#27492;&#32452;&#20013;&#30340;&#25152;&#26377;&#29992;&#25143;&#24635;&#30340;&#26368;&#22823;&#30331;&#24405;&#25968;
-</span>
-<span class="org-comment-delimiter">#</span><span class="org-comment">&lt;type&gt;&#65306;&#38480;&#21046;&#30340;&#31867;&#22411;
-</span>Soft      <span class="org-comment-delimiter">#</span><span class="org-comment">&#36719;&#38480;&#21046;,&#26222;&#36890;&#29992;&#25143;&#33258;&#24049;&#21487;&#20197;&#20462;&#25913;
-</span>Hard      <span class="org-comment-delimiter">#</span><span class="org-comment">&#30828;&#38480;&#21046;,&#30001;root&#29992;&#25143;&#35774;&#23450;&#65292;&#19988;&#36890;&#36807;kernel&#24378;&#21046;&#29983;&#25928;
-</span>-         <span class="org-comment-delimiter">#</span><span class="org-comment">&#36719;&#30828;&#20351;&#29992;&#30456;&#21516;&#38480;&#21046;&#65307;
-</span>
-<span class="org-comment-delimiter">#</span><span class="org-comment">&lt;item&gt;&#65306;&#38480;&#21046;&#30340;&#36164;&#28304;&#31867;&#22411;
-</span>nofile    <span class="org-comment-delimiter">#</span><span class="org-comment">&#25152;&#33021;&#22815;&#21516;&#26102;&#25171;&#24320;&#30340;&#26368;&#22823;&#25991;&#20214;&#25968;&#37327;,&#40664;&#35748;&#20026;1024
-</span>nproc     <span class="org-comment-delimiter">#</span><span class="org-comment">&#25152;&#33021;&#22815;&#21516;&#26102;&#36816;&#34892;&#30340;&#36827;&#31243;&#30340;&#26368;&#22823;&#25968;&#37327;,&#40664;&#35748;&#20026;1024
-</span>
-<span class="org-comment-delimiter">#</span><span class="org-comment">&lt;value&gt;&#65306;&#25351;&#23450;&#20855;&#20307;&#20540;</span>
-</pre>
-</div>
-
-<p>
-注意：systemd的service资源设置需要单独配置
-</p>
-<div class="org-src-container">
-<pre class="src src-sh"><span class="org-comment-delimiter">#</span><span class="org-comment">cat /etc/security/limits.conf
-</span><span class="org-comment-delimiter">#</span><span class="org-comment">This file sets the resource limits for the userslogged in via PAM.
-</span><span class="org-comment-delimiter">#</span><span class="org-comment">It does not affect resource limits of the systemservices.</span>
-</pre>
-</div>
-
-<p>
-在Centos7以上版本中，使用Systemd替代了之前的Sysvo/etc/securiity/limits.conf文件的配置作用域缩小了。
-</p>
-<ul class="org-ul">
-<li>/etc/securitylimits.conf的配置，只适用于通过PAM认证登录用户的资源限制，它对systemd的service的资源限制不生效。</li>
-<li>因此登录用户的限制，通过/etc/security/limits.conf与/etc/security/limits.d下的文件设置即可。</li>
-<li>对于systemd service的资源设置，则需修改全局配置。
-<ul class="org-ul">
-<li>全局配置文件放在/etc/systemd/system.conf和/etc/systemd/user.conf，同时也会加载两个对应目录中的所有.conf文件/etc/systemd/system.conf.d/*.conf和/etc/systemd/user.conf.d/*.conf</li>
-<li>system.conf是系统实例使用的，user.conf是用户实例使用的。</li>
-</ul></li>
-</ul>
-
-<div class="org-src-container">
-<pre class="src src-sh">vim /etc/systemd/system.conf
-<span class="org-variable-name">DefaultLimitNOFILE</span>=1000000
-<span class="org-variable-name">DefaultLimitNPROC</span>=65535
-&#25110;&#32773;&#38024;&#23545;&#25351;&#23450;&#30340;service&#28155;&#21152;&#19979;&#38754;&#34892;
 [Service]
-<span class="org-variable-name">LimitNOFILE</span>=100000
-<span class="org-variable-name">LimitNPROC</span>=65535
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/bin/sh -c "echo madvise &gt; /sys/kernel/mm/transparent_hugepage/enabled"
+ExecStart=/bin/sh -c "echo madvise &gt; /sys/kernel/mm/transparent_hugepage/defrag"
 
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#26597;&#30475;&#26381;&#21153;&#36164;&#28304;&#38480;&#21046;
-</span>systemctl show nginx.service |grep -i limit
+[Install]
+WantedBy=multi-user.target
+EOF
+</span>systemctl enable --now disable-thp.service
 </pre>
 </div>
 
 <p>
-案例：系统的各种资源的默认值
+nginx 另需在 <code>nginx.conf</code> 里声明，否则 worker 只用软限制：
 </p>
+
 <div class="org-src-container">
-<pre class="src src-sh">[root@centos8 ~]#ulimit -a
-core file size          (blocks, -c) unlimited
-data seg size           (kbytes, -d) unlimited
-scheduling priority             (-e) 0
-file size               (blocks, -f) unlimited
-pending signals                 (-i) 7092
-max locked memory       (kbytes, -l) 16384
-max memory size         (kbytes, -m) unlimited
-open files                      (-n) 1024
-pipe size            (512 bytes, -p) 8
-POSIX message queues     (bytes, -q) 819200
-real-time priority              (-r) 0
-stack size              (kbytes, -s) 8192
-cpu time               (seconds, -t) unlimited
-max user processes              (-u) 7092
-virtual memory          (kbytes, -v) unlimited
-file locks                      (-x) unlimited
+<pre class="src src-nginx">worker_rlimit_nofile 65535;
+events {
+    worker_connections 10240;   # 必须 &lt;= nofile
+}
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-h:b4e9d37c-8a21-4f05-9c6d-2fa8e1b05493" class="outline-5">
+<h5 id="h:b4e9d37c-8a21-4f05-9c6d-2fa8e1b05493"><a href="#h:b4e9d37c-8a21-4f05-9c6d-2fa8e1b05493">验证</a></h5>
+<div class="outline-text-5" id="text-h:b4e9d37c-8a21-4f05-9c6d-2fa8e1b05493">
+<p>
+四层分开验，改完 limits.conf <b>必须重新登录</b> 才看得到变化。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-comment-delimiter"># </span><span class="org-comment">&#9312; &#30331;&#24405;&#20250;&#35805;
+</span><span class="org-builtin">ulimit</span> -Sn; <span class="org-builtin">ulimit</span> -Hn; <span class="org-builtin">ulimit</span> -l
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#9313; systemd &#20840;&#23616;&#40664;&#35748;
+</span>systemctl show -p DefaultLimitNOFILESoft -p DefaultLimitNOFILE -p DefaultLimitMEMLOCK
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#9314; &#26381;&#21153;&#23454;&#38469;&#36827;&#31243;
+</span>cat /proc/$(systemctl show nginx -p MainPID --value)/limits
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#9315; &#23481;&#22120;
+</span>docker run --rm alpine sh -c <span class="org-string">'ulimit -Sn; ulimit -Hn'</span>
+docker exec &lt;&#23481;&#22120;&#21517;&gt; sh -c <span class="org-string">'ulimit -Sn'</span>
 </pre>
 </div>
 
 <p>
-案例：ulimit命令修改用户打开的文件个数，最多能打开2^10次方个文件
+实测结果（Ubuntu 26.04 / Rocky 10.2，按上面模板配置后）：
 </p>
 
-<div class="org-src-container">
-<pre class="src src-sh">[root@centos8 ~]#ulimit -n
-1024
-[root@centos8 ~]#ulimit -n 1048577
--bash: ulimit: open files: cannot modify limit: Operation not permitted
-[root@centos8 ~]#ulimit -n 1048576  <span class="org-comment-delimiter"># </span><span class="org-comment">&#26368;&#22810;&#33021;&#25171;&#24320;2^10&#27425;&#26041;&#20010;&#25991;&#20214;
-</span>[root@centos8 ~]#ulimit -a
-core file size          (blocks, -c) unlimited
-data seg size           (kbytes, -d) unlimited
-scheduling priority             (-e) 0
-file size               (blocks, -f) unlimited
-pending signals                 (-i) 7092
-max locked memory       (kbytes, -l) 16384
-max memory size         (kbytes, -m) unlimited
-open files                      (-n) 1048576
-pipe size            (512 bytes, -p) 8
-POSIX message queues     (bytes, -q) 819200
-real-time priority              (-r) 0
-stack size              (kbytes, -s) 8192
-cpu time               (seconds, -t) unlimited
-max user processes              (-u) 7092
-virtual memory          (kbytes, -v) unlimited
-file locks                      (-x) unlimited
-[root@centos8 ~]#echo 2^20 |bc
-1048576
-</pre>
-</div>
+<table>
 
-<p>
-案例：限制用户最多打开的文件数和运行进程数，并持久保存
-</p>
 
-<div class="org-src-container">
-<pre class="src src-sh">cat /etc/pam.d/system-auth
-session     required    pam_limits.so
+<colgroup>
+<col  class="org-left">
 
-vim /etc/security/limits.conf
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#29992;&#25143;apache&#21487;&#25171;&#24320;10240&#20010;&#25991;&#20214;
-</span>apache &#8211; nofile 10240
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#29992;&#25143;student&#19981;&#33021;&#36816;&#34892;&#36229;&#36807;20&#20010;&#36827;&#31243;
-</span>student hard nproc 10
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">层级</th>
+<th scope="col" class="org-left">nofile soft/hard</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">登录会话</td>
+<td class="org-left">65535 / 1048576</td>
+</tr>
 
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#29992;student&#30331;&#24405;&#22810;&#27425;&#36816;&#34892;bash&#65292;&#35266;&#23519;&#32467;&#26524;
-</span>
-[root@centos8 ~]#vim /etc/security/limits.conf
-wang        -       nofile 66666
-wang        -       nproc 5
-me        -       nofile 88888
+<tr>
+<td class="org-left">systemd 默认</td>
+<td class="org-left">65535 / 1048576</td>
+</tr>
 
-[root@centos8 ~]#su - wang
-Last login: Mon May 25 14:40:38 CST 2020 on pts/0
-[wang@centos8 ~]$<span class="org-variable-name">ulimit</span> -n
-66666
-</pre>
-</div>
+<tr>
+<td class="org-left">nginx 进程</td>
+<td class="org-left">65535 / 1048576</td>
+</tr>
 
-<p>
-案例：限制me用户最大的同时登录次数
-</p>
-
-<div class="org-src-container">
-<pre class="src src-sh">[root@centos8 ~]#tail -n1 /etc/security/limits.conf
-me    -   maxlogins   2
-[root@centos8 ~]#who
-me    tty1    2020-05-25 14:35
-root    pts/0   2020-05-25 14:35 (10.0.0.1)
-root    pts/3   2020-05-25 14:06 (10.0.0.1)
-me    tty3    2020-05-25 14:35
-</pre>
-</div>
-
-<p>
-生产案例:
-</p>
-
-<div class="org-src-container">
-<pre class="src src-sh">vim /etc/security/limits.conf
-*   -   core        unlimited
-*   -   nproc       1000000
-*   -   nofile      1000000
-root   -   nofile      1000000
-*   -   memlock     32000
-*   -   msgqueue    8192000
-
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#21482;&#23545;&#38750; root &#29992;&#25143;&#36215;&#20316;&#29992;&#12290;&#32780; root &#29992;&#25143;&#30340;&#38480;&#21046;&#65292;&#24517;&#39035;&#26174;&#24335;&#28155;&#21152;</span>
-</pre>
+<tr>
+<td class="org-left">容器</td>
+<td class="org-left">65535 / 1048576</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -15478,13 +15954,13 @@ Warning: pasting the following URL into your browser exposes the OTP secret to G
 访问生成的url(需要科学上网):
 </p>
 
-<pre class="example" id="org55725be">
+<pre class="example" id="orgb3969ac">
 https://www.google.com/chart?
 chs=200x200&amp;chld=M|0&amp;cht=qr&amp;chl=otpauth://totp/root@centos8.localdomain%3Fsecret%3D7YTAL4GW3TND7BICUMJGJLIFVE%26issuer%3Dcentos8.localdomain
 </pre>
 
 
-<figure id="org6d4b04c">
+<figure id="orga878081">
 <img style="aspect-ratio:636/336" decoding="async" loading="lazy" src="./images/image-20210120200839771.webp" alt="image-20210120200839771.webp" width="20%">
 
 </figure>
@@ -15494,7 +15970,7 @@ chs=200x200&amp;chld=M|0&amp;cht=qr&amp;chl=otpauth://totp/root@centos8.localdom
 </p>
 
 
-<figure id="orgd69a429">
+<figure id="orge7b45a0">
 <img style="aspect-ratio:363/206" decoding="async" loading="lazy" src="./images/image-20210120200903716.webp" alt="image-20210120200903716.webp" width="20%">
 
 </figure>
@@ -15668,7 +16144,7 @@ google-authenticator
 <div class="org-src-container">
 <pre class="src src-sh"><span class="org-comment-delimiter">#</span><span class="org-comment">&#29992;root&#30331;&#24405;&#26700;&#38754;&#22833;&#36133;&#65292;&#26597;&#30475;&#26085;&#24535;&#65292;&#21487;&#30475;&#21040;Pam&#21407;&#22240;
 </span>
-Vim /etc/pam.d/gdm-passwd
+vim /etc/pam.d/gdm-passwd
 <span class="org-comment-delimiter">#</span><span class="org-comment">&#23558;&#19979;&#38754;&#34892;&#27880;&#37322;
 </span><span class="org-comment-delimiter">#</span><span class="org-comment">auth requried pam_succeed_if.so user !=root quiet_success</span>
 </pre>
@@ -15920,7 +16396,7 @@ libwrap.so.0 =&gt; /lib64/libwrap.so.0 (0x00007f58c2249000)
 判断某服务是否能够由tcp_wrapper进行访问控制的方法：
 </p>
 
-<pre class="example" id="org9b1297c">
+<pre class="example" id="org9563d4b">
 1) 动态编译：ldd命令；
 ldd $(which COMMAND) | grep libwrap
 2) 静态编译：strings命令查看应用程序文件，其结果中是否出现了hosts.allow和hosts.deny文件；
@@ -15943,7 +16419,7 @@ CentOS7主机上的telnet服务未托管于xinetd，而in.telnetd程序未链接
 <li><code>Daemon_list@host</code> 格式</li>
 </ol>
 
-<pre class="example" id="org160387e">
+<pre class="example" id="orgeaf9af0">
 单个应用程序的二进制文件名，而非服务名，例如vsftpd
 以逗号或空格分隔的应用程序文件名列表，如:sshd,vsftpd
 ALL表示所有接受tcp_wrapper控制的服务程序
@@ -15954,7 +16430,7 @@ ALL表示所有接受tcp_wrapper控制的服务程序
 2.客户端 <code>Client_list</code> 格式
 </p>
 
-<pre class="example" id="org816df05">
+<pre class="example" id="orga9abbce">
 以逗号或空格分隔的客户端列表
 基于IP地址：192.168.10.1     192.168.1.
 基于主机名：www.meu.com .meu.com 较少用
@@ -16150,7 +16626,7 @@ SELinux中对所有的文件都赋予一个type的文件类型标签，对于所
 </p>
 
 
-<figure id="org6e20804">
+<figure id="org27c4f1b">
 <img style="aspect-ratio:647/305" decoding="async" loading="lazy" src="./images/image-20210120203627879.webp" alt="image-20210120203627879.webp" width="50%">
 
 </figure>
@@ -16257,7 +16733,7 @@ sed -ri <span class="org-string">'/^[^#]*SELINUX=/s#=.+$#=disabled#'</span> /etc
 配置文件:
 </p>
 
-<pre class="example" id="org290a6cf">
+<pre class="example" id="orgc485444">
 /boot/grub/grub.conf 在kernel行使用selinux=0禁用SELinux
 /boot/grub2/grub.cfg 在linux16行使用selinux=0禁用SELinux
 /etc/selinux/config 或 /etc/sysconfig/selinux 中 SELINUX={disabled|enforcing|permissive}
@@ -16271,7 +16747,7 @@ sed -ri <span class="org-string">'/^[^#]*SELINUX=/s#=.+$#=disabled#'</span> /etc
 给文件重新打安全标签chcon：
 </p>
 
-<pre class="example" id="org9ac54d2">
+<pre class="example" id="orga94c531">
 chcon [OPTION]... [-u USER] [-r ROLE] [-t TYPE] FILE...
 chcon [OPTION]... --reference=RFILE FILE...
 -R：递归打标
@@ -16424,7 +16900,7 @@ AIDE能够构造一个指定文件的数据库，它使用aide.conf作为其配�
 </p>
 
 
-<figure id="org55129cb">
+<figure id="org5ceb90d">
 <img style="aspect-ratio:581/331" decoding="async" loading="lazy" src="./images/image-20210120155204403.webp" alt="image-20210120155204403.webp" width="50%">
 
 </figure>

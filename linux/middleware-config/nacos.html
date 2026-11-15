@@ -59,7 +59,14 @@
 <ul>
 <li><a href="#h:3565137a-b632-4bcb-86e5-21ffd4c7df33">集群部署架构图</a></li>
 <li><a href="#h:10fd4772-25a8-40fb-bbd6-885c53068e24">使用外置数据源</a></li>
-<li><a href="#h:7d9d2556-aefa-4b0d-be6b-57bbb8b5fc69">部署Nacos</a></li>
+<li><a href="#h:7d9d2556-aefa-4b0d-be6b-57bbb8b5fc69">部署Nacos</a>
+<ul>
+<li><a href="#h:619FA348-CD4C-4F89-9964-CC08FF40B5EA">nacos-cluster.yaml 文件模板</a></li>
+</ul>
+</li>
+<li><a href="#h:E2F98F0F-ABA8-4C42-9B43-381D019A7486">验证</a></li>
+<li><a href="#h:C759DC68-990B-4D1D-A32C-402F2FC4CECA">客户端接入</a></li>
+<li><a href="#h:2F5C46FE-BB00-4D2F-9298-C5750F034EC3">鉴权</a></li>
 </ul>
 </li>
 </ul>
@@ -75,12 +82,16 @@
 本次部署采用外置数据库方式部署，集群副本数为3，使用官方文档搭建nacos集群及数据库不需要执行初始化sql语句，请参考官方文档
 <a href="https://nacos.io/zh-cn/docs/quick-start.html">https://nacos.io/zh-cn/docs/quick-start.html</a>
 </p>
+
+<ul class="org-ul">
+<li>部署步骤:<a href="https://nacos.io/docs/v2.3/quickstart/quick-start-kubernetes/">https://nacos.io/docs/v2.3/quickstart/quick-start-kubernetes/</a></li>
+</ul>
 </div>
 <div id="outline-container-h:3565137a-b632-4bcb-86e5-21ffd4c7df33" class="outline-3">
 <h3 id="h:3565137a-b632-4bcb-86e5-21ffd4c7df33"><a href="#h:3565137a-b632-4bcb-86e5-21ffd4c7df33">集群部署架构图</a></h3>
 <div class="outline-text-3" id="text-h:3565137a-b632-4bcb-86e5-21ffd4c7df33">
 
-<figure id="org0c548b4">
+<figure id="org025f8e6">
 <img style="aspect-ratio:564/555" decoding="async" loading="lazy" src="./images/image-20210708105236072.webp" alt="image-20210708105236072.webp" width="80%">
 
 </figure>
@@ -96,333 +107,163 @@
 <p>
 初始化 MySQL 数据库
 </p>
+<ul class="org-ul">
+<li><a href="https://github.com/alibaba/nacos/blob/2.3.2/distribution/conf/mysql-schema.sql">https://github.com/alibaba/nacos/blob/2.3.2/distribution/conf/mysql-schema.sql</a></li>
+</ul>
 
-<pre class="example" id="orgd90687b">
-/*
- * Copyright 1999-2018 Alibaba Group Holding Ltd.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
- 
-/******************************************/
-/*   数据库全名 = nacos_config   */
-/*   表名称 = config_info   */
-/******************************************/
-CREATE TABLE `config_info` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `data_id` varchar(255) NOT NULL COMMENT 'data_id',
-  `group_id` varchar(255) DEFAULT NULL,
-  `content` longtext NOT NULL COMMENT 'content',
-  `md5` varchar(32) DEFAULT NULL COMMENT 'md5',
-  `gmt_create` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `gmt_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
-  `src_user` text COMMENT 'source user',
-  `src_ip` varchar(20) DEFAULT NULL COMMENT 'source ip',
-  `app_name` varchar(128) DEFAULT NULL,
-  `tenant_id` varchar(128) DEFAULT '' COMMENT '租户字段',
-  `c_desc` varchar(256) DEFAULT NULL,
-  `c_use` varchar(64) DEFAULT NULL,
-  `effect` varchar(64) DEFAULT NULL,
-  `type` varchar(64) DEFAULT NULL,
-  `c_schema` text,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_configinfo_datagrouptenant` (`data_id`,`group_id`,`tenant_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='config_info';
- 
-/******************************************/
-/*   数据库全名 = nacos_config   */
-/*   表名称 = config_info_aggr   */
-/******************************************/
-CREATE TABLE `config_info_aggr` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `data_id` varchar(255) NOT NULL COMMENT 'data_id',
-  `group_id` varchar(255) NOT NULL COMMENT 'group_id',
-  `datum_id` varchar(255) NOT NULL COMMENT 'datum_id',
-  `content` longtext NOT NULL COMMENT '内容',
-  `gmt_modified` datetime NOT NULL COMMENT '修改时间',
-  `app_name` varchar(128) DEFAULT NULL,
-  `tenant_id` varchar(128) DEFAULT '' COMMENT '租户字段',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_configinfoaggr_datagrouptenantdatum` (`data_id`,`group_id`,`tenant_id`,`datum_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='增加租户字段';
- 
- 
-/******************************************/
-/*   数据库全名 = nacos_config   */
-/*   表名称 = config_info_beta   */
-/******************************************/
-CREATE TABLE `config_info_beta` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `data_id` varchar(255) NOT NULL COMMENT 'data_id',
-  `group_id` varchar(128) NOT NULL COMMENT 'group_id',
-  `app_name` varchar(128) DEFAULT NULL COMMENT 'app_name',
-  `content` longtext NOT NULL COMMENT 'content',
-  `beta_ips` varchar(1024) DEFAULT NULL COMMENT 'betaIps',
-  `md5` varchar(32) DEFAULT NULL COMMENT 'md5',
-  `gmt_create` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `gmt_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
-  `src_user` text COMMENT 'source user',
-  `src_ip` varchar(20) DEFAULT NULL COMMENT 'source ip',
-  `tenant_id` varchar(128) DEFAULT '' COMMENT '租户字段',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_configinfobeta_datagrouptenant` (`data_id`,`group_id`,`tenant_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='config_info_beta';
- 
-/******************************************/
-/*   数据库全名 = nacos_config   */
-/*   表名称 = config_info_tag   */
-/******************************************/
-CREATE TABLE `config_info_tag` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `data_id` varchar(255) NOT NULL COMMENT 'data_id',
-  `group_id` varchar(128) NOT NULL COMMENT 'group_id',
-  `tenant_id` varchar(128) DEFAULT '' COMMENT 'tenant_id',
-  `tag_id` varchar(128) NOT NULL COMMENT 'tag_id',
-  `app_name` varchar(128) DEFAULT NULL COMMENT 'app_name',
-  `content` longtext NOT NULL COMMENT 'content',
-  `md5` varchar(32) DEFAULT NULL COMMENT 'md5',
-  `gmt_create` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `gmt_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
-  `src_user` text COMMENT 'source user',
-  `src_ip` varchar(20) DEFAULT NULL COMMENT 'source ip',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_configinfotag_datagrouptenanttag` (`data_id`,`group_id`,`tenant_id`,`tag_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='config_info_tag';
- 
-/******************************************/
-/*   数据库全名 = nacos_config   */
-/*   表名称 = config_tags_relation   */
-/******************************************/
-CREATE TABLE `config_tags_relation` (
-  `id` bigint(20) NOT NULL COMMENT 'id',
-  `tag_name` varchar(128) NOT NULL COMMENT 'tag_name',
-  `tag_type` varchar(64) DEFAULT NULL COMMENT 'tag_type',
-  `data_id` varchar(255) NOT NULL COMMENT 'data_id',
-  `group_id` varchar(128) NOT NULL COMMENT 'group_id',
-  `tenant_id` varchar(128) DEFAULT '' COMMENT 'tenant_id',
-  `nid` bigint(20) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`nid`),
-  UNIQUE KEY `uk_configtagrelation_configidtag` (`id`,`tag_name`,`tag_type`),
-  KEY `idx_tenant_id` (`tenant_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='config_tag_relation';
- 
-/******************************************/
-/*   数据库全名 = nacos_config   */
-/*   表名称 = group_capacity   */
-/******************************************/
-CREATE TABLE `group_capacity` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键ID',
-  `group_id` varchar(128) NOT NULL DEFAULT '' COMMENT 'Group ID，空字符表示整个集群',
-  `quota` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '配额，0表示使用默认值',
-  `usage` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '使用量',
-  `max_size` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '单个配置大小上限，单位为字节，0表示使用默认值',
-  `max_aggr_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '聚合子配置最大个数，，0表示使用默认值',
-  `max_aggr_size` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '单个聚合数据的子配置大小上限，单位为字节，0表示使用默认值',
-  `max_history_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '最大变更历史数量',
-  `gmt_create` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `gmt_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_group_id` (`group_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='集群、各Group容量信息表';
- 
-/******************************************/
-/*   数据库全名 = nacos_config   */
-/*   表名称 = his_config_info   */
-/******************************************/
-CREATE TABLE `his_config_info` (
-  `id` bigint(64) unsigned NOT NULL,
-  `nid` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `data_id` varchar(255) NOT NULL,
-  `group_id` varchar(128) NOT NULL,
-  `app_name` varchar(128) DEFAULT NULL COMMENT 'app_name',
-  `content` longtext NOT NULL,
-  `md5` varchar(32) DEFAULT NULL,
-  `gmt_create` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `gmt_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `src_user` text,
-  `src_ip` varchar(20) DEFAULT NULL,
-  `op_type` char(10) DEFAULT NULL,
-  `tenant_id` varchar(128) DEFAULT '' COMMENT '租户字段',
-  PRIMARY KEY (`nid`),
-  KEY `idx_gmt_create` (`gmt_create`),
-  KEY `idx_gmt_modified` (`gmt_modified`),
-  KEY `idx_did` (`data_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='多租户改造';
- 
- 
-/******************************************/
-/*   数据库全名 = nacos_config   */
-/*   表名称 = tenant_capacity   */
-/******************************************/
-CREATE TABLE `tenant_capacity` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键ID',
-  `tenant_id` varchar(128) NOT NULL DEFAULT '' COMMENT 'Tenant ID',
-  `quota` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '配额，0表示使用默认值',
-  `usage` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '使用量',
-  `max_size` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '单个配置大小上限，单位为字节，0表示使用默认值',
-  `max_aggr_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '聚合子配置最大个数',
-  `max_aggr_size` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '单个聚合数据的子配置大小上限，单位为字节，0表示使用默认值',
-  `max_history_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '最大变更历史数量',
-  `gmt_create` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-  `gmt_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '修改时间',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_tenant_id` (`tenant_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='租户容量信息表';
- 
- 
-CREATE TABLE `tenant_info` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `kp` varchar(128) NOT NULL COMMENT 'kp',
-  `tenant_id` varchar(128) default '' COMMENT 'tenant_id',
-  `tenant_name` varchar(128) default '' COMMENT 'tenant_name',
-  `tenant_desc` varchar(256) DEFAULT NULL COMMENT 'tenant_desc',
-  `create_source` varchar(32) DEFAULT NULL COMMENT 'create_source',
-  `gmt_create` bigint(20) NOT NULL COMMENT '创建时间',
-  `gmt_modified` bigint(20) NOT NULL COMMENT '修改时间',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_tenant_info_kptenantid` (`kp`,`tenant_id`),
-  KEY `idx_tenant_id` (`tenant_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='tenant_info';
- 
-CREATE TABLE `users` (
-    `username` varchar(50) NOT NULL PRIMARY KEY,
-    `password` varchar(500) NOT NULL,
-    `enabled` boolean NOT NULL
-);
- 
-CREATE TABLE `roles` (
-    `username` varchar(50) NOT NULL,
-    `role` varchar(50) NOT NULL,
-    UNIQUE INDEX `idx_user_role` (`username` ASC, `role` ASC) USING BTREE
-);
- 
-CREATE TABLE `permissions` (
-    `role` varchar(50) NOT NULL,
-    `resource` varchar(255) NOT NULL,
-    `action` varchar(8) NOT NULL,
-    UNIQUE INDEX `uk_role_permission` (`role`,`resource`,`action`) USING BTREE
-);
- 
-INSERT INTO users (username, password, enabled) VALUES ('nacos', '$2a$10$EuWPZHzz32dJN7jexM34MOeYirDdFAZm2kuWj7VEOJhhZkDrxfvUu', TRUE);
- 
-INSERT INTO roles (username, role) VALUES ('nacos', 'ROLE_ADMIN');
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#24314;&#24211;&#21450;&#29992;&#25143;
+</span>CREATE DATABASE nacos_devtest DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE USER <span class="org-string">'nacos'</span>@<span class="org-string">'%'</span> IDENTIFIED BY <span class="org-string">'nacos'</span>;
+GRANT ALL PRIVILEGES ON nacos_devtest.* TO <span class="org-string">'nacos'</span>@<span class="org-string">'%'</span>;
+FLUSH PRIVILEGES;
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#24314;&#24211;&#23548;&#34920; &#8212;&#8212; schema &#24517;&#39035;&#29992;&#23545;&#24212;&#29256;&#26412;&#37197;&#22871;&#30340;&#65292;&#21035;&#25343;&#26087;&#29256;&#20945;&#65306;
+</span><span class="org-variable-name">NACOS_VERSION</span>=2.3.2
+curl -fL -o mysql-schema.sql <span class="org-sh-escaped-newline">\</span>
+    https://ghfast.top/https://raw.githubusercontent.com/alibaba/nacos/${<span class="org-variable-name">NACOS_VERSION</span>}/distribution/conf/mysql-schema.sql
+
+mysql -h &lt;MYSQL_HOST&gt; -u nacos -p nacos_config &lt; mysql-schema.sql
 </pre>
+</div>
 </div>
 </div>
 <div id="outline-container-h:7d9d2556-aefa-4b0d-be6b-57bbb8b5fc69" class="outline-3">
 <h3 id="h:7d9d2556-aefa-4b0d-be6b-57bbb8b5fc69"><a href="#h:7d9d2556-aefa-4b0d-be6b-57bbb8b5fc69">部署Nacos</a></h3>
 <div class="outline-text-3" id="text-h:7d9d2556-aefa-4b0d-be6b-57bbb8b5fc69">
-<p>
-修改yaml后执行运行命令启动nacos
-</p>
-
 <div class="org-src-container">
-<pre class="src src-sh">kubectl apply -f nacos.yaml
+<pre class="src src-sh">kubectl apply -f nacos-cluster.yaml
+kubectl -n nacos get pod -l <span class="org-variable-name">app</span>=nacos -w
 </pre>
 </div>
 
 <p>
-修改 nacos 数据库信息
+改三处
 </p>
-
-<pre class="example" id="orgd876c7e">
-data:
-    mysql.master.db.name: "主库名称"
-    mysql.master.port: "主库端口"
-    mysql.master.user: "主库用户名"
-    mysql.master.password: "主库密码"
-</pre>
-
-<p>
-有状态Pod需要修改“name: NACOS_SERVERS”值对应环境信息
-</p>
-
-<p>
-格式：Pod名称-名称空间-SVC 如， value: "nacos-0.bigdata-nacos.bigdata-qa.svc.cluster.local:8848 
-</p>
-
-<p>
-nacos.yaml文件模板
-</p>
-
+<ul class="org-ul">
+<li>nacos-cm 的 <code>mysql.host</code> / <code>mysql.db.name</code> / <code>mysql.user</code> / <code>mysql.password</code></li>
+<li>Ingress 的 <code>host</code></li>
+<li>如果改了 Namespace, <code>NACOS_SERVERS</code> 里的 <code>.nacos.svc.cluster.local</code> 要跟着改</li>
+</ul>
+</div>
+<div id="outline-container-h:619FA348-CD4C-4F89-9964-CC08FF40B5EA" class="outline-4">
+<h4 id="h:619FA348-CD4C-4F89-9964-CC08FF40B5EA"><a href="#h:619FA348-CD4C-4F89-9964-CC08FF40B5EA">nacos-cluster.yaml 文件模板</a></h4>
+<div class="outline-text-4" id="text-h:619FA348-CD4C-4F89-9964-CC08FF40B5EA">
 <div class="org-src-container">
-<pre class="src src-sh">---
-apiVersion: v1
-kind: Service
-metadata:
-  name: bigdata-nacos
-  namespace: bigdata-qa
-  labels:
-    app: bigdata-nacos
-spec:
-  ports:
-    - port: 8848
-      name: server
-      targetPort: 8848
-  selector:
-    app: nacos
+<pre class="src src-shell">cat &lt;&lt;\EOF&gt; nacos-cluster.yaml <span class="org-sh-heredoc">
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  namespace: bigdata-qa
   name: nacos-cm
+  namespace: nacos
 data:
-  mysql.host: <span class="org-string">"xxxxq1.mysql.com"</span>
-  mysql.db.name: <span class="org-string">"nacos_config"</span>
-  mysql.port: <span class="org-string">"3306"</span>
-  mysql.user: <span class="org-string">"data_nacos_all"</span>
-  mysql.password: <span class="org-string">"QBQzgdxxxxxxxxx"</span>
+  mysql.host: "mysqll.xx.com"
+  mysql.db.name: "nacos"
+  mysql.port: "3306"
+  mysql.user: "nacos"
+  mysql.password: "NxxxN"
+---
+# &#37492;&#26435;&#21442;&#25968;&#12290;&#23448;&#26041; 2.x &#28165;&#21333;&#27809;&#26377;&#36825;&#27573;&#65288;&#40664;&#35748; nacos.core.auth.enabled=false&#65289;&#12290;
+# https://nacos.io/docs/next/manual/admin/auth/
+# &#29983;&#25104;&#26041;&#24335;&#65306;
+#   token.secret.key      openssl rand -base64 48   # Base64 &#35299;&#30721;&#21518; &gt;= 32 &#23383;&#33410;&#65292;2.2.1 &#36215;&#26080;&#40664;&#35748;&#20540;
+#   server.identity.value openssl rand -hex 16      # &#20219;&#24847;&#23383;&#31526;&#20018;&#65292;&#20294;&#21035;&#29992; security &#36825;&#31867;&#40664;&#35748;&#35789;
+apiVersion: v1
+kind: Secret
+metadata:
+  name: nacos-auth
+  namespace: nacos
+type: Opaque
+stringData:
+  # nacos.core.auth.plugin.nacos.token.secret.key
+  token.secret.key: "ORXf/z0aHHlr7U8UYC1P92XQqQLWk9IzYuBlOQ/0MDP/ZZC7VNMLmWcOAmqk4qG6"
+  # nacos.core.auth.server.identity.value
+  server.identity.value: "1f80078cb3547f6f14b4ca3dd44cb424"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nacos-headless
+  namespace: nacos
+  labels:
+    app: nacos-headless
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+    - port: 8848
+      name: server
+      targetPort: 8848
+    - port: 9848
+      name: client-rpc
+      targetPort: 9848
+    - port: 9849
+      name: raft-rpc
+      targetPort: 9849
+    ## compat: 1.4.x raft election port
+    - port: 7848
+      name: old-raft-rpc
+      targetPort: 7848
+  selector:
+    app: nacos
 ---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   name: nacos
-  namespace: bigdata-qa
+  namespace: nacos
 spec:
-  serviceName: bigdata-nacos
+  serviceName: nacos-headless
   replicas: 3
+  selector:
+    matchLabels:
+      app: nacos
   template:
     metadata:
       labels:
         app: nacos
-      annotations:
-        pod.alpha.kubernetes.io/initialized: <span class="org-string">"true"</span>
     spec:
+      imagePullSecrets:
+      - name: harbor-pull
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             - labelSelector:
                 matchExpressions:
-                  - key: <span class="org-string">"app"</span>
+                  - key: "app"
                     operator: In
                     values:
-                      - nacos-headless
-              topologyKey: <span class="org-string">"kubernetes.io/hostname"</span>
+                      - nacos
+              topologyKey: "kubernetes.io/hostname"
       containers:
-        - name: k8snacos
-          imagePullPolicy: Always
-          image: registry.cn-beijing.aliyuncs.com/ixx/nacos-server:1.4.0
+        - name: nacos
+          imagePullPolicy: IfNotPresent
+          #image: nacos/nacos-server:v3.2.4
+          image: 10.50.22.47/infra/nacos/nacos-server:v2.3.2
           resources:
             requests:
-              memory: <span class="org-string">"2Gi"</span>
-              cpu: <span class="org-string">"500m"</span>
+              memory: "1Gi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
           ports:
             - containerPort: 8848
               name: client
+            - containerPort: 9848
+              name: client-rpc
+            - containerPort: 9849
+              name: raft-rpc
+            - containerPort: 7848
+              name: old-raft-rpc
           env:
             - name: NACOS_REPLICAS
-              value: <span class="org-string">"3"</span>
+              value: "3"
+            - name: MYSQL_SERVICE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: nacos-cm
+                  key: mysql.host
             - name: MYSQL_SERVICE_DB_NAME
               valueFrom:
                 configMapKeyRef:
@@ -443,31 +284,98 @@ spec:
                 configMapKeyRef:
                   name: nacos-cm
                   key: mysql.password
-            - name: MYSQL_SERVICE_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: nacos-cm
-                  key: mysql.host
+            - name: SPRING_DATASOURCE_PLATFORM
+              value: "mysql"
+            - name: MODE
+              value: "cluster"
             - name: NACOS_SERVER_PORT
-              value: <span class="org-string">"8848"</span>
-            - name: NACOS_APPLICATION_PORT
-              value: <span class="org-string">"8848"</span>
+              value: "8848"
             - name: PREFER_HOST_MODE
-              value: <span class="org-string">"hostname"</span>
+              value: "hostname"
             - name: NACOS_SERVERS
-              value: <span class="org-string">"nacos-0.bigdata-nacos.bigdata-qa.svc.cluster.local:8848 nacos-1.bigdata-nacos.bigdata-qa.svc.cluster.local:8848 nacos-2.bigdata-nacos.bigdata-qa.svc.cluster.local:8848"</span>
+              value: "nacos-0.nacos-headless.nacos.svc.cluster.local:8848 nacos-1.nacos-headless.nacos.svc.cluster.local:8848 nacos-2.nacos-headless.nacos.svc.cluster.local:8848"
+            - name: JVM_XMS
+              value: "512m"
+            - name: JVM_XMX
+              value: "512m"
+            - name: JVM_XMN
+              value: "256m"
+            - name: MYSQL_SERVICE_DB_PARAM
+              value: "characterEncoding=utf8&amp;connectTimeout=10000&amp;socketTimeout=30000&amp;autoReconnect=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=Asia/Shanghai"
+
+            # &#37492;&#26435;&#12290;2.3.2 &#40664;&#35748;&#20851;&#38381;&#65292;&#24320;&#20102;&#20043;&#21518;&#25152;&#26377; OpenAPI &#37117;&#35201;&#24102; accessToken&#12290;
+            - name: NACOS_AUTH_ENABLE
+              value: "true"
+            - name: NACOS_AUTH_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: nacos-auth
+                  key: token.secret.key
+            - name: NACOS_AUTH_IDENTITY_KEY
+              value: "serverIdentity"
+            - name: NACOS_AUTH_IDENTITY_VALUE
+              valueFrom:
+                secretKeyRef:
+                  name: nacos-auth
+                  key: server.identity.value
+            # &#30331;&#24405;&#24577;&#26377;&#25928;&#26399;&#65292;&#40664;&#35748; 18000&#65288;5 &#23567;&#26102;&#65289;
+            - name: NACOS_AUTH_TOKEN_EXPIRE_SECONDS
+              value: "18000"
+            # &#37492;&#26435;&#32467;&#26524;&#32531;&#23384;&#65292;&#40664;&#35748; false&#12290;&#24320;&#20102;&#33021;&#30465;&#25481;&#27599;&#27425;&#35831;&#27714;&#26597;&#24211;&#65292;
+            # &#20195;&#20215;&#26159;&#25913;&#26435;&#38480;&#21518;&#26368;&#22810; 15s &#25165;&#29983;&#25928;&#12290;
+            - name: NACOS_AUTH_CACHE_ENABLE
+              value: "true"
+            # User-Agent &#30333;&#21517;&#21333;&#65306;&#24102; Nacos-Server UA &#23601;&#20813;&#37492;&#26435;&#30340;&#32769;&#20860;&#23481;&#24320;&#20851;&#12290;
+            # 2.2.0 &#36215;&#40664;&#35748; false&#65292;&#36825;&#37324;&#26174;&#24335;&#20889;&#27515;&#65292;&#38450;&#27490;&#38236;&#20687;&#25442;&#29256;&#26412;&#21518;&#34987;&#25171;&#24320;&#12290;
+            - name: NACOS_AUTH_USER_AGENT_AUTH_WHITE_ENABLE
+              value: "false"
+
+          startupProbe:
+            httpGet:
+              path: /nacos/v1/console/health/readiness
+              port: 8848
+            initialDelaySeconds: 60
+            periodSeconds: 5
+            failureThreshold: 60
+          livenessProbe:
+            httpGet:
+              path: /nacos/v1/console/health/liveness
+              port: 8848
+            periodSeconds: 20
+            timeoutSeconds: 10
+            failureThreshold: 6
+          readinessProbe:
+            httpGet:
+              path: /nacos/v1/console/health/readiness
+              port: 8848
+            periodSeconds: 10
+            timeoutSeconds: 10
+
+---
+# &#38598;&#32676;&#20869;&#19994;&#21153;&#35775;&#38382;&#20837;&#21475;
+apiVersion: v1
+kind: Service
+metadata:
+  name: nacos
+  namespace: nacos
+  labels:
+    app: nacos
+spec:
+  type: ClusterIP
   selector:
-    matchLabels:
-      app: nacos
+    app: nacos
+  ports:
+    - name: server
+      port: 8848
+      targetPort: 8848
+    - name: client-rpc
+      port: 9848
+      targetPort: 9848
+EOF</span>
 </pre>
 </div>
-
 <p>
-配置ingress规则
-</p>
-
-<p>
-使用rancher或编辑ingress.yaml文件创建访问规则，域名根据实际情况配置
+配置ingress规则，域名根据实际情况配置
 </p>
 
 <div class="org-src-container">
@@ -497,14 +405,134 @@ spec:
 </div>
 
 <p>
-登入web界面
+登入web界面，URL域名/nacos
+</p>
+<ul class="org-ul">
+<li>默认账号：nacos 默认密码：nacos</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-h:E2F98F0F-ABA8-4C42-9B43-381D019A7486" class="outline-3">
+<h3 id="h:E2F98F0F-ABA8-4C42-9B43-381D019A7486"><a href="#h:E2F98F0F-ABA8-4C42-9B43-381D019A7486">验证</a></h3>
+<div class="outline-text-3" id="text-h:E2F98F0F-ABA8-4C42-9B43-381D019A7486">
+<p>
+数据连接验证
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">kubectl --kubeconfig /root/.kube/config-java -n nacos run netcheck --rm -it --restart=Never <span class="org-sh-escaped-newline">\</span>
+  --image=nacos/nacos-server:v2.3.2 <span class="org-sh-escaped-newline">\</span>
+  --overrides=<span class="org-string">'{"spec":{"imagePullSecrets":[{"name":"harbor-pull"}]}}'</span> <span class="org-sh-escaped-newline">\</span>
+  --command -- bash -c <span class="org-string">'
+    H=xxx.rds.aliyuncs.com
+    getent hosts $H
+    timeout 5 bash -c "&lt;/dev/tcp/$H/3306" &amp;&amp; echo TCP_OK || echo TCP_FAIL
+    curl -s --max-time 10 https://ifconfig.me; echo
+  '</span>
+</pre>
+</div>
+
+<p>
+鉴权已开启， <code>/v1/core/cluster/nodes</code> 、 <code>/v1/ns/operator/servers</code>  都带 <code>@Secured</code> ，官方原文的命令要先换 token：
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#20808;&#30331;&#24405;&#25343; accessToken&#65292;&#40664;&#35748; 5 &#23567;&#26102;&#36807;&#26399;
+</span><span class="org-variable-name">TOKEN</span>=$(kubectl -n nacos exec nacos-0 -- curl -s -X POST <span class="org-sh-escaped-newline">\</span>
+    <span class="org-string">'http://localhost:8848/nacos/v1/auth/login'</span> <span class="org-sh-escaped-newline">\</span>
+    --data-urlencode <span class="org-string">'username=nacos'</span> <span class="org-sh-escaped-newline">\</span>
+    --data-urlencode <span class="org-string">'password=Yxxxy'</span> <span class="org-sh-escaped-newline">\</span>
+    | python3 -c <span class="org-string">'import sys,json;print(json.load(sys.stdin)["accessToken"])'</span>)
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#38598;&#32676;&#25104;&#21592;&#21015;&#34920; + &#27599;&#20010;&#33410;&#28857;&#29366;&#24577;
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">&#37325;&#28857;&#30475;&#27599;&#20010;&#33410;&#28857;&#30340; state&#65292;&#19977;&#20010;&#37117;&#35813;&#26159; UP&#12290;
+</span>kubectl -n nacos exec nacos-0 -- curl -s <span class="org-sh-escaped-newline">\</span>
+    <span class="org-string">"http://localhost:8848/nacos/v2/core/cluster/node/list?accessToken=$TOKEN"</span> | python3 -m json.tool
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#21629;&#21517;&#26381;&#21153;&#25351;&#26631;&#65306;serviceCount / instanceCount / responsibleServiceCount
+</span>kubectl -n nacos exec nacos-0 -- curl -s <span class="org-sh-escaped-newline">\</span>
+  <span class="org-string">"http://localhost:8848/nacos/v1/ns/operator/metrics?accessToken=$TOKEN"</span> | python3 -m json.tool
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#19977;&#20010; Pod &#20998;&#21035;&#25506;&#27963;&#65292;&#30830;&#35748;&#19981;&#26159;&#21482;&#26377; nacos-0 &#27491;&#24120;
+</span><span class="org-keyword">for</span> i<span class="org-keyword"> in</span> 0 1 2; <span class="org-keyword">do</span>
+  <span class="org-builtin">echo</span> -n <span class="org-string">"nacos-$i: "</span>
+  kubectl -n nacos exec nacos-$<span class="org-variable-name">i</span> -- curl -s http://localhost:8848/nacos/v1/console/health/readiness
+  <span class="org-builtin">echo</span>
+<span class="org-keyword">done</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">cluster.conf &#26159;&#21542;&#19977;&#20010;&#33410;&#28857;&#37117;&#22312;&#65288;&#35835;&#25991;&#20214;&#65292;&#19981;&#36208;&#37492;&#26435;&#65289;
+</span><span class="org-keyword">for</span> i<span class="org-keyword"> in</span> 0 1 2; <span class="org-keyword">do </span><span class="org-builtin">echo</span> <span class="org-string">"--- nacos-$i ---"</span>; kubectl -n nacos exec nacos-$<span class="org-variable-name">i</span> -- cat conf/cluster.conf; <span class="org-keyword">done</span>
+</pre>
+</div>
+
+
+<p>
+服务注册验证
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#26381;&#21153;&#27880;&#20876;
+</span>kubectl -n nacos exec nacos-0 -- curl -s <span class="org-sh-escaped-newline">\</span>
+ -X POST <span class="org-string">"http://localhost:8848/nacos/v1/ns/instance?serviceName=nacos.naming.serviceName&amp;ip=20.18.7.10&amp;port=8080&amp;accessToken=$TOKEN"</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#26381;&#21153;&#21457;&#29616;
+</span>curl -X GET  <span class="org-string">"http://&lt;cluster-ip&gt;:8848/nacos/v1/ns/instance/list?serviceName=nacos.naming.serviceName&amp;accessToken=$TOKEN"</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#21457;&#24067;&#37197;&#32622;
+</span>curl -X POST <span class="org-string">"http://&lt;cluster-ip&gt;:8848/nacos/v1/cs/configs?dataId=nacos.cfg.dataId&amp;group=test&amp;content=helloWorld&amp;accessToken=$TOKEN"</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#33719;&#21462;&#37197;&#32622;
+</span>curl -X GET  <span class="org-string">"http://&lt;cluster-ip&gt;:8848/nacos/v1/cs/configs?dataId=nacos.cfg.dataId&amp;group=test&amp;accessToken=$TOKEN"</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-h:C759DC68-990B-4D1D-A32C-402F2FC4CECA" class="outline-3">
+<h3 id="h:C759DC68-990B-4D1D-A32C-402F2FC4CECA"><a href="#h:C759DC68-990B-4D1D-A32C-402F2FC4CECA">客户端接入</a></h3>
+<div class="outline-text-3" id="text-h:C759DC68-990B-4D1D-A32C-402F2FC4CECA">
+<div class="org-src-container">
+<pre class="src src-yaml">spring:
+  cloud:
+    nacos:
+      server-addr: nacos.nacos.svc.cluster.local:8848
+      username: nacos
+      password: nacos        # 建议在控制台建业务账号并授权到具体 namespace，别用 nacos
+      discovery:
+        server-addr: ${spring.cloud.nacos.server-addr}
+        username: ${spring.cloud.nacos.username}
+        password: ${spring.cloud.nacos.password}
+      config:
+        server-addr: ${spring.cloud.nacos.server-addr}
+        username: ${spring.cloud.nacos.username}
+        password: ${spring.cloud.nacos.password}
+</pre>
+</div>
+
+<p>
+username/password 在 <code>spring.cloud.nacos</code> 这一层不会自动下发给 discovery 和 config,
+取决于 spring-cloud-alibaba 版本,所以上面两段显式写了一遍。
 </p>
 
-<pre class="example" id="orgda5bf13">
-在阿里云添加解析，URL域名/nacos
-默认账号：nacos
-默认密码：nacos
+<p>
+Nacos 2.x 客户端会自己用 <code>端口+1000</code> 去连 gRPC(9848)。集群内走 Service 没问题;
+如果要用 NodePort 暴露给集群外,两个 nodePort 必须保持 1000 的差值
+(比如 30848 / 31848),否则控制台能开但客户端注册超时。
+</p>
+</div>
+</div>
+<div id="outline-container-h:2F5C46FE-BB00-4D2F-9298-C5750F034EC3" class="outline-3">
+<h3 id="h:2F5C46FE-BB00-4D2F-9298-C5750F034EC3"><a href="#h:2F5C46FE-BB00-4D2F-9298-C5750F034EC3">鉴权</a></h3>
+<div class="outline-text-3" id="text-h:2F5C46FE-BB00-4D2F-9298-C5750F034EC3">
+<p>
+2.3.2 默认 <code>nacos.core.auth.enabled=false</code> ,所以官方 2.x 清单里没有鉴权环境变量,不配也能起。要开启鉴权,再往 env 里加(2.2.1 起 <code>token.secret.key</code> 没有默认值,必须自己给):
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">- name: NACOS_AUTH_ENABLE
+  value: <span class="org-string">"true"</span>
+- name: NACOS_AUTH_TOKEN          <span class="org-comment-delimiter"># </span><span class="org-comment">openssl rand -base64 32
+</span>  value: <span class="org-string">"&lt;Base64,&#35299;&#30721;&#21518; &gt;= 32 &#23383;&#33410;&gt;"</span>
+- name: NACOS_AUTH_IDENTITY_KEY
+  value: <span class="org-string">"serverIdentity"</span>
+- name: NACOS_AUTH_IDENTITY_VALUE
+  value: <span class="org-string">"&lt;&#33258;&#23450;&#20041;&gt;"</span>
 </pre>
+</div>
 </div>
 </div>
 </section>

@@ -181,7 +181,7 @@
 <li><a href="#h:2c82116e-bfb4-4822-b77f-7584111a1a59">镜像导出</a></li>
 <li><a href="#h:15ada5fe-b279-4519-a5b0-8d4eeca49093">镜像导入</a>
 <ul>
-<li><a href="#orgf01009f">一次性打包所有镜像</a></li>
+<li><a href="#h:22D5DA2F-57E9-48E6-A92B-9F35E50A6FE9">一次性打包所有镜像</a></li>
 </ul>
 </li>
 <li><a href="#h:90478dc4-5395-4247-81b7-da62809102a8">删除镜像</a></li>
@@ -435,20 +435,25 @@
 <li><a href="#h:8ead3b45-6fc7-44c3-a9e0-f9003cc2a333">安装Harbor</a>
 <ul>
 <li><a href="#h:da28698a-02b5-4b00-ac47-c8cd78d6c059">下载Harbor安装包并解压缩</a></li>
-<li><a href="#h:dd14d68e-a6e5-4203-9e37-382c77b1b11c">编辑配置文件 harbor.cfg</a></li>
+<li><a href="#h:dd14d68e-a6e5-4203-9e37-382c77b1b11c">编辑配置文件 harbor.yml</a></li>
 <li><a href="#h:02726036-d855-4a3e-85a6-9359da43b2aa">运行 harbor 安装脚本</a></li>
 <li><a href="#h:688caf36-fcb0-4cec-8483-dfefbc5a7718">实现开机自动启动 harbor</a></li>
 <li><a href="#h:229dcac0-ee28-4a59-b194-f3cc4a6686e0">登录 harbor 主机网站</a></li>
 </ul>
 </li>
 <li><a href="#h:00028af6-457a-4bfa-9f0b-268d453c4e08">实现 harbor 高可用</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#h:f44edfbc-aad6-4225-a230-5be0203c12c4">单机编排之Docker Compose</a>
+<li><a href="#h:E079DD1C-B032-4B7D-8752-83E430588FC9">维护</a>
 <ul>
-<li><a href="#h:944a52d2-b32f-4d39-878e-eb4194011404">Docker Compse介绍</a>
+<li><a href="#h:35634CA3-7467-4C38-92D8-0B47815CB316">机器人账号</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#h:f44edfbc-aad6-4225-a230-5be0203c12c4">单机编排之 Docker Compose</a>
+<ul>
+<li><a href="#h:944a52d2-b32f-4d39-878e-eb4194011404">Docker Compse 介绍</a>
 <ul>
 <li><a href="#h:09f3c0ff-4c60-46e4-a9f2-adc8e87ae5e2">安装和准备</a>
 <ul>
@@ -459,6 +464,11 @@
 <li><a href="#h:bf0d8141-25e9-427a-9f8a-17ce0973f306">docker compse 文件格式</a></li>
 <li><a href="#h:3fe2dad3-48fc-4ad4-9d4f-5de1200f43f1">指定同时启动容器的数量</a></li>
 <li><a href="#h:cb328dd2-a42c-46bc-b6c7-4d21294acf2c">多doker compose文件容器互通</a></li>
+<li><a href="#h:A180357C-457A-42DF-A4DB-7F79FDFBE062">维护</a>
+<ul>
+<li><a href="#h:73880068-1556-459D-9D1D-83B9D0431BF5">Docker 单文件挂载问题</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -525,7 +535,7 @@
 <li><a href="#h:fac0024f-be54-4730-950b-acaec6e7edea">使用Github Action来拉取docker镜像</a></li>
 <li><a href="#h:fdca5471-6384-4d4e-9d3a-d5dda0cac3da">利用cloudflare代理DockerHub</a></li>
 <li><a href="#h:02e6a941-be62-4487-8902-7652edf3a5df">nginx反向代理加速docker镜像</a></li>
-<li><a href="#org9626c90">HTTP代理加速docker镜像</a></li>
+<li><a href="#h:05420ECC-6FCE-4AE8-BFAC-4AB5CF10FE4F">HTTP代理加速docker镜像</a></li>
 </ul>
 </li>
 </ul>
@@ -717,7 +727,7 @@ Build, Ship and Run Any App, Anywhere，即通过对应用组件的封装（Pack
 <h4 id="h:a00dcf7a-9cc2-4342-8dce-ec5a5d1ee260"><a href="#h:a00dcf7a-9cc2-4342-8dce-ec5a5d1ee260">Docker 和虚拟机，物理主机</a></h4>
 <div class="outline-text-4" id="text-h:a00dcf7a-9cc2-4342-8dce-ec5a5d1ee260">
 
-<figure id="org1383eaa">
+<figure id="orgd3c6d0e">
 <img style="aspect-ratio:1272/474" decoding="async" loading="lazy" src="./images/Snipaste_2023-04-25_14-24-19.webp" alt="Snipaste_2023-04-25_14-24-19.webp"><br>
 
 </figure>
@@ -767,7 +777,7 @@ docker 中文网站: <a href="http://www.docker.org.cn/Docker">http://www.docker
 </p>
 
 
-<figure id="orgd1eb63f">
+<figure id="org2ad41e1">
 <img style="aspect-ratio:1078/1164" decoding="async" loading="lazy" src="./images/Snipaste_2023-04-25_15-11-14.webp" alt="Snipaste_2023-04-25_15-11-14.webp"><br>
 
 </figure>
@@ -876,7 +886,7 @@ Linux系统中，有一个PID为1的进程(init/systemd)是其他所有进程的
 </p>
 
 
-<figure id="org3c33c36">
+<figure id="orgb88734e">
 <img style="aspect-ratio:1188/550" decoding="async" loading="lazy" src="./images/Snipaste_2023-04-25_21-53-39.webp" alt="Snipaste_2023-04-25_21-53-39.webp"><br>
 
 </figure>
@@ -1473,24 +1483,43 @@ docker 原生的日志查看工具docker logs，但是容器内部的日志需�
 </p>
 
 <p>
-Ubuntu 14.04/16.04/18.04 安装docker<br>
+Ubuntu 安装docker<br>
 </p>
 <div class="org-src-container">
-<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">step 1: &#23433;&#35013;&#24517;&#35201;&#30340;&#19968;&#20123;&#31995;&#32479;&#24037;&#20855;
-</span>sudo apt-get update
-sudo apt-get -y install apt-transport-https ca-certificates curl softwareproperties-common
-<span class="org-comment-delimiter"># </span><span class="org-comment">step 2: &#23433;&#35013;GPG&#35777;&#20070;
-</span>curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
-<span class="org-comment-delimiter"># </span><span class="org-comment">Step 3: &#20889;&#20837;&#36719;&#20214;&#28304;&#20449;&#24687;
-</span>sudo add-apt-repository <span class="org-string">"deb [arch=amd64] https://mirrors.aliyun.com/dockerce/linux/ubuntu $(lsb_release -cs) stable"</span>
-<span class="org-comment-delimiter"># </span><span class="org-comment">Step 4: &#26356;&#26032;&#24182;&#23433;&#35013;Docker-CE
-</span>sudo apt-get -y update
-sudo apt-get -y install docker-ce
+<pre class="src src-shell"><span class="org-comment-delimiter">#</span><span class="org-comment">&#22914;&#26524;&#20320;&#36807;&#21435;&#23433;&#35013;&#36807; docker&#65292;&#20808;&#21024;&#25481;&#65306;
+</span>apt remove $(dpkg --get-selections docker.io docker-compose docker-doc podman-docker containerd runc | cut -f1)
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#39318;&#20808;&#23433;&#35013;&#20381;&#36182;&#65306;
+</span>apt-get update
+apt-get install ca-certificates curl
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Ubuntu
+</span>sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">Add the repository to Apt sources:
+</span>sudo tee /etc/apt/sources.list.d/docker.sources &lt;&lt;EOF<span class="org-sh-heredoc">
+Types: deb
+URIs: https://download.docker.com/linux/ubuntu
+Suites: $(. /etc/os-release &amp;&amp; echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+Components: stable
+Architectures: $(dpkg --print-architecture)
+Signed-By: /etc/apt/keyrings/docker.asc
+EOF
+</span>
+sudo apt update
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#26356;&#26032;&#24182;&#23433;&#35013;Docker-CE
+</span>sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+sudo systemctl status docker
+sudo systemctl start docker
+
 <span class="org-comment-delimiter"># </span><span class="org-comment">&#23433;&#35013;&#25351;&#23450;&#29256;&#26412;&#30340;Docker-CE:
 </span><span class="org-comment-delimiter"># </span><span class="org-comment">Step 1: &#26597;&#25214;Docker-CE&#30340;&#29256;&#26412;:
-</span>apt-cache madison docker-ce
-docker-ce | 5:19.03.5~3-0~ubuntu-bionic | https://mirrors.aliyun.com/dockerce/linux/ubuntu bionic/stable amd64 Packages
-docker-ce | 18.06.3~ce~3-0~ubuntu | https://mirrors.aliyun.com/dockerce/linux/ubuntu bionic/stable amd64 Packages
+</span>apt list --all-versions docker-ce
+apt-cache madison docker-ce
 <span class="org-comment-delimiter"># </span><span class="org-comment">Step 2: &#23433;&#35013;&#25351;&#23450;&#29256;&#26412;&#30340;Docker-CE: (VERSION&#20363;&#22914;&#19978;&#38754;&#30340;5:17.03.1~ce-0~ubuntu-xenial)
 </span>sudo apt-get -y install docker-ce=[VERSION] docker-ce-cli=[VERSION]
 <span class="org-comment-delimiter">#</span><span class="org-comment">&#31034;&#20363;:&#25351;&#23450;&#29256;&#26412;&#23433;&#35013;
@@ -1502,8 +1531,8 @@ docker-ce | 18.06.3~ce~3-0~ubuntu | https://mirrors.aliyun.com/dockerce/linux/ub
 删除docker<br>
 </p>
 <div class="org-src-container">
-<pre class="src src-shell">[root@ubuntu ~]#apt purge docker-ce
-[root@ubuntu ~]#rm -rf /var/lib/docker
+<pre class="src src-shell">apt purge docker-ce
+rm -rf /var/lib/docker
 </pre>
 </div>
 </div>
@@ -2043,7 +2072,7 @@ docker 相关的四个进程:<br>
 <li><a id="h:bf7989c6-8f3b-4bb3-a283-cfa1ffbf73be"></a><a href="#h:bf7989c6-8f3b-4bb3-a283-cfa1ffbf73be">gRPC简介</a><br>
 <div class="outline-text-6" id="text-h:bf7989c6-8f3b-4bb3-a283-cfa1ffbf73be">
 
-<figure id="org45bb6c0">
+<figure id="org37034fd">
 <img style="aspect-ratio:1092/668" decoding="async" loading="lazy" src="./images/Snipaste_2023-04-25_23-24-41.webp" alt="Snipaste_2023-04-25_23-24-41.webp"><br>
 
 </figure>
@@ -2193,7 +2222,7 @@ Labels:
 <h4 id="h:e6670e1f-e099-4711-8b00-b23ecd73ec61"><a href="#h:e6670e1f-e099-4711-8b00-b23ecd73ec61">镜像结构和原理</a></h4>
 <div class="outline-text-4" id="text-h:e6670e1f-e099-4711-8b00-b23ecd73ec61">
 
-<figure id="orgf8c8f08">
+<figure id="org6920c93">
 <img style="aspect-ratio:986/666" decoding="async" loading="lazy" src="./images/Snipaste_2023-04-26_10-25-28.webp" alt="Snipaste_2023-04-26_10-25-28.webp"><br>
 
 </figure>
@@ -2207,7 +2236,7 @@ Labels:
 </p>
 
 
-<figure id="org727c965">
+<figure id="orgc1f435e">
 <img style="aspect-ratio:880/730" decoding="async" loading="lazy" src="./images/Snipaste_2023-04-26_10-26-03.webp" alt="Snipaste_2023-04-26_10-26-03.webp"><br>
 
 </figure>
@@ -2635,9 +2664,9 @@ docker save IMAGE1 IMAGE2 ... &gt; /path/file.tar
 </pre>
 </div>
 </div>
-<div id="outline-container-orgf01009f" class="outline-5">
-<h5 id="orgf01009f"><a href="#orgf01009f">一次性打包所有镜像</a></h5>
-<div class="outline-text-5" id="text-orgf01009f">
+<div id="outline-container-h:22D5DA2F-57E9-48E6-A92B-9F35E50A6FE9" class="outline-5">
+<h5 id="h:22D5DA2F-57E9-48E6-A92B-9F35E50A6FE9"><a href="#h:22D5DA2F-57E9-48E6-A92B-9F35E50A6FE9">一次性打包所有镜像</a></h5>
+<div class="outline-text-5" id="text-h:22D5DA2F-57E9-48E6-A92B-9F35E50A6FE9">
 <div class="org-src-container">
 <pre class="src src-sh">docker image save <span class="org-sh-quoted-exec">`docker image ls --format "{{.Repository}}:{{.Tag}}"`</span> -o k8s-node-images-v1.50.0.tar
 <span class="org-comment-delimiter">#</span><span class="org-comment">&#21387;&#32553;
@@ -2791,7 +2820,7 @@ docker run 可以启动容器，进入到容器，并随机生成容器ID和名�
 <h5 id="h:49f3eaf8-aadc-4cf8-966a-29d7326b815a"><a href="#h:49f3eaf8-aadc-4cf8-966a-29d7326b815a">启动容器的流程</a></h5>
 <div class="outline-text-5" id="text-h:49f3eaf8-aadc-4cf8-966a-29d7326b815a">
 
-<figure id="org8d3cf10">
+<figure id="org28ed69a">
 <img style="aspect-ratio:1066/786" decoding="async" loading="lazy" src="./images/Snipaste_2023-04-26_14-01-01.webp" alt="Snipaste_2023-04-26_14-01-01.webp"><br>
 
 </figure>
@@ -3783,7 +3812,7 @@ CMD [<span class="org-string">"run_haproxy.sh"</span>]
 <h4 id="h:40ba9475-54f7-405d-8560-ef111651bb55"><a href="#h:40ba9475-54f7-405d-8560-ef111651bb55">docker 镜像生命周期</a></h4>
 <div class="outline-text-4" id="text-h:40ba9475-54f7-405d-8560-ef111651bb55">
 
-<figure id="org4abb8d0">
+<figure id="orgd7f5486">
 <img style="aspect-ratio:1174/814" decoding="async" loading="lazy" src="./images/Snipaste_2023-04-27_00-27-36.webp" alt="Snipaste_2023-04-27_00-27-36.webp"><br>
 
 </figure>
@@ -3911,7 +3940,7 @@ Docker将尽可能重用中间镜像层（缓存），以显著加速 docker bui
 <h5 id="h:02356ca8-57e0-4d0a-91ec-d89808471032"><a href="#h:02356ca8-57e0-4d0a-91ec-d89808471032">Dockerfile 镜像制作和使用流程</a></h5>
 <div class="outline-text-5" id="text-h:02356ca8-57e0-4d0a-91ec-d89808471032">
 
-<figure id="org6ea4c9e">
+<figure id="orgdbdffc7">
 <img style="aspect-ratio:1104/576" decoding="async" loading="lazy" src="./images/Snipaste_2023-04-27_11-27-46.webp" alt="Snipaste_2023-04-27_11-27-46.webp"><br>
 
 </figure>
@@ -3921,7 +3950,7 @@ Docker将尽可能重用中间镜像层（缓存），以显著加速 docker bui
 <h5 id="h:ce9e6995-b588-4a75-8cc2-c9a1affb0f4b"><a href="#h:ce9e6995-b588-4a75-8cc2-c9a1affb0f4b">Dockerfile文件的制作镜像的分层结构</a></h5>
 <div class="outline-text-5" id="text-h:ce9e6995-b588-4a75-8cc2-c9a1affb0f4b">
 
-<figure id="orgda89fb6">
+<figure id="orgb96b3a8">
 <img style="aspect-ratio:1172/572" decoding="async" loading="lazy" src="./images/Snipaste_2023-04-27_11-28-39.webp" alt="Snipaste_2023-04-27_11-28-39.webp"><br>
 
 </figure>
@@ -5386,7 +5415,7 @@ CMD [<span class="org-string">"nginx"</span>]
 <h2 id="h:7d21cb54-a602-4d26-bb4a-e5d245a3b6e3"><a href="#h:7d21cb54-a602-4d26-bb4a-e5d245a3b6e3">Docker 数据管理</a></h2>
 <div class="outline-text-2" id="text-h:7d21cb54-a602-4d26-bb4a-e5d245a3b6e3">
 
-<figure id="org453592a">
+<figure id="orga144cd6">
 <img style="aspect-ratio:1170/638" decoding="async" loading="lazy" src="./images/Snipaste_2023-04-27_23-24-08.webp" alt="Snipaste_2023-04-27_23-24-08.webp"><br>
 
 </figure>
@@ -6039,7 +6068,7 @@ SERVER1-ALIAS_NAME=/server3/server1-alias
 <h4 id="h:3e7a32cf-ee2c-408d-adcd-51273b29c6dc"><a href="#h:3e7a32cf-ee2c-408d-adcd-51273b29c6dc">网络模式介绍</a></h4>
 <div class="outline-text-4" id="text-h:3e7a32cf-ee2c-408d-adcd-51273b29c6dc">
 
-<figure id="orgc85f8f0">
+<figure id="org7e7ba7d">
 <img style="aspect-ratio:1068/692" decoding="async" loading="lazy" src="./images/Snipaste_2023-04-28_06-59-14.webp" alt="Snipaste_2023-04-28_06-59-14.webp"><br>
 
 </figure>
@@ -6100,7 +6129,7 @@ container:&lt;&#23481;&#22120;&#21517;&#25110;&#23481;&#22120;ID&gt;
 <h5 id="h:1e3c1937-1f49-46e4-88df-e854f388cfdc"><a href="#h:1e3c1937-1f49-46e4-88df-e854f388cfdc">bridge 网络模式架构</a></h5>
 <div class="outline-text-5" id="text-h:1e3c1937-1f49-46e4-88df-e854f388cfdc">
 
-<figure id="orgd1155f5">
+<figure id="orga83c2e2">
 <img style="aspect-ratio:1196/806" decoding="async" loading="lazy" src="./images/Snipaste_2023-04-28_07-02-18.webp" alt="Snipaste_2023-04-28_07-02-18.webp"><br>
 
 </figure>
@@ -6110,7 +6139,7 @@ container:&lt;&#23481;&#22120;&#21517;&#25110;&#23481;&#22120;ID&gt;
 </p>
 
 
-<figure id="orgc343b5b">
+<figure id="org98ab6c1">
 <img style="aspect-ratio:1134/584" decoding="async" loading="lazy" src="./images/Snipaste_2023-04-28_07-03-09.webp" alt="Snipaste_2023-04-28_07-03-09.webp"><br>
 
 </figure>
@@ -6369,7 +6398,7 @@ Destination Gateway Genmask Flags Metric Ref Use Iface
 <h4 id="h:e7008006-c411-4c72-b93e-da1c4c2fe52a"><a href="#h:e7008006-c411-4c72-b93e-da1c4c2fe52a">Host 模式</a></h4>
 <div class="outline-text-4" id="text-h:e7008006-c411-4c72-b93e-da1c4c2fe52a">
 
-<figure id="orgc269557">
+<figure id="org07f5ab1">
 <img style="aspect-ratio:918/618" decoding="async" loading="lazy" src="./images/Snipaste_2023-04-28_10-44-53.webp" alt="Snipaste_2023-04-28_10-44-53.webp"><br>
 
 </figure>
@@ -6469,7 +6498,7 @@ none模式特点<br>
 <h4 id="h:ba00cd2f-211f-4cb3-bbe9-b4bbeff8888b"><a href="#h:ba00cd2f-211f-4cb3-bbe9-b4bbeff8888b">Container 模式</a></h4>
 <div class="outline-text-4" id="text-h:ba00cd2f-211f-4cb3-bbe9-b4bbeff8888b">
 
-<figure id="orgbeafe6b">
+<figure id="orgff1f471">
 <img style="aspect-ratio:858/698" decoding="async" loading="lazy" src="./images/Snipaste_2023-04-28_10-52-31.webp" alt="Snipaste_2023-04-28_10-52-31.webp"><br>
 
 </figure>
@@ -7082,7 +7111,7 @@ valid_lft forever preferred_lft forever
 <h4 id="h:5381348e-7f75-490d-b2cb-2d4f6f4eb0e2"><a href="#h:5381348e-7f75-490d-b2cb-2d4f6f4eb0e2">方式1: 利用桥接实现跨宿主机的容器间互联</a></h4>
 <div class="outline-text-4" id="text-h:5381348e-7f75-490d-b2cb-2d4f6f4eb0e2">
 
-<figure id="org2eff7fe">
+<figure id="orgd292c36">
 <img style="aspect-ratio:1206/378" decoding="async" loading="lazy" src="./images/Snipaste_2023-04-28_14-22-00.webp" alt="Snipaste_2023-04-28_14-22-00.webp"><br>
 
 </figure>
@@ -7783,7 +7812,7 @@ github链接: <a href="https://github.com/weaveworks/weave#readme">https://githu
 </p>
 
 
-<figure id="orgecb4d09">
+<figure id="orgb02d138">
 <img style="aspect-ratio:1106/526" decoding="async" loading="lazy" src="./images/Snipaste_2023-04-28_14-56-22.webp" alt="Snipaste_2023-04-28_14-56-22.webp"><br>
 
 </figure>
@@ -8301,7 +8330,7 @@ github文档: <a href="https://github.com/goharbor/harbor/tree/master/docs">http
 <h5 id="h:efa5ab09-c302-4286-8714-626a9dad03de"><a href="#h:efa5ab09-c302-4286-8714-626a9dad03de">Harbor 组成</a></h5>
 <div class="outline-text-5" id="text-h:efa5ab09-c302-4286-8714-626a9dad03de">
 
-<figure id="org4ae57fa">
+<figure id="org23d4cc3">
 <img style="aspect-ratio:1180/654" decoding="async" loading="lazy" src="./images/Snipaste_2023-04-28_16-58-16.webp" alt="Snipaste_2023-04-28_16-58-16.webp"><br>
 
 </figure>
@@ -8347,37 +8376,19 @@ RESTful API: 提供给管理员对于Harbor更多的操控, 使得与其它管�
 <li>两台主机harbor服务器，地址: 10.0.0.101|102<br></li>
 <li>两台主机harbor客户端上传和下载镜像<br></li>
 </ul>
-
-<p>
-安装docker compose<br>
-</p>
-<div class="org-src-container">
-<pre class="src src-shell"><span class="org-comment-delimiter">#</span><span class="org-comment">&#26041;&#27861;1: &#36890;&#36807;pip&#23433;&#35013;&#65292;&#29256;&#26412;&#36739;&#26032;docker_compose-1.25.3&#65292;&#25512;&#33616;&#20351;&#29992;
-</span>[root@ubuntu1804 ~]#apt -y install python-pip
-[root@ubuntu1804 ~]#pip install docker-compose
-
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#26041;&#27861;2: &#30452;&#25509;&#20174;github&#19979;&#36733;&#23433;&#35013;&#23545;&#24212;&#29256;&#26412;
-</span><span class="org-comment-delimiter">#</span><span class="org-comment">&#21442;&#30475;&#35828;&#26126;: https://github.com/docker/compose/releases
-</span>curl -L https://github.com/docker/compose/releases/download/1.25.3/dockercompose-<span class="org-sh-quoted-exec">`uname -s`</span>-<span class="org-sh-quoted-exec">`uname -m`</span> -o /usr/bin/docker-compose
-chmod +x /usr/bin/docker-compose
-
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#26041;&#27861;3: &#30452;&#25509;&#23433;&#35013;&#65292;&#29256;&#26412;&#36739;&#26087;docker-compose-1.17.1-2&#65292;&#19981;&#25512;&#33616;&#20351;&#29992;
-</span>[root@ubuntu1804 ~]#apt -y install docker-compose
-</pre>
-</div>
 </div>
 <div id="outline-container-h:da28698a-02b5-4b00-ac47-c8cd78d6c059" class="outline-5">
 <h5 id="h:da28698a-02b5-4b00-ac47-c8cd78d6c059"><a href="#h:da28698a-02b5-4b00-ac47-c8cd78d6c059">下载Harbor安装包并解压缩</a></h5>
 <div class="outline-text-5" id="text-h:da28698a-02b5-4b00-ac47-c8cd78d6c059">
 <p>
-以下使用 harbor 稳定版本1.7.6 安装包<br>
-</p>
-
-<p>
 方法1: 下载离线完整安装包,推荐使用<br>
 </p>
 <div class="org-src-container">
-<pre class="src src-shell">[root@ubuntu1804 ~]#wget https://storage.googleapis.com/harbor-releases/release-1.7.0/harbor-offline-installer-v1.7.6.tgz
+<pre class="src src-shell"><span class="org-variable-name">HARBOR_VERSION</span>=2.15.4
+https://github.com/goharbor/harbor/releases/download/v${<span class="org-variable-name">HARBOR_VERSION</span>}/harbor-offline-installer-v${<span class="org-variable-name">HARBOR_VERSION</span>}.tgz
+
+mkdir /apps
+tar xf harbor-offline-installer-v${<span class="org-variable-name">HARBOR_VERSION</span>}.tgz -C /apps/
 </pre>
 </div>
 
@@ -8388,26 +8399,16 @@ chmod +x /usr/bin/docker-compose
 <pre class="src src-shell">[root@ubuntu1804 ~]#wget https://storage.googleapis.com/harbor-releases/release-1.7.0/harbor-online-installer-v1.7.6.tgz
 </pre>
 </div>
-
-<p>
-解压缩离线包<br>
-</p>
-<div class="org-src-container">
-<pre class="src src-shell">[root@ubuntu1804 ~]#mkdir /apps
-[root@ubuntu1804 ~]#tar xvf harbor-offline-installer-v1.7.6.tgz -C /apps/
-</pre>
-</div>
 </div>
 </div>
 <div id="outline-container-h:dd14d68e-a6e5-4203-9e37-382c77b1b11c" class="outline-5">
-<h5 id="h:dd14d68e-a6e5-4203-9e37-382c77b1b11c"><a href="#h:dd14d68e-a6e5-4203-9e37-382c77b1b11c">编辑配置文件 harbor.cfg</a></h5>
+<h5 id="h:dd14d68e-a6e5-4203-9e37-382c77b1b11c"><a href="#h:dd14d68e-a6e5-4203-9e37-382c77b1b11c">编辑配置文件 harbor.yml</a></h5>
 <div class="outline-text-5" id="text-h:dd14d68e-a6e5-4203-9e37-382c77b1b11c">
-<p>
-最新文档: <a href="https://github.com/goharbor/harbor/blob/master/docs/install-config/configure-yml-file.md">https://github.com/goharbor/harbor/blob/master/docs/install-config/configure-yml-file.md</a><br>
-</p>
-
 <div class="org-src-container">
-<pre class="src src-shell">[root@ubuntu1804 ~]#vim /apps/harbor/harbor.cfg
+<pre class="src src-shell"><span class="org-builtin">cd</span> /apps/harbor
+cp harbor.yml.tmpl harbor.yml
+
+vim harbor.yml
 <span class="org-comment-delimiter">#</span><span class="org-comment">&#21482;&#38656;&#35201;&#20462;&#25913;&#19979;&#38754;&#20004;&#34892;
 </span><span class="org-variable-name">hostname</span> = 10.0.0.101 <span class="org-comment-delimiter">#</span><span class="org-comment">&#20462;&#25913;&#27492;&#34892;,&#25351;&#21521;&#24403;&#21069;&#20027;&#26426;IP &#25110; FQDN
 </span><span class="org-variable-name">harbor_admin_password</span> = 123456 <span class="org-comment-delimiter">#</span><span class="org-comment">&#20462;&#25913;&#27492;&#34892;&#25351;&#23450;harbor&#30331;&#24405;&#29992;&#25143;admin&#30340;&#23494;&#30721;,&#40664;&#35748;&#29992;&#25143;/&#23494;&#30721;:admin/Harbor12345
@@ -8415,7 +8416,71 @@ chmod +x /usr/bin/docker-compose
 <span class="org-comment-delimiter">#</span><span class="org-comment">&#21487;&#36873;&#39033;
 </span><span class="org-variable-name">ui_url_protocol</span> = http <span class="org-comment-delimiter">#</span><span class="org-comment">&#40664;&#35748;&#21363;&#21487;,&#22914;&#26524;&#20462;&#25913;&#20026;https,&#38656;&#35201;&#25351;&#23450;&#19979;&#38754;&#35777;&#20070;&#36335;&#24452;
 </span><span class="org-variable-name">ssl_cert</span> = /data/cert/server.crt <span class="org-comment-delimiter">#</span><span class="org-comment">&#40664;&#35748;&#21363;&#21487;,https&#26102;&#65292;&#38656;&#25351;&#23450;&#19979;&#38754;&#35777;&#20070;&#25991;&#20214;&#36335;&#24452;
-</span><span class="org-variable-name">ss_cert_key</span> = /data/cert/server.key <span class="org-comment-delimiter">#</span><span class="org-comment">&#40664;&#35748;&#21363;&#21487;,https&#26102;&#65292;&#38656;&#25351;&#23450;&#19979;&#38754;&#31169;&#38053;&#25991;&#20214;&#36335;&#24452;</span>
+</span><span class="org-variable-name">ss_cert_key</span> = /data/cert/server.key <span class="org-comment-delimiter">#</span><span class="org-comment">&#40664;&#35748;&#21363;&#21487;,https&#26102;&#65292;&#38656;&#25351;&#23450;&#19979;&#38754;&#31169;&#38053;&#25991;&#20214;&#36335;&#24452;
+</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#25968;&#25454;&#25345;&#20037;&#21270;&#30446;&#24405;
+</span>data_volume: /data/harbor
+
+<span class="org-comment-delimiter">######## </span><span class="org-comment">Trivy &#37197;&#32622;&#27573; ########
+</span>trivy:
+  <span class="org-comment-delimiter"># </span><span class="org-comment">&#21482;&#23637;&#31034;&#26377;&#20462;&#22797;&#26041;&#26696;&#30340;&#28431;&#27934;&#65292;false=&#20840;&#37096;&#23637;&#31034;
+</span>  ignore_unfixed: false
+  <span class="org-comment-delimiter"># </span><span class="org-comment">&#25195;&#25551;&#31867;&#22411; vuln=&#28431;&#27934;&#65292;config=&#37197;&#32622;&#39118;&#38505;&#65292;secret=&#23494;&#38053;&#27844;&#38706;
+</span>  security_check: vuln,config,secret
+  <span class="org-comment-delimiter"># </span><span class="org-comment">skipUpdate: true &#31163;&#32447;&#29615;&#22659;&#65292;&#20851;&#38381;&#33258;&#21160;&#26356;&#26032;&#28431;&#27934;&#24211;&#65292;&#38656;&#35201;&#25163;&#21160;&#23548;&#20837;trivy.db
+</span>  skip_update: false
+  <span class="org-comment-delimiter"># </span><span class="org-comment">&#31163;&#32447;&#25195;&#25551;&#27169;&#24335;&#65292;&#26080;&#22806;&#32593;&#35774;true
+</span>  offlineScan: false
+</pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#37197;&#32622;&#22909;&#35777;&#20070;&#37325;&#26032;&#21551;&#21160; harbor
+</span>./prepare --with-trivy
+docker compose down
+<span class="org-comment-delimiter"># </span><span class="org-comment">docker compose down --remove-orphans # &#29992;&#26469;&#28165;&#25481;&#37027;&#20010;&#28216;&#31163;&#30340; trivy-adapter &#24182;&#37322;&#25918;&#32593;&#32476;
+</span>docker compose up -d
+docker compose ps
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">jenkins &#19978;&#65288;&#27880;&#24847;&#30446;&#24405;&#21517;&#35201;&#21644;&#20320; docker login &#29992;&#30340; registry &#21517;&#23436;&#20840;&#19968;&#33268;&#65289;
+</span>mkdir -p /etc/docker/certs.d/10.50.22.47
+cp ca.crt  /etc/docker/certs.d/10.50.22.47
+</pre>
+</div>
+
+
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#19981;301 &#36339;&#36716;
+</span>mkdir /opt/harbor/custom/
+cp common/config/nginx/nginx.conf /opt/harbor/custom/nginx.conf
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#32534;&#36753; /opt/harbor/custom/nginx.conf&#65292; server 8443 &#20869;&#23481;&#26367;&#25442;&#26411;&#23614; server 8080 &#22359;
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">&#24182;&#36861;&#21152; cookie &#39564;&#35777;&#65292;&#19981;&#28982;&#30331;&#24405;&#19981;&#20102;
+</span>  server {
+      listen 8080;
+      &#12290;&#12290;&#12290;&#30053;
+    proxy_cookie_flags _gorilla_csrf nosecure;
+    proxy_cookie_flags _xsrf         nosecure;
+    proxy_cookie_flags sid           nosecure;
+    
+    location / { <span class="org-comment-delimiter"># </span><span class="org-comment">&#22686;&#21152;
+</span>      proxy_cookie_path / <span class="org-string">"/; HttpOnly"</span>;
+location /c/ {
+location /api/ {
+location /v1/ {
+    <span class="org-comment-delimiter"># </span><span class="org-comment">&#21024;&#38500; proxy_cookie_path / "/; Secure";
+</span>
+
+&#25346;&#22238;&#21435;&#65288;&#19978;&#19968;&#26465;&#28040;&#24687;&#37324;&#30340;&#20889;&#27861;&#65289;&#65292;&#21542;&#21017;&#19979;&#27425; ./prepare &#20250;&#25226;&#23427;&#35206;&#30422;&#22238;&#36339;&#36716;&#29256;&#26412;&#12290;
+
+cat &gt; /opt/harbor/harbor/docker-compose.override.yml &lt;&lt;<span class="org-string">'EOF'</span><span class="org-sh-heredoc">
+services:
+  proxy:
+    volumes:
+      - /opt/harbor/harbor/custom/nginx.conf:/etc/nginx/nginx.conf:ro,z
+EOF
+</span>
+docker compose exec proxy nginx -t     <span class="org-comment-delimiter"># </span><span class="org-comment">&#20808;&#39564;&#35821;&#27861;
+</span>docker compose restart proxy
 </pre>
 </div>
 </div>
@@ -8424,15 +8489,22 @@ chmod +x /usr/bin/docker-compose
 <h5 id="h:02726036-d855-4a3e-85a6-9359da43b2aa"><a href="#h:02726036-d855-4a3e-85a6-9359da43b2aa">运行 harbor 安装脚本</a></h5>
 <div class="outline-text-5" id="text-h:02726036-d855-4a3e-85a6-9359da43b2aa">
 <div class="org-src-container">
-<pre class="src src-shell"><span class="org-comment-delimiter">#</span><span class="org-comment">&#20808;&#23433;&#35013;python
-</span>root@ubuntu1804 ~]#apt -y install python
-<span class="org-comment-delimiter">#</span><span class="org-comment">&#23433;&#35013;docker harbor
-</span>root@ubuntu1804 ~]#/apps/harbor/install.sh
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#29983;&#25104;docker-compose.yml&#65292;&#33258;&#21160;&#21253;&#21547; trivy-adapter
+</span>/apps/harbor/install.sh --with-trivy
 
 <span class="org-comment-delimiter">#</span><span class="org-comment">&#23433;&#35013;harbor&#21518;&#20250;&#33258;&#21160;&#24320;&#21551;&#24456;&#22810;&#30456;&#20851;&#23481;&#22120;
-</span>[root@ubuntu1804 ~]#docker ps
+</span>docker compose ps
 </pre>
 </div>
+
+<p>
+脚本内部做：<br>
+</p>
+<ol class="org-ol">
+<li>拉取 harbor 所有镜像 + trivy-adapter 镜像<br></li>
+<li>执行 <code>prepare --with-trivy</code> 生成 <code>docker-compose.yml</code><br></li>
+<li><code>docker compose up -d</code> 后台启动<br></li>
+</ol>
 </div>
 </div>
 <div id="outline-container-h:688caf36-fcb0-4cec-8483-dfefbc5a7718" class="outline-5">
@@ -8443,23 +8515,24 @@ chmod +x /usr/bin/docker-compose
 </p>
 
 <div class="org-src-container">
-<pre class="src src-shell">[root@harbor ~]#vim /lib/systemd/system/harbor.service
+<pre class="src src-shell">cat &lt;&lt;EOF&gt; /lib/systemd/system/harbor.service<span class="org-sh-heredoc">
 [Unit]
-<span class="org-variable-name">Description</span>=Harbor
-<span class="org-variable-name">After</span>=docker.service systemd-networkd.service systemd-resolved.service
-<span class="org-variable-name">Requires</span>=docker.service
-<span class="org-variable-name">Documentation</span>=http://github.com/vmware/harbor
+Description=Harbor
+After=docker.service systemd-networkd.service systemd-resolved.service
+Requires=docker.service
+Documentation=http://github.com/vmware/harbor
 [Service]
-<span class="org-variable-name">Type</span>=simple
-<span class="org-variable-name">Restart</span>=on-failure
-<span class="org-variable-name">RestartSec</span>=5
-<span class="org-variable-name">ExecStart</span>=/usr/bin/docker-compose -f /apps/harbor/docker-compose.yml up
-<span class="org-variable-name">ExecStop</span>=/usr/bin/docker-compose -f /apps/harbor/docker-compose.yml down
+Type=simple
+Restart=on-failure
+RestartSec=5
+ExecStart=/usr/bin/docker compose -f /apps/harbor/docker-compose.yml up
+ExecStop=/usr/bin/docker compose -f /apps/harbor/docker-compose.yml down
 [Install]
-<span class="org-variable-name">WantedBy</span>=multi-user.target
-
-[root@harbor ~]#systemctl daemon-reload
-[root@harbor ~]#systemctl enable harbor
+WantedBy=multi-user.target
+EOF
+</span>
+systemctl daemon-reload
+systemctl enable harbor
 </pre>
 </div>
 
@@ -8485,7 +8558,7 @@ chmod +x /usr/bin/docker-compose
 </p>
 <ul class="org-ul">
 <li>用户名: admin<br></li>
-<li>密码: 即前面harbor.cfg中指定的密码<br></li>
+<li>密码: 即前面harbor.yml中指定的密码<br></li>
 </ul>
 </div>
 </div>
@@ -8494,7 +8567,7 @@ chmod +x /usr/bin/docker-compose
 <h4 id="h:00028af6-457a-4bfa-9f0b-268d453c4e08"><a href="#h:00028af6-457a-4bfa-9f0b-268d453c4e08">实现 harbor 高可用</a></h4>
 <div class="outline-text-4" id="text-h:00028af6-457a-4bfa-9f0b-268d453c4e08">
 
-<figure id="org5664fd8">
+<figure id="org0f2828f">
 <img style="aspect-ratio:1194/486" decoding="async" loading="lazy" src="./images/Snipaste_2023-04-28_17-27-15.webp" alt="Snipaste_2023-04-28_17-27-15.webp"><br>
 
 </figure>
@@ -8505,14 +8578,106 @@ Harbor支持基于策略的Docker镜像复制功能，这类似于MySQL的主从
 </p>
 </div>
 </div>
+<div id="outline-container-h:E079DD1C-B032-4B7D-8752-83E430588FC9" class="outline-4">
+<h4 id="h:E079DD1C-B032-4B7D-8752-83E430588FC9"><a href="#h:E079DD1C-B032-4B7D-8752-83E430588FC9">维护</a></h4>
+<div class="outline-text-4" id="text-h:E079DD1C-B032-4B7D-8752-83E430588FC9">
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter"># </span><span class="org-comment">&#20572;&#27490;harbor
+</span>docker compose down
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#37325;&#21551;
+</span>docker compose up -d
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#37325;&#26032;&#29983;&#25104;&#37197;&#32622;&#65288;&#20462;&#25913;harbor.yml&#21518;&#25191;&#34892;&#65289;
+</span>./prepare --with-trivy
+docker compose up -d
+</pre>
+</div>
+
+<p>
+Docker 客户端信任私有仓库（http 场景）<br>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">vim /etc/docker/daemon.json
+{
+  <span class="org-string">"insecure-registries"</span>: [<span class="org-string">"192.168.1.100"</span>]
+}
+
+systemctl daemon-reload
+systemctl restart docker
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">80 &#31471;&#21475;
+</span>vim /etc/docker/daemon.json
+{
+  <span class="org-string">"insecure-registries"</span>: [<span class="org-string">"192.168.1.100"</span>,<span class="org-string">"192.168.1.100:80"</span>]
+}
+systemctl reload docker
+docker info | grep -A5 <span class="org-string">"Insecure Registries"</span>
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#27979;&#35797;&#25512;&#36865;
+</span>docker pull public.ecr.aws/docker/library/nginx:1.27-alpine
+docker tag public.ecr.aws/docker/library/nginx:1.27-alpine 192.168.1.100/library/nginx:1.27-alpine
+
+<span class="org-builtin">echo</span> <span class="org-string">'6Hpxxx'</span> | docker login --username <span class="org-string">'robot$ci-robot'</span> --password-stdin 192.168.1.100:80
+docker push 192.168.1.100/library/nginx:1.27-alpine
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#25512;&#36865;&#23436;&#25104;&#33258;&#21160;&#35302;&#21457;&#25195;&#25551;&#65288;&#38656;&#35201;&#39033;&#30446;&#24320;&#21551;&#33258;&#21160;&#25195;&#25551;&#65289;</span>
+</pre>
+</div>
+</div>
+<div id="outline-container-h:35634CA3-7467-4C38-92D8-0B47815CB316" class="outline-5">
+<h5 id="h:35634CA3-7467-4C38-92D8-0B47815CB316"><a href="#h:35634CA3-7467-4C38-92D8-0B47815CB316">机器人账号</a></h5>
+<div class="outline-text-5" id="text-h:35634CA3-7467-4C38-92D8-0B47815CB316">
+<p>
+CI 流水线（推送镜像 + 自动 Trivy 扫描）<br>
+</p>
+<ul class="org-ul">
+<li>ci-robot<br></li>
+<li>系统权限<br>
+<ul class="org-ul">
+<li>镜像目录：读取<br></li>
+<li>标签：创建、读取、更新<br></li>
+<li>项目：查询<br></li>
+<li>镜像库：查询、读取、更新<br></li>
+</ul></li>
+<li>项目权限：<br>
+<ul class="org-ul">
+<li>Push + Pull + Create Scan<br></li>
+</ul></li>
+</ul>
+
+<p>
+K8s 拉镜像，不推送、不触发扫描<br>
+</p>
+<ul class="org-ul">
+<li>系统权限：镜像目录 (读取) + 项目 (查询) + 镜像库 (查询、读取)<br></li>
+<li>项目权限：仅 Pull Repository<br></li>
+</ul>
+
+<p>
+"推送时自动扫描"是项目级配置，不是机器人权限。<br>
+</p>
+<ul class="org-ul">
+<li>UI：项目 → library → 配置管理 → 勾选「推送镜像时自动进行扫描」→ 保存。<br></li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-shell">curl -s -u <span class="org-string">'admin:&lt;pass&gt;'</span> http://10.50.22.47/api/v2.0/scanners | python3 -m json.tool
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#35201;&#30475;&#21040; Trivy &#19988; is_default: true&#12290;</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 </section>
 <section id="outline-container-h:f44edfbc-aad6-4225-a230-5be0203c12c4" class="outline-2">
-<h2 id="h:f44edfbc-aad6-4225-a230-5be0203c12c4"><a href="#h:f44edfbc-aad6-4225-a230-5be0203c12c4">单机编排之Docker Compose</a></h2>
+<h2 id="h:f44edfbc-aad6-4225-a230-5be0203c12c4"><a href="#h:f44edfbc-aad6-4225-a230-5be0203c12c4">单机编排之 Docker Compose</a></h2>
 <div class="outline-text-2" id="text-h:f44edfbc-aad6-4225-a230-5be0203c12c4">
 </div>
 <div id="outline-container-h:944a52d2-b32f-4d39-878e-eb4194011404" class="outline-3">
-<h3 id="h:944a52d2-b32f-4d39-878e-eb4194011404"><a href="#h:944a52d2-b32f-4d39-878e-eb4194011404">Docker Compse介绍</a></h3>
+<h3 id="h:944a52d2-b32f-4d39-878e-eb4194011404"><a href="#h:944a52d2-b32f-4d39-878e-eb4194011404">Docker Compse 介绍</a></h3>
 <div class="outline-text-3" id="text-h:944a52d2-b32f-4d39-878e-eb4194011404">
 <p>
 当在宿主机启动较多的容器时候，如果都是手动操作会觉得比较麻烦而且容易出错，此时推荐使用docker 单机编排工具 docker-compose<br>
@@ -8702,6 +8867,11 @@ docker compose文件的格式很不同版本，版本不同，语法和格式有
 <p>
 docker compose版本众多，以下通过具体示例说明docker compose的使用方法<br>
 </p>
+
+
+<p>
+compose v2 的文件查找优先级 compose.yaml → compose.yml → docker-compose.yaml → docker-compose.yml<br>
+</p>
 </div>
 </div>
 <div id="outline-container-h:3fe2dad3-48fc-4ad4-9d4f-5de1200f43f1" class="outline-4">
@@ -8778,6 +8948,31 @@ services:
 <span class="org-comment-delimiter">#    </span><span class="org-comment">extra_hosts:
 </span><span class="org-comment-delimiter">#      </span><span class="org-comment">- host.docker.internal:host-gateway</span>
 </pre>
+</div>
+</div>
+</div>
+<div id="outline-container-h:A180357C-457A-42DF-A4DB-7F79FDFBE062" class="outline-4">
+<h4 id="h:A180357C-457A-42DF-A4DB-7F79FDFBE062"><a href="#h:A180357C-457A-42DF-A4DB-7F79FDFBE062">维护</a></h4>
+<div class="outline-text-4" id="text-h:A180357C-457A-42DF-A4DB-7F79FDFBE062">
+</div>
+<div id="outline-container-h:73880068-1556-459D-9D1D-83B9D0431BF5" class="outline-5">
+<h5 id="h:73880068-1556-459D-9D1D-83B9D0431BF5"><a href="#h:73880068-1556-459D-9D1D-83B9D0431BF5">Docker 单文件挂载问题</a></h5>
+<div class="outline-text-5" id="text-h:73880068-1556-459D-9D1D-83B9D0431BF5">
+<div class="org-src-container">
+<pre class="src src-shell"><span class="org-comment-delimiter">#</span><span class="org-comment">Docker &#21333;&#25991;&#20214; bind mount &#26159;&#25353; inode &#25346;&#30340;&#65292;
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">&#32780; vim &#40664;&#35748;&#20889;&#30424;&#26041;&#24335;&#26159;&#12300;&#20889;&#20020;&#26102;&#25991;&#20214; + rename&#12301;&#65292;&#20250;&#25442;&#25481; inode &#8212;&#8212; &#25346;&#36733;&#28857;&#36824;&#25351;&#21521;&#26087;
+</span><span class="org-comment-delimiter"># </span><span class="org-comment">inode&#65292;&#23481;&#22120;&#37324;&#30475;&#21040;&#30340;&#36824;&#26159;&#32769;&#37197;&#32622;&#12290;
+</span>docker compose up -d --force-recreate alertmanager
+
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#20197;&#21518;&#36991;&#20813;&#36825;&#20010;&#38382;&#39064;&#65306;vim &#37324; :set backupcopy=yes&#65292;&#25110;&#32773;&#25346;&#36733;&#25972;&#20010;&#30446;&#24405;&#32780;&#19981;&#26159;&#21333;&#20010;&#25991;&#20214;
+</span>
+<span class="org-comment-delimiter">#</span><span class="org-comment">&#29992;&#8212;&#8212;amtool &#21487;&#20197;&#24178;&#36305;&#36335;&#30001;&#26641;&#65292;&#39564;&#35777;&#25968;&#25454;&#24211;&#21578;&#35686;&#30830;&#23454;&#36208;&#21040;&#20102;&#26032;&#36335;&#30001;&#65306;
+</span>
+docker compose exec alertmanager amtool config routes test <span class="org-sh-escaped-newline">\</span>
+  --config.file=/etc/alertmanager/alertmanager.yml <span class="org-sh-escaped-newline">\</span>
+  <span class="org-variable-name">service</span>=rds <span class="org-variable-name">severity</span>=critical <span class="org-variable-name">alertname</span>=RDS&#20889;&#20837;&#20572;&#28382;
+</pre>
+</div>
 </div>
 </div>
 </div>
@@ -9721,7 +9916,7 @@ docker buildx build -t giaogiao/hello-arch --platform=linux/amd64 -o <span class
 <p>
 platform段对应支持平台<br>
 </p>
-<pre class="example" id="org866d009">
+<pre class="example" id="orgc1f1860">
 [root@proxy ~]# docker manifest inspect public.ecr.aws/ubuntu/mysql:8.0-22.04_edge
 {
    "schemaVersion": 2,
@@ -10176,7 +10371,7 @@ EOF
 <p>
 Docker 镜像加速列表<br>
 </p>
-<pre class="example" id="org844088d">
+<pre class="example" id="orgfa078e9">
 doublezonline.cloud
 dockerproxy.com 
 </pre>
@@ -10411,9 +10606,9 @@ sudo systemctl restart docker
 </div>
 </div>
 </div>
-<div id="outline-container-org9626c90" class="outline-3">
-<h3 id="org9626c90"><a href="#org9626c90">HTTP代理加速docker镜像</a></h3>
-<div class="outline-text-3" id="text-org9626c90">
+<div id="outline-container-h:05420ECC-6FCE-4AE8-BFAC-4AB5CF10FE4F" class="outline-3">
+<h3 id="h:05420ECC-6FCE-4AE8-BFAC-4AB5CF10FE4F"><a href="#h:05420ECC-6FCE-4AE8-BFAC-4AB5CF10FE4F">HTTP代理加速docker镜像</a></h3>
+<div class="outline-text-3" id="text-h:05420ECC-6FCE-4AE8-BFAC-4AB5CF10FE4F">
 <p>
 海外服务器，安装ss服务和privoxy代理<br>
 </p>

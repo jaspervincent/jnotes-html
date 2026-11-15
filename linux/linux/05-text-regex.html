@@ -121,34 +121,34 @@
 <li><a href="#h:11fdd8c8-2c5f-4cd3-81c4-44731646653f">tail</a></li>
 </ul>
 </li>
-<li><a href="#h:6632b664-a35b-4012-824a-f706f46d4908">按列抽取文本cut</a></li>
+<li><a href="#h:6632b664-a35b-4012-824a-f706f46d4908">按列抽取文本-cut</a></li>
 <li><a href="#h:17f701a9-2b99-4ac8-8f8d-c126445c1f30">字符转换命令： tr, col, join, paste</a>
 <ul>
-<li><a href="#h:335874fc-514d-44e4-9128-74d809e3762b">转换和删除字符tr</a></li>
-<li><a href="#h:d826b8ab-9951-41b9-b9b4-65e83a6c3cf7">col</a></li>
-<li><a href="#h:52ead11e-a5eb-4400-a5d7-a71348e88e0d">多文件数据合并join</a></li>
-<li><a href="#h:61043ddb-3564-4c4d-9d29-e808471cad66">多个文件合并paste</a></li>
-<li><a href="#h:907a7309-4f1f-4fa7-a347-41ac97134c7b">文本流格式化为多列输出column</a></li>
-<li><a href="#h:4fe9f1a8-aa47-436c-8381-76d2c451b35b">转换文件字符集编码iconv</a></li>
+<li><a href="#h:335874fc-514d-44e4-9128-74d809e3762b">转换和删除字符-tr</a></li>
+<li><a href="#h:d826b8ab-9951-41b9-b9b4-65e83a6c3cf7">转成干净的纯文本-col</a></li>
+<li><a href="#h:52ead11e-a5eb-4400-a5d7-a71348e88e0d">多文件数据合并-join</a></li>
+<li><a href="#h:61043ddb-3564-4c4d-9d29-e808471cad66">多个文件合并-paste</a></li>
+<li><a href="#h:907a7309-4f1f-4fa7-a347-41ac97134c7b">文本流格式化为多列输出-column</a></li>
+<li><a href="#h:4fe9f1a8-aa47-436c-8381-76d2c451b35b">转换文件字符集编码-iconv</a></li>
 </ul>
 </li>
-<li><a href="#h:a26d70f6-56c6-4110-8762-177749dcafe9">分割命令： split</a></li>
+<li><a href="#h:a26d70f6-56c6-4110-8762-177749dcafe9">分割命令-split</a></li>
 <li><a href="#h:f2d11901-058a-4324-b421-4d4ca96bb2a3">分析文本的工具</a>
 <ul>
-<li><a href="#h:3087dd42-146c-4726-8548-44e09b86d5f7">收集文本统计数据wc</a></li>
-<li><a href="#h:7007405e-5772-4874-b5ef-9ed476def4a3">文本排序sort</a></li>
-<li><a href="#h:c93ae04a-b31a-4369-84da-61ea205da931">去重uniq</a></li>
-<li><a href="#h:b4f14745-7103-44e3-99a5-c23186dd324d">统计代码行数cloc</a></li>
+<li><a href="#h:3087dd42-146c-4726-8548-44e09b86d5f7">收集文本统计数据-wc</a></li>
+<li><a href="#h:7007405e-5772-4874-b5ef-9ed476def4a3">文本排序-sort</a></li>
+<li><a href="#h:c93ae04a-b31a-4369-84da-61ea205da931">去重-uniq</a></li>
+<li><a href="#h:b4f14745-7103-44e3-99a5-c23186dd324d">统计代码行数-cloc</a></li>
 <li><a href="#h:20091fcb-d854-472c-ab05-626013984690">比较文件</a>
 <ul>
 <li><a href="#h:ec21b649-8966-45d1-8efb-659c5b8cd51f">diff</a></li>
 <li><a href="#h:70cb695d-6544-460d-805b-33cecb8e4be9">patch</a></li>
-<li><a href="#h:3d052250-0d79-411b-b940-3b5b5d3031a8">二进制文件的不同 cmp</a></li>
-<li><a href="#h:cef5110a-31c5-4937-875d-33159edd56b3">comm比较文件取集合</a></li>
+<li><a href="#h:3d052250-0d79-411b-b940-3b5b5d3031a8">二进制文件的不同-cmp</a></li>
+<li><a href="#h:cef5110a-31c5-4937-875d-33159edd56b3">comm-比较文件取集合</a></li>
 </ul>
 </li>
-<li><a href="#h:62fc6575-046e-40ef-81c1-058a545ed427">json文件分析jq</a></li>
-<li><a href="#h:D40B38E3-D8E3-47EF-A48A-01F82CE68388">yaml 文件分析工具 yq</a></li>
+<li><a href="#h:62fc6575-046e-40ef-81c1-058a545ed427">jq-文件分析-json</a></li>
+<li><a href="#h:D40B38E3-D8E3-47EF-A48A-01F82CE68388">yq-文件分析-yaml</a></li>
 </ul>
 </li>
 </ul>
@@ -349,7 +349,7 @@ c^M$
 显示行号，相当于cat -b 选项与参数：
 </p>
 
-<pre class="example" id="org93490f4">
+<pre class="example" id="orgfb8d450">
 -b  ：指定行号指定的方式，主要有两种：
       -b a ：表示不论是否为空行，也同样列出行号(类似 cat -n)；
       -b t ：如果有空行，空的那一行不要列出行号(默认值)；
@@ -1103,7 +1103,7 @@ fflush&#20989;&#25968;&#29992;&#20197;&#21047;&#26032;&#36755;&#20986;&#32531;&#
 </p>
 
 
-<figure id="orge11773a">
+<figure id="orgba8ff38">
 <img style="aspect-ratio:600/290" decoding="async" loading="lazy" src="./images/image-20210216002359744.webp" alt="image-20210216002359744.webp" width="50%">
 
 </figure>
@@ -1111,7 +1111,7 @@ fflush&#20989;&#25968;&#29992;&#20197;&#21047;&#26032;&#36755;&#20986;&#32531;&#
 </div>
 </div>
 <div id="outline-container-h:6632b664-a35b-4012-824a-f706f46d4908" class="outline-3">
-<h3 id="h:6632b664-a35b-4012-824a-f706f46d4908"><a href="#h:6632b664-a35b-4012-824a-f706f46d4908">按列抽取文本cut</a></h3>
+<h3 id="h:6632b664-a35b-4012-824a-f706f46d4908"><a href="#h:6632b664-a35b-4012-824a-f706f46d4908">按列抽取文本-cut</a></h3>
 <div class="outline-text-3" id="text-h:6632b664-a35b-4012-824a-f706f46d4908">
 <p>
 cut 命令可以提取文本文件或STDIN数据的指定列
@@ -1203,7 +1203,7 @@ Use
 <div class="outline-text-3" id="text-h:17f701a9-2b99-4ac8-8f8d-c126445c1f30">
 </div>
 <div id="outline-container-h:335874fc-514d-44e4-9128-74d809e3762b" class="outline-4">
-<h4 id="h:335874fc-514d-44e4-9128-74d809e3762b"><a href="#h:335874fc-514d-44e4-9128-74d809e3762b">转换和删除字符tr</a></h4>
+<h4 id="h:335874fc-514d-44e4-9128-74d809e3762b"><a href="#h:335874fc-514d-44e4-9128-74d809e3762b">转换和删除字符-tr</a></h4>
 <div class="outline-text-4" id="text-h:335874fc-514d-44e4-9128-74d809e3762b">
 <div class="org-src-container">
 <pre class="src src-sh"><span class="org-comment-delimiter">#</span><span class="org-comment">&#35813;&#21629;&#20196;&#20250;&#25226;/etc/issue&#20013;&#30340;&#23567;&#20889;&#23383;&#31526;&#37117;&#36716;&#25442;&#25104;&#22823;&#20889;&#23383;&#31526;
@@ -1223,7 +1223,7 @@ IO重定向细讲
 </div>
 </div>
 <div id="outline-container-h:d826b8ab-9951-41b9-b9b4-65e83a6c3cf7" class="outline-4">
-<h4 id="h:d826b8ab-9951-41b9-b9b4-65e83a6c3cf7"><a href="#h:d826b8ab-9951-41b9-b9b4-65e83a6c3cf7">col</a></h4>
+<h4 id="h:d826b8ab-9951-41b9-b9b4-65e83a6c3cf7"><a href="#h:d826b8ab-9951-41b9-b9b4-65e83a6c3cf7">转成干净的纯文本-col</a></h4>
 <div class="outline-text-4" id="text-h:d826b8ab-9951-41b9-b9b4-65e83a6c3cf7">
 <p>
 格式
@@ -1277,7 +1277,7 @@ S^HSY^HYN^HNO^HOP^HPS^HSI^HIS^HS
 </div>
 </div>
 <div id="outline-container-h:52ead11e-a5eb-4400-a5d7-a71348e88e0d" class="outline-4">
-<h4 id="h:52ead11e-a5eb-4400-a5d7-a71348e88e0d"><a href="#h:52ead11e-a5eb-4400-a5d7-a71348e88e0d">多文件数据合并join</a></h4>
+<h4 id="h:52ead11e-a5eb-4400-a5d7-a71348e88e0d"><a href="#h:52ead11e-a5eb-4400-a5d7-a71348e88e0d">多文件数据合并-join</a></h4>
 <div class="outline-text-4" id="text-h:52ead11e-a5eb-4400-a5d7-a71348e88e0d">
 <p>
 两个文件之间的数据 格式
@@ -1359,7 +1359,7 @@ daemon:x:2:root,bin,daemon
 </div>
 </div>
 <div id="outline-container-h:61043ddb-3564-4c4d-9d29-e808471cad66" class="outline-4">
-<h4 id="h:61043ddb-3564-4c4d-9d29-e808471cad66"><a href="#h:61043ddb-3564-4c4d-9d29-e808471cad66">多个文件合并paste</a></h4>
+<h4 id="h:61043ddb-3564-4c4d-9d29-e808471cad66"><a href="#h:61043ddb-3564-4c4d-9d29-e808471cad66">多个文件合并-paste</a></h4>
 <div class="outline-text-4" id="text-h:61043ddb-3564-4c4d-9d29-e808471cad66">
 <p>
 paste 合并多个文件同行号的列到一行
@@ -1492,7 +1492,7 @@ sed -ri <span class="org-string">'$r '</span>&lt;( paste -d <span class="org-str
 </div>
 </div>
 <div id="outline-container-h:907a7309-4f1f-4fa7-a347-41ac97134c7b" class="outline-4">
-<h4 id="h:907a7309-4f1f-4fa7-a347-41ac97134c7b"><a href="#h:907a7309-4f1f-4fa7-a347-41ac97134c7b">文本流格式化为多列输出column</a></h4>
+<h4 id="h:907a7309-4f1f-4fa7-a347-41ac97134c7b"><a href="#h:907a7309-4f1f-4fa7-a347-41ac97134c7b">文本流格式化为多列输出-column</a></h4>
 <div class="outline-text-4" id="text-h:907a7309-4f1f-4fa7-a347-41ac97134c7b">
 <p>
 它特别适用于将文本文件的内容以整齐的列格式显示，使得数据更加易于阅读
@@ -1501,7 +1501,7 @@ sed -ri <span class="org-string">'$r '</span>&lt;( paste -d <span class="org-str
 <p>
 常用选项
 </p>
-<pre class="example" id="org3a40220">
+<pre class="example" id="org29d65ad">
 -t：输出表格格式，自动对齐列。
 -c：连续输出，不跳到下一页。
 -s：指定分隔符，默认是制表符（tab），可以是任何字符。
@@ -1543,7 +1543,7 @@ Carol| 35 | Chicago|
 </div>
 </div>
 <div id="outline-container-h:4fe9f1a8-aa47-436c-8381-76d2c451b35b" class="outline-4">
-<h4 id="h:4fe9f1a8-aa47-436c-8381-76d2c451b35b"><a href="#h:4fe9f1a8-aa47-436c-8381-76d2c451b35b">转换文件字符集编码iconv</a></h4>
+<h4 id="h:4fe9f1a8-aa47-436c-8381-76d2c451b35b"><a href="#h:4fe9f1a8-aa47-436c-8381-76d2c451b35b">转换文件字符集编码-iconv</a></h4>
 <div class="outline-text-4" id="text-h:4fe9f1a8-aa47-436c-8381-76d2c451b35b">
 <p>
 iconv [选项&#x2026;] [文件&#x2026;]
@@ -1625,7 +1625,7 @@ windows.txt: ASCII text
 </div>
 </div>
 <div id="outline-container-h:a26d70f6-56c6-4110-8762-177749dcafe9" class="outline-3">
-<h3 id="h:a26d70f6-56c6-4110-8762-177749dcafe9"><a href="#h:a26d70f6-56c6-4110-8762-177749dcafe9">分割命令： split</a></h3>
+<h3 id="h:a26d70f6-56c6-4110-8762-177749dcafe9"><a href="#h:a26d70f6-56c6-4110-8762-177749dcafe9">分割命令-split</a></h3>
 <div class="outline-text-3" id="text-h:a26d70f6-56c6-4110-8762-177749dcafe9">
 <p>
 常用选项
@@ -1658,7 +1658,7 @@ windows.txt: ASCII text
 </p>
 </div>
 <div id="outline-container-h:3087dd42-146c-4726-8548-44e09b86d5f7" class="outline-4">
-<h4 id="h:3087dd42-146c-4726-8548-44e09b86d5f7"><a href="#h:3087dd42-146c-4726-8548-44e09b86d5f7">收集文本统计数据wc</a></h4>
+<h4 id="h:3087dd42-146c-4726-8548-44e09b86d5f7"><a href="#h:3087dd42-146c-4726-8548-44e09b86d5f7">收集文本统计数据-wc</a></h4>
 <div class="outline-text-4" id="text-h:3087dd42-146c-4726-8548-44e09b86d5f7">
 <p>
 wc 命令可用于统计文件的行总数、单词总数、字节总数和字符总数
@@ -1725,7 +1725,7 @@ tmpfs       184944    4   184940  1% /run/user/0
 </div>
 </div>
 <div id="outline-container-h:7007405e-5772-4874-b5ef-9ed476def4a3" class="outline-4">
-<h4 id="h:7007405e-5772-4874-b5ef-9ed476def4a3"><a href="#h:7007405e-5772-4874-b5ef-9ed476def4a3">文本排序sort</a></h4>
+<h4 id="h:7007405e-5772-4874-b5ef-9ed476def4a3"><a href="#h:7007405e-5772-4874-b5ef-9ed476def4a3">文本排序-sort</a></h4>
 <div class="outline-text-4" id="text-h:7007405e-5772-4874-b5ef-9ed476def4a3">
 <p>
 官方文档：<a href="https://www.gnu.org/software/coreutils/manual/html_node/sort-invocation.html#sort-invocation">https://www.gnu.org/software/coreutils/manual/html_node/sort-invocation.html#sort-invocation</a>
@@ -2022,7 +2022,7 @@ Toy Story               :HK     :239    :3972
 </div>
 </div>
 <div id="outline-container-h:c93ae04a-b31a-4369-84da-61ea205da931" class="outline-4">
-<h4 id="h:c93ae04a-b31a-4369-84da-61ea205da931"><a href="#h:c93ae04a-b31a-4369-84da-61ea205da931">去重uniq</a></h4>
+<h4 id="h:c93ae04a-b31a-4369-84da-61ea205da931"><a href="#h:c93ae04a-b31a-4369-84da-61ea205da931">去重-uniq</a></h4>
 <div class="outline-text-4" id="text-h:c93ae04a-b31a-4369-84da-61ea205da931">
 <p>
 uniq命令从输入中删除前后相接的重复的行
@@ -2117,7 +2117,7 @@ f
 </div>
 </div>
 <div id="outline-container-h:b4f14745-7103-44e3-99a5-c23186dd324d" class="outline-4">
-<h4 id="h:b4f14745-7103-44e3-99a5-c23186dd324d"><a href="#h:b4f14745-7103-44e3-99a5-c23186dd324d">统计代码行数cloc</a></h4>
+<h4 id="h:b4f14745-7103-44e3-99a5-c23186dd324d"><a href="#h:b4f14745-7103-44e3-99a5-c23186dd324d">统计代码行数-cloc</a></h4>
 <div class="outline-text-4" id="text-h:b4f14745-7103-44e3-99a5-c23186dd324d">
 <p>
 Cloc (opens new window)是一款使用 Perl语言开发的开源代码统计工具，支持
@@ -2397,7 +2397,7 @@ patch -b foo.conf foo.patch
 </div>
 </div>
 <div id="outline-container-h:3d052250-0d79-411b-b940-3b5b5d3031a8" class="outline-5">
-<h5 id="h:3d052250-0d79-411b-b940-3b5b5d3031a8"><a href="#h:3d052250-0d79-411b-b940-3b5b5d3031a8">二进制文件的不同 cmp</a></h5>
+<h5 id="h:3d052250-0d79-411b-b940-3b5b5d3031a8"><a href="#h:3d052250-0d79-411b-b940-3b5b5d3031a8">二进制文件的不同-cmp</a></h5>
 <div class="outline-text-5" id="text-h:3d052250-0d79-411b-b940-3b5b5d3031a8">
 <p>
 范例：查看二进制文件的不同
@@ -2426,7 +2426,7 @@ Binary files /usr/bin/dir and /usr/bin/ls differ
 </div>
 </div>
 <div id="outline-container-h:cef5110a-31c5-4937-875d-33159edd56b3" class="outline-5">
-<h5 id="h:cef5110a-31c5-4937-875d-33159edd56b3"><a href="#h:cef5110a-31c5-4937-875d-33159edd56b3">comm比较文件取集合</a></h5>
+<h5 id="h:cef5110a-31c5-4937-875d-33159edd56b3"><a href="#h:cef5110a-31c5-4937-875d-33159edd56b3">comm-比较文件取集合</a></h5>
 <div class="outline-text-5" id="text-h:cef5110a-31c5-4937-875d-33159edd56b3">
 <p>
 comm命令用于比较两个已排序的文件，并输出它们的交集、差集和并集。
@@ -2453,7 +2453,7 @@ comm&#160;-3&#160;file1 file2 &#27604;&#36739;&#20004;&#20010;&#25991;&#20214;&#
 </div>
 </div>
 <div id="outline-container-h:62fc6575-046e-40ef-81c1-058a545ed427" class="outline-4">
-<h4 id="h:62fc6575-046e-40ef-81c1-058a545ed427"><a href="#h:62fc6575-046e-40ef-81c1-058a545ed427">json文件分析jq</a></h4>
+<h4 id="h:62fc6575-046e-40ef-81c1-058a545ed427"><a href="#h:62fc6575-046e-40ef-81c1-058a545ed427">jq-文件分析-json</a></h4>
 <div class="outline-text-4" id="text-h:62fc6575-046e-40ef-81c1-058a545ed427">
 <p>
 jq使用 jq是一个命令行处理json的工具。
@@ -2705,7 +2705,7 @@ kubectl get deploy -n english-prod -o <span class="org-variable-name">jsonpath</
 </div>
 </div>
 <div id="outline-container-h:D40B38E3-D8E3-47EF-A48A-01F82CE68388" class="outline-4">
-<h4 id="h:D40B38E3-D8E3-47EF-A48A-01F82CE68388"><a href="#h:D40B38E3-D8E3-47EF-A48A-01F82CE68388">yaml 文件分析工具 yq</a></h4>
+<h4 id="h:D40B38E3-D8E3-47EF-A48A-01F82CE68388"><a href="#h:D40B38E3-D8E3-47EF-A48A-01F82CE68388">yq-文件分析-yaml</a></h4>
 <div class="outline-text-4" id="text-h:D40B38E3-D8E3-47EF-A48A-01F82CE68388">
 <p>
 yaml 语法
@@ -2762,7 +2762,17 @@ rm yamlfmt*.tar.gz
 安装 yq
 </p>
 <div class="org-src-container">
-<pre class="src src-shell">wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq &amp;&amp;<span class="org-sh-escaped-newline">\</span>
+<pre class="src src-shell"><span class="org-variable-name">YQ_VERSION</span>=4.54.1
+<span class="org-variable-name">OS</span>=$(uname -s | tr <span class="org-string">'A-Z'</span> <span class="org-string">'a-z'</span>)
+<span class="org-variable-name">ARCH</span>=$(uname -m | sed <span class="org-string">'s/x86_64/amd64/;s/aarch64/arm64/'</span>)
+<span class="org-variable-name">PLATFORM</span>=<span class="org-string">"${OS}_${ARCH}"</span>
+
+wget https://github.com/mikefarah/yq/releases/download/v${<span class="org-variable-name">YQ_VERSION</span>}/yq_${<span class="org-variable-name">PLATFORM</span>}.tar.gz
+tar xf yq_${<span class="org-variable-name">PLATFORM</span>}.tar.gz ./yq_${<span class="org-variable-name">PLATFORM</span>}
+mv ./yq_${<span class="org-variable-name">PLATFORM</span>} /usr/local/bin/yq
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#26368;&#26032;&#29256;&#26412;
+</span>wget https://github.com/mikefarah/yq/releases/latest/download/yq_${<span class="org-variable-name">PLATFORM</span>} -O /usr/local/bin/yq &amp;&amp;<span class="org-sh-escaped-newline">\</span>
     chmod +x /usr/local/bin/yq
 </pre>
 </div>
@@ -2874,6 +2884,33 @@ EOF
 </span>
 <span class="org-comment-delimiter">#</span><span class="org-comment">&#21462;&#20986;&#25152;&#26377;Deployment&#21517;&#31216;
 </span>yq ea <span class="org-string">'select(.kind=="Deployment")|.metadata.name'</span> manifests.yaml
+</pre>
+</div>
+
+<p>
+k8s 的 configmap 文件还原
+</p>
+<div class="org-src-container">
+<pre class="src src-shell">cat &lt;&lt;EOF&gt; cm.yaml<span class="org-sh-heredoc">
+apiVersion: v1
+data:
+  a.yml: |
+    global:
+      scrape_interval: 30s
+      scrape_timeout: 10s
+  b.yml: |
+    abc:
+      scrape_interval: 30s
+      scrape_timeout: 10s
+EOF
+</span>
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#21333; key &#36824;&#21407;
+</span>yq <span class="org-string">'.data."a.yml"'</span> cm.yaml &gt; a.yml
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">&#22810;&#20010; key &#19968;&#27425;&#24615;&#20840;&#37096;&#36824;&#21407;
+</span><span class="org-keyword">for</span> f<span class="org-keyword"> in</span> $(yq <span class="org-string">'.data | keys | .[]'</span> cm.yaml); <span class="org-keyword">do</span>
+  yq <span class="org-string">".data.\"$f\""</span> cm.yaml &gt; <span class="org-string">"$f"</span>
+<span class="org-keyword">done</span>
 </pre>
 </div>
 </div>
@@ -3119,7 +3156,7 @@ ggle
 </pre>
 </div>
 
-<pre class="example" id="orgfa62f75">
+<pre class="example" id="org727a7d8">
 需要注意的是，通常字符类在真正使用过程中，会再加上一个中括号，例如 [[:alpha:]] 。
 
 之所以如此，是因为这些字符类只是一种命名好的字符集合。
@@ -3177,7 +3214,7 @@ ggle
 <p>
 范例：使用正则工具或者在线正则网站测试
 </p>
-<pre class="example" id="orga0572aa">
+<pre class="example" id="org570ba8b">
 abc xyz
 123
 中文
@@ -4240,7 +4277,7 @@ perl提供了特殊变量允许访问匹配到的内容，甚至匹配内容之�
 以下是使用这三个特殊变量的示例：
 </p>
 
-<pre class="example" id="org3503a8a">
+<pre class="example" id="org9da7a8e">
 $name="aAbBcC";
 if($name =~ /bB/){
     print "pre match: $` \n";
@@ -4348,7 +4385,7 @@ m/REG/gi
 该修饰符使得正则匹配的时候，忽略大小写。
 </p>
 
-<pre class="example" id="org757966d">
+<pre class="example" id="org61fd04b">
 $name="aAbBcC";
 if($name =~ m/ab/i){
     print "pre match: $` \n";     # 输出a
@@ -4376,7 +4413,7 @@ g修饰符(global)使得正则匹配的时候，对字符串做全局匹配，�
 要验证多次匹配，需要使用循环遍历的方式，而不能用if语句：
 </p>
 
-<pre class="example" id="org3aec192">
+<pre class="example" id="orgda5550f">
 $name="aAbBcCaBc";
 while($name =~ m/ab/gi){
     print "pre match: $` \n";
@@ -4993,7 +5030,7 @@ $<span class="org-variable-name">txt1</span> =~ /CD\Z/m;  <span class="org-comme
 当然，除了以下这几种，还有 <code>\v \V \h \H \R \p \c \X</code> ，这些基本不会用上，所以都不会在本文解释。
 </p>
 
-<pre class="example" id="org8dc767b">
+<pre class="example" id="org8fec814">
 - \w：匹配单词构成部分，等价于 [_[:alnum:]]
 - \W：匹配非单词构成部分，等价于 [^_[:alnum:]]
 - \s：匹配空白字符，等价于 [[:space:]]
@@ -5539,7 +5576,7 @@ world</code> 匹配。因为正常情况下， <code>.*</code> 匹配到所有�
 置，不是字符。
 </p>
 
-<pre class="example" id="org6293cca">
+<pre class="example" id="org0b68e13">
 - (?=...) 表示从左向右的顺序环视。例如 (?=\d) 表示当前字符的右边是一个数字时就满足条件
 - (?!...) 表示顺序环视的取反。如 (?!\d) 表示当前字符的右边不是一个数字时就满足条件
 - (?&lt;=...) 表示从右向左的逆序环视。例如 (?&lt;=\d) 表示当前字符的左边是一个数字时就满足条件
@@ -5775,7 +5812,7 @@ msg
 </div>
 
 
-<figure id="org07d4a7e">
+<figure id="org01bb4b0">
 <img style="aspect-ratio:985/541" decoding="async" loading="lazy" src="./images/img_20250519_113222.webp" alt="img_20250519_113222.webp" width="50%">
 
 </figure>
@@ -6143,13 +6180,13 @@ sed 即 Stream EDitor，和 vi 不同，sed是行编辑器
 </p>
 
 
-<figure id="org169f287">
+<figure id="org84e13c9">
 <img style="aspect-ratio:794/506" decoding="async" loading="lazy" src="./images/image-20210216003203295.webp" alt="image-20210216003203295.webp" width="50%">
 
 </figure>
 
 
-<figure id="org8a7300d">
+<figure id="org3d0291e">
 <img style="aspect-ratio:590/241" decoding="async" loading="lazy" src="./images/image-20210216003237510.webp" alt="image-20210216003237510.webp" width="50%">
 
 </figure>
@@ -6622,7 +6659,7 @@ sed '</span>G<span class="org-string">' FILE&#65306;&#22312;&#21407;&#26377;&#30
 </div>
 
 
-<figure id="org8053f28">
+<figure id="org3ee42ff">
 <img style="aspect-ratio:593/600" decoding="async" loading="lazy" src="./images/image-20210216003322379.webp" alt="image-20210216003322379.webp" width="50%">
 
 </figure>
@@ -6683,19 +6720,19 @@ SELECT SUM(duration) FROM <span class="org-sh-quoted-exec">`user_listening_log`<
 </div>
 
 
-<figure id="orgb312351">
+<figure id="orgb5f4610">
 <img style="aspect-ratio:803/418" decoding="async" loading="lazy" src="./images/image-20210216003344938.webp" alt="image-20210216003344938.webp" width="50%">
 
 </figure>
 
 
-<figure id="orgab4fdaa">
+<figure id="orgdec7755">
 <img style="aspect-ratio:775/555" decoding="async" loading="lazy" src="./images/image-20210216003400609.webp" alt="image-20210216003400609.webp" width="50%">
 
 </figure>
 
 
-<figure id="org2a044c3">
+<figure id="org974fcfa">
 <img style="aspect-ratio:2280/1652" decoding="async" loading="lazy" src="./images/sed.webp" alt="sed.webp" width="50%">
 
 </figure>
@@ -6807,7 +6844,7 @@ action statements：对数据进行处理，放在{}内指明，常见：print, 
 </p>
 
 
-<figure id="orga9f3f4a">
+<figure id="org9f7caf6">
 <img style="aspect-ratio:389/339" decoding="async" loading="lazy" src="./images/image-20210228023558900.webp" alt="image-20210228023558900.webp">
 
 </figure>
@@ -7355,7 +7392,7 @@ ARGIND 命令行中文件序号
 </p></li>
 </ul>
 
-<pre class="example" id="orgc003097">
+<pre class="example" id="orgd1fad31">
 我要比较a和b两个文件；
 a              b
 1              1
@@ -7383,7 +7420,7 @@ ARGIND&gt;1&amp;&amp;!($0 in a){print $0}
 当awk读取的文件只有两个的时候，比较常用的有两种方法：
 </p>
 
-<pre class="example" id="org01f463e">
+<pre class="example" id="org72e9ff3">
 (1) 一种是 awk 'NR==FNR{...}NR&gt;FNR{...}'  file1 file2   或    awk 'NR==FNR{...}NR!=FNR{...}' file1 file2
 (2) 另一种是 awk 'NR==FNR{...;next}{...}' file1 file2
 
@@ -7403,7 +7440,7 @@ awk 'NR==FNR{...;next}{...}' file1 file2
 的方法了：
 </p>
 
-<pre class="example" id="org380c466">
+<pre class="example" id="org2b1e967">
 1. ARGIND        # 当前被处理参数标志
 awk 'ARGIND==1{...}ARGIND==2{...}ARGIND==3{...}... ' file1 file2 file3 ...
 
@@ -7414,7 +7451,7 @@ awk 'FILENAME==ARGV[1]{...}FILENAME==ARGV[2]{...}FILENAME==ARGV[3]{...}...' file
 awk 'FILENAME=="file1"{...}FILENAME=="file2"{...}FILENAME=="file3"{...}...' file1 file2 file3 ...
 </pre>
 
-<pre class="example" id="org585fc0f">
+<pre class="example" id="orgace251d">
 [root@app-nginx03 logs]# cat Top_app-nginx03_adverttisement_access_2017-09-12.log.csv
 1,-
 1,/hdzuoye_advertise/advertise/hadvertiseErrorGetter.do?positionId=2
@@ -8100,7 +8137,7 @@ awk -F<span class="org-string">'[,:]+'</span> <span class="org-string">'BEGIN {t
 语法：
 </p>
 
-<pre class="example" id="org3d242c3">
+<pre class="example" id="org18a7004">
 while (condition) {statement;…}
 </pre>
 
@@ -8783,7 +8820,7 @@ ABCDEF
 范例：
 </p>
 
-<pre class="example" id="org29cdba9">
+<pre class="example" id="orge4d044d">
 [root@nginx01 ~]# tail -n +$(tail -n1 /root/n) -F /root/ip.txt 2&gt;&amp;1 | awk 'ARGIND==1{i=$0;next}{i++;if($0~/^tail/){i=0};print $0;print i &gt;&gt; "/root/n";fflush("")}' /root/n -
 
 如，flume日志收集中设置断点收集

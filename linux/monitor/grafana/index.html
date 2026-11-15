@@ -66,6 +66,7 @@
 </li>
 <li><a href="#h:50983a60-8a10-447e-9915-454a36e0feed">变量语法</a></li>
 <li><a href="#h:8a73d311-dd24-4a47-a0dc-2888a0c15f37">图例</a></li>
+<li><a href="#h:E33E2288-CE85-49CB-910A-51E9B3F9CFB8">AI Assistant</a></li>
 <li><a href="#h:015B0B87-6CDD-4342-814C-C64D0ACB8350">用户授权</a></li>
 </ul>
 </div>
@@ -136,7 +137,7 @@ ${<span class="org-variable-name">__from</span>:date:YYYY-MM}  2020-07
 <li>Value: 571136</li>
 </ul>
 
-<pre class="example" id="org13373c4">
+<pre class="example" id="org0bbd107">
 https://a/d/$clusterUid-k8s-overview/
 </pre>
 </div>
@@ -228,13 +229,13 @@ https://a/d/$clusterUid-k8s-overview/
 </ul>
 
 
-<figure id="orged93413">
+<figure id="orgc8045e4">
 <img style="aspect-ratio:1378/872" decoding="async" loading="lazy" src="./images/Snipaste_2023-01-02_07-43-32.webp" alt="Snipaste_2023-01-02_07-43-32.webp" width="50%">
 
 </figure>
 
 
-<figure id="org189b86f">
+<figure id="org4417a07">
 <img style="aspect-ratio:866/336" decoding="async" loading="lazy" src="./images/Snipaste_2023-01-02_07-49-14.webp" alt="Snipaste_2023-01-02_07-49-14.webp" width="50%">
 
 </figure>
@@ -283,6 +284,34 @@ Interpolation result: <span class="org-string">'aaa|AAA|bbb|BBB|ccc|CCC'</span>
 <p>
 <a href="https://play.grafana.org/dashboards/f/examples/examples">https://play.grafana.org/dashboards/f/examples/examples</a>
 </p>
+</div>
+</section>
+<section id="outline-container-h:E33E2288-CE85-49CB-910A-51E9B3F9CFB8" class="outline-2">
+<h2 id="h:E33E2288-CE85-49CB-910A-51E9B3F9CFB8"><a href="#h:E33E2288-CE85-49CB-910A-51E9B3F9CFB8">AI Assistant</a></h2>
+<div class="outline-text-2" id="text-h:E33E2288-CE85-49CB-910A-51E9B3F9CFB8">
+<p>
+13.1 版本
+</p>
+
+<p>
+安装步骤
+</p>
+
+<p>
+前置：得有个 Grafana Cloud 账号（免费版就行，带 Assistant 额度）。另外完成 OAuth 的是你的浏览器，不是
+105，所以你本机要能打开 grafana.com。
+</p>
+
+<ol class="org-ol">
+<li>浏览器开 <a href="http://10.0.0.105:3000，用">http://10.0.0.105:3000，用</a> org admin 账号登录</li>
+<li>Administration → Plugins and data → Plugins</li>
+<li>搜 Grafana Assistant，或直接开 <a href="http://10.0.0.105:3000/plugins/grafana-assistant-app">http://10.0.0.105:3000/plugins/grafana-assistant-app</a></li>
+<li>点 Install</li>
+<li>装完刷新页面 —— 不刷新的话 Connection 标签不会出现，官方文档专门点了这个坑</li>
+<li>进 Connection 标签 → Connect to Grafana Cloud</li>
+<li>授权页里选目标 org 和 stack → Authorize connection</li>
+<li>页面重载后，Assistant 就出现在 UI 里了</li>
+</ol>
 </div>
 </section>
 <section id="outline-container-h:015B0B87-6CDD-4342-814C-C64D0ACB8350" class="outline-2">

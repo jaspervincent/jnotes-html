@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Linux: 网站导航-Homepage</title>
+<meta name="generator" content="Org Mode" />
+<script>
+/* main.css 默认把 body 隐藏起来，为的是切换深色模式时不闪白。
+   恢复可见完全交给 CSS 的 html.js:not(.ready) 选择器控制：
+   - 没有 JS：下面这句不会执行，html 上没有 .js，body 一开始就是可见的
+   - 有 JS 但 main.js 加载失败或抛异常：load 事件（或 2 秒兜底）照样会加上 .ready
+   任何一条路径都不会留下白屏。 */
+(function () {
+  var el = document.documentElement;
+  el.className += ' js';
+  function reveal() { el.className += ' ready'; }
+  window.addEventListener('load', reveal);
+  setTimeout(reveal, 2000);
+})();
+</script>
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="alternate" type="application/rss+xml" title="Jasper Hsu's Blog" href="https://xuchangwei.com/rss.xml">
+<link rel="me" href="https://emacs.ch/@jasperhsu">
+
+<!-- AdSense 加载器原本在这里，2026-10 下线。恢复步骤见 assets/ADSENSE.md
+     （本文件会被注入每一页的 <head>，所以细节不写在这儿）。 -->
+
+<!-- from -->
+<!--
+<style>#back-to-top{background:#000;-webkit-border-radius:50%;-moz-border-radius:50%;border-radius:50%;bottom:20px;-webkit-box-shadow:0 2px 5px 0 rgba(0,0,0,.26);-moz-box-shadow:0 2px 5px 0 rgba(0,0,0,.26);box-shadow:0 2px 5px 0 rgba(0,0,0,.26);color:#fff;cursor:pointer;display:block;height:56px;opacity:1;outline:0;position:fixed;right:20px;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;-webkit-transition:bottom .2s,opacity .2s;-o-transition:bottom .2s,opacity .2s;-moz-transition:bottom .2s,opacity .2s;transition:bottom .2s,opacity .2s;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;width:56px;z-index:1}#back-to-top svg{display:block;fill:currentColor;height:24px;margin:16px auto 0;width:24px}#back-to-top.hidden{bottom:-56px;opacity:0}</style>
+-->
+<!-- Bootstrap 必须排在 main.css 之前 —— main.css 里有覆盖它的规则
+     （如 body.dark-theme .form-control）。见 assets/static/vendor/README.md -->
+<link rel="stylesheet" href="/static/vendor/bootstrap.min.css">
+<link rel="stylesheet" href="/static/distro-htmlize.css">
+<link rel="stylesheet" href="/static/aandds.com/css/main.css">
+<link rel="stylesheet" href="/static/aandds.com/css/drollery.min.css">
+<script type="text/javascript" src="/static/aandds.com/js/main.js"></script>
+<meta name="description" content="一个自托管导航页，部署在 10.0.0.105 的 /opt/homepage ，五个容器：" />
+<link rel="canonical" href="https://xuchangwei.com/linux/other-service/homepage/index.html" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Linux: 网站导航-Homepage" />
+<meta property="og:description" content="一个自托管导航页，部署在 10.0.0.105 的 /opt/homepage ，五个容器：" />
+<meta property="og:url" content="https://xuchangwei.com/linux/other-service/homepage/index.html" />
+<meta property="og:site_name" content="Jasper Hsu&apos;s Blog" />
+<meta name="twitter:card" content="summary" />
+<script type="application/ld+json">{"@context":"https://schema.org","url":"https://xuchangwei.com/linux/other-service/homepage/index.html","@type":"WebPage","name":"Linux: 网站导航-Homepage","description":"一个自托管导航页，部署在 10.0.0.105 的 /opt/homepage ，五个容器："}</script>
+</head>
+<body>
+<div id="content" class="content">
+<header>
+<h1 class="title">Linux: 网站导航-Homepage</h1>
+</header><nav id="table-of-contents" role="doc-toc">
+<h2>&#30446;&#24405;</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#h:6F518277-A497-4C93-B64F-3D142E2E9692">homepage 是什么</a></li>
+<li><a href="#h:3216C61F-11D2-44B2-8090-46B5E0075130">安装</a>
+<ul>
+<li><a href="#h:739C8E58-7E46-492B-9905-306913D697F0">前置</a></li>
+<li><a href="#h:FFCDD0C3-74DB-4A76-A8C1-5B6EADFDAE58">部署</a></li>
+<li><a href="#h:664C2B08-531D-4424-9B3D-D691972227D4">验证</a></li>
+<li><a href="#h:D8DDA12A-D425-43B7-B5E9-8620277CB1C5">日常命令</a></li>
+</ul>
+</li>
+<li><a href="#h:62BB14F0-DD6F-47AD-B86C-7E9125E91928">组件说明</a>
+<ul>
+<li><a href="#h:E08DDB7A-4F86-481B-A46C-D49153E8C190">homepage —— 展示端</a></li>
+<li><a href="#h:FAD1FDFD-2A94-4AC2-B78E-6AFAB49888F7">homepage-editor —— 图形化管理端</a></li>
+<li><a href="#h:930F47C3-6FC7-4DFB-BB22-7A994111290B">code-server —— 文本管理端</a></li>
+<li><a href="#h:0594B092-7647-4FE4-8204-632177FFD003">dockerproxy —— 容器发现代理</a></li>
+<li><a href="#h:AF836F7D-0B65-406F-A38B-5ED518A3CBD0">editor-restart-proxy —— 重启代理</a></li>
+</ul>
+</li>
+<li><a href="#h:31DB7FE2-ADF9-4295-A022-A2C82F7B41FB">选型参考</a>
+<ul>
+<li><a href="#h:668CC7BC-7D06-41E2-AAAD-37AD42A822D2">为什么是 homepage</a></li>
+<li><a href="#h:5EF1102E-008E-4BD5-89A8-918F64A4514F">为什么两个管理端并存</a></li>
+<li><a href="#h:D0049F61-29AF-4270-9A1D-B4A341759296">图形化管理端的候选对比</a></li>
+<li><a href="#h:FB3C1916-6CB8-40BF-921F-1DDCAF3CA853">为什么文本管理端选 code-server 而不是 Filebrowser</a></li>
+<li><a href="#h:0777592C-6BFA-4F4B-BCB3-371FA8992292">其它决策</a></li>
+</ul>
+</li>
+<li><a href="#h:65D1B5BB-D46E-4E80-A3D5-7914644854CA">没做的事</a></li>
+<li><a href="#h:6AE32694-86F8-42B9-BDFE-5A179416AC68">常用功能设置</a>
+<ul>
+<li><a href="#h:45D58C84-4632-4BBC-97C6-BCA4CB8A1BA8">settings.yaml</a></li>
+<li><a href="#h:95E588C5-FCAF-454A-AC55-1BEABD5D8091">services.yaml</a></li>
+<li><a href="#h:5974F2E0-4909-4728-8CAC-FA7B3135A255">widgets.yaml</a></li>
+<li><a href="#h:8433D599-9137-4016-AFB0-F8EDEABEC97D">bookmarks.yaml</a></li>
+<li><a href="#h:CF322752-63F9-4CB7-9832-6C611DCFB221">docker.yaml</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+<ul class="org-ul">
+<li>TAGS: <a href="../index.html">Other-service</a></li>
+</ul>
+<section id="outline-container-h:6F518277-A497-4C93-B64F-3D142E2E9692" class="outline-2">
+<h2 id="h:6F518277-A497-4C93-B64F-3D142E2E9692"><a href="#h:6F518277-A497-4C93-B64F-3D142E2E9692">homepage 是什么</a></h2>
+<div class="outline-text-2" id="text-h:6F518277-A497-4C93-B64F-3D142E2E9692">
+<p>
+一个自托管导航页，部署在 10.0.0.105 的 <code>/opt/homepage</code> ，五个容器：
+</p>
+
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-right">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">容器</th>
+<th scope="col" class="org-right">端口</th>
+<th scope="col" class="org-left">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>homepage</code></td>
+<td class="org-right">3000</td>
+<td class="org-left">展示导航页，只读配置</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>homepage-editor</code></td>
+<td class="org-right">7200</td>
+<td class="org-left">图形化改配置，表单 + 图标选择器</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>homepage-code-server</code></td>
+<td class="org-right">8443</td>
+<td class="org-left">文本改配置，浏览器里的 VS Code</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>homepage-dockerproxy</code></td>
+<td class="org-right">仅内网</td>
+<td class="org-left">容器状态发现，只读</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>homepage-editor-restart-proxy</code></td>
+<td class="org-right">仅内网</td>
+<td class="org-left">仅供 editor 重启容器</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+核心思路：homepage 自身没有后台，纯靠 <code>./config/</code> 下的 YAML 驱动。
+把同一个 <code>./config/</code> 同时挂给展示端（读）和两个管理端（写），
+改完存盘导航页自动刷新，不用重启任何容器。两个管理端可以同时开着，
+它们改的是同一份文件。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-text">                        &#35835;
+      &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488; &#9664;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;
+:3000 &#9474;   homepage   &#9474;                  &#9474;
+      &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9516;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;           &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;
+             &#9474; &#21482;&#35835; API          &#9474;  ./config/  &#9474;
+      &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9660;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;           &#9474;   *.yaml    &#9474;
+      &#9474; dockerproxy  &#9474;           &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9650;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;
+      &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;                  &#9474; &#20889;
+                          &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;
+                   :7200  &#9474;                           &#9474; :8443
+            &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;          &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9524;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;
+            &#9474;  homepage-editor   &#9474;          &#9474;  code-server   &#9474;
+            &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9516;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;          &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;
+                      &#9474; &#20165;&#37325;&#21551;
+          &#9484;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9660;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9488;
+          &#9474;  editor-restart-proxy  &#9474;
+          &#9492;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9496;
+</pre>
+</div>
+</div>
+</section>
+<section id="outline-container-h:3216C61F-11D2-44B2-8090-46B5E0075130" class="outline-2">
+<h2 id="h:3216C61F-11D2-44B2-8090-46B5E0075130"><a href="#h:3216C61F-11D2-44B2-8090-46B5E0075130">安装</a></h2>
+<div class="outline-text-2" id="text-h:3216C61F-11D2-44B2-8090-46B5E0075130">
+</div>
+<div id="outline-container-h:739C8E58-7E46-492B-9905-306913D697F0" class="outline-3">
+<h3 id="h:739C8E58-7E46-492B-9905-306913D697F0"><a href="#h:739C8E58-7E46-492B-9905-306913D697F0">前置</a></h3>
+<div class="outline-text-3" id="text-h:739C8E58-7E46-492B-9905-306913D697F0">
+<p>
+目标机 Ubuntu 26.04 / arm64 / Docker 29.9.1 + Compose v5.6.0 。
+三个镜像都有原生 arm64，不需要 registry mirror 。
+</p>
+</div>
+</div>
+<div id="outline-container-h:FFCDD0C3-74DB-4A76-A8C1-5B6EADFDAE58" class="outline-3">
+<h3 id="h:FFCDD0C3-74DB-4A76-A8C1-5B6EADFDAE58"><a href="#h:FFCDD0C3-74DB-4A76-A8C1-5B6EADFDAE58">部署</a></h3>
+<div class="outline-text-3" id="text-h:FFCDD0C3-74DB-4A76-A8C1-5B6EADFDAE58">
+<div class="org-src-container">
+<pre class="src src-sh">mkdir -pv /opt/homepage
+<span class="org-builtin">cd</span> /opt/homepage
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">1. &#29615;&#22659;&#21464;&#37327;&#12290;&#19977;&#20010;&#23494;&#30721;/&#22320;&#22336;&#26159;&#24517;&#22635;&#39033;&#65292;&#32570;&#20102; compose &#30452;&#25509;&#25253;&#38169;&#36864;&#20986;
+</span>cat &lt;&lt;\EOF&gt; .env<span class="org-sh-heredoc">
+# &#9472;&#9472; &#31649;&#29702;&#31471;&#23494;&#30721;&#65288;&#24517;&#22635;&#65292;&#27809;&#26377;&#40664;&#35748;&#20540;&#65292;&#19981;&#22635; compose &#20250;&#30452;&#25509;&#25253;&#38169;&#36864;&#20986;&#65289;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+CODE_SERVER_PASSWORD=gdtIEI9dvbhMmiHeBbcL
+
+# &#9472;&#9472; &#35775;&#38382;&#30333;&#21517;&#21333;&#65288;&#24517;&#22635;&#65289;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+# homepage v1.0 &#36215;&#24378;&#21046;&#26657;&#39564; Host &#22836;&#12290;&#36825;&#37324;&#24517;&#39035;&#21015;&#20986;&#20320;&#23454;&#38469;&#29992;&#26469;&#35775;&#38382;&#30340;
+# &#12300;&#20027;&#26426;:&#31471;&#21475;&#12301;&#65292;&#36887;&#21495;&#20998;&#38548;&#65292;&#23569;&#20889;&#19968;&#20010;&#23601;&#26159;&#30333;&#23631; 403 &#19988;&#26080;&#20219;&#20309;&#25552;&#31034;&#12290;
+# &#25442; IP&#12289;&#21152;&#22495;&#21517;&#12289;&#25913;&#31471;&#21475;&#20043;&#21518;&#37117;&#35201;&#22238;&#26469;&#21516;&#27493;&#36825;&#19968;&#34892;&#12290;
+HOMEPAGE_ALLOWED_HOSTS=10.0.0.105:3000,localhost:3000,127.0.0.1:3000,homepage:3000
+
+# &#9472;&#9472; homepage &#30340;&#22320;&#22336;&#65288;&#24517;&#22635;&#65289;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+# &#32473; homepage-editor &#29992;&#12290;&#23427;&#25343;&#36825;&#19968;&#20010;&#20540;&#24178;&#19977;&#20214;&#20107;&#65306;
+#   &#9312; &#23481;&#22120;&#20869;&#35843; /api/revalidate &#35753; homepage &#37325;&#35835;&#37197;&#32622;
+#   &#9313; &#23481;&#22120;&#20869;&#25506;&#27979; /icons/ &#19979;&#30340;&#22270;&#26631;&#26159;&#21542;&#23384;&#22312;
+#   &#9314; &#19979;&#21457;&#32473;&#27983;&#35272;&#22120;&#65292;&#24403;&#20316; Preview &#38754;&#26495;&#37027;&#20010; iframe &#30340; src &#21644;&#12300;Open &#8599;&#12301;&#30340; href
+# &#9314; &#26159;&#22312;*&#20320;&#30340;&#27983;&#35272;&#22120;*&#37324;&#25191;&#34892;&#30340;&#65292;&#25152;&#20197;&#36825;&#37324;**&#19981;&#33021;&#22635; compose &#20869;&#32593;&#26381;&#21153;&#21517;**&#12290;
+# &#19978;&#28216;&#40664;&#35748;&#20540;&#65288;&#21644;&#23427; README&#12289;&#33258;&#24102; compose.yaml&#65289;&#37117;&#26159; http://homepage:3000&#65292;
+# &#9312;&#9313; &#23545;&#32780; &#9314; &#24517;&#28982;&#35299;&#26512;&#22833;&#36133; &#8212;&#8212; Preview &#38754;&#26495;&#26159;&#19968;&#22359;&#28784;&#65292;&#36830;&#36229;&#26102;&#25552;&#31034;&#37117;&#19981;&#20250;&#20986;&#29616;
+# &#65288;Chrome &#30340;&#38169;&#35823;&#39029;&#20063;&#20250;&#35302;&#21457; iframe &#30340; load &#20107;&#20214;&#65292;&#25226;&#25552;&#31034;&#33258;&#24049;&#34255;&#25481;&#20102;&#65289;&#12290;
+# &#22635;&#20160;&#20040;&#65292;&#23601;&#35201;&#25226;&#23545;&#24212;&#30340;&#12300;&#20027;&#26426;:&#31471;&#21475;&#12301;&#21516;&#27493;&#36827;&#19978;&#38754;&#30340; HOMEPAGE_ALLOWED_HOSTS&#12290;
+HOMEPAGE_URL=http://10.0.0.105:3000
+
+# &#9472;&#9472; &#31471;&#21475; &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+# &#27880;&#24847;&#65306;&#26412;&#26426; 8081 &#24050;&#34987; nexus &#21344;&#29992;&#12289;8080 &#34987;&#19968;&#20010; java &#36827;&#31243;&#21344;&#29992;&#65292;&#21035;&#24448;&#19978;&#25758;&#12290;
+HOMEPAGE_PORT=3000
+CODE_SERVER_PORT=8443
+
+# &#9472;&#9472; &#26102;&#21306; &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+# &#20165;&#23545; code-server&#65288;Ubuntu &#22522;&#24213;&#65289;&#26377;&#25928;&#12290;homepage &#21644; dockerproxy &#26159; Alpine
+# &#19988;&#19981;&#21547; tzdata&#65292;&#23427;&#20204;&#30340;&#26102;&#21306;&#38752; compose &#37324;&#25346;&#36733; zoneinfo &#25991;&#20214;&#35299;&#20915;&#65292;&#25913;&#36825;&#37324;&#27809;&#29992;&#12290;
+TZ=Asia/Shanghai
+
+# &#9472;&#9472; code-server &#20889;&#25991;&#20214;&#26102;&#30340;&#23646;&#20027; &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+PUID=1000
+PGID=1000
+EDITOR_PASSWORD=BTfzTfYDShbizbRWzgVE
+EDITOR_PORT=7200
+EOF
+</span>
+cat &lt;&lt;\EOF&gt; docker-compose.yml<span class="org-sh-heredoc">
+# homepage &#23548;&#33322;&#39029;&#26632; &#8212;&#8212; &#37096;&#32626;&#22312; /opt/homepage&#65292;&#30446;&#26631;&#26426; 10.0.0.105
+#
+#   homepage              :3000   &#23637;&#31034;&#31471;&#65292;&#35835; ./config &#19979;&#30340; YAML&#65292;&#23384;&#30424;&#21363;&#28909;&#29983;&#25928;
+#   homepage-editor       :7200   &#22270;&#24418;&#21270;&#25913;&#37197;&#32622;&#65288;&#34920;&#21333; + &#22270;&#26631;&#36873;&#25321;&#22120; + &#20869;&#32622;&#25991;&#26723;&#65289;
+#   code-server           :8443   &#25991;&#26412;&#25913;&#37197;&#32622;&#65288;&#27983;&#35272;&#22120;&#37324;&#30340; VS Code&#65289;
+#   dockerproxy           &#20869;&#32593;    &#23481;&#22120;&#29366;&#24577;&#21457;&#29616;&#65292;&#21482;&#35835;
+#   editor-restart-proxy  &#20869;&#32593;    &#20165;&#20379; editor &#37325;&#21551;&#23481;&#22120;
+#
+# &#23433;&#35013;&#12289;&#32452;&#20214;&#35828;&#26126;&#19982;&#36873;&#22411;&#35265; GUIDE.org&#65307;&#36393;&#22353;&#35760;&#24405;&#35265; README.org&#12290;
+
+name: homepage
+
+services:
+  # &#9472;&#9472; &#23637;&#31034;&#31471; &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+  homepage:
+    image: ghcr.io/gethomepage/homepage:v2.6.0
+    container_name: homepage
+    restart: unless-stopped
+    ports:
+      - "${HOMEPAGE_PORT:-3000}:3000"
+    environment:
+      # &#24517;&#22635;&#12290;homepage &#24378;&#21046;&#26657;&#39564; Host &#22836;&#65292;&#28431;&#22635;&#30340;&#22320;&#22336;&#19968;&#24459;&#30333;&#23631; 403
+      HOMEPAGE_ALLOWED_HOSTS: ${HOMEPAGE_ALLOWED_HOSTS}
+      TZ: ${TZ:-Asia/Shanghai}
+    volumes:
+      - ./config:/app/config
+      # &#32972;&#26223;&#22270;&#21644;&#33258;&#23450;&#20041;&#22270;&#26631;&#24517;&#39035;&#25346;&#21040; /app/public &#19979;&#65292;homepage &#21482;&#20174;&#36825;&#37324;&#25552;&#20379;&#38745;&#24577;&#25991;&#20214;&#12290;
+      # &#25918;&#36827; config/ &#37324;&#26159;&#21462;&#19981;&#21040;&#30340;&#65288;404&#65289;&#65292;&#22240;&#20026;&#20004;&#32773;&#20043;&#38388;&#27809;&#26377;&#20219;&#20309;&#38142;&#25509;&#12290;
+      # &#24341;&#29992;&#26102;&#20889; /images/xxx.jpg &#21644; /icons/xxx.png&#12290;&#25442;&#25991;&#20214;&#21518;&#35201;&#37325;&#21551; homepage
+      - ./config/images:/app/public/images
+      - ./config/icons:/app/public/icons
+      # Alpine &#22522;&#24213;&#19981;&#21547; tzdata&#65292;TZ &#35201;&#37197;&#21512;&#25972;&#20010; zoneinfo &#30446;&#24405;&#25165;&#29983;&#25928;
+      - /usr/share/zoneinfo:/usr/share/zoneinfo:ro
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime:ro
+    networks:
+      - homepage
+    depends_on:
+      - dockerproxy
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/api/healthcheck"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
+
+  # &#9472;&#9472; &#22270;&#24418;&#21270;&#31649;&#29702;&#31471; &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+  homepage-editor:
+    image: ghcr.io/jchisholm59/homepage-editor:latest
+    container_name: homepage-editor
+    restart: unless-stopped
+    ports:
+      - "${EDITOR_PORT:-7200}:7200"
+    environment:
+      # &#24517;&#22635;&#65292;&#19988;&#24517;&#39035;&#26159;&#27983;&#35272;&#22120;&#33021;&#35775;&#38382;&#30340;&#22320;&#22336;&#65306;Preview &#38754;&#26495;&#30340; iframe &#30452;&#25509;&#29992;&#23427;&#12290;
+      # &#22635; compose &#26381;&#21153;&#21517;&#30340;&#35805;&#23481;&#22120;&#20869;&#33021;&#36890;&#12289;&#27983;&#35272;&#22120;&#25171;&#19981;&#24320;&#12290;
+      HOMEPAGE_URL: ${HOMEPAGE_URL:?&#35831;&#20808;&#22312; .env &#37324;&#35774;&#32622; HOMEPAGE_URL&#65288;&#27983;&#35272;&#22120;&#33021;&#35775;&#38382;&#30340;&#22320;&#22336;&#65289;}
+      HOMEPAGE_CONTAINER: homepage
+      DOCKER_PROXY: http://editor-restart-proxy:2375
+      EDITOR_PASSWORD: ${EDITOR_PASSWORD:?&#35831;&#20808;&#22312; .env &#37324;&#35774;&#32622; EDITOR_PASSWORD}
+      TZ: ${TZ:-Asia/Shanghai}
+    volumes:
+      - ./config:/config
+      # &#27599;&#27425;&#20445;&#23384;&#21069;&#33258;&#21160;&#22791;&#20221;&#21040;&#36825;&#37324;&#65292;&#21487;&#22312;&#30028;&#38754; Backups &#39029;&#22238;&#28378;
+      - ./editor-backups:/backups
+      - /usr/share/zoneinfo:/usr/share/zoneinfo:ro
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime:ro
+    networks:
+      - homepage
+    depends_on:
+      - editor-restart-proxy
+    # &#35206;&#30422;&#38236;&#20687;&#33258;&#24102;&#30340;&#25506;&#27979;&#65306;&#21407;&#29256;&#19981;&#24102;&#20973;&#25454;&#65292;&#35774;&#20102;&#23494;&#30721;&#24517;&#28982; 401&#12290;$$ &#20132;&#32473;&#23481;&#22120;&#20869; shell &#23637;&#24320;
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - &gt;-
+          wget -qO- --header="Authorization: Basic $$(printf 'x:%s' "$$EDITOR_PASSWORD" | base64)"
+          http://127.0.0.1:7200/api/info &gt;/dev/null || exit 1
+      interval: 60s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+  # &#9472;&#9472; &#25991;&#26412;&#31649;&#29702;&#31471; &#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+  code-server:
+    image: lscr.io/linuxserver/code-server:4.141.0-ls371
+    container_name: homepage-code-server
+    restart: unless-stopped
+    ports:
+      - "${CODE_SERVER_PORT:-8443}:8443"
+    environment:
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
+      TZ: ${TZ:-Asia/Shanghai}
+      PASSWORD: ${CODE_SERVER_PASSWORD:?&#35831;&#20808;&#22312; .env &#37324;&#35774;&#32622; CODE_SERVER_PASSWORD}
+      DEFAULT_WORKSPACE: /config/workspace/homepage
+    volumes:
+      # code-server &#33258;&#36523;&#29366;&#24577;&#65288;&#25554;&#20214;&#12289;&#35774;&#32622;&#65289;
+      - ./code-server:/config
+      # &#19982; homepage &#20849;&#20139;&#21516;&#19968;&#20221;&#37197;&#32622;&#30446;&#24405;
+      - ./config:/config/workspace/homepage
+    networks:
+      - homepage
+
+  # &#9472;&#9472; &#23481;&#22120;&#21457;&#29616;&#20195;&#29702;&#65288;&#21482;&#35835;&#65289;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+  # &#26367;&#20195;&#30452;&#25509;&#32473; homepage &#25346; docker.sock&#65306;socket &#19978;&#30340; :ro &#21482;&#38450;&#20889;&#25991;&#20214;&#65292;
+  # &#19981;&#38480;&#21046; API &#35843;&#29992;&#65292;&#36825;&#19968;&#23618;&#25165;&#30495;&#27491;&#25910;&#31364;&#12300;&#33021;&#35843;&#21738;&#20123; API&#12301;&#12290;
+  dockerproxy:
+    image: tecnativa/docker-socket-proxy:v0.5.0
+    container_name: homepage-dockerproxy
+    restart: unless-stopped
+    environment:
+      CONTAINERS: 1
+      POST: 0
+      IMAGES: 0
+      NETWORKS: 0
+      VOLUMES: 0
+      SERVICES: 0
+      TASKS: 0
+      NODES: 0
+      SECRETS: 0
+      CONFIGS: 0
+      SWARM: 0
+      SYSTEM: 0
+      INFO: 0
+      EXEC: 0
+      BUILD: 0
+      COMMIT: 0
+      PLUGINS: 0
+      AUTH: 0
+      DISTRIBUTION: 0
+      SESSION: 0
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /usr/share/zoneinfo:/usr/share/zoneinfo:ro
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime:ro
+    networks:
+      - homepage
+    read_only: true
+    tmpfs:
+      - /run
+      - /tmp
+
+  # &#9472;&#9472; &#37325;&#21551;&#20195;&#29702;&#65288;&#20165;&#20379; editor&#65289;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;&#9472;
+  # &#26435;&#38480;&#27604;&#19978;&#38754;&#37027;&#20010;&#22823;&#65306;&#33021;&#37325;&#21551;/&#20572;&#25481;&#26412;&#26426;&#20219;&#24847;&#23481;&#22120;&#12290;&#21482;&#20026; editor &#30340;
+  # &#12300;Restart Homepage&#12301;&#25353;&#38062;&#32780;&#23384;&#22312;&#65292;&#19981;&#38656;&#35201;&#21487;&#36830;&#21516; DOCKER_PROXY &#19968;&#36215;&#21024;&#12290;
+  editor-restart-proxy:
+    image: tecnativa/docker-socket-proxy:v0.5.0
+    container_name: homepage-editor-restart-proxy
+    restart: unless-stopped
+    environment:
+      POST: 1
+      ALLOW_RESTARTS: 1
+      CONTAINERS: 1
+      EVENTS: 0
+      IMAGES: 0
+      NETWORKS: 0
+      VOLUMES: 0
+      EXEC: 0
+      BUILD: 0
+      INFO: 0
+      SYSTEM: 0
+      AUTH: 0
+      SECRETS: 0
+      CONFIGS: 0
+      SWARM: 0
+      NODES: 0
+      TASKS: 0
+      SERVICES: 0
+      PLUGINS: 0
+      COMMIT: 0
+      DISTRIBUTION: 0
+      SESSION: 0
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /usr/share/zoneinfo:/usr/share/zoneinfo:ro
+      - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime:ro
+    networks:
+      - homepage
+    read_only: true
+    tmpfs:
+      - /run
+      - /tmp
+
+networks:
+  homepage:
+    name: homepage
+    driver: bridge
+EOF
+</span>
+chmod 600 .env
+
+
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">2. &#26657;&#39564;&#35821;&#27861;
+</span>docker compose config -q &amp;&amp; <span class="org-builtin">echo</span> <span class="org-string">"&#35821;&#27861; OK"</span>
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">3. &#21551;&#21160;
+</span>docker compose up -d
+
+<span class="org-comment-delimiter"># </span><span class="org-comment">4. &#30475;&#29366;&#24577;&#65292;homepage &#21644; homepage-editor &#24212;&#20026; (healthy)
+</span>docker compose ps
+</pre>
+</div>
+
+<p>
+<code>.env</code> 里必须自己填的三项：
+</p>
+
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">变量</th>
+<th scope="col" class="org-left">填什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>CODE_SERVER_PASSWORD</code></td>
+<td class="org-left">任意强密码</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>EDITOR_PASSWORD</code></td>
+<td class="org-left">任意强密码，用户名随便填</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>HOMEPAGE_URL</code></td>
+<td class="org-left">*浏览器*能访问的 homepage 地址，如 <a href="http://10.0.0.105:3000">http://10.0.0.105:3000</a></td>
+</tr>
+</tbody>
+</table>
+
+<p>
+另有一项 <code>HOMEPAGE_ALLOWED_HOSTS</code> ，要列出所有你实际用来访问的
+「主机:端口」，逗号分隔。homepage 强制校验 Host 头， <b>漏一个就是白屏 403且页面不给任何提示</b> 。换 IP、加域名、改端口之后都要回来同步这一行。
+</p>
+
+<p>
+<code>HOMEPAGE_URL</code> 里填的地址也必须出现在这个白名单里 —— editor 访问
+homepage 时发出的 Host 头就是它。
+</p>
+</div>
+</div>
+<div id="outline-container-h:664C2B08-531D-4424-9B3D-D691972227D4" class="outline-3">
+<h3 id="h:664C2B08-531D-4424-9B3D-D691972227D4"><a href="#h:664C2B08-531D-4424-9B3D-D691972227D4">验证</a></h3>
+<div class="outline-text-3" id="text-h:664C2B08-531D-4424-9B3D-D691972227D4">
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-builtin">cd</span> /opt/homepage
+
+docker compose ps                          <span class="org-comment-delimiter"># </span><span class="org-comment">&#20116;&#20010;&#23481;&#22120;&#37117;&#22312;&#65292;&#20004;&#20010; healthy
+</span>curl -s -o /dev/null -w <span class="org-string">'%{http_code}\n'</span> http://10.0.0.105:3000/   <span class="org-comment-delimiter"># </span><span class="org-comment">200
+</span>curl -s http://10.0.0.105:3000/api/services | head -c 200          <span class="org-comment-delimiter"># </span><span class="org-comment">&#26377; JSON</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-h:D8DDA12A-D425-43B7-B5E9-8620277CB1C5" class="outline-3">
+<h3 id="h:D8DDA12A-D425-43B7-B5E9-8620277CB1C5"><a href="#h:D8DDA12A-D425-43B7-B5E9-8620277CB1C5">日常命令</a></h3>
+<div class="outline-text-3" id="text-h:D8DDA12A-D425-43B7-B5E9-8620277CB1C5">
+<div class="org-src-container">
+<pre class="src src-sh"><span class="org-builtin">cd</span> /opt/homepage
+
+docker compose ps                              <span class="org-comment-delimiter"># </span><span class="org-comment">&#29366;&#24577;
+</span>docker compose logs -f homepage                <span class="org-comment-delimiter"># </span><span class="org-comment">&#36319;&#26085;&#24535;
+</span>docker compose restart homepage                <span class="org-comment-delimiter"># </span><span class="org-comment">&#37325;&#21551;&#23637;&#31034;&#31471;
+</span>docker compose down                            <span class="org-comment-delimiter"># </span><span class="org-comment">&#20572;&#27490;&#65292;&#20445;&#30041;&#37197;&#32622;&#21644;&#25968;&#25454;
+</span>docker compose up -d                           <span class="org-comment-delimiter"># </span><span class="org-comment">&#36215;&#22238;&#26469;
+</span>docker compose pull &amp;&amp; docker compose up -d    <span class="org-comment-delimiter"># </span><span class="org-comment">&#21319;&#32423;&#38236;&#20687;</span>
+</pre>
+</div>
+</div>
+</div>
+</section>
+<section id="outline-container-h:62BB14F0-DD6F-47AD-B86C-7E9125E91928" class="outline-2">
+<h2 id="h:62BB14F0-DD6F-47AD-B86C-7E9125E91928"><a href="#h:62BB14F0-DD6F-47AD-B86C-7E9125E91928">组件说明</a></h2>
+<div class="outline-text-2" id="text-h:62BB14F0-DD6F-47AD-B86C-7E9125E91928">
+</div>
+<div id="outline-container-h:E08DDB7A-4F86-481B-A46C-D49153E8C190" class="outline-3">
+<h3 id="h:E08DDB7A-4F86-481B-A46C-D49153E8C190"><a href="#h:E08DDB7A-4F86-481B-A46C-D49153E8C190">homepage —— 展示端</a></h3>
+<div class="outline-text-3" id="text-h:E08DDB7A-4F86-481B-A46C-D49153E8C190">
+<p>
+<code>ghcr.io/gethomepage/homepage:v2.6.0</code> ，端口 3000 。
+</p>
+
+<p>
+只读 <code>./config/</code> 下的 YAML ，存盘即热生效，不需要重启。
+两个例外：*新加的自定义图标和背景图要重启才认* （Next.js 静态文件），
+editor 界面上的「Restart Homepage」按钮就是干这个的。
+</p>
+
+<p>
+配置文件：
+</p>
+
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">文件</th>
+<th scope="col" class="org-left">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>settings.yaml</code></td>
+<td class="org-left">标题、主题、语言、分组布局（列数）</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>services.yaml</code></td>
+<td class="org-left">服务卡片，可带容器状态</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>bookmarks.yaml</code></td>
+<td class="org-left">纯链接书签，不探活</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>widgets.yaml</code></td>
+<td class="org-left">顶部的资源、搜索、时间小组件</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>docker.yaml</code></td>
+<td class="org-left">容器发现源，指向 dockerproxy</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+<b>缩进必须 2 空格</b> ，层级是「分组 → 服务名 → 属性」。缩进错了页面会整片空白
+且不报任何错。要给服务卡片加容器状态徽章， <code>server</code> 和 <code>container</code>
+两项必须一起写：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-yaml">- 基础设施:
+    - Nexus:
+        href: http://10.0.0.105:8081
+        description: 制品仓库
+        icon: nexus.png
+        server: my-docker        # 对应 docker.yaml 里的键名
+        container: nexus         # 容器真实名字
+</pre>
+</div>
+
+<p>
+容器真实名字用 <code>docker ps --format '{{.Names}}'</code> 查。
+图标名去 <a href="https://github.com/walkxcode/dashboard-icons">https://github.com/walkxcode/dashboard-icons</a> 检索，填 <code>xxx.png</code> 。
+</p>
+</div>
+</div>
+<div id="outline-container-h:FAD1FDFD-2A94-4AC2-B78E-6AFAB49888F7" class="outline-3">
+<h3 id="h:FAD1FDFD-2A94-4AC2-B78E-6AFAB49888F7"><a href="#h:FAD1FDFD-2A94-4AC2-B78E-6AFAB49888F7">homepage-editor —— 图形化管理端</a></h3>
+<div class="outline-text-3" id="text-h:FAD1FDFD-2A94-4AC2-B78E-6AFAB49888F7">
+<p>
+<code>ghcr.io/jchisholm59/homepage-editor:latest</code> ，端口 7200 ，HTTP Basic 认证
+（用户名随便填，密码是 <code>EDITOR_PASSWORD</code> ）。
+</p>
+
+<p>
+日常加服务、挑图标、配 widget 用它。有表单和内置文档，不用记字段名。
+三个值得知道的点：
+</p>
+
+<ul class="org-ul">
+<li><b>它保证不破坏你手写的注释</b> 。保存时是把改动 merge 进已解析的 YAML
+Document 再序列化，而不是重写整个文件。这是选它的决定性理由</li>
+<li>每次保存前给你看 diff ，并自动备份到 <code>./editor-backups/&lt;时间戳&gt;/</code> ，
+界面 Backups 页可回滚</li>
+<li>非法 YAML 返 400 拒绝；文件在你编辑期间被别人改过（ <code>baseMtime</code> 过期）
+返 409 拒绝。两种情况文件都完好</li>
+</ul>
+
+<p>
+右上角「Preview」能在编辑器旁边开一个 homepage 实时预览。
+它用的是 <code>HOMEPAGE_URL</code> ，所以那个变量必须填浏览器能访问的地址。
+</p>
+</div>
+</div>
+<div id="outline-container-h:930F47C3-6FC7-4DFB-BB22-7A994111290B" class="outline-3">
+<h3 id="h:930F47C3-6FC7-4DFB-BB22-7A994111290B"><a href="#h:930F47C3-6FC7-4DFB-BB22-7A994111290B">code-server —— 文本管理端</a></h3>
+<div class="outline-text-3" id="text-h:930F47C3-6FC7-4DFB-BB22-7A994111290B">
+<p>
+<code>lscr.io/linuxserver/code-server:4.141.0-ls371</code> ，端口 8443 。
+</p>
+
+<p>
+批量改、看 diff 、处理 editor 覆盖不到的写法时用它。本质是个带 YAML
+高亮的 VS Code ，缩进错了当场能看出来。
+</p>
+
+<p>
+它以 <code>PUID</code> / <code>PGID</code> 身份写文件，homepage 以 root 读，不会有属主冲突。
+自身状态（插件、设置）存在 <code>./code-server/</code> 。
+</p>
+</div>
+</div>
+<div id="outline-container-h:0594B092-7647-4FE4-8204-632177FFD003" class="outline-3">
+<h3 id="h:0594B092-7647-4FE4-8204-632177FFD003"><a href="#h:0594B092-7647-4FE4-8204-632177FFD003">dockerproxy —— 容器发现代理</a></h3>
+<div class="outline-text-3" id="text-h:0594B092-7647-4FE4-8204-632177FFD003">
+<p>
+<code>tecnativa/docker-socket-proxy:v0.5.0</code> ，不发布端口，只在 compose 内网可达。
+</p>
+
+<p>
+homepage 要显示容器状态徽章就得访问 Docker API 。直接给它挂
+<code>docker.sock</code> 也能跑，但 socket 上的 <code>:ro</code> <b>只限制对文件本身的写，
+完全不限制 API 调用</b> —— 照样能 <code>POST /containers/create</code> 挂载宿主目录、
+起特权容器，等于把宿主 root 交出去。
+</p>
+
+<p>
+这一层代理把「能调哪些 API 」真正收窄：只放行 <code>CONTAINERS: 1</code> ，
+其余全部显式关死。 <code>POST: 0</code> 意味着连 start / stop / exec 都发不出去，
+即使 homepage 被攻破，拿到的也只是一个容器列表。
+它自己还加了 <code>read_only: true</code> 和 tmpfs ，转发代理不需要可写根文件系统。
+</p>
+</div>
+</div>
+<div id="outline-container-h:AF836F7D-0B65-406F-A38B-5ED518A3CBD0" class="outline-3">
+<h3 id="h:AF836F7D-0B65-406F-A38B-5ED518A3CBD0"><a href="#h:AF836F7D-0B65-406F-A38B-5ED518A3CBD0">editor-restart-proxy —— 重启代理</a></h3>
+<div class="outline-text-3" id="text-h:AF836F7D-0B65-406F-A38B-5ED518A3CBD0">
+<p>
+同一个镜像，但 <b>权限比上面那个大得多</b> ： <code>POST: 1</code> 和 <code>ALLOW_RESTARTS: 1</code> ，
+意味着它能重启或停掉本机任意容器，包括 nexus 。
+</p>
+
+<p>
+它只换来一个功能：editor 界面上的「Restart Homepage」按钮。
+<b>不需要这个便利的话，把本服务连同 editor 的 <code>DOCKER_PROXY</code> 环境变量
+一起删掉即可</b> ，editor 其余功能完全不受影响，要重启时手敲
+<code>docker compose restart homepage</code> 就是了。
+</p>
+</div>
+</div>
+</section>
+<section id="outline-container-h:31DB7FE2-ADF9-4295-A022-A2C82F7B41FB" class="outline-2">
+<h2 id="h:31DB7FE2-ADF9-4295-A022-A2C82F7B41FB"><a href="#h:31DB7FE2-ADF9-4295-A022-A2C82F7B41FB">选型参考</a></h2>
+<div class="outline-text-2" id="text-h:31DB7FE2-ADF9-4295-A022-A2C82F7B41FB">
+</div>
+<div id="outline-container-h:668CC7BC-7D06-41E2-AAAD-37AD42A822D2" class="outline-3">
+<h3 id="h:668CC7BC-7D06-41E2-AAAD-37AD42A822D2"><a href="#h:668CC7BC-7D06-41E2-AAAD-37AD42A822D2">为什么是 homepage</a></h3>
+<div class="outline-text-3" id="text-h:668CC7BC-7D06-41E2-AAAD-37AD42A822D2">
+<p>
+静态配置、无数据库、单容器、有容器状态探测和 widget 生态。
+配置是纯文本意味着最坏情况永远能手改回来，不会被一个坏掉的管理端锁死。
+</p>
+</div>
+</div>
+<div id="outline-container-h:5EF1102E-008E-4BD5-89A8-918F64A4514F" class="outline-3">
+<h3 id="h:5EF1102E-008E-4BD5-89A8-918F64A4514F"><a href="#h:5EF1102E-008E-4BD5-89A8-918F64A4514F">为什么两个管理端并存</a></h3>
+<div class="outline-text-3" id="text-h:5EF1102E-008E-4BD5-89A8-918F64A4514F">
+<p>
+它们不是冗余，是互补：
+</p>
+
+<ul class="org-ul">
+<li><b>homepage-editor</b> 懂字段语义，适合加服务、挑图标、配 widget</li>
+<li><b>code-server</b> 什么都能改，适合批量操作和 editor 覆盖不到的写法</li>
+</ul>
+
+<p>
+而且图形化管理端是这套栈里最新、最小的一环（见下），
+留一个纯文本入口是兜底 —— editor 出问题时不至于没法改配置。
+</p>
+</div>
+</div>
+<div id="outline-container-h:D0049F61-29AF-4270-9A1D-B4A341759296" class="outline-3">
+<h3 id="h:D0049F61-29AF-4270-9A1D-B4A341759296"><a href="#h:D0049F61-29AF-4270-9A1D-B4A341759296">图形化管理端的候选对比</a></h3>
+<div class="outline-text-3" id="text-h:D0049F61-29AF-4270-9A1D-B4A341759296">
+<p>
+gethomepage 官方不提供后台。2026-10-23 调研时的同类项目：
+</p>
+
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-right">
+
+<col  class="org-right">
+
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">项目</th>
+<th scope="col" class="org-right">星</th>
+<th scope="col" class="org-right">最后更新</th>
+<th scope="col" class="org-left">许可</th>
+<th scope="col" class="org-left">预构建镜像</th>
+<th scope="col" class="org-left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><b>jchisholm59/homepage-editor</b></td>
+<td class="org-right">2</td>
+<td class="org-right">2026-10-22</td>
+<td class="org-left">MIT</td>
+<td class="org-left">GHCR，含 arm64</td>
+<td class="org-left"><b>保留注释、保存前 diff、备份</b></td>
+</tr>
+
+<tr>
+<td class="org-left">hyprlab/homepage-gui</td>
+<td class="org-right">4</td>
+<td class="org-right">2026-10-02</td>
+<td class="org-left">AGPL</td>
+<td class="org-left">?</td>
+<td class="org-left">只管 services.yaml</td>
+</tr>
+
+<tr>
+<td class="org-left">BangerTech/homepage-ui</td>
+<td class="org-right">10</td>
+<td class="org-right">2026-09-08</td>
+<td class="org-left">无</td>
+<td class="org-left">需自行 build</td>
+<td class="org-left">功能全，但没有许可证</td>
+</tr>
+
+<tr>
+<td class="org-left">hoiber/homepage-config-gui</td>
+<td class="org-right">9</td>
+<td class="org-right">2025-09-12</td>
+<td class="org-left">GPL-3</td>
+<td class="org-left">有</td>
+<td class="org-left">停更一年多</td>
+</tr>
+
+<tr>
+<td class="org-left">hoiber/homepage-config-editor</td>
+<td class="org-right">5</td>
+<td class="org-right">已归档</td>
+<td class="org-left">—</td>
+<td class="org-left">—</td>
+<td class="org-left">已死</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+决定性理由是 <b>保留 YAML 注释</b> 。本项目的配置文件里写满了说明性注释，
+多数 GUI 编辑器保存时会把整个文件重写一遍，注释全部消失。
+实测 homepage-editor 新增一个服务后 <code>diff</code> 只有 6 行新增，
+注释 5 → 5 行，空行和文件属主均未变。
+</p>
+
+<p>
+<b>选它的代价要清楚</b> ：2 星 / 0 fork / 0 open issue ，2026-10-03 才建仓
+（2026-10-24 复查数字未变）。核心的保存逻辑实测扎实，但出问题基本
+没有社区可问，而且已经遇到过一次上游默认配置就是错的情况。
+好在配置是纯文本，最坏情况退回 code-server 手改。
+</p>
+
+<p>
+它按 Homepage v1.13.2 构建而本机跑 v2.6.0 ，实测解析和保存都正常、
+中文分组名也没问题，但新版本独有的字段它的表单里可能没有 ——
+遇到这种情况用 Files 标签页或 code-server 直接写。
+</p>
+</div>
+</div>
+<div id="outline-container-h:FB3C1916-6CB8-40BF-921F-1DDCAF3CA853" class="outline-3">
+<h3 id="h:FB3C1916-6CB8-40BF-921F-1DDCAF3CA853"><a href="#h:FB3C1916-6CB8-40BF-921F-1DDCAF3CA853">为什么文本管理端选 code-server 而不是 Filebrowser</a></h3>
+<div class="outline-text-3" id="text-h:FB3C1916-6CB8-40BF-921F-1DDCAF3CA853">
+<p>
+homepage 的 YAML 缩进错了页面会整片空白且不报错。
+VS Code 的 YAML 高亮能当场看出来，纯文件管理器不能。
+</p>
+</div>
+</div>
+<div id="outline-container-h:0777592C-6BFA-4F4B-BCB3-371FA8992292" class="outline-3">
+<h3 id="h:0777592C-6BFA-4F4B-BCB3-371FA8992292"><a href="#h:0777592C-6BFA-4F4B-BCB3-371FA8992292">其它决策</a></h3>
+<div class="outline-text-3" id="text-h:0777592C-6BFA-4F4B-BCB3-371FA8992292">
+<ul class="org-ul">
+<li><b>镜像 pin 死版本</b> ，不用 <code>:latest</code> 。版本号是部署当天从镜像 label
+实测取的。升级走 <code>docker compose pull</code> ，心里有数</li>
+<li><b>密码只在 <code>.env</code> 里</b> ， <code>.gitignore</code> 已排除。compose 里用
+<code>${XXX:?...}</code> 写法，没设置就直接报错退出，不会静默起一个无密码服务</li>
+<li><b>时区靠挂载 zoneinfo</b> ，不是只设 <code>TZ</code> 。镜像是 Alpine 基底不含 tzdata ，
+只设 <code>TZ</code> 会静默回落 UTC 。细节见 <code>README.org</code> 坑一</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="outline-container-h:65D1B5BB-D46E-4E80-A3D5-7914644854CA" class="outline-2">
+<h2 id="h:65D1B5BB-D46E-4E80-A3D5-7914644854CA"><a href="#h:65D1B5BB-D46E-4E80-A3D5-7914644854CA">没做的事</a></h2>
+<div class="outline-text-2" id="text-h:65D1B5BB-D46E-4E80-A3D5-7914644854CA">
+<ul class="org-ul">
+<li>没有 HTTPS 。全是明文 HTTP ，管理端密码也是明文传输。仅限内网使用</li>
+<li>没有备份机制。 <code>restart: unless-stopped</code> 够用；建议把 <code>./config/</code>
+纳入 git 托管（ <code>.gitignore</code> 已配好，会排除 <code>.env</code> 和 code-server 状态）</li>
+<li>没有接入统一认证</li>
+</ul>
+</div>
+</section>
+<section id="outline-container-h:6AE32694-86F8-42B9-BDFE-5A179416AC68" class="outline-2">
+<h2 id="h:6AE32694-86F8-42B9-BDFE-5A179416AC68"><a href="#h:6AE32694-86F8-42B9-BDFE-5A179416AC68">常用功能设置</a></h2>
+<div class="outline-text-2" id="text-h:6AE32694-86F8-42B9-BDFE-5A179416AC68">
+<table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">文件</th>
+<th scope="col" class="org-left">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>settings.yaml</code></td>
+<td class="org-left">标题、主题、语言、分组布局（列数）</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>services.yaml</code></td>
+<td class="org-left">服务卡片，可带容器状态</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>bookmarks.yaml</code></td>
+<td class="org-left">纯链接书签，不探活</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>widgets.yaml</code></td>
+<td class="org-left">顶部的资源、搜索、时间小组件</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>docker.yaml</code></td>
+<td class="org-left">容器发现源，指向 dockerproxy</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="outline-container-h:45D58C84-4632-4BBC-97C6-BCA4CB8A1BA8" class="outline-3">
+<h3 id="h:45D58C84-4632-4BBC-97C6-BCA4CB8A1BA8"><a href="#h:45D58C84-4632-4BBC-97C6-BCA4CB8A1BA8">settings.yaml</a></h3>
+<div class="outline-text-3" id="text-h:45D58C84-4632-4BBC-97C6-BCA4CB8A1BA8">
+<div class="org-src-container">
+<pre class="src src-yaml">---
+# 文档：https://gethomepage.dev/configs/settings/
+
+title: Home Lab
+description: 10.0.0.105 导航页
+language: zh-CN
+
+theme: dark
+color: slate
+headerStyle: boxed
+hideVersion: true
+
+# 背景图是本地文件，不依赖任何外部图床（试过的几个必应每日壁纸代理全挂）。
+# 文件放 config/images/，compose 里把它挂到容器的 /app/public/images ——
+# 这一步不能省：homepage 只从 /app/public 提供静态文件，光放进 config/ 是 404。
+# 换图后必须重启 homepage 才生效（Next.js 静态资源），
+# editor 界面上的「Restart Homepage」按钮就是干这个的。
+background:
+  image: /images/bg.jpg
+  blur: xl
+  saturate: 40
+  brightness: 35
+  opacity: 30
+
+# 分组的排布。列数按每组实际条目数定，避免最后一行只剩一个卡片
+layout:
+  本机服务:
+    style: row
+    columns: 4
+  可观测性:
+    style: row
+    columns: 4
+  集群入口:
+    style: row
+    columns: 4
+  常用:
+    style: row
+    columns: 4
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-h:95E588C5-FCAF-454A-AC55-1BEABD5D8091" class="outline-3">
+<h3 id="h:95E588C5-FCAF-454A-AC55-1BEABD5D8091"><a href="#h:95E588C5-FCAF-454A-AC55-1BEABD5D8091">services.yaml</a></h3>
+<div class="outline-text-3" id="text-h:95E588C5-FCAF-454A-AC55-1BEABD5D8091">
+<div class="org-src-container">
+<pre class="src src-yaml">---
+# 文档：https://gethomepage.dev/configs/services/
+#
+# 缩进必须 2 空格，层级是「分组 → 服务名 → 属性」。错了页面会整片空白且不报错。
+#
+# server + container  两项一起写才会出现容器状态徽章，container 是容器真实名字
+#                     （docker ps --format '{{.Names}}' 查），server 对应 docker.yaml 的键名
+# siteMonitor         定时探活并显示响应时间，用于本机 Docker 之外的服务
+# ping                只测通断，不发 HTTP，适合不便 GET 的端口
+
+- 本机服务:
+    - Nexus:
+        href: http://10.0.0.105:8081
+        description: 制品仓库
+        icon: nexus.png
+        server: my-docker
+        container: nexus
+
+    - Grafana:
+        href: http://10.0.0.105:3001
+        description: 本机 Grafana
+        icon: grafana.png
+        server: my-docker
+        container: grafana
+        widget:
+          type: grafana
+          username: admin
+          password: admin
+          url: http://10.0.0.105:3001
+
+    - Homepage Editor:
+        href: http://10.0.0.105:7200
+        description: 图形化改配置
+        icon: homepage.png
+        server: my-docker
+        container: homepage-editor
+
+    - Code Server:
+        href: http://10.0.0.105:8443
+        description: 文本改配置
+        icon: code-server.png
+        server: my-docker
+        container: homepage-code-server
+
+- 可观测性:
+    - Grafana（集群）:
+        href: http://10.0.0.101:3000
+        description: 日志与指标看板
+        icon: grafana.png
+        siteMonitor: http://10.0.0.101:3000
+
+    - Loki:
+        href: http://10.0.0.12
+        description: 日志查询入口
+        icon: loki.png
+        siteMonitor: http://10.0.0.12
+
+    - Alloy:
+        href: http://10.0.0.13:12345
+        description: 日志采集器
+        icon: alloy.png
+        siteMonitor: http://10.0.0.13:12345
+
+    - MinIO:
+        href: http://10.0.0.101:9001
+        description: 对象存储控制台
+        icon: minio.png
+        siteMonitor: http://10.0.0.101:9001
+
+- 集群入口:
+    - Kubernetes API:
+        href: https://10.0.0.101:6443
+        description: master01，k8s 1.37.1
+        icon: kubernetes.png
+        ping: 10.0.0.101
+
+    - Cilium Ingress:
+        href: http://10.0.0.10
+        description: LB 10.0.0.10
+        icon: cilium.png
+        # 刻意不做状态检查：根路径无匹配路由，任何路径都返 404（实测 /healthz
+        # /health /ping 等均为 404），siteMonitor 会标成红色 404 让人以为坏了；
+        # 而 Cilium 的 LB IP 不响应 ICMP，ping 又会显示「离线」，更不对。
+        # v2.6.0 没有「哪些状态码算正常」的选项（编译产物里查无 statusCodes）
+
+    - Nginx:
+        href: http://10.0.0.11
+        description: default/nginx
+        icon: nginx.png
+        siteMonitor: http://10.0.0.11
+
+    - Gateway:
+        href: http://10.0.0.14
+        description: nginx-gateway-fabric 数据面
+        icon: nginx.png
+        # 同上，不做状态检查
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-h:5974F2E0-4909-4728-8CAC-FA7B3135A255" class="outline-3">
+<h3 id="h:5974F2E0-4909-4728-8CAC-FA7B3135A255"><a href="#h:5974F2E0-4909-4728-8CAC-FA7B3135A255">widgets.yaml</a></h3>
+<div class="outline-text-3" id="text-h:5974F2E0-4909-4728-8CAC-FA7B3135A255">
+<div class="org-src-container">
+<pre class="src src-yaml">---
+# 顶部信息小组件（info widgets）。文档：https://gethomepage.dev/configs/info-widgets/
+#
+# 注意区分：这里是「信息小组件」，独立存在、和具体服务无关。
+# services.yaml 里每个服务下面也能写 widget，那叫「服务小组件」，
+# 是去调那个服务自己的 API 取数据，两者不是一回事。
+
+- greeting:
+    text_size: xl
+    text: Home Lab
+
+- datetime:
+    text_size: xl
+    locale: zh-CN
+    format:
+      dateStyle: long
+      timeStyle: short
+      hour12: false
+      timeZone: Asia/Shanghai
+
+# 宿主机资源。没开 cputemp：本机 /sys/class/thermal 下只有 cooling_device*，
+# 没有 thermal_zone*，开了也取不到温度，只会空着
+- resources:
+    label: 宿主机
+    cpu: true
+    memory: true
+    disk: /
+    uptime: true
+    units: metric
+
+# 杭州天气。用 openmeteo 而不是 openweathermap / weatherapi —— 它不需要 API key。
+# 经纬度是杭州市区；数据由 homepage 服务端去取，所以要容器能出网（已实测可达）
+- openmeteo:
+    label: 杭州
+    latitude: 30.2741
+    longitude: 120.1551
+    units: metric
+    cache: 5
+    timezone: Asia/Shanghai
+
+- search:
+    provider: baidu
+    target: _blank
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-h:8433D599-9137-4016-AFB0-F8EDEABEC97D" class="outline-3">
+<h3 id="h:8433D599-9137-4016-AFB0-F8EDEABEC97D"><a href="#h:8433D599-9137-4016-AFB0-F8EDEABEC97D">bookmarks.yaml</a></h3>
+<div class="outline-text-3" id="text-h:8433D599-9137-4016-AFB0-F8EDEABEC97D">
+<div class="org-src-container">
+<pre class="src src-yaml">---
+# 文档：https://gethomepage.dev/configs/bookmarks
+# 书签只是链接，不探活。abbr 是没有图标时显示的两个字母
+
+- 文档:
+    - homepage 配置参考:
+        - abbr: HP
+          icon: homepage.png
+          href: https://gethomepage.dev/configs/settings/
+    - 可用图标检索:
+        - abbr: IC
+          href: https://dashboardicons.com/
+    - 小组件列表:
+        - abbr: WG
+          href: https://gethomepage.dev/widgets/
+
+- 本栈:
+    - homepage 源码:
+        - abbr: GH
+          href: https://github.com/gethomepage/homepage
+    - homepage-editor:
+        - abbr: ED
+          href: https://github.com/jchisholm59/homepage-editor
+    - docker-socket-proxy:
+        - abbr: DP
+          href: https://github.com/Tecnativa/docker-socket-proxy
+
+- 参考:
+    - Grafana 文档:
+        - abbr: GF
+          icon: grafana.png
+          href: https://grafana.com/docs/grafana/latest/
+    - Loki LogQL:
+        - abbr: LQ
+          icon: loki.png
+          href: https://grafana.com/docs/loki/latest/query/
+    - Kubernetes 文档:
+        - abbr: K8
+          icon: kubernetes.png
+          href: https://kubernetes.io/zh-cn/docs/home/
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-h:CF322752-63F9-4CB7-9832-6C611DCFB221" class="outline-3">
+<h3 id="h:CF322752-63F9-4CB7-9832-6C611DCFB221"><a href="#h:CF322752-63F9-4CB7-9832-6C611DCFB221">docker.yaml</a></h3>
+<div class="outline-text-3" id="text-h:CF322752-63F9-4CB7-9832-6C611DCFB221">
+<div class="org-src-container">
+<pre class="src src-yaml">---
+# 文档：https://gethomepage.dev/configs/docker/
+#
+# 走 dockerproxy 这一层，不直接挂 docker.sock —— socket 上的 :ro 只防写文件，
+# 不限制 API 调用。代理只放行只读的 containers 查询，详见 GUIDE.org。
+# 键名 my-docker 要和 services.yaml 里每个服务的 server: 对上。
+
+my-docker:
+  host: dockerproxy
+  port: 2375
+</pre>
+</div>
+
+
+<p>
+sources:
+</p>
+<ul class="org-ul">
+<li>github: <a href="https://github.com/gethomepage/homepage">https://github.com/gethomepage/homepage</a></li>
+<li>doc   : <a href="https://gethomepage.dev/">https://gethomepage.dev/</a></li>
+<li>博客参考：<a href="https://diyforfun.cn/889.html">Homepage，一个好用、美观、功能强大的导航</a></li>
+</ul>
+</div>
+</div>
+</section>
+</div>
+<div id="postamble" class="status">
+<!-- 这里曾经放过手动 AdSense 广告位。后改为自动广告（页面上不写 <ins>），
+     2026-10 广告整体下线。见 assets/ADSENSE.md。 -->
+<script type="text/javascript" src="/static/aandds.com/js/postamble.js"></script>
+</div>
+</body>
+</html>
