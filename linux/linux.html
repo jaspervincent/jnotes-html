@@ -115,6 +115,17 @@ body {
 body:not(.screenshot) {
     overflow: auto;
 }
+
+/* index-BZWlSvUV.css 是 CNCF landscape 的整包，自带一条全站级的
+   `html, body { height: var(--app-height) }`。上面 :root 里把 --app-height
+   定成了 771px，于是整个文档被钉死在 771px 高：body 变成内部滚动容器，
+   页脚 #postamble 被排到 771px 处，正好压在 landscape 中间。
+   这里是嵌在文章里的一段内容，不是独占整屏的应用，高度必须放开。 */
+html, body {
+    height: auto;
+    min-height: 100vh;
+    overflow: visible;
+}
 </style>
 
   </head>
@@ -964,7 +975,12 @@ body:not(.screenshot) {
     </div>
    </div>
   </div>
-  
+  <!-- 下面两个闭合标签必须保留：分别关闭 _container_vkz7i_40 和最外层的
+       .position-relative.d-flex。缺了它们，org 导出时 #content 的收尾标签
+       会被浏览器拿去补这两个洞，页脚 #postamble 于是变成这个 flex row 的
+       兄弟项，抢走一半宽度，卡片就平铺不开（只剩两条 50px 轨道）。 -->
+  </div>
+ </div>
 
  </body>
 </html>
